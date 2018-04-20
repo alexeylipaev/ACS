@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace ACSDinamikaWeb
+namespace ACSWeb
 {
     public class BundleConfig
     {

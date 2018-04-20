@@ -1,4 +1,4 @@
-namespace ACSDinamikaWeb.Models.EF.CFFromDB
+namespace ACSWeb.Models.EF.CFFromDB
 {
  
     using System;

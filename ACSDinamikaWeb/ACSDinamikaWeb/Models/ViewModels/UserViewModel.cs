@@ -1,10 +1,10 @@
-﻿using ACSDinamikaWeb.Models.EF.CFFromDB;
+﻿using ACSWeb.Models.EF.CFFromDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ACSDinamikaWeb.Models.ViewModels
+namespace ACSWeb.Models.ViewModels
 {
     public class UserViewModel
     {

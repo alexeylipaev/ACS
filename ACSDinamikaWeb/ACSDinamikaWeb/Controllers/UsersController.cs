@@ -6,9 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ACSDinamikaWeb.Models.EF.CFFromDB;
+using ACSWeb.Models.EF.CFFromDB;
 
-namespace ACSDinamikaWeb.Controllers
+namespace ACSWeb.Controllers
 {
     public class UsersController : Controller
     {

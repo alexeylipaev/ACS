@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ACSDinamikaWeb.Controllers
+namespace ACSWeb.Controllers
 {
     public class HomeController : Controller
     {

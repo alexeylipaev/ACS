@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ACSDinamikaWeb.Models.EF
+namespace ACSWeb.Models.EF
 {
     public class SystemParameters
     {

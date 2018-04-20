@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ACSDinamikaWeb.Models
+namespace ACSWeb.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
