@@ -13,7 +13,9 @@ namespace ACSWeb.Models.EF.CFFromDB
 
         public int PostUserСode1СId { get; set; }
 
-        public int? PostUserId { get; set; }
+        [StringLength(100)]
+        public string PostName { get; set; }
+
 
         public int DepartmentId { get; set; }
 
@@ -27,7 +29,7 @@ namespace ACSWeb.Models.EF.CFFromDB
 
         public virtual Department Department { get; set; }
 
-        public virtual PostUser PostUser { get; set; }
+        //public virtual PostUser PostUser { get; set; }
 
         public virtual PostUserСode1С PostUserСode1С { get; set; }
     }

@@ -12,7 +12,7 @@ namespace ACSWeb.Models.EF.CFFromDB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PostUser()
         {
-            WorkHistories = new HashSet<WorkHistory>();
+            //WorkHistories = new HashSet<WorkHistory>();
         }
 
         public int Id { get; set; }
@@ -21,7 +21,7 @@ namespace ACSWeb.Models.EF.CFFromDB
         [StringLength(100)]
         public string Name { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<WorkHistory> WorkHistories { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+      //  public virtual ICollection<WorkHistory> WorkHistories { get; set; }
     }
 }
