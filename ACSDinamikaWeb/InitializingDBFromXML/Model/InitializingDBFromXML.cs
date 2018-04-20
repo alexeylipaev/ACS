@@ -16,19 +16,19 @@ namespace InitializingDBFromXML.Model
     {
         public static void Initializing()
         {
-            MessageBox.Show("GenerateUserRepository");
+            Console.WriteLine("GenerateUserRepository");
             GenerateUserRepository();
-            MessageBox.Show("GenerateDepartmentRepository");
+             Console.WriteLine("GenerateDepartmentRepository");
             GenerateDepartmentRepository();
-            MessageBox.Show("GeneratePostRepository");
+             Console.WriteLine("GeneratePostRepository");
             GeneratePostRepository();
-            MessageBox.Show("GeneratePostUserСode1СRepository");
+             Console.WriteLine("GeneratePostUserСode1СRepository");
             GeneratePostUserСode1СRepository();
-            MessageBox.Show("GenerateWorkHistoryRepository");
+             Console.WriteLine("GenerateWorkHistoryRepository");
             GenerateWorkHistoryRepository();
-            MessageBox.Show("GenerateTypeAccessRepository");
+             Console.WriteLine("GenerateTypeAccessRepository");
             GenerateTypeAccessRepository();
-            MessageBox.Show("GenerateTypeRecordChancelleryRepository");
+             Console.WriteLine("GenerateTypeRecordChancelleryRepository");
             GenerateTypeRecordChancelleryRepository();
         }
 
@@ -64,6 +64,9 @@ namespace InitializingDBFromXML.Model
 
                 dataUserAD.SearchData(DataFullNameEmp[0], DataFullNameEmp[1]);
 
+              
+
+                Console.WriteLine(dataUserAD.SID.ToString().Length.ToString());
                 var newDataUser = new User()
                 {
                     LName = DataFullNameEmp[0],

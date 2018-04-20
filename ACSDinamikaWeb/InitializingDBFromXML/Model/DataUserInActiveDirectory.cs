@@ -12,7 +12,7 @@ namespace InitializingDBFromXML.Model
         PrincipalContext pc;
         public UserPrincipal UserPrincipal { get; private set; }
         public string Email { get; private set; }
-        public string SID { get; private set; }
+        public string SID { get; private set; } = string.Empty;
 
         public DataUserInActiveDirectory()
         {
