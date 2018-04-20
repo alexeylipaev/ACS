@@ -1,4 +1,4 @@
-namespace ACSWeb.Models.EF.CFFromDB
+п»їnamespace ACSWeb.Models.EF.CFFromDB
 {
     using System;
     using System.Collections.Generic;
@@ -18,19 +18,19 @@ namespace ACSWeb.Models.EF.CFFromDB
         }
 
         public int Id { get; set; }
-
+        [DisplayFormat(NullDisplayText = @"Р’С‹Р±РµСЂРёС‚Рµ С‚РёРї")]
         public byte? TypeRecordId { get; set; }
 
         [Column(TypeName = "date")]
-        [Display(Name = "Дата регистрации")]
+        [Display(Name = @"Р”Р°С‚Р° СЂРµРіРёСЃС‚СЂР°С†РёРё")]
         public DateTime? DateRegistration { get; set; }
 
         [StringLength(30)]
-        [Display(Name = "Регистрационный номер")]
+        [Display(Name = "Р РµРіРёСЃС‚СЂР°С†РёРѕРЅРЅС‹Р№ РЅРѕРјРµСЂ")]
         public string RegistrationNumber { get; set; }
 
         [StringLength(1000)]
-        [Display(Name = "Описание")]
+        [Display(Name = "РћРїРёСЃР°РЅРёРµ")]
         public string Summary { get; set; }
 
         
@@ -46,22 +46,22 @@ namespace ACSWeb.Models.EF.CFFromDB
         public virtual JournalRegistrationsChancellery JournalRegistrationsChancellery { get; set; }
 
         
-        [Display(Name = "Тип записи")]
+        [Display(Name = "РўРёРї Р·Р°РїРёСЃРё")]
         public virtual TypeRecordChancellery TypeRecordChancellery { get; set; }
 
-        [Display(Name = "Ответственный")]
+        [Display(Name = "РћС‚РІРµС‚СЃС‚РІРµРЅРЅС‹Р№")]
         public virtual User User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [Display(Name = "Файлы")]
+        [Display(Name = "Р¤Р°Р№Р»С‹")]
         public virtual ICollection<FileRecordChancellery> FileRecordChancelleries { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [Display(Name = "От кого")]
+        [Display(Name = "РћС‚ РєРѕРіРѕ")]
         public virtual ICollection<FromChancellery> FromChancelleries { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        [Display(Name = "Кому")]
+        [Display(Name = "РљРѕРјСѓ")]
         public virtual ICollection<ToChancellery> ToChancelleries { get; set; }
     }
 }

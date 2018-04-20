@@ -1,4 +1,4 @@
-namespace ACSWeb.Models.EF.CFFromDB
+Ôªønamespace ACSWeb.Models.EF.CFFromDB
 {
     using System;
     using System.Collections.Generic;
@@ -20,7 +20,7 @@ namespace ACSWeb.Models.EF.CFFromDB
 
         [Required]
         [StringLength(30)]
-        [Display(Name = "“ËÔ Á‡ÔËÒË")]
+        [Display(Name = "–¢–∏–ø –∑–∞–ø–∏—Å–∏")]
         public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
