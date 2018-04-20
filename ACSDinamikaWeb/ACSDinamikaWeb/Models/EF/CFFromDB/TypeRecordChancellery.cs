@@ -20,6 +20,7 @@ namespace ACSWeb.Models.EF.CFFromDB
 
         [Required]
         [StringLength(30)]
+        [Display(Name = "Тип записи")]
         public string Name { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -22,13 +22,18 @@ namespace ACSWeb.Models.EF.CFFromDB
         public byte? TypeRecordId { get; set; }
 
         [Column(TypeName = "date")]
+        [Display(Name = "Дата регистрации")]
         public DateTime? DateRegistration { get; set; }
 
+        [StringLength(30)]
+        [Display(Name = "Регистрационный номер")]
+        public string RegistrationNumber { get; set; }
+
         [StringLength(1000)]
+        [Display(Name = "Описание")]
         public string Summary { get; set; }
 
-        [StringLength(30)]
-        public string RegistrationNumber { get; set; }
+        
 
         public int? JournalRegistrationsId { get; set; }
 
@@ -40,17 +45,23 @@ namespace ACSWeb.Models.EF.CFFromDB
 
         public virtual JournalRegistrationsChancellery JournalRegistrationsChancellery { get; set; }
 
+        
+        [Display(Name = "Тип записи")]
         public virtual TypeRecordChancellery TypeRecordChancellery { get; set; }
 
+        [Display(Name = "Ответственный")]
         public virtual User User { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [Display(Name = "Файлы")]
         public virtual ICollection<FileRecordChancellery> FileRecordChancelleries { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [Display(Name = "От кого")]
         public virtual ICollection<FromChancellery> FromChancelleries { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [Display(Name = "Кому")]
         public virtual ICollection<ToChancellery> ToChancelleries { get; set; }
     }
 }
