@@ -1,0 +1,123 @@
+﻿@model ACSDinamikaWeb.Models.EF.CFFromDB.Access
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Access</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeAccess.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeAccess.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserGuid1C)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserGuid1C)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GuidObject)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GuidObject)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Value)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_Guid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_Guid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_AuthorID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_AuthorID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_DateCreation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_DateCreation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_EditorID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_EditorID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_EditDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_EditDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_IsLocked)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_IsLocked)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_LockedBy_Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_LockedBy_Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_InBasket)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_InBasket)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

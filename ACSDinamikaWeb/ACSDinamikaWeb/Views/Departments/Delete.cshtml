@@ -1,0 +1,129 @@
+﻿@model ACSDinamikaWeb.Models.EF.CFFromDB.Department
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Department</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Code1C)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Code1C)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ParentCode1C)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ParentCode1C)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Inactive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Inactive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_Guid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_Guid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_AuthorID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_AuthorID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_DateCreation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_DateCreation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_EditorID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_EditorID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_EditDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_EditDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_IsLocked)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_IsLocked)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_LockedBy_Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_LockedBy_Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_InBasket)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_InBasket)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

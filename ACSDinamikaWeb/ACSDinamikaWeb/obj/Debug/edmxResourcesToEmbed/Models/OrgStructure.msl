@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ACSDynamicDBModelStoreContainer" CdmEntityContainer="ACSDynamicDBEntities">
+    <EntitySetMapping Name="Department">
+      <EntityTypeMapping TypeName="ACSDynamicDBModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code1C" ColumnName="Code1C" />
+          <ScalarProperty Name="ParentCode1C" ColumnName="ParentCode1C" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="Inactive" ColumnName="Inactive" />
+          <ScalarProperty Name="s_Guid" ColumnName="s_Guid" />
+          <ScalarProperty Name="s_AuthorID" ColumnName="s_AuthorID" />
+          <ScalarProperty Name="s_DateCreation" ColumnName="s_DateCreation" />
+          <ScalarProperty Name="s_EditorID" ColumnName="s_EditorID" />
+          <ScalarProperty Name="s_EditDate" ColumnName="s_EditDate" />
+          <ScalarProperty Name="s_IsLocked" ColumnName="s_IsLocked" />
+          <ScalarProperty Name="s_LockedBy_Id" ColumnName="s_LockedBy_Id" />
+          <ScalarProperty Name="s_InBasket" ColumnName="s_InBasket" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NewDepartmentSet">
+      <EntityTypeMapping TypeName="ACSDynamicDBModel.NewDepartmentSet">
+        <MappingFragment StoreEntitySet="NewDepartmentSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Department2_Id" ColumnName="Department2_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NewUserSet">
+      <EntityTypeMapping TypeName="ACSDynamicDBModel.NewUserSet">
+        <MappingFragment StoreEntitySet="NewUserSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserInfo_Id" ColumnName="UserInfo_Id" />
+          <ScalarProperty Name="Department_Id" ColumnName="Department_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PostUser">
+      <EntityTypeMapping TypeName="ACSDynamicDBModel.PostUser">
+        <MappingFragment StoreEntitySet="PostUser">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="s_Guid" ColumnName="s_Guid" />
+          <ScalarProperty Name="s_AuthorID" ColumnName="s_AuthorID" />
+          <ScalarProperty Name="s_DateCreation" ColumnName="s_DateCreation" />
+          <ScalarProperty Name="s_EditorID" ColumnName="s_EditorID" />
+          <ScalarProperty Name="s_EditDate" ColumnName="s_EditDate" />
+          <ScalarProperty Name="s_IsLocked" ColumnName="s_IsLocked" />
+          <ScalarProperty Name="s_LockedBy_Id" ColumnName="s_LockedBy_Id" />
+          <ScalarProperty Name="s_InBasket" ColumnName="s_InBasket" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PostUserСode1С">
+      <EntityTypeMapping TypeName="ACSDynamicDBModel.PostUserСode1С">
+        <MappingFragment StoreEntitySet="PostUserСode1С">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CodePost1C" ColumnName="CodePost1C" />
+          <ScalarProperty Name="UserGuid1C" ColumnName="UserGuid1C" />
+          <ScalarProperty Name="s_Guid" ColumnName="s_Guid" />
+          <ScalarProperty Name="s_AuthorID" ColumnName="s_AuthorID" />
+          <ScalarProperty Name="s_DateCreation" ColumnName="s_DateCreation" />
+          <ScalarProperty Name="s_EditorID" ColumnName="s_EditorID" />
+          <ScalarProperty Name="s_EditDate" ColumnName="s_EditDate" />
+          <ScalarProperty Name="s_IsLocked" ColumnName="s_IsLocked" />
+          <ScalarProperty Name="s_LockedBy_Id" ColumnName="s_LockedBy_Id" />
+          <ScalarProperty Name="s_InBasket" ColumnName="s_InBasket" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypeUser">
+      <EntityTypeMapping TypeName="ACSDynamicDBModel.TypeUser">
+        <MappingFragment StoreEntitySet="TypeUser">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="s_Guid" ColumnName="s_Guid" />
+          <ScalarProperty Name="s_AuthorID" ColumnName="s_AuthorID" />
+          <ScalarProperty Name="s_DateCreation" ColumnName="s_DateCreation" />
+          <ScalarProperty Name="s_EditorID" ColumnName="s_EditorID" />
+          <ScalarProperty Name="s_EditDate" ColumnName="s_EditDate" />
+          <ScalarProperty Name="s_IsLocked" ColumnName="s_IsLocked" />
+          <ScalarProperty Name="s_LockedBy_Id" ColumnName="s_LockedBy_Id" />
+          <ScalarProperty Name="s_InBasket" ColumnName="s_InBasket" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User">
+      <EntityTypeMapping TypeName="ACSDynamicDBModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FName" ColumnName="FName" />
+          <ScalarProperty Name="LName" ColumnName="LName" />
+          <ScalarProperty Name="MName" ColumnName="MName" />
+          <ScalarProperty Name="EMail" ColumnName="EMail" />
+          <ScalarProperty Name="PersonnelNumber" ColumnName="PersonnelNumber" />
+          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+          <ScalarProperty Name="Series" ColumnName="Series" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="IssuedBy" ColumnName="IssuedBy" />
+          <ScalarProperty Name="UnitCode" ColumnName="UnitCode" />
+          <ScalarProperty Name="DateOfIssue" ColumnName="DateOfIssue" />
+          <ScalarProperty Name="SID" ColumnName="SID" />
+          <ScalarProperty Name="Guid1C" ColumnName="Guid1C" />
+          <ScalarProperty Name="TypeUserId" ColumnName="TypeUserId" />
+          <ScalarProperty Name="s_AuthorID" ColumnName="s_AuthorID" />
+          <ScalarProperty Name="s_DateCreation" ColumnName="s_DateCreation" />
+          <ScalarProperty Name="s_EditorID" ColumnName="s_EditorID" />
+          <ScalarProperty Name="s_EditDate" ColumnName="s_EditDate" />
+          <ScalarProperty Name="s_IsLocked" ColumnName="s_IsLocked" />
+          <ScalarProperty Name="s_LockedBy_Id" ColumnName="s_LockedBy_Id" />
+          <ScalarProperty Name="s_InBasket" ColumnName="s_InBasket" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfoSet">
+      <EntityTypeMapping TypeName="ACSDynamicDBModel.UserInfoSet">
+        <MappingFragment StoreEntitySet="UserInfoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

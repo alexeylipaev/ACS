@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ACSDynamicDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Code1C" Type="Int32" />
+    <Property Name="ParentCode1C" Type="Int32" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="Inactive" Type="Boolean" />
+    <Property Name="s_Guid" Type="Guid" Nullable="false" />
+    <Property Name="s_AuthorID" Type="Int32" />
+    <Property Name="s_DateCreation" Type="DateTime" Precision="3" />
+    <Property Name="s_EditorID" Type="Int32" />
+    <Property Name="s_EditDate" Type="DateTime" Precision="3" />
+    <Property Name="s_IsLocked" Type="Boolean" />
+    <Property Name="s_LockedBy_Id" Type="Int32" />
+    <Property Name="s_InBasket" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="NewDepartmentSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Department2_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="NewDepartmentSet1" Relationship="Self.FK_DepartmentDepartment" FromRole="NewDepartmentSet" ToRole="NewDepartmentSet1" />
+    <NavigationProperty Name="NewDepartmentSet2" Relationship="Self.FK_DepartmentDepartment" FromRole="NewDepartmentSet1" ToRole="NewDepartmentSet" />
+    <NavigationProperty Name="NewUserSet" Relationship="Self.FK_DepartmentUser" FromRole="NewDepartmentSet" ToRole="NewUserSet" />
+  </EntityType>
+  <EntityType Name="NewUserSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserInfo_Id" Type="Int32" Nullable="false" />
+    <Property Name="Department_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="NewDepartmentSet" Relationship="Self.FK_DepartmentUser" FromRole="NewUserSet" ToRole="NewDepartmentSet" />
+    <NavigationProperty Name="UserInfoSet" Relationship="Self.FK_UserUserInfo" FromRole="NewUserSet" ToRole="UserInfoSet" />
+  </EntityType>
+  <EntityType Name="PostUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="s_Guid" Type="Guid" Nullable="false" />
+    <Property Name="s_AuthorID" Type="Int32" />
+    <Property Name="s_DateCreation" Type="DateTime" Precision="3" />
+    <Property Name="s_EditorID" Type="Int32" />
+    <Property Name="s_EditDate" Type="DateTime" Precision="3" />
+    <Property Name="s_IsLocked" Type="Boolean" />
+    <Property Name="s_LockedBy_Id" Type="Int32" />
+    <Property Name="s_InBasket" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="PostUserСode1С">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodePost1C" Type="Guid" Nullable="false" />
+    <Property Name="UserGuid1C" Type="Guid" />
+    <Property Name="s_Guid" Type="Guid" Nullable="false" />
+    <Property Name="s_AuthorID" Type="Int32" />
+    <Property Name="s_DateCreation" Type="DateTime" Precision="3" />
+    <Property Name="s_EditorID" Type="Int32" />
+    <Property Name="s_EditDate" Type="DateTime" Precision="3" />
+    <Property Name="s_IsLocked" Type="Boolean" />
+    <Property Name="s_LockedBy_Id" Type="Int32" />
+    <Property Name="s_InBasket" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="TypeUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="s_Guid" Type="Guid" Nullable="false" />
+    <Property Name="s_AuthorID" Type="Int32" />
+    <Property Name="s_DateCreation" Type="DateTime" Precision="3" />
+    <Property Name="s_EditorID" Type="Int32" />
+    <Property Name="s_EditDate" Type="DateTime" Precision="3" />
+    <Property Name="s_IsLocked" Type="Boolean" />
+    <Property Name="s_LockedBy_Id" Type="Int32" />
+    <Property Name="s_InBasket" Type="Boolean" />
+    <NavigationProperty Name="User" Relationship="Self.FK_User_TypeUser" FromRole="TypeUser" ToRole="User" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MName" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EMail" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PersonnelNumber" Type="Int32" />
+    <Property Name="Birthday" Type="DateTime" Precision="0" />
+    <Property Name="Series" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Number" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IssuedBy" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UnitCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DateOfIssue" Type="DateTime" Precision="0" />
+    <Property Name="SID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Guid1C" Type="Guid" Nullable="false" />
+    <Property Name="TypeUserId" Type="Byte" />
+    <Property Name="s_AuthorID" Type="Int32" />
+    <Property Name="s_DateCreation" Type="DateTime" Precision="3" />
+    <Property Name="s_EditorID" Type="Int32" />
+    <Property Name="s_EditDate" Type="DateTime" Precision="3" />
+    <Property Name="s_IsLocked" Type="Boolean" />
+    <Property Name="s_LockedBy_Id" Type="Int32" />
+    <Property Name="s_InBasket" Type="Boolean" />
+    <NavigationProperty Name="TypeUser" Relationship="Self.FK_User_TypeUser" FromRole="User" ToRole="TypeUser" />
+  </EntityType>
+  <EntityType Name="UserInfoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="NewUserSet" Relationship="Self.FK_UserUserInfo" FromRole="UserInfoSet" ToRole="NewUserSet" />
+  </EntityType>
+  <Association Name="FK_DepartmentDepartment">
+    <End Role="NewDepartmentSet" Type="Self.NewDepartmentSet" Multiplicity="1" />
+    <End Role="NewDepartmentSet1" Type="Self.NewDepartmentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NewDepartmentSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NewDepartmentSet1">
+        <PropertyRef Name="Department2_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DepartmentUser">
+    <End Role="NewDepartmentSet" Type="Self.NewDepartmentSet" Multiplicity="1" />
+    <End Role="NewUserSet" Type="Self.NewUserSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NewDepartmentSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NewUserSet">
+        <PropertyRef Name="Department_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserUserInfo">
+    <End Role="UserInfoSet" Type="Self.UserInfoSet" Multiplicity="1" />
+    <End Role="NewUserSet" Type="Self.NewUserSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="NewUserSet">
+        <PropertyRef Name="UserInfo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_TypeUser">
+    <End Role="TypeUser" Type="Self.TypeUser" Multiplicity="0..1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypeUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="TypeUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ACSDynamicDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Department" EntityType="Self.Department" />
+    <EntitySet Name="NewDepartmentSet" EntityType="Self.NewDepartmentSet" />
+    <EntitySet Name="NewUserSet" EntityType="Self.NewUserSet" />
+    <EntitySet Name="PostUser" EntityType="Self.PostUser" />
+    <EntitySet Name="PostUserСode1С" EntityType="Self.PostUserСode1С" />
+    <EntitySet Name="TypeUser" EntityType="Self.TypeUser" />
+    <EntitySet Name="User" EntityType="Self.User" />
+    <EntitySet Name="UserInfoSet" EntityType="Self.UserInfoSet" />
+    <AssociationSet Name="FK_DepartmentDepartment" Association="Self.FK_DepartmentDepartment">
+      <End Role="NewDepartmentSet" EntitySet="NewDepartmentSet" />
+      <End Role="NewDepartmentSet1" EntitySet="NewDepartmentSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DepartmentUser" Association="Self.FK_DepartmentUser">
+      <End Role="NewDepartmentSet" EntitySet="NewDepartmentSet" />
+      <End Role="NewUserSet" EntitySet="NewUserSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserUserInfo" Association="Self.FK_UserUserInfo">
+      <End Role="UserInfoSet" EntitySet="UserInfoSet" />
+      <End Role="NewUserSet" EntitySet="NewUserSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_TypeUser" Association="Self.FK_User_TypeUser">
+      <End Role="TypeUser" EntitySet="TypeUser" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
