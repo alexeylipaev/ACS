@@ -38,7 +38,7 @@ namespace ACS.DAL.Entities
         [Column(TypeName = "date")]
         public DateTime? Birthday { get; set; }
 
-        public UserPassport Passport { get; set; }
+        public virtual UserPassport Passport { get; set; }
 
 
         [StringLength(50)]

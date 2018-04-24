@@ -44,11 +44,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.3.0\lib\net45\Ninject.Web.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Common.WebHost, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.WebHost.3.3.0\lib\net45\Ninject.Web.Common.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.MVC5.3.3.0\lib\net45\Ninject.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -170,24 +190,43 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccessesController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ChancelleriesController.cs" />
-    <Compile Include="Controllers\DepartmentsController.cs" />
-    <Compile Include="Controllers\FolderChancelleriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Access\AccessViewModel.cs" />
+    <Compile Include="Models\Access\TypeAccessDTO.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ASPIdentityUser\ASPClaimsIdentityUserDTO.cs" />
+    <Compile Include="Models\ASPIdentityUser\ASPIdentityUserDTO.cs" />
+    <Compile Include="Models\ASPIdentityUser\ASPLoginsIdentityUserDTO.cs" />
+    <Compile Include="Models\ASPIdentityUser\ASPRolesIdentityUserDTO.cs" />
+    <Compile Include="Models\Chancellery\ChancelleryDTO.cs" />
+    <Compile Include="Models\Chancellery\ExternalOrganizationChancelleryDTO.cs" />
+    <Compile Include="Models\Chancellery\FileRecordChancelleryDTO.cs" />
+    <Compile Include="Models\Chancellery\FolderChancelleryDTO.cs" />
+    <Compile Include="Models\Chancellery\FromChancelleryDTO.cs" />
+    <Compile Include="Models\Chancellery\JournalRegistrationsChancelleryDTO.cs" />
+    <Compile Include="Models\Chancellery\ToChancelleryDTO.cs" />
+    <Compile Include="Models\Chancellery\TypeRecordChancelleryDTO.cs" />
+    <Compile Include="Models\Class1.cs" />
+    <Compile Include="Models\DataEntityDTO.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\OrganizationalStructure\DepartmentDTO.cs" />
+    <Compile Include="Models\OrganizationalStructure\PostNameUserDTO.cs" />
+    <Compile Include="Models\OrganizationalStructure\PostUserСode1СDTO.cs" />
+    <Compile Include="Models\OrganizationalStructure\UserViewModel.cs" />
+    <Compile Include="Models\OrganizationalStructure\UserPassportDTO.cs" />
+    <Compile Include="Models\OrganizationalStructure\WorkHistoryDTO.cs" />
+    <Compile Include="Models\SystemParametersDTO.cs" />
     <Compile Include="Properties\SystemParameters.cs" />
-    <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Util\UserModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -196,6 +235,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\Description.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Models\.editorconfig" />
@@ -252,31 +292,13 @@
     <Content Include="Views\Accesses\Details.cshtml" />
     <Content Include="Views\Accesses\Edit.cshtml" />
     <Content Include="Views\Accesses\Index.cshtml" />
-    <Content Include="Views\Departments\Create.cshtml" />
-    <Content Include="Views\Departments\Delete.cshtml" />
-    <Content Include="Views\Departments\Details.cshtml" />
-    <Content Include="Views\Departments\Edit.cshtml" />
-    <Content Include="Views\Departments\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutCancelaria.cshtml" />
-    <Content Include="Views\FolderChancelleries\Create.cshtml" />
-    <Content Include="Views\FolderChancelleries\Delete.cshtml" />
-    <Content Include="Views\FolderChancelleries\Details.cshtml" />
-    <Content Include="Views\FolderChancelleries\Edit.cshtml" />
-    <Content Include="Views\FolderChancelleries\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Chancelleries\Create.cshtml" />
-    <Content Include="Views\Chancelleries\Delete.cshtml" />
-    <Content Include="Views\Chancelleries\Details.cshtml" />
-    <Content Include="Views\Chancelleries\Edit.cshtml" />
-    <Content Include="Views\Chancelleries\Index.cshtml" />
     <Content Include="Views\.editorconfig" />
+    <Content Include="Views\Users\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -288,6 +310,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ACS.BLL\ACS.BLL.csproj">
+      <Project>{386a2a76-6372-4066-8e2c-e39fdea3373a}</Project>
+      <Name>ACS.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ACS.DAL\ACS.DAL.csproj">
+      <Project>{ca4ff575-ee2c-45b8-beb7-8e396218dcef}</Project>
+      <Name>ACS.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -5,20 +5,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ACS.BLL.DTO
+namespace ACSWeb.Models
 {
     /// <summary>
     /// Пользователь
     /// </summary>
-    public partial class UserDTO : SystemParametersDTO
+    public partial class UserViewModel : SystemParametersViewModel
     {
 
-        public UserDTO()
+        public UserViewModel()
         {
-            Accesses = new HashSet<AccessDTO>();
+            Accesses = new HashSet<AccessViewModel>();
 
             ////Chancelleries = new HashSet<Chancellery>();
-            PostUserСode1С = new HashSet<PostUserСode1СDTO>();
+            PostUserСode1С = new HashSet<PostUserСode1СViewModel>();
         }
 
         public int Id { get; set; }
@@ -37,22 +37,22 @@ namespace ACS.BLL.DTO
       
         public DateTime? Birthday { get; set; }
 
-        public UserPassportDTO Passport { get; set; } = null;
+        public UserPassportViewModel Passport { get; set; }
 
 
-
+       
         public string SID { get; set; }
 
         public Guid? Guid1C { get; set; }
 
-       public virtual ASPIdentityUserDTO ASPIdentityUser { get; set; }
+       public virtual ASPIdentityUserViewModel ASPIdentityUser { get; set; }
 
 
-       public virtual ICollection<AccessDTO> Accesses { get; set; }
+       public virtual ICollection<AccessViewModel> Accesses { get; set; }
 
 
        //// public virtual ICollection<Chancellery> Chancelleries { get; set; }
 
-       public virtual ICollection<PostUserСode1СDTO> PostUserСode1С { get; set; }
+       public virtual ICollection<PostUserСode1СViewModel> PostUserСode1С { get; set; }
     }
 }

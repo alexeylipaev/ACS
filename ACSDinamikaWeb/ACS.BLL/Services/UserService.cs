@@ -7,9 +7,6 @@ using ACS.DAL.Interfaces;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ACS.BLL.Services
 {
@@ -94,7 +91,7 @@ namespace ACS.BLL.Services
                 Birthday = user.Birthday,
                 //EMail = dataUserAD.Email,
                 PersonnelNumber = user.PersonnelNumber,
-                //Passport = new UserPassportDTO()
+                Passport = new UserPassportDTO()
                 //{
                 //    //паспортные данные
                 //    DateOfIssue = user.Passport.DateOfIssue,

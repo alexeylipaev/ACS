@@ -1,4 +1,9 @@
-﻿using System;
+﻿using ACS.BLL.Infrastructure;
+using ACSWeb.Util;
+using Ninject;
+using Ninject.Modules;
+using Ninject.Web.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +21,12 @@ namespace ACSWeb
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // внедрение зависимостей
+            NinjectModule userModule = new UserModule();
+            NinjectModule serviceModule = new ServiceModule("ACSContextConnection");
+            var kernel = new StandardKernel(userModule, serviceModule);
+            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
     }
 }

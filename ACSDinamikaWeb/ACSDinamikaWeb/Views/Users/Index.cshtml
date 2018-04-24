@@ -1,9 +1,10 @@
-﻿@model IEnumerable<ACSDinamikaWeb.Models.EF.CFFromDB.User>
+﻿@model IEnumerable<ACSWeb.Models.UserViewModel>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 <h2>Index</h2>
 
@@ -16,133 +17,33 @@
             @Html.DisplayNameFor(model => model.FName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LName)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.MName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PersonnelNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Birthday)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PassportSeries)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PassportNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PassportIssuedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PassportUnitCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PassportDateOfIssue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Guid1C)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_Guid)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_AuthorID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_DateCreation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_EditorID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_EditDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_IsLocked)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_LockedBy_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_InBasket)
+            @Html.DisplayNameFor(model => model.LName)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PersonnelNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Birthday)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PassportSeries)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PassportNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PassportIssuedBy)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PassportUnitCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PassportDateOfIssue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Guid1C)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_Guid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_AuthorID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_DateCreation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_EditorID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_EditDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_IsLocked)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_LockedBy_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_InBasket)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LName)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

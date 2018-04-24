@@ -32,8 +32,8 @@ namespace ACS.DAL.Configuration
                 .WithOptional(e => e.User)
                 .WillCascadeOnDelete();
 
-                //HasMany(e => e.Chancelleries)
-                //.WithOptional(e => e.User)
+            HasOptional(e => e.Passport);
+              
                 //.HasForeignKey(e => e.ResponsibleUserId);
         }
     }
