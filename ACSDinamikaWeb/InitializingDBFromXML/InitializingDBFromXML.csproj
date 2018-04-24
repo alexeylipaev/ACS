@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="Model\DataFromXML1C.cs" />
     <Compile Include="Model\DataUserInActiveDirectory.cs" />
-    <Compile Include="Model\InitializingDBFromXML.cs" />
     <Compile Include="Model\InitializingDBSQLiteFromXML.cs" />
     <Compile Include="Model\XMLDataTypeConverter.cs" />
     <Compile Include="Program.cs" />

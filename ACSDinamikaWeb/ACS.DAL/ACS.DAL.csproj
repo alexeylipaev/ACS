@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CA4FF575-EE2C-45B8-BEB7-8E396218DCEF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ACS.DAL</RootNamespace>
+    <AssemblyName>ACS.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore, Version=1.1.5.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.1.1.5\lib\net451\Microsoft.EntityFrameworkCore.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Remotion.Linq, Version=2.1.0.0, Culture=neutral, PublicKeyToken=fee00910d6e5f53b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Remotion.Linq.2.1.1\lib\net45\Remotion.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Configuration\Access\AccessConfig.cs" />
+    <Compile Include="Configuration\Access\TypeAccessConfig.cs" />
+    <Compile Include="Configuration\ASPIdentityUser\ASPClaimsIdentityUserConfig.cs" />
+    <Compile Include="Configuration\ASPIdentityUser\ASPIdentityUserConfig.cs" />
+    <Compile Include="Configuration\ASPIdentityUser\ASPLoginsIdentityUserConfig.cs" />
+    <Compile Include="Configuration\ASPIdentityUser\ASPRolesIdentityUserConfig.cs" />
+    <Compile Include="Configuration\Chancellery\ChancelleryConfig.cs" />
+    <Compile Include="Configuration\Chancellery\ExternalOrganizationChancelleryConfig.cs" />
+    <Compile Include="Configuration\Chancellery\FileRecordChancelleryConfig.cs" />
+    <Compile Include="Configuration\Chancellery\FolderChancelleryConfig.cs" />
+    <Compile Include="Configuration\Chancellery\JournalRegistrationsChancelleryConfig.cs" />
+    <Compile Include="Configuration\Chancellery\TypeRecordChancelleryConfig.cs" />
+    <Compile Include="Configuration\DataEntityConfig.cs" />
+    <Compile Include="Configuration\DepartmentConfig.cs" />
+    <Compile Include="Configuration\PostNameUserConfig.cs" />
+    <Compile Include="Configuration\UserConfig.cs" />
+    <Compile Include="Configuration\UserPassportConfig.cs" />
+    <Compile Include="EF\ACSContext.cs" />
+    <Compile Include="Entities\Access\Access.cs" />
+    <Compile Include="Entities\ASPIdentityUser\ASPClaimsIdentityUser.cs" />
+    <Compile Include="Entities\ASPIdentityUser\ASPIdentityUser.cs" />
+    <Compile Include="Entities\ASPIdentityUser\ASPLoginsIdentityUser.cs" />
+    <Compile Include="Entities\ASPIdentityUser\ASPRolesIdentityUser.cs" />
+    <Compile Include="Entities\Chancellery\Chancellery.cs" />
+    <Compile Include="Entities\Chancellery\ExternalOrganizationChancellery.cs" />
+    <Compile Include="Entities\DataEntity.cs" />
+    <Compile Include="Entities\Chancellery\FileRecordChancellery.cs" />
+    <Compile Include="Entities\Chancellery\FolderChancellery.cs" />
+    <Compile Include="Entities\Chancellery\FromChancellery.cs" />
+    <Compile Include="Entities\Chancellery\JournalRegistrationsChancellery.cs" />
+    <Compile Include="Entities\Department.cs" />
+    <Compile Include="Entities\PostNameUser.cs" />
+    <Compile Include="Entities\PostUserСode1С.cs" />
+    <Compile Include="Entities\SystemParameters.cs" />
+    <Compile Include="Entities\Chancellery\ToChancellery.cs" />
+    <Compile Include="Entities\Access\TypeAccess.cs" />
+    <Compile Include="Entities\Chancellery\TypeRecordChancellery.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserPassport.cs" />
+    <Compile Include="Entities\WorkHistory.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Access\AccessRepository.cs" />
+    <Compile Include="Repositories\Access\TypeAccessRepository.cs" />
+    <Compile Include="Repositories\ASPIdentityUser\ASPClaimsIdentityUserRepository.cs" />
+    <Compile Include="Repositories\ASPIdentityUser\ASPIdentityUserRepository.cs" />
+    <Compile Include="Repositories\ASPIdentityUser\ASPLoginsIdentityUserRepository.cs" />
+    <Compile Include="Repositories\ASPIdentityUser\ASPRolesIdentityUserRepository.cs" />
+    <Compile Include="Repositories\Chancellery\ChancelleryRepository.cs" />
+    <Compile Include="Repositories\Chancellery\ExternalOrganizationChancelleryRepository.cs" />
+    <Compile Include="Repositories\Chancellery\FileRecordChancelleryRepository.cs" />
+    <Compile Include="Repositories\Chancellery\FolderChancelleryRepository.cs" />
+    <Compile Include="Repositories\Chancellery\FromChancelleryRepository.cs" />
+    <Compile Include="Repositories\Chancellery\JournalRegistrationsChancelleryRepository.cs" />
+    <Compile Include="Repositories\Chancellery\ToChancelleryRepository.cs" />
+    <Compile Include="Repositories\Chancellery\TypeRecordChancelleryRepository.cs" />
+    <Compile Include="Repositories\DataEntityRepository.cs" />
+    <Compile Include="Repositories\DepartmentRepository.cs" />
+    <Compile Include="Repositories\EFUnitOfWork.cs" />
+    <Compile Include="Repositories\PostNameUserRepository.cs" />
+    <Compile Include="Repositories\PostUserСode1СRepository.cs" />
+    <Compile Include="Repositories\UserPassportRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\WorkHistoryRepository.cs" />
+    <Compile Include="XMLData\DataFromXML1C.cs" />
+    <Compile Include="XMLData\DataUserInActiveDirectory.cs" />
+    <Compile Include="XMLData\InitializingDBSQLiteFromXML.cs" />
+    <Compile Include="XMLData\XMLDataTypeConverter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configuration\FluentAPI.txt" />
+    <Content Include="Description.txt" />
+    <Content Include="EF\Description.txt" />
+    <Content Include="Entities\Description.txt" />
+    <Content Include="Interfaces\Description.txt" />
+    <Content Include="Repositories\Description.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
