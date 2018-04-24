@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACSWeb", "ACSDinamikaWeb\AC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACS.DAL", "ACS.DAL\ACS.DAL.csproj", "{CA4FF575-EE2C-45B8-BEB7-8E396218DCEF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACS.BLL", "ACS.BLL\ACS.BLL.csproj", "{386A2A76-6372-4066-8E2C-E39FDEA3373A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CA4FF575-EE2C-45B8-BEB7-8E396218DCEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA4FF575-EE2C-45B8-BEB7-8E396218DCEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA4FF575-EE2C-45B8-BEB7-8E396218DCEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{386A2A76-6372-4066-8E2C-E39FDEA3373A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{386A2A76-6372-4066-8E2C-E39FDEA3373A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{386A2A76-6372-4066-8E2C-E39FDEA3373A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{386A2A76-6372-4066-8E2C-E39FDEA3373A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
