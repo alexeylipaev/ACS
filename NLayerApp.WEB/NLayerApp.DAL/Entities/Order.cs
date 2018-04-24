@@ -8,7 +8,7 @@ namespace NLayerApp.DAL.Entities
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
 
-        public int PhoneId { get; set; }
+        //public int PhoneId { get; set; }
         public Phone Phone { get; set; }
 
         public DateTime Date { get; set; }

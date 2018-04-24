@@ -31,7 +31,8 @@ namespace NLayerApp.BLL.Services
             {
                 Date = DateTime.Now,
                 Address = orderDto.Address,
-                PhoneId = phone.Id,
+                //PhoneId = phone.Id,
+                Phone = phone,
                 Sum = sum,
                 PhoneNumber = orderDto.PhoneNumber
             };
