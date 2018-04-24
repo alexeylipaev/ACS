@@ -17,7 +17,7 @@ namespace ACS.DAL.Repositories
         private ACSContext db;
 
         private AccessRepository AccessRepository;
-        private ASPIdentityUserRepository ASPIdentityUserRepository;
+        //private ASPIdentityUserRepository ASPIdentityUserRepository;
         private ASPClaimsIdentityUserRepository ASPClaimsIdentityUserRepository;
         private ASPLoginsIdentityUserRepository ASPLoginsIdentityUserRepository;
         private ASPRolesIdentityUserRepository ASPRolesIdentityUserRepository;
@@ -36,7 +36,7 @@ namespace ACS.DAL.Repositories
         private TypeRecordChancelleryRepository TypeRecordChancelleryRepository;
         private UserRepository UserRepository;
         private WorkHistoryRepository WorkHistoryRepository;
-        private UserPassportRepository UserPassportRepository;
+        //private UserPassportRepository UserPassportRepository;
 
         public EFUnitOfWork(string connectionString)
         {
@@ -52,15 +52,15 @@ namespace ACS.DAL.Repositories
                 return AccessRepository;
             }
         }
-        public IRepository<ASPIdentityUser> ASPIdentityUsers
-        {
-            get
-            {
-                if (ASPIdentityUserRepository == null)
-                    ASPIdentityUserRepository = new ASPIdentityUserRepository(db);
-                return ASPIdentityUserRepository;
-            }
-        }
+        //public IRepository<ASPIdentityUser> ASPIdentityUsers
+        //{
+        //    get
+        //    {
+        //        if (ASPIdentityUserRepository == null)
+        //            ASPIdentityUserRepository = new ASPIdentityUserRepository(db);
+        //        return ASPIdentityUserRepository;
+        //    }
+        //}
         public IRepository<ASPClaimsIdentityUser> ASPClaimsIdentityUsers
         {
             get
@@ -229,15 +229,15 @@ namespace ACS.DAL.Repositories
                 return WorkHistoryRepository;
             }
         }
-        public IRepository<UserPassport> PassportDataUsers
-        {
-            get
-            {
-                if (UserPassportRepository == null)
-                    UserPassportRepository = new UserPassportRepository(db);
-                return UserPassportRepository;
-            }
-        }
+        //public IRepository<UserPassport> PassportDataUsers
+        //{
+        //    get
+        //    {
+        //        if (UserPassportRepository == null)
+        //            UserPassportRepository = new UserPassportRepository(db);
+        //        return UserPassportRepository;
+        //    }
+        //}
 
 
 

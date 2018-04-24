@@ -14,7 +14,7 @@ namespace ACS.DAL.Interfaces
     {
         IRepository<Access> Accesses { get; }
         IRepository<ASPClaimsIdentityUser> ASPClaimsIdentityUsers { get; }
-        IRepository<ASPIdentityUser> ASPIdentityUsers { get; }
+        //IRepository<ASPIdentityUser> ASPIdentityUsers { get; }
         IRepository<ASPLoginsIdentityUser> ASPLoginsIdentityUsers { get; }
         IRepository<ASPRolesIdentityUser> ASPRolesIdentityUsers { get; }
         IRepository<Chancellery> Chancelleries { get; }
@@ -32,7 +32,7 @@ namespace ACS.DAL.Interfaces
         IRepository<TypeRecordChancellery> TypeRecordChancelleries { get; }
         IRepository<User> Users { get; }
         IRepository<WorkHistory> WorkHistories { get; }
-        IRepository<UserPassport> PassportDataUsers { get; }
+        //IRepository<UserPassport> PassportDataUsers { get; }
 
         void Save();
     }

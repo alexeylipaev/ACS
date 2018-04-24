@@ -15,7 +15,7 @@ namespace ACS.DAL.EF
     {
         public virtual DbSet<Access> Accesses { get; set; }
     
-        public virtual DbSet<ASPIdentityUser> ASPIdentityUsers { get; set; }
+        //public virtual DbSet<ASPIdentityUser> ASPIdentityUsers { get; set; }
         public virtual DbSet<ASPClaimsIdentityUser> ASPClaimsIdentityUsers { get; set; }
         public virtual DbSet<ASPLoginsIdentityUser> ASPLoginsIdentityUsers { get; set; }
         public virtual DbSet<ASPRolesIdentityUser> ASPRolesIdentityUsers { get; set; }
@@ -34,7 +34,7 @@ namespace ACS.DAL.EF
         public virtual DbSet<TypeRecordChancellery> TypeRecordChancelleries { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WorkHistory> WorkHistories { get; set; }
-        public virtual DbSet<UserPassport> PassportDataUsers { get; set; }
+        //public virtual DbSet<UserPassport> PassportDataUsers { get; set; }
 
 
         static ACSContext()

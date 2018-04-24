@@ -50,27 +50,43 @@ namespace ACSWeb.Controllers
         }
 
         // GET: Users/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            return View();
+            try
+            {
+                UserDTO userDTO = userService.GetUser(id);
+                var userVM = new UserViewModel { Id = userDTO.Id };
+
+                return View(userVM);
+            }
+            catch (ValidationException ex)
+            {
+                return Content(ex.Message);
+            }
         }
 
-        // POST: Users/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //POST: Users/Create
+        //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "Id,FName,LName,MName,PersonnelNumber,Birthday,PassportSeries,PassportNumber,PassportIssuedBy,PassportUnitCode,PassportDateOfIssue,SID,Guid1C,s_Guid,s_AuthorID,s_DateCreation,s_EditorID,s_EditDate,s_IsLocked,s_LockedBy_Id,s_InBasket")] User user)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Users.Add(user);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    return View(user);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,FName,LName,MName")] UserViewModel userVM)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var userDto = new UserDTO { Id = userVM.Id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName };
+                    userService.MakeUser(userDto);
+                    return Content("<h2>Ваш заказ успешно оформлен</h2>");
+                }
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(ex.Property, ex.Message);
+            }
+            return View(userVM);
+        }
 
         //// GET: Users/Edit/5
         //public ActionResult Edit(int? id)
