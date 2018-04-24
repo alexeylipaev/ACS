@@ -3,6 +3,7 @@
 ################################################################################
 
 /ACSDinamikaWeb/ACSDinamikaWeb/obj/Debug
+/ACSDinamikaWeb/ACSDinamikaWeb/bin/Debug
 *.manifest
 
 /ACSDinamikaWeb/ACSDinamikaWeb/bin/ACSDinamikaWeb.pdb
