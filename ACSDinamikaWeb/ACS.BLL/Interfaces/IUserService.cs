@@ -9,7 +9,7 @@ namespace ACS.BLL.Interfaces
 {
     public interface IUserService
     {
-        void MakeOrder(UserDTO orderDto);
+        void MakeUser(UserDTO orderDto);
         UserDTO GetUser(int? id);
         IEnumerable<UserDTO> GetUsers();
         void Dispose();
