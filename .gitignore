@@ -4,5 +4,7 @@
 
 /ACSDinamikaWeb/ACSDinamikaWeb/obj/Debug
 *.manifest
-*.suo
+
 /ACSDinamikaWeb/ACSDinamikaWeb/bin/ACSDinamikaWeb.pdb
+*.suo
+/ACSDinamikaWeb/ACSDinamikaWeb/obj/Debug/**/*
