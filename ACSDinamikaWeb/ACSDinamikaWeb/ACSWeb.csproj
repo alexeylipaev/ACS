@@ -223,7 +223,6 @@
     <Compile Include="Models\OrganizationalStructure\UserPassportDTO.cs" />
     <Compile Include="Models\OrganizationalStructure\WorkHistoryDTO.cs" />
     <Compile Include="Models\SystemParametersDTO.cs" />
-    <Compile Include="Properties\SystemParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Util\UserModule.cs" />
