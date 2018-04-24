@@ -16,3 +16,13 @@
 .vs/*
 /ACSDinamikaWeb/.vs/config
 /ACSDinamikaWeb/packages
+/NLayerApp.WEB/NLayerApp.BLL/bin/Debug
+/NLayerApp.WEB/.vs/config
+/NLayerApp.WEB/NLayerApp.BLL/obj/Debug
+/NLayerApp.WEB/NLayerApp.DAL/bin/Debug
+/NLayerApp.WEB/NLayerApp.DAL/obj/Debug
+/NLayerApp.WEB/NLayerApp.WEB/bin
+/NLayerApp.WEB/NLayerApp.WEB.Tests/bin/Debug
+/NLayerApp.WEB/NLayerApp.WEB.Tests/obj/Debug
+/NLayerApp.WEB/packages
+/NLayerApp.WEB/NLayerApp.WEB/obj/Debug
