@@ -74,8 +74,30 @@
     <Compile Include="DTO\SystemParametersDTO.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
-    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Interfaces\Access\IAccessService.cs" />
+    <Compile Include="Interfaces\ASPIdentityUser\IASPClaimsIdentityUserService.cs" />
+    <Compile Include="Interfaces\ASPIdentityUser\IASPIdentityUserService.cs" />
+    <Compile Include="Interfaces\ASPIdentityUser\IASPLoginsIdentityUserService.cs" />
+    <Compile Include="Interfaces\ASPIdentityUser\IASPRolesIdentityUserService.cs" />
+    <Compile Include="Interfaces\IDataEntityService.cs" />
+    <Compile Include="Interfaces\OrganizationalStructure\IDepartmentService.cs" />
+    <Compile Include="Interfaces\Chancellery\IChancelleryService.cs" />
+    <Compile Include="Interfaces\Chancellery\IExternalOrganizationChancelleryService.cs" />
+    <Compile Include="Interfaces\Chancellery\IFileRecordChancelleryService.cs" />
+    <Compile Include="Interfaces\Chancellery\IFolderChancelleryService.cs.cs" />
+    <Compile Include="Interfaces\Chancellery\IFromChancelleryService.cs" />
+    <Compile Include="Interfaces\Chancellery\IJournalRegistrationsChancelleryService.cs" />
+    <Compile Include="Interfaces\OrganizationalStructure\IPostNameUserService.cs" />
+    <Compile Include="Interfaces\OrganizationalStructure\IPostUserСode1СService.cs" />
+    <Compile Include="Interfaces\ISystemParametersService.cs" />
+    <Compile Include="Interfaces\Chancellery\IToChancelleryService.cs" />
+    <Compile Include="Interfaces\Access\ITypeAccessService.cs" />
+    <Compile Include="Interfaces\Chancellery\ITypeRecordChancelleryService.cs" />
+    <Compile Include="Interfaces\OrganizationalStructure\IUserPassportService.cs" />
+    <Compile Include="Interfaces\OrganizationalStructure\IUserService.cs" />
+    <Compile Include="Interfaces\OrganizationalStructure\IWorkHistoryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AccessService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>

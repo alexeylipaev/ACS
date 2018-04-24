@@ -33,7 +33,6 @@ namespace ACS.BLL.Services
             // decimal sum = new Discount(0.1m).GetDiscountedPrice(phone.Price);
             User User = new User
             {
-
                 LName = UserDto.LName,
                 FName = UserDto.FName,
                 MName = UserDto.MName,
@@ -75,12 +74,12 @@ namespace ACS.BLL.Services
         public UserDTO GetUser(int? id)
         {
             if (id == null)
-                throw new ValidationException("Не установлено id телефона", "");
+                throw new ValidationException("Не установлено id пользователя", "");
+
             var user = Database.Users.Get(id.Value);
+
             if (user == null)
-                throw new ValidationException("Телефон не найден", "");
-
-
+                throw new ValidationException("Пользователь не найден", "");
 
             return new UserDTO
             {
