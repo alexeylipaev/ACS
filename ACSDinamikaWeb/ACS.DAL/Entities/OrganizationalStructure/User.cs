@@ -38,13 +38,13 @@ namespace ACS.DAL.Entities
         [Column(TypeName = "date")]
         public DateTime? Birthday { get; set; }
 
-        public virtual UserPassport Passport { get; set; }
-
 
         [StringLength(50)]
         public string SID { get; set; }
 
         public Guid? Guid1C { get; set; }
+
+        public virtual UserPassport Passport { get; set; }
 
         public virtual ASPIdentityUser ASPIdentityUser { get; set; }
 
