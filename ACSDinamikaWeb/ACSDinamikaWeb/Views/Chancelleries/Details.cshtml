@@ -1,0 +1,139 @@
+﻿@model ACSWeb.Models.EF.CFFromDB.Chancellery
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Chancellery</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FolderChancellery.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FolderChancellery.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JournalRegistrationsChancellery.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JournalRegistrationsChancellery.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeRecordChancellery.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TypeRecordChancellery.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.FName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateRegistration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateRegistration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Summary)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Summary)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegistrationNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegistrationNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_Guid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_Guid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_AuthorID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_AuthorID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_DateCreation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_DateCreation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_EditorID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_EditorID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_EditDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_EditDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_IsLocked)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_IsLocked)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_LockedBy_Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_LockedBy_Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.s_InBasket)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.s_InBasket)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

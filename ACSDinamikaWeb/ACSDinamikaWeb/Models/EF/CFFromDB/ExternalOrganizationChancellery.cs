@@ -18,6 +18,7 @@ namespace ACSWeb.Models.EF.CFFromDB
         [StringLength(25)]
         public string Address { get; set; }
 
+
         [StringLength(15)]
         public string City { get; set; }
 

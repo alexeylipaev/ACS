@@ -1,4 +1,4 @@
-namespace ACSWeb.Models.EF.CFFromDB
+﻿namespace ACSWeb.Models.EF.CFFromDB
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +19,9 @@ namespace ACSWeb.Models.EF.CFFromDB
 
         [Required]
         [StringLength(50)]
+        [Display(Name = "Наименование")]
         public string Name { get; set; }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Chancellery> Chancelleries { get; set; }

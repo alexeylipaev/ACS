@@ -41,8 +41,10 @@
 
         public int? ResponsibleUserId { get; set; }
 
+        [Display(Name = "Папка хранения")]
         public virtual FolderChancellery FolderChancellery { get; set; }
 
+        [Display(Name = "Журнал регистрации")]
         public virtual JournalRegistrationsChancellery JournalRegistrationsChancellery { get; set; }
 
         
