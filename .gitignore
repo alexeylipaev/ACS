@@ -8,3 +8,5 @@
 /ACSDinamikaWeb/ACSDinamikaWeb/bin/ACSDinamikaWeb.pdb
 *.suo
 /ACSDinamikaWeb/ACSDinamikaWeb/obj/Debug/**/*
+/ACSDinamikaWeb/ACS.DAL/bin/Debug
+/ACSDinamikaWeb/ACS.DAL/obj/Debug
