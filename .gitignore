@@ -12,3 +12,5 @@
 /ACSDinamikaWeb/ACS.DAL/obj/Debug
 /ACSDinamikaWeb/ACS.BLL/bin/Debug
 /ACSDinamikaWeb/ACS.BLL/obj/Debug
+.vs/*
+/ACSDinamikaWeb/.vs/config
