@@ -10,3 +10,5 @@
 /ACSDinamikaWeb/ACSDinamikaWeb/obj/Debug/**/*
 /ACSDinamikaWeb/ACS.DAL/bin/Debug
 /ACSDinamikaWeb/ACS.DAL/obj/Debug
+/ACSDinamikaWeb/ACS.BLL/bin/Debug
+/ACSDinamikaWeb/ACS.BLL/obj/Debug
