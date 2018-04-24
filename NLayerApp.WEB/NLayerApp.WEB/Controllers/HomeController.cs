@@ -45,8 +45,10 @@ namespace NLayerApp.WEB.Controllers
         {
             try
             {
-                var orderDto = new OrderDTO { PhoneId = order.PhoneId, Address = order.Address, PhoneNumber = order.PhoneNumber };
-                orderService.MakeOrder(orderDto);
+                var phoneDto = orderService.GetPhone(order.PhoneId);
+                //var orderDto = new OrderDTO { PhoneId = order.PhoneId, Address = order.Address, PhoneNumber = order.PhoneNumber };
+                var orderDto = new OrderDTO { PhoneDTO = phoneDto, Address = order.Address, PhoneNumber = order.PhoneNumber };
+                orderService.MakeOrder(orderDto);
                 return Content("<h2>Ваш заказ успешно оформлен</h2>");
             }
             catch (ValidationException ex)

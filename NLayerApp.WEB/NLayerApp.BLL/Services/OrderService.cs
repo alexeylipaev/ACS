@@ -20,7 +20,7 @@ namespace NLayerApp.BLL.Services
         }
         public void MakeOrder(OrderDTO orderDto)
         {
-            Phone phone = Database.Phones.Get(orderDto.PhoneId);
+            Phone phone = Database.Phones.Get(orderDto.PhoneDTO.Id);
 
             // валидация
             if (phone == null)
