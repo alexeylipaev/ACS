@@ -182,31 +182,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\EF\CFFromDB\Access.cs" />
-    <Compile Include="Models\EF\CFFromDB\ACSContext.cs" />
-    <Compile Include="Models\EF\CFFromDB\ASPClaimsIdentityUser.cs" />
-    <Compile Include="Models\EF\CFFromDB\ASPIdentityUser.cs" />
-    <Compile Include="Models\EF\CFFromDB\ASPLoginsIdentityUser.cs" />
-    <Compile Include="Models\EF\CFFromDB\ASPRolesIdentityUser.cs" />
-    <Compile Include="Models\EF\CFFromDB\Chancellery.cs" />
-    <Compile Include="Models\EF\CFFromDB\DataTable.cs" />
-    <Compile Include="Models\EF\CFFromDB\Department.cs" />
-    <Compile Include="Models\EF\CFFromDB\ExternalOrganizationChancellery.cs" />
-    <Compile Include="Models\EF\CFFromDB\FileRecordChancellery.cs" />
-    <Compile Include="Models\EF\CFFromDB\FolderChancellery.cs" />
-    <Compile Include="Models\EF\CFFromDB\FromChancellery.cs" />
-    <Compile Include="Models\EF\CFFromDB\JournalRegistrationsChancellery.cs" />
-    <Compile Include="Models\EF\CFFromDB\PassportDataUser.cs" />
-    <Compile Include="Models\EF\CFFromDB\PostUser.cs" />
-    <Compile Include="Models\EF\CFFromDB\PostUserСode1С.cs" />
-    <Compile Include="Models\EF\CFFromDB\ToChancellery.cs" />
-    <Compile Include="Models\EF\CFFromDB\TypeAccess.cs" />
-    <Compile Include="Models\EF\CFFromDB\TypeRecordChancellery.cs" />
-    <Compile Include="Models\EF\CFFromDB\User.cs" />
-    <Compile Include="Models\EF\CFFromDB\UsersWithoutWindowsAccount.cs" />
-    <Compile Include="Models\EF\CFFromDB\UsersWithWindowsAccount.cs" />
-    <Compile Include="Models\EF\CFFromDB\WorkHistory.cs" />
-    <Compile Include="Models\EF\EFExtend\SystemParameters.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\SystemParameters.cs" />
