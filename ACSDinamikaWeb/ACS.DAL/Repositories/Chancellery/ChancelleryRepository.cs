@@ -29,6 +29,10 @@ namespace ACS.DAL.Repositories
         {
             return db.Chancelleries.Find(id);
         }
+        public Chancellery Get(Guid guid)
+        {
+            return db.Chancelleries.Find(guid);
+        }
 
         public void Create(Chancellery Chancellery)
         {

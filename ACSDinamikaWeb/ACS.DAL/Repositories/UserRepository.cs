@@ -29,6 +29,10 @@ namespace ACS.DAL.Repositories
         {
             return db.Users.Find(id);
         }
+        public User Get(Guid Guid)
+        {
+            return db.Users.Find(Guid);
+        }
 
         public void Create(User user)
         {

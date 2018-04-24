@@ -1,0 +1,13 @@
+C:\Users\Kachkov\Source\Repos\ACS\ACSDinamikaWeb\ACS.BLL\bin\Debug\ACS.BLL.dll
+C:\Users\Kachkov\Source\Repos\ACS\ACSDinamikaWeb\ACS.BLL\bin\Debug\ACS.BLL.pdb
+C:\Users\Kachkov\Source\Repos\ACS\ACSDinamikaWeb\ACS.BLL\bin\Debug\ACS.DAL.dll
+C:\Users\Kachkov\Source\Repos\ACS\ACSDinamikaWeb\ACS.BLL\bin\Debug\AutoMapper.dll
+C:\Users\Kachkov\Source\Repos\ACS\ACSDinamikaWeb\ACS.BLL\bin\Debug\Ninject.dll
+C:\Users\Kachkov\Source\Repos\ACS\ACSDinamikaWeb\ACS.BLL\bin\Debug\EntityFramework.dll
+C:\Users\Kachkov\Source\Repos\ACS\ACSDinamikaWeb\ACS.BLL\bin\Debug\ACS.DAL.pdb
+C:\Users\Kachkov\Source\Repos\ACS\ACSDinamikaWeb\ACS.BLL\bin\Debug\AutoMapper.xml
+C:\Users\Kachkov\Source\Repos\ACS\ACSDinamikaWeb\ACS.BLL\bin\Debug\Ninject.xml
+C:\Users\Kachkov\Source\Repos\ACS\ACSDinamikaWeb\ACS.BLL\bin\Debug\EntityFramework.xml
+C:\Users\Kachkov\Source\Repos\ACS\ACSDinamikaWeb\ACS.BLL\obj\Debug\ACS.BLL.csprojResolveAssemblyReference.cache
+C:\Users\Kachkov\Source\Repos\ACS\ACSDinamikaWeb\ACS.BLL\obj\Debug\ACS.BLL.dll
+C:\Users\Kachkov\Source\Repos\ACS\ACSDinamikaWeb\ACS.BLL\obj\Debug\ACS.BLL.pdb

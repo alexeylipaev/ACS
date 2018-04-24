@@ -29,6 +29,11 @@ namespace ACS.DAL.Repositories
             return db.PostUserСode1С.Find(id);
         }
 
+        public PostUserСode1С Get(Guid guid)
+        {
+            return db.PostUserСode1С.Find(guid);
+        }
+
         public void Create(PostUserСode1С PostUserСode1С)
         {
             db.PostUserСode1С.Add(PostUserСode1С);

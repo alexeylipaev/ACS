@@ -28,6 +28,10 @@ namespace ACS.DAL.Repositories
         {
             return db.PassportDataUsers.Find(id);
         }
+        public UserPassport Get(Guid guid)
+        {
+            return db.PassportDataUsers.Find(guid);
+        }
 
         public void Create(UserPassport UserPassport)
         {

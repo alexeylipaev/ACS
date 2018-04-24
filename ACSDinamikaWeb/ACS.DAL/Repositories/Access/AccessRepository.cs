@@ -29,6 +29,11 @@ namespace ACS.DAL.Repositories
         {
             return db.Accesses.Find(id);
         }
+        public Access Get(Guid Guid)
+        {
+            return db.Accesses.Find(Guid);
+        }
+
 
         public void Create(Access Access)
         {

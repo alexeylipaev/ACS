@@ -12,8 +12,6 @@ namespace ACS.DAL.Entities
 
         public Guid? GuidObject { get; set; }
 
-        public int? TypeAccessId { get; set; }
-
         public int? Value { get; set; }
 
         public string Note { get; set; }

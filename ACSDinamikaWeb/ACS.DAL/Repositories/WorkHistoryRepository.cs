@@ -29,6 +29,11 @@ namespace ACS.DAL.Repositories
             return db.WorkHistories.Find(id);
         }
 
+        public WorkHistory Get(Guid guid)
+        {
+            return db.WorkHistories.Find(guid);
+        }
+
         public void Create(WorkHistory WorkHistory)
         {
             db.WorkHistories.Add(WorkHistory);

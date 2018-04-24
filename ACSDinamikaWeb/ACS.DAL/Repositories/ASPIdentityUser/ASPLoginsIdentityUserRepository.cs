@@ -30,6 +30,11 @@ namespace ACS.DAL.Repositories
             return db.ASPLoginsIdentityUsers.Find(id);
         }
 
+        public ASPLoginsIdentityUser Get(Guid guid)
+        {
+            return db.ASPLoginsIdentityUsers.Find(guid);
+        }
+
         public void Create(ASPLoginsIdentityUser ASPLoginsIdentityUser)
         {
             db.ASPLoginsIdentityUsers.Add(ASPLoginsIdentityUser);
