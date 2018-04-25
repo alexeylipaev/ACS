@@ -139,6 +139,7 @@ namespace ACS.DAL.Migrations
 
             foreach (var dataDepartment in query)
             {
+                if (string.IsNullOrEmpty(dataDepartment.Код)) continue;
                 var department = new Department()
                 {
                     Name = dataDepartment.Наименование,
