@@ -14,19 +14,19 @@ namespace ACS.DAL.Configuration
         {
 
             Property(e => e.FName)
-            .IsUnicode(false);
+            .IsUnicode(true);
 
 
             Property(e => e.LName)
-            .IsUnicode(false);
+            .IsUnicode(true);
 
 
             Property(e => e.MName)
-            .IsUnicode(false);
+            .IsUnicode(true);
 
 
             Property(e => e.SID)
-            .IsUnicode(false);
+            .IsUnicode(true);
 
             HasMany(e => e.Accesses)
             .WithOptional(e => e.User)

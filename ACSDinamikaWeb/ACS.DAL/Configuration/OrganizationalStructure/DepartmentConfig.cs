@@ -13,7 +13,7 @@ namespace ACS.DAL.Configuration
         public DepartmentConfig()
         {
                 Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             HasMany(e => e.ChildrenDepartments)
             .WithOptional(e => e.ParentDepartment);

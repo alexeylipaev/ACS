@@ -19,20 +19,20 @@ namespace ACS.DAL.Migrations
 
         protected override void Seed(ACSContext db)
         {
-            Console.WriteLine("GenerateUserRepository");
-            GenerateUserRepository(db);
-            Console.WriteLine("GenerateDepartmentRepository");
-            GenerateDepartmentRepository(db);
-            Console.WriteLine("GeneratePostRepository");
-            GeneratePostRepository(db);
-            Console.WriteLine("GeneratePostUser—ode1—Repository");
-            GeneratePostUser—ode1—Repository(db);
-            Console.WriteLine("GenerateWorkHistoryRepository");
-            GenerateWorkHistoryRepository(db);
-            Console.WriteLine("GenerateTypeAccessRepository");
-            GenerateTypeAccessRepository(db);
-            Console.WriteLine("GenerateTypeRecordChancelleryRepository");
-            GenerateTypeRecordChancelleryRepository(db);
+            //Console.WriteLine("GenerateUserRepository");
+            //GenerateUserRepository(db);
+            //Console.WriteLine("GenerateDepartmentRepository");
+            //GenerateDepartmentRepository(db);
+            //Console.WriteLine("GeneratePostRepository");
+            //GeneratePostRepository(db);
+            //Console.WriteLine("GeneratePostUser—ode1—Repository");
+            //GeneratePostUser—ode1—Repository(db);
+            //Console.WriteLine("GenerateWorkHistoryRepository");
+            //GenerateWorkHistoryRepository(db);
+            //Console.WriteLine("GenerateTypeAccessRepository");
+            //GenerateTypeAccessRepository(db);
+            //Console.WriteLine("GenerateTypeRecordChancelleryRepository");
+            //GenerateTypeRecordChancelleryRepository(db);
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace ACS.DAL.Migrations
         {
             var result = (from dUser in DataLoader1C.Data.—ÓÚÛ‰ÌËÍË
                           where dUser. Ó‰ == codePost1C
-                          select dUser. Ó‰‘ËÁÀËˆÓ).Distinct().First();
+                          select dUser. Ó‰‘ËÁÀËˆÓ).Distinct().FirstOrDefault();
             return Guid.Parse(result);
         }
 
@@ -211,13 +211,20 @@ namespace ACS.DAL.Migrations
                         orderby XMLDataTypeConverter.GetDateTime(dataEmpl.œËÌˇÚ), dataEmpl.‘»Œ
                         select dataEmpl;
 
+
+            var data = query.ToList();
+
+            if (data.Count == 0) return;
+
             foreach (var empl in query)
             {
                 Guid Guid1C;
 
                 if (!Guid.TryParse(empl. Ó‰‘ËÁÀËˆÓ, out Guid1C)) continue;
 
-                User userWithGuid1C = Context.Users.First(u => u.Guid1C == Guid1C);
+
+
+                User userWithGuid1C = Context.Users.FirstOrDefault(u => u.Guid1C == Guid1C);
 
                 if (userWithGuid1C == null) continue;
 
@@ -273,12 +280,14 @@ namespace ACS.DAL.Migrations
 
             foreach (var WorkHistory in query)
             {
+                if (string.IsNullOrEmpty(WorkHistory. Ó‰œÓ‰‡Á‰ÂÎÂÌËˇ.ToString())) continue;
 
-                Department department = Context.Departments.First(d => d.Code1C == WorkHistory. Ó‰œÓ‰‡Á‰ÂÎÂÌËˇ);
+                Department department = Context.Departments.FirstOrDefault(d => d.Code1C == WorkHistory. Ó‰œÓ‰‡Á‰ÂÎÂÌËˇ);
+
                 if (department == null) continue;
 
                 // Ó‰ƒÓÎÊÌÓÒÚË1—
-                PostUser—ode1— PUC = Context.PostUser—ode1—.First
+                PostUser—ode1— PUC = Context.PostUser—ode1—.FirstOrDefault
                     (puc => puc.CodePost1C == WorkHistory. Ó‰);
 
                 if (PUC == null) continue;

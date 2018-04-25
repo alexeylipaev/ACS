@@ -13,10 +13,10 @@ namespace ACS.DAL.Configuration
         public ASPRolesIdentityUserConfig()
         {
             Property(e => e.RoleId)
-.IsUnicode(false);
+.IsUnicode(true);
 
             Property(e => e.Name)
-              .IsUnicode(false);
+              .IsUnicode(true);
 
         }
     }

@@ -16,13 +16,13 @@ namespace ACS.DAL.Configuration
             HasKey(e => e.Id);
 
             Property(e => e.ClaimsId)
-            .IsUnicode(false);
+            .IsUnicode(true);
 
             Property(e => e.ClaimType)
-            .IsUnicode(false);
+            .IsUnicode(true);
 
             Property(e => e.ClaimValue)
-            .IsUnicode(false);
+            .IsUnicode(true);
         }
     }
 }

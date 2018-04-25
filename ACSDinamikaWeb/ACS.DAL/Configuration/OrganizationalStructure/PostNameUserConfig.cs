@@ -13,7 +13,7 @@ namespace ACS.DAL.Configuration
         public PostNameUserConfig()
         {
                Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
         }
     }
 }

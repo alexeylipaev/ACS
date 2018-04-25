@@ -13,13 +13,13 @@ namespace ACS.DAL.Configuration
         public FileRecordChancelleryConfig()
         {
             Property(e => e.Name)
-                   .IsUnicode(false);
+                   .IsUnicode(true);
 
             Property(e => e.format)
-                  .IsUnicode(false);
+                  .IsUnicode(true);
 
             Property(e => e.Path)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
         }
     }

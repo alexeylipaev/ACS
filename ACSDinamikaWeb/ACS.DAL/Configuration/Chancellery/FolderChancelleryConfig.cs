@@ -13,7 +13,7 @@ namespace ACS.DAL.Configuration
         public FolderChancelleryConfig()
         {
                Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             HasMany(e => e.Chancelleries)
             .WithOptional(e => e.FolderChancellery);

@@ -13,19 +13,19 @@ namespace ACS.DAL.Configuration
         public ExternalOrganizationChancelleryConfig()
         {
              Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
               Property(e => e.Address)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
               Property(e => e.City)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
              Property(e => e.Email)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
              Property(e => e.Phone)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
         }
     }

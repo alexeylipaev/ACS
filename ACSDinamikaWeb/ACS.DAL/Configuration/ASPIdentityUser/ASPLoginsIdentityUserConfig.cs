@@ -13,10 +13,10 @@ namespace ACS.DAL.Configuration
         public ASPLoginsIdentityUserConfig()
         {
              Property(e => e.ProviderKey)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             Property(e => e.LoginProvider)
-              .IsUnicode(false);
+              .IsUnicode(true);
         }
     }
 }

@@ -13,10 +13,10 @@ namespace ACS.DAL.Configuration
         public ChancelleryConfig()
         {
             Property(e => e.Summary)
-               .IsUnicode(false);
+               .IsUnicode(true);
 
             Property(e => e.RegistrationNumber)
-               .IsUnicode(false);
+               .IsUnicode(true);
 
             HasMany(e => e.FileRecordChancelleries)
                .WithOptional(e => e.Chancellery)

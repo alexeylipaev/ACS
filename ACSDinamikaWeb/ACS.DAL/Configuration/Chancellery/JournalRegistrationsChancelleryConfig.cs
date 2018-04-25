@@ -13,7 +13,7 @@ namespace ACS.DAL.Configuration
         public JournalRegistrationsChancelleryConfig()
         {
             Property(e => e.Name)
-               .IsUnicode(false);
+               .IsUnicode(true);
 
             HasMany(e => e.Chancelleries)
                  .WithOptional(e => e.JournalRegistrationsChancellery);

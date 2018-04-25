@@ -14,7 +14,7 @@ namespace ACS.DAL.Configuration
         public TypeAccessConfig()
         {
             HasKey(p => p.Id);//первичный ключ
-            Property(p => p.Name).IsUnicode(false);//поддержка кирилицы
+            Property(p => p.Name).IsUnicode(true);//поддержка кирилицы
 
             HasMany(e => e.Accesses)//имеет связанные обекты
             .WithOptional(e => e.TypeAccess)//TypeAccess  в сущности Access может быть null
