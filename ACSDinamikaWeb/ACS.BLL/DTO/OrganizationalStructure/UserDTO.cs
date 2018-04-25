@@ -37,8 +37,7 @@ namespace ACS.BLL.DTO
       
         public DateTime? Birthday { get; set; }
 
-        public UserPassportDTO Passport { get; set; } = null;
-
+        public virtual UserPassportDTO Passport { get; set; } = null;
 
 
         public string SID { get; set; }
