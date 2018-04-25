@@ -3,7 +3,7 @@ using NLayerApp.DAL.Entities;
 
 namespace NLayerApp.BLL.DTO
 {
-    public class OrderDTO
+    public class OrderDTO: SystemParametersDTO
     {
         public int Id { get; set; }
         public string PhoneNumber { get; set; }

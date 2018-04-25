@@ -197,6 +197,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Access\AccessViewModel.cs" />
     <Compile Include="Models\Access\TypeAccessDTO.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

@@ -1,6 +1,6 @@
 ﻿namespace NLayerApp.BLL.DTO
 {
-    public class PhoneDTO
+    public class PhoneDTO: SystemParametersDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
