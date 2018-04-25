@@ -46,6 +46,8 @@ namespace NLayerApp.DAL.EF
 
             var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
             modelBuilder.Conventions.Add(convention);
+
+            //modelBuilder.Entity<Phone>().Property(it => it.PhoneInfo).IsOptional();
         }
 
  

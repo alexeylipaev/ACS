@@ -12,7 +12,5 @@ namespace NLayerApp.DAL.Entities
         public Phone Phone { get; set; }
 
         public DateTime Date { get; set; }
-
-
     }
 }

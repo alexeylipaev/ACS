@@ -22,10 +22,10 @@ namespace NLayerApp.DAL.Migrations
 
         protected override void Seed(NLayerApp.DAL.EF.MobileContext context)
         {
-            context.Phones.Add(new Phone { Name = "Nokia Lumia 630", Company = "Nokia", Price = 220 });
-            context.Phones.Add(new Phone { Name = "iPhone 6", Company = "Apple", Price = 320 });
-            context.Phones.Add(new Phone { Name = "LG G4", Company = "lG", Price = 260 });
-            context.Phones.Add(new Phone { Name = "Samsung Galaxy S 6", Company = "Samsung", Price = 300 });
+            context.Phones.Add(new Phone { Name = "Nokia Lumia 630", Company = "Nokia", Price = 220,  PhoneInfo = new PhoneInfo() { PhoneInf  = "1" }  });
+            context.Phones.Add(new Phone { Name = "iPhone 6", Company = "Apple", Price = 320, PhoneInfo = new PhoneInfo() { PhoneInf = "2" } });
+            context.Phones.Add(new Phone { Name = "LG G4", Company = "lG", Price = 260, PhoneInfo = new PhoneInfo() { PhoneInf = "3" } });
+            context.Phones.Add(new Phone { Name = "Samsung Galaxy S 6", Company = "Samsung", Price = 300, PhoneInfo = new PhoneInfo() { PhoneInf = "4" } });
             context.SaveChanges();
         }
     }

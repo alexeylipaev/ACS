@@ -52,6 +52,7 @@
     <Compile Include="EF\MobileContext.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Phone.cs" />
+    <Compile Include="Entities\PhoneInfo.cs" />
     <Compile Include="Entities\SystemParameters.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />

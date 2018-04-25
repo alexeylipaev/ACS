@@ -54,6 +54,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="DTO\OrderDTO.cs" />
     <Compile Include="DTO\PhoneDTO.cs" />
+    <Compile Include="DTO\PhoneInfoDTO.cs" />
     <Compile Include="DTO\SystemParametersDTO.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />

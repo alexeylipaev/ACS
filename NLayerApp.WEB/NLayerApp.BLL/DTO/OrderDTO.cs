@@ -9,7 +9,7 @@ namespace NLayerApp.BLL.DTO
         public string PhoneNumber { get; set; }
         public string Address { get; set; }
         //public int PhoneId { get; set; }
-        public PhoneDTO PhoneDTO { get; set; }
+        public virtual PhoneDTO PhoneDTO { get; set; }
         public DateTime? Date { get; set; }
     }
 }

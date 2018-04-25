@@ -6,6 +6,10 @@ namespace NLayerApp.DAL.Entities
 {
     public partial class Phone : SystemParameters
     {
+        public Phone()
+        {
+            PhoneInfo = new PhoneInfo();
+        }
 
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,5 +17,6 @@ namespace NLayerApp.DAL.Entities
         public decimal Price { get; set; }
         public ICollection<Order> Orders { get; set; }
 
+        public virtual PhoneInfo PhoneInfo { get; set; } 
     }
 }
