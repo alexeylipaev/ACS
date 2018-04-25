@@ -232,6 +232,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -267,7 +268,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -318,6 +321,10 @@
     <ProjectReference Include="..\NLayerApp.BLL\NLayerApp.BLL.csproj">
       <Project>{7ADC6FCF-6248-43C5-878C-5C770315B98E}</Project>
       <Name>NLayerApp.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NLayerApp.DAL\NLayerApp.DAL.csproj">
+      <Project>{6FF35F6B-CFDD-436B-8D33-E9521D974828}</Project>
+      <Name>NLayerApp.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

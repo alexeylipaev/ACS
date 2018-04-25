@@ -1,7 +1,7 @@
 ﻿using System;
 namespace NLayerApp.DAL.Entities
 {
-    public class Order
+    public partial class Order: SystemParameters
     {
         public int Id { get; set; }
         public decimal Sum { get; set; }
@@ -12,5 +12,7 @@ namespace NLayerApp.DAL.Entities
         public Phone Phone { get; set; }
 
         public DateTime Date { get; set; }
+
+
     }
 }
