@@ -14,16 +14,27 @@ namespace ACS.DAL.Entities
     {
         public int Id { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Guid? FromGuid { get; set; }
+        #region от пользователя
 
-        /// <summary>
-        /// Id объекта, где искать объект
-        /// </summary>
-        public int? TableId { get; set; }
+        public int? UserId { get; set; }
+
+        public virtual User User { get; set; }
+
+        #endregion
+
+        #region от внешней организации
+
+        public int? ExternalOrganizationId { get; set; }
+
+        public virtual ExternalOrganizationChancellery ExternalOrganization { get; set; }
+
+        #endregion
+
+        public int?  ChancelleryId { get; set; }
 
         public virtual Chancellery Chancellery { get; set; }
     }
+
+
+
 }

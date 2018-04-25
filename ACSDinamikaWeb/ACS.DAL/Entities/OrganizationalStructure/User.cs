@@ -12,49 +12,49 @@ namespace ACS.DAL.Entities
     /// </summary>
     public partial class User : SystemParameters
     {
-      
+
         public User()
         {
             Accesses = new HashSet<Access>();
-           
-            //Chancelleries = new HashSet<Chancellery>();
+            Chancelleries = new HashSet<Chancellery>();
             PostUserСode1С = new HashSet<PostUserСode1С>();
-            ASPIdentityUser = new ASPIdentityUser();
-            //Passport = new UserPassport();
         }
 
         public int Id { get; set; }
 
         [Required]
-        [StringLength(25)]
         public string FName { get; set; }
 
-        [StringLength(30)]
         public string LName { get; set; }
 
-        [StringLength(25)]
         public string MName { get; set; }
 
+        /// <summary>
+        /// Табельный номер
+        /// </summary>
         public string PersonnelNumber { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? Birthday { get; set; }
-
 
         [StringLength(50)]
         public string SID { get; set; }
 
         public Guid? Guid1C { get; set; }
 
-        public  UserPassport Passport { get; set; }
-
-        public  ASPIdentityUser ASPIdentityUser { get; set; }
-
+        /// <summary>
+        /// Доступы пользователя
+        /// </summary>
         public virtual ICollection<Access> Accesses { get; set; }
 
+        /// <summary>
+        /// Канцелярские записи пользователя
+        /// </summary>
+        public virtual ICollection<Chancellery> Chancelleries { get; set; }
 
-       // public virtual ICollection<Chancellery> Chancelleries { get; set; }
-
+        /// <summary>
+        /// Коды1С должностей пользователя
+        /// </summary>
         public virtual ICollection<PostUserСode1С> PostUserСode1С { get; set; }
     }
 }

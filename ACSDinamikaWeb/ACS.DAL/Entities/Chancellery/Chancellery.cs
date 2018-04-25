@@ -20,9 +20,6 @@ namespace ACS.DAL.Entities
 
         public int Id { get; set; }
 
-        [DisplayFormat(NullDisplayText = @"Выберите тип")]
-        public byte? TypeRecordId { get; set; }
-
         [Column(TypeName = "date")]
         [Display(Name = @"Дата регистрации")]
 
@@ -35,19 +32,42 @@ namespace ACS.DAL.Entities
         [Display(Name = "Описание")]
         public string Summary { get; set; }
 
+        #region папка
+
+        public int? FolderId { get; set; }
 
         public virtual FolderChancellery FolderChancellery { get; set; }
 
+        #endregion
+
+        #region Журнал
+
+        public int? JournalRegistrationsId { get; set; }
+
         public virtual JournalRegistrationsChancellery JournalRegistrationsChancellery { get; set; }
 
+        #endregion
+
+        #region Тип
+
+        [DisplayFormat(NullDisplayText = @"Выберите тип")]
+        public byte? TypeRecordId { get; set; }
 
         [Display(Name = "Тип записи")]
         public virtual TypeRecordChancellery TypeRecordChancellery { get; set; }
 
+        #endregion
+
+        #region Ответственный
+
+        public int? ResponsibleUserId { get; set; }
+
         [Display(Name = "Ответственный")]
         public virtual User User { get; set; }
 
-      
+        #endregion
+
+
         [Display(Name = "Файлы")]
         public virtual ICollection<FileRecordChancellery> FileRecordChancelleries { get; set; }
 

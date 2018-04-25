@@ -8,21 +8,26 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Entities
 {
+    /// <summary>
+    /// Таблица сущностей/sql таблиц (пока не понятно)
+    /// </summary>
     [Table("DataTable")]
     public partial class DataEntity : SystemParameters
     {
 
         public int Id { get; set; }
 
+        /// <summary>
+        /// Имя типа/таблицы
+        /// </summary>
         [Required]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Id таблицы 
+        /// </summary>
         [Column("object_id")]
-        public int object_id { get; set; }
-
-        [Column("type_desc")]
-        public string type_desc { get; set; }
-
+        public int Object_id { get; set; }
 
     }
 }

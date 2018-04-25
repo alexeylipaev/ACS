@@ -22,31 +22,21 @@ namespace ACS.BLL.Services
         {
             User user = Database.Users.Get(UserDTO.Id);
 
-          
+            if (user == null)
+                throw new ValidationException("Пользователь с таким ID уже создан", "");
+
             User User = new User
             {
                 LName = UserDTO.LName,
                 FName = UserDTO.MName,
                 MName = UserDTO.MName,
-                //FullName = dataUser.ФИО,
-                //ShortName = String.Format("{0} {1}.{2}.", DataFullNameEmp[0], DataFullNameEmp[1].FirstOrDefault(), DataFullNameEmp[2].FirstOrDefault()),
+               
                 SID = UserDTO.SID,
                 Guid1C = UserDTO.Guid1C,
 
                 Birthday = UserDTO.Birthday,
-                //EMail = dataUserAD.Email,
+       
                 PersonnelNumber = UserDTO.PersonnelNumber,
-
-                //Passport = new UserPassport()
-                //{
-                //    //паспортные данные
-                //    DateOfIssue = UserDTO.Passport.DateOfIssue,
-                //    IssuedBy = UserDTO.Passport.IssuedBy,
-                //    Number =  UserDTO.Passport.Number,
-                //    Series =  UserDTO.Passport.Series,
-                //    UnitCode = UserDTO.Passport.UnitCode,
-                //},
-                
 
             };
             Database.Users.Create(User);
@@ -73,24 +63,14 @@ namespace ACS.BLL.Services
                 LName = User.LName,
                 FName = User.MName,
                 MName = User.MName,
-                //FullName = dataUser.ФИО,
-                //ShortName = String.Format("{0} {1}.{2}.", DataFullNameEmp[0], DataFullNameEmp[1].FirstOrDefault(), DataFullNameEmp[2].FirstOrDefault()),
+              
                 SID = User.SID,
                 Guid1C = User.Guid1C,
 
                 Birthday = User.Birthday,
-                //EMail = dataUserAD.Email,
+               
                 PersonnelNumber = User.PersonnelNumber,
 
-                //Passport = new UserPassportDTO()
-                //{
-                //    //паспортные данные
-                //    DateOfIssue = User.Passport.DateOfIssue,
-                //    IssuedBy = User.Passport.IssuedBy,
-                //    Number = User.Passport.Number,
-                //    Series = User.Passport.Series,
-                //    UnitCode = User.Passport.UnitCode,
-                //},
             };
         }
 

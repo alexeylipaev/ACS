@@ -13,12 +13,13 @@ namespace ACS.BLL.DTO
 
         public DepartmentDTO()
         {
-            ChildrenDepartments = new HashSet<DepartmentDTO>();
+            ChildrenDepartmentDTOs = new HashSet<DepartmentDTO>();
+            WorkHistories = new HashSet<WorkHistoryDTO>();
         }
 
         public int Id { get; set; }
 
-      
+
         public string Name { get; set; }
 
         /// <summary>
@@ -36,10 +37,20 @@ namespace ACS.BLL.DTO
         /// </summary>
         public bool? Inactive { get; set; }
 
+        #region связь с родителем 
 
-        public virtual ICollection<DepartmentDTO> ChildrenDepartments { get; set; }
+        public int? ParentDepartmentDTOId { get; set; }
 
-        public virtual DepartmentDTO ParentDepartment { get; set; }
+        public virtual DepartmentDTO ParentDepartmentDTO { get; set; }
+
+        #endregion
+
+        public virtual ICollection<DepartmentDTO> ChildrenDepartmentDTOs { get; set; }
+
+        /// <summary>
+        /// Подключения к подразделению
+        /// </summary>
+        public virtual ICollection<WorkHistoryDTO> WorkHistories { get; set; }
 
     }
 }

@@ -11,11 +11,18 @@ namespace ACS.BLL.DTO
     {
         public int Id { get; set; }
 
-        public string ClaimsId { get; set; }
-
+        /// <summary>
+        /// Тип утверждения
+        /// </summary>
         public string ClaimType { get; set; }
 
+        /// <summary>
+        /// Значение утверждения
+        /// </summary>
         public string ClaimValue { get; set; }
+
+
+        public int? IdentityUserId { get; set; }
 
         public virtual ASPIdentityUserDTO IdentityUser { get; set; }
 

@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.DTO
 {
- 
+    /// <summary>
+    /// Журнал канцелярский
+    /// </summary>
     public partial class JournalRegistrationsChancelleryDTO : SystemParametersDTO
     {
 

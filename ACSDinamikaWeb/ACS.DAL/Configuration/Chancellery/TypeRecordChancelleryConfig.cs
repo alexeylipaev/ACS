@@ -16,8 +16,8 @@ namespace ACS.DAL.Configuration
                 .IsUnicode(true);
 
             HasMany(e => e.Chancelleries)
-             .WithOptional(e => e.TypeRecordChancellery);
-                //.HasForeignKey(e => e.TypeRecordId);
+             .WithOptional(e => e.TypeRecordChancellery)
+               .HasForeignKey(e => e.TypeRecordId).WillCascadeOnDelete(false);
         }
     }
 }

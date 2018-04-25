@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.DTO
 {
+    /// <summary>
+    /// Тип канцелярской записи
+    /// </summary>
     public partial class TypeRecordChancelleryDTO : SystemParametersDTO
     {
         public TypeRecordChancelleryDTO()

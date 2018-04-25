@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.DTO
 {
-
+    /// <summary>
+    /// Внешняя организация
+    /// </summary>
     public partial class ExternalOrganizationChancelleryDTO : SystemParametersDTO
     {
         public int Id { get; set; }

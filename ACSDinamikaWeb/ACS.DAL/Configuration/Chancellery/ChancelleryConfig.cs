@@ -18,17 +18,19 @@ namespace ACS.DAL.Configuration
             Property(e => e.RegistrationNumber)
                .IsUnicode(true);
 
-            HasMany(e => e.FileRecordChancelleries)
-               .WithOptional(e => e.Chancellery)
-               .WillCascadeOnDelete(false);
+            //HasMany(e => e.FileRecordChancelleries)
+            //   .WithOptional(e => e.Chancellery)
+            //   .WillCascadeOnDelete(false);
 
-            HasMany(e => e.FromChancelleries)
-            .WithOptional(e => e.Chancellery);
-            // .HasForeignKey(e => e.RecordChancelleryId);
+            HasMany(e => e.FromChancelleries)//одна канцелярская запись может быть оформлена от N (обсуждали)
+            .WithOptional(e => e.Chancellery)//в записи "от кого" может отсуствовать ссылка на канцелярскую запись
+            .HasForeignKey(e => e.ChancelleryId)//связываем по внешнему ключу ChancelleryId
+            .WillCascadeOnDelete(false);//при удалении канцелярской записи, "от кого" не удаляем
 
             HasMany(e => e.ToChancelleries)
-              .WithOptional(e => e.Chancellery);
-            //.HasForeignKey(e => e.RecordChancelleryId);
+            .WithOptional(e => e.Chancellery)
+            .HasForeignKey(e => e.ChancelleryId)
+            .WillCascadeOnDelete(false);
         }
     }
 }

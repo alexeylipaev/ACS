@@ -14,6 +14,7 @@ namespace ACS.DAL.Entities
         public Department()
         {
             ChildrenDepartments = new HashSet<Department>();
+            WorkHistories = new HashSet<WorkHistory>();
         }
 
         public int Id { get; set; }
@@ -36,10 +37,19 @@ namespace ACS.DAL.Entities
         /// </summary>
         public bool? Inactive { get; set; }
 
-      
-        public virtual ICollection<Department> ChildrenDepartments { get; set; }
+        #region связь с родителем 
+
+        public int? ParentDepartmentId { get; set; }
 
         public virtual Department ParentDepartment { get; set; }
 
+        #endregion
+
+        public virtual ICollection<Department> ChildrenDepartments { get; set; }
+
+        /// <summary>
+        /// Подключения к подразделению
+        /// </summary>
+        public virtual ICollection<WorkHistory> WorkHistories { get; set; }
     }
 }

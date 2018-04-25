@@ -12,10 +12,22 @@ namespace ACS.BLL.DTO
     
         public int Id { get; set; }
 
+        /// <summary>
+        /// Ключ, представляющий имя входа для поставщика
+        /// </summary>
         public string ProviderKey { get; set; }
 
+        /// <summary>
+        /// Поставщик входа в систему (например, Facebook, Google)
+        /// </summary>
         public string LoginProvider { get; set; }
 
+
+        public int? IdentityUserId { get; set; }
+
+        /// <summary>
+        /// Владелец this логина
+        /// </summary>
         public virtual ASPIdentityUserDTO IdentityUser { get; set; }
 
     }

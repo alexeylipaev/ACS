@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Entities
 {
- 
+    /// <summary>
+    /// Журнал канцелярский
+    /// </summary>
     public partial class JournalRegistrationsChancellery : SystemParameters
     {
-       
+
         public JournalRegistrationsChancellery()
         {
             Chancelleries = new HashSet<Chancellery>();
@@ -21,7 +23,7 @@ namespace ACS.DAL.Entities
         [Required]
         public string Name { get; set; }
 
-       
+
         public virtual ICollection<Chancellery> Chancelleries { get; set; }
 
     }

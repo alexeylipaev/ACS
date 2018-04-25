@@ -8,18 +8,17 @@ using System.Threading.Tasks;
 namespace ACS.DAL.Entities
 {
     /// <summary>
-    /// Коды должностей 1С
+    /// Код1С должности 
     /// </summary>
     public partial class PostUserСode1С : SystemParameters
     {
-
         public int Id { get; set; }
 
         [Required]
         public Guid CodePost1C { get; set; }
 
+        public int? UserId { get; set; }
 
         public virtual User User { get; set; }
-
     }
 }

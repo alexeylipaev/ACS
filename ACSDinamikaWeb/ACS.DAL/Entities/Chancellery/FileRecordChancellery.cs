@@ -7,19 +7,30 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Entities
 {
-    
+    /// <summary>
+    /// Файл
+    /// </summary>
     public partial class FileRecordChancellery : SystemParameters
     {
+
         public int Id { get; set; }
 
+        /// <summary>
+        /// Имя файла
+        /// </summary>
         public string Name { get; set; }
 
-        [StringLength(10)]
-        public string format { get; set; }
+        /// <summary>
+        /// Формат
+        /// </summary>
+        public string Format { get; set; }
 
+        /// <summary>
+        /// Путь к файлу
+        /// </summary>
         [Required]
         public string Path { get; set; }
 
-        public virtual Chancellery Chancellery { get; set; }
+
     }
 }

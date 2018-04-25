@@ -1,4 +1,4 @@
-﻿namespace ACSWeb.Models.EF.CFFromDB
+namespace ACSWeb.Models.EF.CFFromDB
 {
     using System;
     using System.Data.Entity;
@@ -40,75 +40,75 @@
         {
             modelBuilder.Entity<Access>()
                 .Property(e => e.Note)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPClaimsIdentityUser>()
                 .Property(e => e.ClaimsId)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPClaimsIdentityUser>()
                 .Property(e => e.IdentityUserId)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPClaimsIdentityUser>()
                 .Property(e => e.ClaimType)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPClaimsIdentityUser>()
                 .Property(e => e.ClaimValue)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPIdentityUser>()
                 .Property(e => e.IdentityUserId)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPIdentityUser>()
                 .Property(e => e.IdentityUserName)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPIdentityUser>()
                 .Property(e => e.PasswordHash)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPIdentityUser>()
                 .Property(e => e.SecurityStamp)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPIdentityUser>()
                 .Property(e => e.EMail)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPLoginsIdentityUser>()
                 .Property(e => e.IdentityUserId)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPLoginsIdentityUser>()
                 .Property(e => e.ProviderKey)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPLoginsIdentityUser>()
                 .Property(e => e.LoginProvider)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPRolesIdentityUser>()
                 .Property(e => e.RoleId)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPRolesIdentityUser>()
                 .Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ASPRolesIdentityUser>()
                 .Property(e => e.IdentityUserId)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<Chancellery>()
                 .Property(e => e.Summary)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<Chancellery>()
                 .Property(e => e.RegistrationNumber)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<Chancellery>()
                 .HasMany(e => e.FileRecordChancelleries)
@@ -127,11 +127,11 @@
 
             modelBuilder.Entity<DataTable>()
                 .Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<Department>()
                 .Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<Department>()
                 .HasMany(e => e.Department1)
@@ -140,39 +140,39 @@
 
             modelBuilder.Entity<ExternalOrganizationChancellery>()
                 .Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ExternalOrganizationChancellery>()
                 .Property(e => e.Address)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ExternalOrganizationChancellery>()
                 .Property(e => e.City)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ExternalOrganizationChancellery>()
                 .Property(e => e.Email)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<ExternalOrganizationChancellery>()
                 .Property(e => e.Phone)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<FileRecordChancellery>()
                 .Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<FileRecordChancellery>()
                 .Property(e => e.format)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<FileRecordChancellery>()
                 .Property(e => e.Path)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<FolderChancellery>()
                 .Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<FolderChancellery>()
                 .HasMany(e => e.Chancelleries)
@@ -181,7 +181,7 @@
 
             modelBuilder.Entity<JournalRegistrationsChancellery>()
                 .Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<JournalRegistrationsChancellery>()
                 .HasMany(e => e.Chancelleries)
@@ -190,11 +190,11 @@
 
             modelBuilder.Entity<PostUser>()
                 .Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<TypeAccess>()
                 .Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<TypeAccess>()
                 .HasMany(e => e.Accesses)
@@ -203,7 +203,7 @@
 
             modelBuilder.Entity<TypeRecordChancellery>()
                 .Property(e => e.Name)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<TypeRecordChancellery>()
                 .HasMany(e => e.Chancelleries)
@@ -212,35 +212,35 @@
 
             modelBuilder.Entity<User>()
                 .Property(e => e.FName)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.LName)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.MName)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.PassportSeries)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.PassportNumber)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.PassportIssuedBy)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.PassportUnitCode)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.SID)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Accesses)
@@ -254,59 +254,59 @@
 
             modelBuilder.Entity<PassportDataUser>()
                 .Property(e => e.LName)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<PassportDataUser>()
                 .Property(e => e.FName)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<PassportDataUser>()
                 .Property(e => e.MName)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<PassportDataUser>()
                 .Property(e => e.PassportSeries)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<PassportDataUser>()
                 .Property(e => e.PassportNumber)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<PassportDataUser>()
                 .Property(e => e.PassportIssuedBy)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<PassportDataUser>()
                 .Property(e => e.PassportUnitCode)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<UsersWithoutWindowsAccount>()
                 .Property(e => e.LName)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<UsersWithoutWindowsAccount>()
                 .Property(e => e.FName)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<UsersWithoutWindowsAccount>()
                 .Property(e => e.MName)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<UsersWithWindowsAccount>()
                 .Property(e => e.LName)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<UsersWithWindowsAccount>()
                 .Property(e => e.FName)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<UsersWithWindowsAccount>()
                 .Property(e => e.MName)
-                .IsUnicode(false);
+                .IsUnicode(true);
 
             modelBuilder.Entity<UsersWithWindowsAccount>()
                 .Property(e => e.SID)
-                .IsUnicode(false);
+                .IsUnicode(true);
         }
     }
 }

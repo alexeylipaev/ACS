@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Entities
 {
+    /// <summary>
+    /// Тип канцелярской записи
+    /// </summary>
     public partial class TypeRecordChancellery : SystemParameters
     {
         public TypeRecordChancellery()
@@ -22,7 +25,9 @@ namespace ACS.DAL.Entities
         [Display(Name = "Тип записи")]
         public string Name { get; set; }
 
-     
+        /// <summary>
+        /// Канцелярские записи которые имеют this тип
+        /// </summary>
         public virtual ICollection<Chancellery> Chancelleries { get; set; }
     }
 }

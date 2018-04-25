@@ -15,9 +15,11 @@ namespace ACS.DAL.Configuration
                 Property(e => e.Name)
                 .IsUnicode(true);
 
-            HasMany(e => e.ChildrenDepartments)
-            .WithOptional(e => e.ParentDepartment);
-               // .HasForeignKey(e => e.ParentDepartmentId);
+            HasMany(e => e.ChildrenDepartments)//отдел имеет ссылки на дочернии отделы
+            .WithOptional(e => e.ParentDepartment)//ссылка на родительское подразделение может отсутствовать
+             .HasForeignKey(e => e.ParentDepartmentId)
+             .WillCascadeOnDelete(true);//При удалении подразделения, удаляем дочернии
+ 
         }
     }
 }

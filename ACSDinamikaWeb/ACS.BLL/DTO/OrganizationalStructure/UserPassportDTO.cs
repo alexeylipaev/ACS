@@ -18,7 +18,10 @@ namespace ACS.BLL.DTO
 
         public string UnitCode { get; set; }
 
-     
         public DateTime? DateOfIssue { get; set; }
+
+        public int? UserId { get; set; }
+
+        public virtual UserDTO User { get; set; }
     }
 }

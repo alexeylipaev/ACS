@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ACS.BLL.DTO
 {
     /// <summary>
-    /// Коды должностей 1С
+    /// Код1С должности 
     /// </summary>
     public partial class PostUserСode1СDTO : SystemParametersDTO
     {
@@ -18,6 +18,7 @@ namespace ACS.BLL.DTO
 
         public Guid CodePost1C { get; set; }
 
+        public int? UserId { get; set; }
 
         public virtual UserDTO User { get; set; }
 

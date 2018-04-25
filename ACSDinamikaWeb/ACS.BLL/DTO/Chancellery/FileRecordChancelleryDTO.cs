@@ -12,12 +12,21 @@ namespace ACS.BLL.DTO
     {
         public int Id { get; set; }
 
+        /// <summary>
+        /// Имя файла
+        /// </summary>
         public string Name { get; set; }
 
-        public string format { get; set; }
+        /// <summary>
+        /// Формат
+        /// </summary>
+        public string Format { get; set; }
 
+        /// <summary>
+        /// Путь к файлу
+        /// </summary>
+  
         public string Path { get; set; }
-
-        public virtual ChancelleryDTO Chancellery { get; set; }
+   
     }
 }

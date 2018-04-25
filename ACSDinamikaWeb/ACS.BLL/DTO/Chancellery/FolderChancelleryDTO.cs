@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.DTO
 {
+    /// <summary>
+    /// Канцелярская папка
+    /// </summary>
     public partial class FolderChancelleryDTO : SystemParametersDTO
     {
 

@@ -14,14 +14,18 @@ namespace ACS.BLL.DTO
 
         public int Id { get; set; }
 
-       
+
+        /// <summary>
+        /// Имя типа/таблицы
+        /// </summary>
+     
         public string Name { get; set; }
 
-        
-        public int object_id { get; set; }
-
-        
-        public string type_desc { get; set; }
+        /// <summary>
+        /// Id таблицы 
+        /// </summary>
+   
+        public int Object_id { get; set; }
 
 
     }

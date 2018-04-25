@@ -9,13 +9,15 @@ namespace ACS.BLL.DTO
 
         public Guid? GuidObject { get; set; }
 
-        public int? TypeAccessId { get; set; }
-
         public int? Value { get; set; }
 
         public string Note { get; set; }
 
+        public int? TypeAccessId { get; set; }
+
         public virtual TypeAccessDTO TypeAccess { get; set; }
+
+        public int? UserId { get; set; }
 
         public virtual UserDTO User { get; set; }
     }

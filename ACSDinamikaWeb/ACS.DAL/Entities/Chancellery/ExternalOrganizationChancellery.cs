@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Entities
 {
-
+    /// <summary>
+    /// Внешняя организация
+    /// </summary>
     public partial class ExternalOrganizationChancellery : SystemParameters
     {
         public int Id { get; set; }
@@ -17,14 +19,12 @@ namespace ACS.DAL.Entities
 
         public string Address { get; set; }
 
-
         public string City { get; set; }
 
 
         public string Email { get; set; }
 
         public string Phone { get; set; }
-
 
     }
 }

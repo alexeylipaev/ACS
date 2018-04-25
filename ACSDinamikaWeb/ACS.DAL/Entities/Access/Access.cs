@@ -16,7 +16,11 @@ namespace ACS.DAL.Entities
 
         public string Note { get; set; }
 
+        public int? TypeAccessId { get; set; }
+
         public virtual TypeAccess TypeAccess { get; set; }
+
+        public int?  UserId { get; set; }
 
         public virtual User User { get; set; }
     }

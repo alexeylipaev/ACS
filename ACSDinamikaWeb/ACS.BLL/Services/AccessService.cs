@@ -22,19 +22,17 @@ namespace ACS.BLL.Services
         {
             Database = uow;
         }
-        public void MakeAccess(AccessDTO AccessDto/*, CurrentAccess Guid*/)
+        public void MakeAccess(AccessDTO AccessDto)
         {
             Access access = Database.Accesses.Get(AccessDto.Id);
 
             // валидация
-            if (access.TypeAccess.Name != "Редактирование")
-                throw new ValidationException("Нет доступа на создание/редактирование обекта!", "");
+            if (access == null)
+                throw new ValidationException("Доступ с таким ID уже создан", "");
 
-            // применяем скидку
-            // decimal sum = new Discount(0.1m).GetDiscountedPrice(phone.Price);
             Access Access = new Access
             {
-              
+           
             };
 
             //if (AccessDto.Passport != null)

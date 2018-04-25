@@ -31,13 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\Dinamika\ACSDynamics\ACSDynamics\bin\Debug\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\..\Dinamika\ACSDynamics\ACSDynamics\bin\Debug\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.EntityFrameworkCore, Version=1.1.5.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.1.1.5\lib\net451\Microsoft.EntityFrameworkCore.dll</HintPath>
@@ -74,7 +72,9 @@
     <Compile Include="Configuration\OrganizationalStructure\PostNameUserConfig.cs" />
     <Compile Include="Configuration\OrganizationalStructure\UserConfig.cs" />
     <Compile Include="EF\ACSContext.cs" />
+    <Compile Include="Configuration\ASPIdentityUser\ASPIdentityUserConfig.cs" />
     <Compile Include="EF\MyContextFactory.cs" />
+    <Compile Include="Configuration\OrganizationalStructure\UserPassportConfig.cs" />
     <Compile Include="Entities\Access\Access.cs" />
     <Compile Include="Entities\ASPIdentityUser\ASPClaimsIdentityUser.cs" />
     <Compile Include="Entities\ASPIdentityUser\ASPIdentityUser.cs" />

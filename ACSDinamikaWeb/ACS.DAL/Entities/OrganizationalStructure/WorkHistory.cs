@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Entities
 {
-
+    /// <summary>
+    /// Кадровая история
+    /// </summary>
     public partial class WorkHistory : SystemParameters
     {
         public int Id { get; set; }
@@ -17,16 +19,23 @@ namespace ACS.DAL.Entities
         /// </summary>
         public string PostName { get; set; }
 
+        public int DepartmentId { get; set; }
+
         /// <summary>
         /// Отдел
         /// </summary>
         public virtual Department Department { get; set; }
+
+        public int PostUserСode1СId { get; set; }
 
         /// <summary>
         /// Пользователь и Код должности 1С
         /// </summary>
         public virtual PostUserСode1С PostUserСode1С { get; set; }
 
+        /// <summary>
+        /// Ставка
+        /// </summary>
         public double? Rate { get; set; }
 
         [Column(TypeName = "date")]
