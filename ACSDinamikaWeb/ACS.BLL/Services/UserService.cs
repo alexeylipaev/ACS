@@ -18,45 +18,37 @@ namespace ACS.BLL.Services
         {
             Database = uow;
         }
-        public void MakeUser(UserDTO UserDto/*, CurrentUser Guid*/)
+        public void MakeUser(UserDTO UserDTO)
         {
-            Access access = Database.Accesses.Get(Guid.NewGuid());
+            User user = Database.Users.Get(UserDTO.Id);
 
-            // валидация
-            if (access.TypeAccess.Name != "Редактирование")
-                throw new ValidationException("Нет доступа на создание/редактирование обекта!", "");
-
-            // применяем скидку
-            // decimal sum = new Discount(0.1m).GetDiscountedPrice(phone.Price);
+          
             User User = new User
             {
-                LName = UserDto.LName,
-                FName = UserDto.FName,
-                MName = UserDto.MName,
+                LName = UserDTO.LName,
+                FName = UserDTO.MName,
+                MName = UserDTO.MName,
                 //FullName = dataUser.ФИО,
                 //ShortName = String.Format("{0} {1}.{2}.", DataFullNameEmp[0], DataFullNameEmp[1].FirstOrDefault(), DataFullNameEmp[2].FirstOrDefault()),
-                SID = UserDto.SID,
-                Guid1C = UserDto.Guid1C,
+                SID = UserDTO.SID,
+                Guid1C = UserDTO.Guid1C,
 
-                Birthday = UserDto.Birthday,
+                Birthday = UserDTO.Birthday,
                 //EMail = dataUserAD.Email,
-                PersonnelNumber = UserDto.PersonnelNumber,
+                PersonnelNumber = UserDTO.PersonnelNumber,
 
-                //s_AuthorID = 1,
-                //s_EditorID = 1,
+                //Passport = new UserPassport()
+                //{
+                //    //паспортные данные
+                //    DateOfIssue = UserDTO.Passport.DateOfIssue,
+                //    IssuedBy = UserDTO.Passport.IssuedBy,
+                //    Number =  UserDTO.Passport.Number,
+                //    Series =  UserDTO.Passport.Series,
+                //    UnitCode = UserDTO.Passport.UnitCode,
+                //},
+                
+
             };
-
-            //if (UserDto.Passport != null)
-            //    User.Passport = new UserPassport()
-            //    {
-            //        //паспортные данные
-            //        DateOfIssue = UserDto.Passport.DateOfIssue,
-            //        IssuedBy = UserDto.Passport.IssuedBy,
-            //        Number = UserDto.Passport.Number,
-            //        Series = UserDto.Passport.Series,
-            //        UnitCode = UserDto.Passport.UnitCode,
-            //    };
-
             Database.Users.Create(User);
             Database.Save();
         }
@@ -73,34 +65,32 @@ namespace ACS.BLL.Services
             if (id == null)
                 throw new ValidationException("Не установлено id пользователя", "");
 
-            var user = Database.Users.Get(id.Value);
-
-            if (user == null)
+            var User = Database.Users.Get(id.Value);
+            if (User == null)
                 throw new ValidationException("Пользователь не найден", "");
 
-            return new UserDTO
-            {
-                LName = user.LName,
-                FName = user.FName,
-                MName = user.MName,
+            return new UserDTO {
+                LName = User.LName,
+                FName = User.MName,
+                MName = User.MName,
                 //FullName = dataUser.ФИО,
                 //ShortName = String.Format("{0} {1}.{2}.", DataFullNameEmp[0], DataFullNameEmp[1].FirstOrDefault(), DataFullNameEmp[2].FirstOrDefault()),
-                SID = user.SID,
-                Guid1C = user.Guid1C,
+                SID = User.SID,
+                Guid1C = User.Guid1C,
 
-                Birthday = user.Birthday,
+                Birthday = User.Birthday,
                 //EMail = dataUserAD.Email,
-                PersonnelNumber = user.PersonnelNumber,
-                Passport = new UserPassportDTO()
+                PersonnelNumber = User.PersonnelNumber,
+
+                //Passport = new UserPassportDTO()
                 //{
                 //    //паспортные данные
-                //    DateOfIssue = user.Passport.DateOfIssue,
-                //    IssuedBy = user.Passport.IssuedBy,
-                //    Number = user.Passport.Number,
-                //    Series = user.Passport.Series,
-                //    UnitCode = user.Passport.UnitCode,
-
-                //} 
+                //    DateOfIssue = User.Passport.DateOfIssue,
+                //    IssuedBy = User.Passport.IssuedBy,
+                //    Number = User.Passport.Number,
+                //    Series = User.Passport.Series,
+                //    UnitCode = User.Passport.UnitCode,
+                //},
             };
         }
 
