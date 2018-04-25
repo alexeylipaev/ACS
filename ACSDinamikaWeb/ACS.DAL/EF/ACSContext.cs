@@ -57,22 +57,22 @@ namespace ACS.DAL.EF
             var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
             modelBuilder.Conventions.Add(convention);
 
-            //modelBuilder.Configurations.Add(new AccessConfig());
-            //modelBuilder.Configurations.Add(new ASPClaimsIdentityUserConfig());
+            modelBuilder.Configurations.Add(new AccessConfig());
+            modelBuilder.Configurations.Add(new ASPClaimsIdentityUserConfig());
             //modelBuilder.Configurations.Add(new ASPIdentityUserConfig());
-            //modelBuilder.Configurations.Add(new ASPLoginsIdentityUserConfig());
-            //modelBuilder.Configurations.Add(new ASPRolesIdentityUserConfig());
-            //modelBuilder.Configurations.Add(new ChancelleryConfig());
-            //modelBuilder.Configurations.Add(new DataEntityConfig());
-            //modelBuilder.Configurations.Add(new DepartmentConfig());
-            //modelBuilder.Configurations.Add(new ExternalOrganizationChancelleryConfig());
-            //modelBuilder.Configurations.Add(new FileRecordChancelleryConfig());
-            //modelBuilder.Configurations.Add(new FolderChancelleryConfig());
-            //modelBuilder.Configurations.Add(new JournalRegistrationsChancelleryConfig());
-            //modelBuilder.Configurations.Add(new PostNameUserConfig());
-            //modelBuilder.Configurations.Add(new TypeAccessConfig());
-            //modelBuilder.Configurations.Add(new TypeRecordChancelleryConfig());
-            //modelBuilder.Configurations.Add(new UserConfig());
+            modelBuilder.Configurations.Add(new ASPLoginsIdentityUserConfig());
+            modelBuilder.Configurations.Add(new ASPRolesIdentityUserConfig());
+            modelBuilder.Configurations.Add(new ChancelleryConfig());
+            modelBuilder.Configurations.Add(new DataEntityConfig());
+            modelBuilder.Configurations.Add(new DepartmentConfig());
+            modelBuilder.Configurations.Add(new ExternalOrganizationChancelleryConfig());
+            modelBuilder.Configurations.Add(new FileRecordChancelleryConfig());
+            modelBuilder.Configurations.Add(new FolderChancelleryConfig());
+            modelBuilder.Configurations.Add(new JournalRegistrationsChancelleryConfig());
+            modelBuilder.Configurations.Add(new PostNameUserConfig());
+            modelBuilder.Configurations.Add(new TypeAccessConfig());
+            modelBuilder.Configurations.Add(new TypeRecordChancelleryConfig());
+            modelBuilder.Configurations.Add(new UserConfig());
             //modelBuilder.Configurations.Add(new UserPassportConfig());
 
         }

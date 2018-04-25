@@ -20,8 +20,7 @@ namespace ACS.DAL.Entities
             //Chancelleries = new HashSet<Chancellery>();
             PostUserСode1С = new HashSet<PostUserСode1С>();
             ASPIdentityUser = new ASPIdentityUser();
-
-            Passport = new UserPassport();
+            //Passport = new UserPassport();
         }
 
         public int Id { get; set; }
@@ -36,7 +35,7 @@ namespace ACS.DAL.Entities
         [StringLength(25)]
         public string MName { get; set; }
 
-        public int? PersonnelNumber { get; set; }
+        public string PersonnelNumber { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? Birthday { get; set; }
@@ -47,10 +46,9 @@ namespace ACS.DAL.Entities
 
         public Guid? Guid1C { get; set; }
 
-        public virtual UserPassport Passport { get; set; }
+        public  UserPassport Passport { get; set; }
 
-        public virtual ASPIdentityUser ASPIdentityUser { get; set; }
-
+        public  ASPIdentityUser ASPIdentityUser { get; set; }
 
         public virtual ICollection<Access> Accesses { get; set; }
 

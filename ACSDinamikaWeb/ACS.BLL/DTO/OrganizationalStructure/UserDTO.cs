@@ -32,12 +32,12 @@ namespace ACS.BLL.DTO
        
         public string MName { get; set; }
 
-        public int? PersonnelNumber { get; set; }
+        public string PersonnelNumber { get; set; }
 
       
         public DateTime? Birthday { get; set; }
 
-        public virtual UserPassportDTO Passport { get; set; } = null;
+        public virtual UserPassportDTO Passport { get; set; } 
 
 
         public string SID { get; set; }

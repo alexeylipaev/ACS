@@ -61,7 +61,6 @@
     <Compile Include="Configuration\Access\AccessConfig.cs" />
     <Compile Include="Configuration\Access\TypeAccessConfig.cs" />
     <Compile Include="Configuration\ASPIdentityUser\ASPClaimsIdentityUserConfig.cs" />
-    <Compile Include="Configuration\ASPIdentityUser\ASPIdentityUserConfig.cs" />
     <Compile Include="Configuration\ASPIdentityUser\ASPLoginsIdentityUserConfig.cs" />
     <Compile Include="Configuration\ASPIdentityUser\ASPRolesIdentityUserConfig.cs" />
     <Compile Include="Configuration\Chancellery\ChancelleryConfig.cs" />
@@ -74,7 +73,6 @@
     <Compile Include="Configuration\OrganizationalStructure\DepartmentConfig.cs" />
     <Compile Include="Configuration\OrganizationalStructure\PostNameUserConfig.cs" />
     <Compile Include="Configuration\OrganizationalStructure\UserConfig.cs" />
-    <Compile Include="Configuration\OrganizationalStructure\UserPassportConfig.cs" />
     <Compile Include="EF\ACSContext.cs" />
     <Compile Include="EF\MyContextFactory.cs" />
     <Compile Include="Entities\Access\Access.cs" />
