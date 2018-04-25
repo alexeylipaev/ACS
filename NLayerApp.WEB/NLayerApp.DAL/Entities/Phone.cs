@@ -9,6 +9,7 @@ namespace NLayerApp.DAL.Entities
         public Phone()
         {
             PhoneInfo = new PhoneInfo();
+            Orders = new HashSet<Order>();
         }
 
         public int Id { get; set; }

@@ -19,6 +19,9 @@ namespace ACS.DAL.Entities
            
             //Chancelleries = new HashSet<Chancellery>();
             PostUserСode1С = new HashSet<PostUserСode1С>();
+            ASPIdentityUser = new ASPIdentityUser();
+
+            Passport = new UserPassport();
         }
 
         public int Id { get; set; }
