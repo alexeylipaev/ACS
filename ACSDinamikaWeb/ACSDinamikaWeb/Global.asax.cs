@@ -29,9 +29,9 @@ namespace ACSWeb
             var kernel = new StandardKernel(userModule, serviceModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
 
-            NinjectModule accessModule = new AccessModule();
-            var kernel2 = new StandardKernel(accessModule, serviceModule);
-            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel2));
+            //NinjectModule accessModule = new AccessModule();
+            //var kernel2 = new StandardKernel(accessModule, serviceModule);
+            //DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel2));
         }
     }
 }
