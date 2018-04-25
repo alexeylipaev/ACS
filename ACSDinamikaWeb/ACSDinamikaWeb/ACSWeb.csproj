@@ -190,6 +190,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -286,11 +287,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Accesses\Create.cshtml" />
-    <Content Include="Views\Accesses\Delete.cshtml" />
-    <Content Include="Views\Accesses\Details.cshtml" />
-    <Content Include="Views\Accesses\Edit.cshtml" />
-    <Content Include="Views\Accesses\Index.cshtml" />
+    <Content Include="Views\Accesss\Create.cshtml" />
+    <Content Include="Views\Accesss\Delete.cshtml" />
+    <Content Include="Views\Accesss\Details.cshtml" />
+    <Content Include="Views\Accesss\Edit.cshtml" />
+    <Content Include="Views\Access\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutCancelaria.cshtml" />
     <Content Include="Views\.editorconfig" />
     <Content Include="Views\Users\Index.cshtml" />

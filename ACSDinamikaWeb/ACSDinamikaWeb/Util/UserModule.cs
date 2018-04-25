@@ -15,4 +15,12 @@ namespace ACSWeb.Util
             Bind<IUserService>().To<UserService>();
         }
     }
+
+    public class AccessModule : NinjectModule
+    {
+        public override void Load()
+        {
+            Bind<IAccessService>().To<AccessService>();
+        }
+    }
 }

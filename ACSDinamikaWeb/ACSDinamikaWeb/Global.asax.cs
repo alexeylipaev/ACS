@@ -23,10 +23,15 @@ namespace ACSWeb
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             // внедрение зависимостей
-            NinjectModule userModule = new UserModule();
             NinjectModule serviceModule = new ServiceModule("ACSContextConnection");
+
+            NinjectModule userModule = new UserModule();
             var kernel = new StandardKernel(userModule, serviceModule);
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+
+            NinjectModule accessModule = new AccessModule();
+            var kernel2 = new StandardKernel(accessModule, serviceModule);
+            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel2));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ACSWeb.Models.EF.CFFromDB.Access>
+﻿@model IEnumerable<ACSWeb.Models.AccessViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -16,7 +16,7 @@
             @Html.DisplayNameFor(model => model.TypeAccess.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserGuid1C)
+            @Html.DisplayNameFor(model => model.User.Guid1C)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.GuidObject)
@@ -60,7 +60,7 @@
             @Html.DisplayFor(modelItem => item.TypeAccess.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.UserGuid1C)
+            @Html.DisplayFor(modelItem => item.User.Guid1C)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.GuidObject)
