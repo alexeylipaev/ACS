@@ -16,7 +16,7 @@ namespace ACSWeb.Models
         public UserViewModel()
         {
             Accesses = new HashSet<AccessViewModel>();
-
+    
             ////Chancelleries = new HashSet<Chancellery>();
             PostUserСode1С = new HashSet<PostUserСode1СViewModel>();
         }
@@ -32,7 +32,7 @@ namespace ACSWeb.Models
        
         public string MName { get; set; }
 
-        public int? PersonnelNumber { get; set; }
+        public string PersonnelNumber { get; set; }
 
       
         public DateTime? Birthday { get; set; }
@@ -40,7 +40,6 @@ namespace ACSWeb.Models
         public UserPassportViewModel Passport { get; set; }
 
 
-       
         public string SID { get; set; }
 
         public Guid? Guid1C { get; set; }

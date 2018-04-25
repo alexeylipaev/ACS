@@ -17,13 +17,13 @@ namespace ACS.DAL.Entities
             Roles = new HashSet<ASPRolesIdentityUser>();
         }
 
-        [Required]
+        //[Required]
         public string IdentityUserName { get; set; }
 
-        [Required]
+        //[Required]
         public string PasswordHash { get; set; }
 
-        [Required]
+        //[Required]
         public string SecurityStamp { get; set; }
 
         [StringLength(100)]

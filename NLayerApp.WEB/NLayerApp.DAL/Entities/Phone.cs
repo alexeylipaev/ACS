@@ -8,7 +8,7 @@ namespace NLayerApp.DAL.Entities
     {
         public Phone()
         {
-            PhoneInfo = new PhoneInfo();
+            //PhoneInfo = new PhoneInfo();
             Orders = new HashSet<Order>();
         }
 

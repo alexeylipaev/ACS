@@ -14,6 +14,7 @@ namespace ACS.DAL.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(ACSContext db)
@@ -67,6 +68,7 @@ namespace ACS.DAL.Migrations
                 Console.WriteLine(dataUserAD.SID.ToString().Length.ToString());
                 var newDataUser = new User()
                 {
+                    
                     LName = DataFullNameEmp[0],
                     FName = DataFullNameEmp[1],
                     MName = DataFullNameEmp[2],
@@ -77,7 +79,8 @@ namespace ACS.DAL.Migrations
 
                     Birthday = XMLDataTypeConverter.GetDateTime(dataUser.ДатаРождения),
                     //EMail = dataUserAD.Email,
-                    PersonnelNumber = Convert.ToInt32(dataUser.ТабельныйНомер),
+                    //PersonnelNumber = Convert.ToInt32(dataUser.ТабельныйНомер),
+                    PersonnelNumber = dataUser.ТабельныйНомер,
 
                     Passport = new UserPassport()
                     {
@@ -89,17 +92,37 @@ namespace ACS.DAL.Migrations
                         UnitCode = dataUser.ДокументКодПодразделения,
                     },
 
-
-                    s_AuthorID = 1,
-                    s_EditorID = 1,
-
-
+                    //s_AuthorID = 1,
+                    //s_EditorID = 1,
                 };
+
+                //if (newDataUser.Passport == null)
+                //{
+                //    newDataUser.Passport = new UserPassport()
+                //    {
+                //        //паспортные данные
+                //        DateOfIssue = XMLDataTypeConverter.GetDateTime(dataUser.ДокументДатаВыдачи),
+                //        IssuedBy = dataUser.ДокументКемВыдан,
+                //        Number = dataUser.ДокументНомер.ToString(),
+                //        Series = dataUser.ДокументСерия,
+                //        UnitCode = dataUser.ДокументКодПодразделения,
+                //    };
+                //}
+                //else
+                //{
+                //    //паспортные данные
+                //    newDataUser.Passport.DateOfIssue = XMLDataTypeConverter.GetDateTime(dataUser.ДокументДатаВыдачи);
+                //    newDataUser.Passport.IssuedBy = dataUser.ДокументКемВыдан;
+                //    newDataUser.Passport.Number = dataUser.ДокументНомер.ToString();
+                //    newDataUser.Passport.Series = dataUser.ДокументСерия;
+                //    newDataUser.Passport.UnitCode = dataUser.ДокументКодПодразделения;
+                //}
 
                 Context.Users.Add(newDataUser);
 
                 Context.SaveChanges();
             }
+
         }
 
         /// <summary>
@@ -116,6 +139,7 @@ namespace ACS.DAL.Migrations
 
             foreach (var dataDepartment in query)
             {
+                if (string.IsNullOrEmpty(dataDepartment.Код)) continue;
                 var department = new Department()
                 {
                     Name = dataDepartment.Наименование,
@@ -332,6 +356,6 @@ namespace ACS.DAL.Migrations
     }
 
 
-   
+
 
 }

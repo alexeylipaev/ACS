@@ -12,29 +12,35 @@ namespace ACS.DAL.Configuration
     {
         public UserConfig()
         {
-            
-               Property(e => e.FName)
-               .IsUnicode(false);
 
-            
-                Property(e => e.LName)
-                .IsUnicode(false);
-
-            
-                Property(e => e.MName)
-                .IsUnicode(false);
+            Property(e => e.FName)
+            .IsUnicode(false);
 
 
-                Property(e => e.SID)
-                .IsUnicode(false);
-           
-                HasMany(e => e.Accesses)
-                .WithOptional(e => e.User)
-                .WillCascadeOnDelete();
+            Property(e => e.LName)
+            .IsUnicode(false);
 
-            HasOptional(e => e.Passport);
-              
-                //.HasForeignKey(e => e.ResponsibleUserId);
+
+            Property(e => e.MName)
+            .IsUnicode(false);
+
+
+            Property(e => e.SID)
+            .IsUnicode(false);
+
+            HasMany(e => e.Accesses)
+            .WithOptional(e => e.User)
+            .WillCascadeOnDelete();
+
+            // HasMany(e => e.PostUserСode1С)
+            //.WithOptional(e => e.User)
+            //.WillCascadeOnDelete();
+
+
+
+            //HasOptional(e => e.Passport);
+
+            //.HasForeignKey(e => e.ResponsibleUserId);
         }
     }
 }

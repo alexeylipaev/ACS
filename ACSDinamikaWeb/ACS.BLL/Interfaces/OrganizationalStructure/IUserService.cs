@@ -11,7 +11,6 @@ namespace ACS.BLL.Interfaces
     {
         void MakeUser(UserDTO userDto);
         UserDTO GetUser(int? id);
-
         IEnumerable<UserDTO> GetUsers();
         void Dispose();
     }
