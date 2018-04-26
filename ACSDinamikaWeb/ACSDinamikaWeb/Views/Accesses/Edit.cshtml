@@ -1,4 +1,4 @@
-﻿@model ACSWeb.Models.EF.CFFromDB.Access
+﻿@model ACSWeb.ViewModel.AccessViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -13,18 +13,12 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Access</h4>
-        <hr />
+        <h4>Доступ</h4>
+        <hr />   
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
+         
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserGuid1C, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserGuid1C, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserGuid1C, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.GuidObject, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -135,7 +129,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Вернуться к списку", "Index")
 </div>
 
 @section Scripts {

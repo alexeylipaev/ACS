@@ -294,10 +294,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Accesss\Create.cshtml" />
-    <Content Include="Views\Accesss\Delete.cshtml" />
-    <Content Include="Views\Accesss\Details.cshtml" />
-    <Content Include="Views\Accesss\Edit.cshtml" />
+    <Content Include="Views\Accesses\Create.cshtml" />
+    <Content Include="Views\Accesses\Delete.cshtml" />
+    <Content Include="Views\Accesses\Details.cshtml" />
+    <Content Include="Views\Accesses\Edit.cshtml" />
     <Content Include="Views\Access\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutCancelaria.cshtml" />
     <Content Include="Views\.editorconfig" />
@@ -305,8 +305,12 @@
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Chancellery\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

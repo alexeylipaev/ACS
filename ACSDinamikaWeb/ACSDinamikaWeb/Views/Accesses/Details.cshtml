@@ -1,4 +1,5 @@
-﻿@model ACSWeb.Models.EF.CFFromDB.Access
+﻿@model ACSWeb.ViewModel.AccessViewModel
+
 
 @{
     ViewBag.Title = "Details";
@@ -11,20 +12,13 @@
     <h4>Access</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.TypeAccess.Name)
+            @Html.DisplayNameFor(model => model.Id)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TypeAccess.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserGuid1C)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserGuid1C)
+            @Html.DisplayFor(model => model.Id)
         </dd>
 
         <dt>
@@ -118,6 +112,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Вернуться к списку", "Index")
 </p>

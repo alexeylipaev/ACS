@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACSWeb.ViewModels
+namespace ACSWeb.ViewModel
 {
 
     public partial class DataEntityViewModel : SystemParametersViewModel

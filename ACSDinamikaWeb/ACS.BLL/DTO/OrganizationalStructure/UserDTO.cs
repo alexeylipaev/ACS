@@ -29,6 +29,8 @@ namespace ACS.BLL.DTO
 
         public string MName { get; set; }
 
+        public string Email { get; set; }
+
         /// <summary>
         /// Табельный номер
         /// </summary>

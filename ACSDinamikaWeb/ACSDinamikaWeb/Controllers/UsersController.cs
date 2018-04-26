@@ -77,15 +77,15 @@ namespace ACSWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FName,LName,MName")] UserViewModel userVM)
+        public ActionResult Create([Bind(Include = "Id,FName,LName,MName,Email")] UserViewModel userVM)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var userDto = new UserDTO { Id = userVM.Id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName };
+                    var userDto = new UserDTO { Id = userVM.Id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName, Email  = userVM.Email};
                     userService.MakeUser(userDto);
-                    return Content("<h2>Ваш заказ успешно оформлен</h2>");
+                    return Content("<h2>Пользователь успешно создан</h2>");
                 }
             }
             catch (ValidationException ex)

@@ -1,22 +1,19 @@
-﻿@model IEnumerable<ACSWeb.Models.AccessViewModel>
+﻿@model IEnumerable<ACSWeb.ViewModel.AccessViewModel>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Доступы</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Создать Новый", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TypeAccess.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.Guid1C)
+            @Html.DisplayNameFor(model => model.Id)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.GuidObject)
@@ -26,6 +23,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeAccessId)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.s_Guid)
@@ -57,19 +57,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.TypeAccess.Name)
+            @Html.DisplayNameFor(model => model.Id)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User.Guid1C)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GuidObject)
+            @Html.DisplayNameFor(model => model.GuidObject)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Value)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeAccessId)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.s_Guid)
@@ -96,9 +96,9 @@
             @Html.DisplayFor(modelItem => item.s_InBasket)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Подробная информация", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
