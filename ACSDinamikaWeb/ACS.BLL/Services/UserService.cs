@@ -173,21 +173,22 @@ namespace ACS.BLL.Services
 
             if (User == null)
                 throw new ValidationException("Пользователь с параметром не найден", propertyValue);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
+            return mapper.Map<User, UserDTO>(User);
+            //return new UserDTO
+            //{
+            //    LName = User.LName,
+            //    FName = User.MName,
+            //    MName = User.MName,
 
-            return new UserDTO
-            {
-                LName = User.LName,
-                FName = User.MName,
-                MName = User.MName,
+            //    SID = User.SID,
+            //    Guid1C = User.Guid1C,
 
-                SID = User.SID,
-                Guid1C = User.Guid1C,
+            //    Birthday = User.Birthday,
 
-                Birthday = User.Birthday,
+            //    PersonnelNumber = User.PersonnelNumber,
 
-                PersonnelNumber = User.PersonnelNumber,
-
-            };
+            //};
         }
 
         public UserDTO GetUser(int? id)
@@ -199,19 +200,21 @@ namespace ACS.BLL.Services
             if (User == null)
                 throw new ValidationException("Пользователь не найден", "");
 
-            return new UserDTO {
-                LName = User.LName,
-                FName = User.MName,
-                MName = User.MName,
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
+            return mapper.Map<User, UserDTO>(User);
+            //return new UserDTO {
+            //    LName = User.LName,
+            //    FName = User.MName,
+            //    MName = User.MName,
               
-                SID = User.SID,
-                Guid1C = User.Guid1C,
+            //    SID = User.SID,
+            //    Guid1C = User.Guid1C,
 
-                Birthday = User.Birthday,
+            //    Birthday = User.Birthday,
                
-                PersonnelNumber = User.PersonnelNumber,
+            //    PersonnelNumber = User.PersonnelNumber,
 
-            };
+            //};
         }
 
         public void Dispose()

@@ -43,7 +43,9 @@ namespace ACSWeb.Controllers
             try
             {
                 UserDTO user = userService.GetUser(id);
-                var userVM = new UserViewModel { Id = user.Id };
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, UserViewModel>()).CreateMapper();
+                var userVM = mapper.Map<UserDTO, UserViewModel>(user);
+                //var userVM = new UserViewModel { Id = user.Id };
 
                 return View(userVM);
             }
@@ -62,11 +64,10 @@ namespace ACSWeb.Controllers
                 if (id != null)
                 {
                     UserDTO userDTO = userService.GetUser(id);
-                    userVM.Id = userDTO.Id;
+                    var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, UserViewModel>()).CreateMapper();
+                    userVM = mapper.Map<UserDTO, UserViewModel>(userDTO);
+                    //userVM.Id = userDTO.Id;
                 }
-                
-               
-                
                 return View(userVM);
             }
             catch (ValidationException ex)
@@ -98,7 +99,7 @@ namespace ACSWeb.Controllers
                     string currentUserEmail = CurrentUserEmail();
                     var userDto = new UserDTO { Id = userVM.Id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName, Email  = userVM.Email};
                     userService.MakeUser(userDto, currentUserEmail);
-                    return Content("<h2>Пользователь успешно создан</h2>");
+                    return RedirectToAction("Index");
                 }
             }
             catch (ValidationException ex)
@@ -115,7 +116,9 @@ namespace ACSWeb.Controllers
             if (id != null)
             {
                 UserDTO userDTO = userService.GetUser(id);
-                userVM.Id = userDTO.Id;
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, UserViewModel>()).CreateMapper();
+                userVM = mapper.Map<UserDTO, UserViewModel>(userDTO);
+                //userVM.Id = userDTO.Id;
             }
 
             return View(userVM);
@@ -171,13 +174,13 @@ namespace ACSWeb.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                userService.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }
