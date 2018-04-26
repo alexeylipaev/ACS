@@ -33,6 +33,10 @@ namespace ACS.DAL.Repositories
         {
             return db.TypeRecordChancelleries.Find(guid);
         }
+        public TypeRecordChancellery Get(string propertyValue)
+        {
+            return db.TypeRecordChancelleries.Find(propertyValue);
+        }
 
         public void Create(TypeRecordChancellery type)
         {

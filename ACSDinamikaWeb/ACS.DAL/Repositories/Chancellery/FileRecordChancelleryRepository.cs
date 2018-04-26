@@ -23,7 +23,10 @@ namespace ACS.DAL.Repositories
         {
             return db.FileRecordChancelleries;
         }
-
+        public FileRecordChancellery Get(string propertyValue)
+        {
+            return db.FileRecordChancelleries.Find(propertyValue);
+        }
         public FileRecordChancellery Get(int id)
         {
             return db.FileRecordChancelleries.Find(id);

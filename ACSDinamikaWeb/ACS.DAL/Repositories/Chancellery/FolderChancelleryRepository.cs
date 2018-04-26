@@ -28,7 +28,10 @@ namespace ACS.DAL.Repositories
         {
             return db.FolderChancelleries.Find(id);
         }
-
+        public FolderChancellery Get(string propertyValue)
+        {
+            return db.FolderChancelleries.Find(propertyValue);
+        }
         public FolderChancellery Get(Guid guid)
         {
             return db.FolderChancelleries.Find(guid);

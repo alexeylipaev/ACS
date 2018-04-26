@@ -28,7 +28,10 @@ namespace ACS.DAL.Repositories
         {
             return db.Departments.Find(id);
         }
-
+        public Department Get(string propertyValue)
+        {
+            return db.Departments.Find(propertyValue);
+        }
         public Department Get(Guid Guid)
         {
             return db.Departments.Find(Guid);

@@ -28,7 +28,10 @@ namespace ACS.DAL.Repositories
         {
             return db.ExternalOrganizationChancelleries.Find(id);
         }
-
+        public ExternalOrganizationChancellery Get(string propertyValue)
+        {
+            return db.ExternalOrganizationChancelleries.Find(propertyValue);
+        }
         public ExternalOrganizationChancellery Get(Guid guid)
         {
             return db.ExternalOrganizationChancelleries.Find(guid);

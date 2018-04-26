@@ -29,7 +29,10 @@ namespace ACS.DAL.Repositories
         {
             return db.TypeAccesses.Find(id);
         }
-
+        public TypeAccess Get(string propertyValue)
+        {
+            return db.TypeAccesses.Find(propertyValue);
+        }
         public TypeAccess Get(Guid guid)
         {
             return db.TypeAccesses.Find(guid);
