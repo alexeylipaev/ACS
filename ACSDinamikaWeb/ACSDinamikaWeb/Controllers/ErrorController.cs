@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace ACSWeb.Controllers
 {
+    [AllowAnonymous]
     public class ErrorController : Controller
     {
         // GET: Error
@@ -13,7 +14,7 @@ namespace ACSWeb.Controllers
         {
             return View();
         }
-        // GET: Error
+        // GET: Error/NotFound
         public ActionResult NotFound()
         {
             return View();

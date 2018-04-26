@@ -10,7 +10,7 @@ using ACSWeb.ViewModel;
 
 namespace ACSWeb.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class UsersController : Controller
     {
         //private ACSContext db = new ACSContext();
