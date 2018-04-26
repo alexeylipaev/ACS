@@ -15,9 +15,9 @@ namespace ACS.BLL.DTO
 
         public UserDTO()
         {
-            AccessDTOes = new HashSet<AccessDTO>();
+            Accesses = new HashSet<AccessDTO>();
             Chancelleries = new HashSet<ChancelleryDTO>();
-            PostUserСode1СDTO = new HashSet<PostUserСode1СDTO>();
+            PostUserСode1С = new HashSet<PostUserСode1СDTO>();
         }
 
         public int Id { get; set; }
@@ -45,7 +45,7 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Доступы пользователя
         /// </summary>
-        public virtual ICollection<AccessDTO> AccessDTOes { get; set; }
+        public virtual ICollection<AccessDTO> Accesses { get; set; }
 
         /// <summary>
         /// Канцелярские записи пользователя
@@ -55,6 +55,6 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Коды1С должностей пользователя
         /// </summary>
-        public virtual ICollection<PostUserСode1СDTO> PostUserСode1СDTO { get; set; }
+        public virtual ICollection<PostUserСode1СDTO> PostUserСode1С { get; set; }
     }
 }

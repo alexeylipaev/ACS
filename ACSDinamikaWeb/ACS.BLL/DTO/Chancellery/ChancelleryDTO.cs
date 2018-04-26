@@ -42,7 +42,7 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Папка
         /// </summary>
-        public virtual FolderChancelleryDTO FolderChancelleryDTO { get; set; }
+        public virtual FolderChancelleryDTO FolderChancellery { get; set; }
 
         #endregion
 
@@ -52,7 +52,7 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Журнал
         /// </summary>
-        public virtual JournalRegistrationsChancelleryDTO JournalRegistrationsChancelleryDTO { get; set; }
+        public virtual JournalRegistrationsChancelleryDTO JournalRegistrationsChancellery { get; set; }
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Тип записи
         /// </summary>
-        public virtual TypeRecordChancelleryDTO TypeRecordChancelleryDTO { get; set; }
+        public virtual TypeRecordChancelleryDTO TypeRecordChancellery { get; set; }
 
         #endregion
 
