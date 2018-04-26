@@ -7,15 +7,16 @@ namespace ACS.DAL.Configuration
     {
         public ASPIdentityUserConfig()
         {
-       
+
+
             Property(e => e.UserName)
                 .IsUnicode(true);
 
             Property(e => e.PasswordHash)
                 .IsUnicode(true);
 
-           Property(e => e.SecurityStamp)
-                .IsUnicode(true);
+            Property(e => e.SecurityStamp)
+                 .IsUnicode(true);
 
             Property(e => e.EMail)
                 .IsUnicode(true);
