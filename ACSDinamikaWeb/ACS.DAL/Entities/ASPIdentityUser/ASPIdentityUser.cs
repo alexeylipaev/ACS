@@ -40,10 +40,10 @@ namespace ACS.DAL.Entities
         [Required]
         public string SecurityStamp { get; set; }
 
-        [Index("EMail_Index", IsUnique = true)]
-        [StringLength(100)]
-        [Required]
+        [Required, Index("EMail_Index", IsUnique = true), StringLength(150)]
         public string EMail { get; set; }
+
+        public string SID { get; set; }
 
         /// <summary>
         /// Свойство навигации для утверждений пользователя
