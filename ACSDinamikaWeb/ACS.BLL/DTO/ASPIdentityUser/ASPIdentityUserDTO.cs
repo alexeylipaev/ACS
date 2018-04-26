@@ -34,6 +34,8 @@ namespace ACS.BLL.DTO
 
         public string EMail { get; set; }
 
+        public string SID { get; set; }
+
         ///// <summary>
         ///// Свойство навигации для утверждений пользователя
         ///// </summary>

@@ -6,7 +6,7 @@
 }
 
 
-<h2>Index</h2>
+<h2>Пользователи</h2>
 
 <p>
     @Html.ActionLink("Создать нового", "Create")
@@ -14,14 +14,18 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FName)
+            Фамилия
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MName)
+            Имя
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LName)
+          Отчество
         </th>
+        <th>
+            Email
+        </th>
+
         <th></th>
     </tr>
 
@@ -29,15 +33,18 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FName)
+                @Html.DisplayFor(modelItem => item.LName) 
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MName)
+              @Html.DisplayFor(modelItem => item.FName)  
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LName)
+              @Html.DisplayFor(modelItem => item.MName)
             </td>
-            
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Подробнее", "Details", new { id = item.Id }) |

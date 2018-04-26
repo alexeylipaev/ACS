@@ -21,6 +21,8 @@ namespace ACSWeb.ViewModel
         /// </summary>
         public string UserName { get; set; }
 
+        public string SID { get; set; }
+
         /// <summary>
         /// Начальная и хэшированная формы пароля пользователя
         /// </summary>
