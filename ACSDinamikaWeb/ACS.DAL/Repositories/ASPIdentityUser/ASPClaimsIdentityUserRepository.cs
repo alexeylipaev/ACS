@@ -24,10 +24,7 @@ namespace ACS.DAL.Repositories
         {
             return db.ASPClaimsIdentityUsers;
         }
-        public ASPClaimsIdentityUser Get(string propertyValue)
-        {
-            return db.ASPClaimsIdentityUsers.Find(propertyValue);
-        }
+
         public ASPClaimsIdentityUser Get(int id)
         {
             return db.ASPClaimsIdentityUsers.Find(id);

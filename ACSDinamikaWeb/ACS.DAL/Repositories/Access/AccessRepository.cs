@@ -24,10 +24,7 @@ namespace ACS.DAL.Repositories
         {
             return db.Accesses;
         }
-        public Access Get(string propertyValue)
-        {
-            return db.Accesses.Find(propertyValue);
-        }
+
         public Access Get(int id)
         {
             return db.Accesses.Find(id);

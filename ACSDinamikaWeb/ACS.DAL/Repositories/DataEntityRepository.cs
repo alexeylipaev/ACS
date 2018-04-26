@@ -23,10 +23,7 @@ namespace ACS.DAL.Repositories
         {
             return db.DataEntityis;
         }
-        public DataEntity Get(string propertyValue)
-        {
-            return db.DataEntityis.Find(propertyValue);
-        }
+
         public DataEntity Get(int id)
         {
             return db.DataEntityis.Find(id);
