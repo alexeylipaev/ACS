@@ -11,6 +11,9 @@ namespace ACS.DAL.Interfaces
         IEnumerable<T> GetAll();
         T Get(int id);
         T Get(Guid Guid);
+
+        T Get(string propertyvalue);
+
         IEnumerable<T> Find(Func<T, Boolean> predicate);
         void Create(T item);
         void Update(T item);

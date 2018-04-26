@@ -10,8 +10,17 @@ namespace ACS.BLL.Interfaces
     public interface IUserService
     {
         void MakeUser(UserDTO userDto);
+
+        void MakeUser(UserDTO userDto, string authorEmail);
+
+        void UpdateUser(UserDTO userDto, string authorEmail);
+
         UserDTO GetUser(int? id);
+
+        UserDTO GetUser(string propertyValue);
+
         IEnumerable<UserDTO> GetUsers();
+
         void Dispose();
     }
 }

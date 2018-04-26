@@ -29,6 +29,13 @@ namespace ACS.DAL.Repositories
         {
             return db.Users.Find(id);
         }
+
+        public User Get(string propertyValue)
+        {
+            return db.Users.Find(propertyValue);
+        }
+
+
         public User Get(Guid Guid)
         {
             return db.Users.Find(Guid);
