@@ -47,7 +47,7 @@ namespace ACSWeb.Controllers
                 var userVM = mapper.Map<UserDTO, UserViewModel>(user);
                 //var userVM = new UserViewModel { Id = user.Id };
 
-                return View(userVM);
+                return PartialView(userVM);
             }
             catch (ValidationException ex)
             {
