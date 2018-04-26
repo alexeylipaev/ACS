@@ -220,7 +220,7 @@
     <Compile Include="Models\OrganizationalStructure\DepartmentViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\PostNameUserViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\PostUserСode1СViewModel.cs" />
-    <Compile Include="Models\OrganizationalStructure\UserViewViewModel.cs" />
+    <Compile Include="Models\OrganizationalStructure\UserViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\UserPassportViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\WorkHistoryViewModel.cs" />
     <Compile Include="Models\SystemParametersViewModel.cs" />

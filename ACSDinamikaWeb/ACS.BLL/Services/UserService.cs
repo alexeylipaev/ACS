@@ -22,7 +22,7 @@ namespace ACS.BLL.Services
         {
             User user = Database.Users.Get(UserDTO.Id);
 
-            if (user == null)
+            if (user != null)
                 throw new ValidationException("Пользователь с таким ID уже создан", "");
 
             User User = new User
