@@ -214,7 +214,6 @@
     <Compile Include="Models\Chancellery\JournalRegistrationsChancelleryViewModel.cs" />
     <Compile Include="Models\Chancellery\ToChancelleryViewModel.cs" />
     <Compile Include="Models\Chancellery\TypeRecordChancelleryViewModel.cs" />
-    <Compile Include="Models\Class1.cs" />
     <Compile Include="Models\DataEntityViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

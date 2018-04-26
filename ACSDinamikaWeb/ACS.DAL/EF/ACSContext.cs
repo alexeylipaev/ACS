@@ -44,7 +44,9 @@ namespace ACS.DAL.EF
             Database.SetInitializer(new System.Data.Entity.MigrateDatabaseToLatestVersion<ACSContext, ACS.DAL.Migrations.Configuration>());
             //Database.SetInitializer<ACSContext>(new StoreDbInitializer());
         }
+
         //ACSContextConnection
+        //DefaultConnection
         public ACSContext(string connectionString = "DefaultConnection")
             : base(connectionString)
         {
