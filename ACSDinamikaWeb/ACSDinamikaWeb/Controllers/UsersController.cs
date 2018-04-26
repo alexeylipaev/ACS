@@ -7,6 +7,8 @@ using ACS.BLL.DTO;
 using AutoMapper;
 using ACS.BLL.Infrastructure;
 using ACSWeb.ViewModel;
+using System.DirectoryServices.AccountManagement;
+using System.Web.Security;
 
 namespace ACSWeb.Controllers
 {
@@ -63,13 +65,23 @@ namespace ACSWeb.Controllers
                     userVM.Id = userDTO.Id;
                 }
                 
-
+               
+                
                 return View(userVM);
             }
             catch (ValidationException ex)
             {
                 return Content(ex.Message);
             }
+        }
+
+        public string CurrentUserEmail()
+        {
+            string name = this.User.Identity.Name;
+            PrincipalContext pc = new PrincipalContext(ContextType.Domain);
+            UserPrincipal up = UserPrincipal.FindByIdentity(pc, name);
+            //userService.GetUser
+            return up.EmailAddress;
         }
 
         //POST: Users/Create
@@ -83,8 +95,9 @@ namespace ACSWeb.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    string currentUserEmail = CurrentUserEmail();
                     var userDto = new UserDTO { Id = userVM.Id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName, Email  = userVM.Email};
-                    userService.MakeUser(userDto);
+                    userService.MakeUser(userDto, currentUserEmail);
                     return Content("<h2>Пользователь успешно создан</h2>");
                 }
             }
@@ -95,36 +108,42 @@ namespace ACSWeb.Controllers
             return View(userVM);
         }
 
-        //// GET: Users/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    User user = db.Users.Find(id);
-        //    if (user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(user);
-        //}
+        // GET: Users/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            var userVM = new UserViewModel();
+            if (id != null)
+            {
+                UserDTO userDTO = userService.GetUser(id);
+                userVM.Id = userDTO.Id;
+            }
 
-        //// POST: Users/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "Id,FName,LName,MName,PersonnelNumber,Birthday,PassportSeries,PassportNumber,PassportIssuedBy,PassportUnitCode,PassportDateOfIssue,SID,Guid1C,s_Guid,s_AuthorID,s_DateCreation,s_EditorID,s_EditDate,s_IsLocked,s_LockedBy_Id,s_InBasket")] User user)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(user).State = System.Data.Entity.EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(user);
-        //}
+            return View(userVM);
+        }
+
+        // POST: Users/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,FName,LName,MName,PersonnelNumber,Birthday,PassportSeries,PassportNumber,PassportIssuedBy,PassportUnitCode,PassportDateOfIssue,SID,Guid1C")] UserViewModel userVM)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    string currentUserEmail = CurrentUserEmail();
+                    var userDto = new UserDTO { Id = userVM.Id, LName = userVM.LName, FName = userVM.FName, MName = userVM.MName, Email = userVM.Email };
+                    userService.EditUser(userDto, currentUserEmail);
+                    return View(userVM); 
+                }
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(ex.Property, ex.Message);
+            }
+            return View(userVM);
+        }
 
         //// GET: Users/Delete/5
         //public ActionResult Delete(int? id)
