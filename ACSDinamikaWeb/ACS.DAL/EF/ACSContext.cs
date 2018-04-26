@@ -40,6 +40,7 @@ namespace ACS.DAL.EF
 
 
 
+
         //ACSContextConnection
         //DefaultConnection
         public ACSContext(string connectionString = "ACSContextConnection")
@@ -47,7 +48,6 @@ namespace ACS.DAL.EF
         {
             Database.SetInitializer(new System.Data.Entity.MigrateDatabaseToLatestVersion<ACSContext, ACS.DAL.Migrations.Configuration>());
             //Database.SetInitializer<ACSContext>(new StoreDbInitializer());
-            Database.Initialize(false);
         }  
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

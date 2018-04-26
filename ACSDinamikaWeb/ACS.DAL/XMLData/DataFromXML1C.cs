@@ -1537,7 +1537,7 @@ public static class DataLoader1C
                 Guid1C = Guid.Parse(dataUser.КодФизЛицо),
 
                 Birthday = XMLDataTypeConverter.GetDateTime(dataUser.ДатаРождения),
-                //EMail = dataUserAD.Email,
+                EMail = dataUserAD.Email,
                 //PersonnelNumber = Convert.ToInt32(dataUser.ТабельныйНомер),
                 PersonnelNumber = dataUser.ТабельныйНомер,
 
@@ -1590,6 +1590,7 @@ public static class DataLoader1C
                 s_EditorID = 1,
             };
 
+          
             Context.Departments.Add(department);
             Context.SaveChanges();
         }
@@ -1745,7 +1746,8 @@ public static class DataLoader1C
                 s_EditorID = 1
             };
 
-            //Context.PostUserСode1С.Add(postUserСode1С);
+
+            Context.WorkHistories.Add(wh);
             Context.SaveChanges();
         }
     }

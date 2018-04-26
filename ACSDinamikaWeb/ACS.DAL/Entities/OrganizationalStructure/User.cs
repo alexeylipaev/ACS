@@ -30,7 +30,6 @@ namespace ACS.DAL.Entities
 
         public string MName { get; set; }
 
-        [Required, Index("EMail_Index", IsUnique = true), StringLength(150)]
         public string EMail { get; set; }
 
         /// <summary>
