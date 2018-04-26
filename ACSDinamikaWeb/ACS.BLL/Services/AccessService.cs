@@ -27,7 +27,7 @@ namespace ACS.BLL.Services
             Access access = Database.Accesses.Get(AccessDto.Id);
 
             // валидация
-            if (access == null)
+            if (access != null)
                 throw new ValidationException("Доступ с таким ID уже создан", "");
 
             Access Access = new Access
