@@ -1,0 +1,77 @@
+﻿@model ACSWeb.ViewModel.ChancelleryViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Удалить</h2>
+
+<h3>Вы уверены, что хотите удалить это?</h3>
+<div>
+    <h4>Запись</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            ID
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            Дата регистрации
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateRegistration)
+        </dd>
+        <dt>
+            Канцелярская папка
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FolderId)
+        </dd>
+        <dt>
+            Журнал регистрации
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.JournalRegistrationsId)
+        </dd>
+        <dt>
+            Регистрационный номер
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegistrationNumber)
+        </dd>
+        <dt>
+            Описание
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Summary)
+        </dd>
+        <dt>
+            Ответственный
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ResponsibleUserId)
+        </dd>
+        <dt>
+            Тип записи
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypeRecordId)
+        </dd>
+
+     
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Вернуться к списку", "Index")
+        </div>
+    }
+</div>

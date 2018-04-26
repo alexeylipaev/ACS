@@ -1,5 +1,4 @@
 ﻿@model ACSWeb.ViewModel.UserViewModel
-
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,51 +10,50 @@
     </div>
     <div class="modal-body">
         <div>
-        <h4>Пользователь</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.LName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.LName)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.FName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.FName)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.MName)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.MName)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.PersonnelNumber)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.PersonnelNumber)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Guid1C)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Guid1C)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Birthday)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Birthday)
-            </dd>
-
-        </dl>
+            <h4>Пользователь</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.LName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.LName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.FName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.FName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.MName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.MName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.PersonnelNumber)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.PersonnelNumber)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Guid1C)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Guid1C)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Birthday)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Birthday)
+                </dd>
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }) |
+            @Html.ActionLink("Вернуться к списку", "Index")
+        </p>
     </div>
-    <p>
-        @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Вернуться к списку", "Index")
-    </p>
 </div>
-    </div>
