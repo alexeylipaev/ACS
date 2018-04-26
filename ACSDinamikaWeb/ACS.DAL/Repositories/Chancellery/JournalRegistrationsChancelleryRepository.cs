@@ -23,7 +23,10 @@ namespace ACS.DAL.Repositories
         {
             return db.JournalRegistrationsChancelleries;
         }
-
+        public JournalRegistrationsChancellery Get(string propertyValue)
+        {
+            return db.JournalRegistrationsChancelleries.Find(propertyValue);
+        }
         public JournalRegistrationsChancellery Get(int id)
         {
             return db.JournalRegistrationsChancelleries.Find(id);
