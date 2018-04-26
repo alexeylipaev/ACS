@@ -17,8 +17,6 @@ namespace ACS.BLL.Interfaces
 
         UserDTO GetUser(int? id);
 
-        UserDTO GetUser(string propertyValue);
-
         IEnumerable<UserDTO> GetUsers();
 
         void Dispose();

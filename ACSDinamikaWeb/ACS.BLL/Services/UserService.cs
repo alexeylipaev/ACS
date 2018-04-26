@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace ACS.BLL.Services
 {
@@ -66,27 +67,30 @@ namespace ACS.BLL.Services
         }
         public void MakeUser(UserDTO UserDTO, string authorEmail)
         {
-            User Author = Database.Users.Get(authorEmail);
+            var Author = Database.Users.Find(u=> u.EMail == authorEmail).FirstOrDefault();
 
             if (Author == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
 
             try
             {
-                User User = new User
-                {
-                    LName = UserDTO.LName,
-                    FName = UserDTO.FName,
-                    MName = UserDTO.MName,
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, User>()).CreateMapper();
+                User User = mapper.Map<UserDTO, User>(UserDTO);
 
-                    SID = UserDTO.SID,
-                    Guid1C = UserDTO.Guid1C,
+                //User User = new User
+                //{
+                //    LName = UserDTO.LName,
+                //    FName = UserDTO.FName,
+                //    MName = UserDTO.MName,
 
-                    Birthday = UserDTO.Birthday,
+                //    SID = UserDTO.SID,
+                //    Guid1C = UserDTO.Guid1C,
 
-                    PersonnelNumber = UserDTO.PersonnelNumber,
+                //    Birthday = UserDTO.Birthday,
 
-                };
+                //    PersonnelNumber = UserDTO.PersonnelNumber,
+
+                //};
                 Database.Users.Create(User);
                 Database.Save();
             }
@@ -111,7 +115,7 @@ namespace ACS.BLL.Services
 
         public void UpdateUser(UserDTO UserDTO, string authorEmail)
         {
-            User Author = Database.Users.Get(authorEmail);
+            var Author = Database.Users.Find(u => u.EMail == authorEmail).FirstOrDefault();
 
             User EditableObj = Database.Users.Get(UserDTO.Id);
 
@@ -164,32 +168,7 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<User>, List<UserDTO>>(Database.Users.GetAll());
         }
 
-        public UserDTO GetUser(string propertyValue)
-        {
-            if (propertyValue == null)
-                throw new ValidationException("Не установлено значение propertyValue", "");
-
-            var User = Database.Users.Get(propertyValue);
-
-            if (User == null)
-                throw new ValidationException("Пользователь с параметром не найден", propertyValue);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
-            return mapper.Map<User, UserDTO>(User);
-            //return new UserDTO
-            //{
-            //    LName = User.LName,
-            //    FName = User.MName,
-            //    MName = User.MName,
-
-            //    SID = User.SID,
-            //    Guid1C = User.Guid1C,
-
-            //    Birthday = User.Birthday,
-
-            //    PersonnelNumber = User.PersonnelNumber,
-
-            //};
-        }
+        
 
         public UserDTO GetUser(int? id)
         {
