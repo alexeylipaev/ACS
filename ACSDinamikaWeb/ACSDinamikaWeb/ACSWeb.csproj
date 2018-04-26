@@ -310,6 +310,7 @@
     <Content Include="Views\Users\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Chancellery\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
