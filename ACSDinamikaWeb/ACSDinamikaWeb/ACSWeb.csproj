@@ -199,7 +199,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Access\AccessDTO.cs" />
+    <Compile Include="Models\Access\AccessViewModel.cs" />
     <Compile Include="Models\Access\TypeAccessViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ASPIdentityUser\ASPClaimsIdentityUserViewModel.cs" />
