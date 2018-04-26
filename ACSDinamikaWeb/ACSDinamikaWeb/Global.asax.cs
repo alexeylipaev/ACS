@@ -11,6 +11,10 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+/*
+ Global.asax: файл, запускающийся при старте приложения и выполняющий начальную инициализацию. 
+ Как правило, здесь срабатывают методы классов, определенных в папке App_Start
+     */
 namespace ACSWeb
 {
     public class MvcApplication : System.Web.HttpApplication
