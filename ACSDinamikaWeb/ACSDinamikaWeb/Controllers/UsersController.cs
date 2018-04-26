@@ -134,7 +134,7 @@ namespace ACSWeb.Controllers
                 {
                     string currentUserEmail = CurrentUserEmail();
                     var userDto = new UserDTO { Id = userVM.Id, LName = userVM.LName, FName = userVM.FName, MName = userVM.MName, Email = userVM.Email };
-                    userService.EditUser(userDto, currentUserEmail);
+                    userService.UpdateUser(userDto, currentUserEmail);
                     return View(userVM); 
                 }
             }
