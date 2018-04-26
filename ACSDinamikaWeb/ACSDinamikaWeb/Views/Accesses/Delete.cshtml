@@ -1,30 +1,26 @@
-﻿@model ACSWeb.Models.EF.CFFromDB.Access
+﻿@model ACSWeb.ViewModel.AccessViewModel
+
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>Удалить</h2>
 
+<h3>Вы уверены, что хотите удалить это?</h3>
 <div>
-    <h4>Access</h4>
+    <h4>Доступ</h4>
     <hr />
     <dl class="dl-horizontal">
+       
+
         <dt>
-            @Html.DisplayNameFor(model => model.TypeAccess.Name)
+            @Html.DisplayNameFor(model => model.Id)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TypeAccess.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserGuid1C)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserGuid1C)
+            @Html.DisplayFor(model => model.Id)
         </dd>
 
         <dt>
@@ -50,7 +46,12 @@
         <dd>
             @Html.DisplayFor(model => model.Note)
         </dd>
-
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeAccessId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypeAccessId)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.s_Guid)
         </dt>
@@ -116,8 +117,13 @@
         </dd>
 
     </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Вернуться к списку", "Index")
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
