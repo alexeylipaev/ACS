@@ -6,7 +6,9 @@ using ACS.DAL.Entities;
 using ACS.DAL.Interfaces;
 using AutoMapper;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace ACS.BLL.Services
 {
@@ -25,22 +27,42 @@ namespace ACS.BLL.Services
             if (user != null)
                 throw new ValidationException("Пользователь с таким ID уже создан", "");
 
-            User User = new User
+            try
             {
-                LName = UserDTO.LName,
-                FName = UserDTO.MName,
-                MName = UserDTO.MName,
-               
-                SID = UserDTO.SID,
-                Guid1C = UserDTO.Guid1C,
+                User User = new User
+                {
+                    LName = UserDTO.LName,
+                    FName = UserDTO.FName,
+                    MName = UserDTO.MName,
 
-                Birthday = UserDTO.Birthday,
-       
-                PersonnelNumber = UserDTO.PersonnelNumber,
+                    SID = UserDTO.SID,
+                    Guid1C = UserDTO.Guid1C,
 
-            };
-            Database.Users.Create(User);
-            Database.Save();
+                    Birthday = UserDTO.Birthday,
+
+                    PersonnelNumber = UserDTO.PersonnelNumber,
+
+                };
+                Database.Users.Create(User);
+                Database.Save();
+            }
+            catch (Exception e)
+            {
+
+
+                Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
+                Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
+                Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);
+                Debug.WriteLine("Message:                 {0}", e.Message);
+                Debug.WriteLine("Source:                  {0}", e.Source);
+                Debug.WriteLine("Help Link:               {0}", e.HelpLink);
+                Debug.WriteLine("Stack:                   {0}", e.StackTrace);
+
+                foreach (DictionaryEntry de in e.Data)
+                    Console.WriteLine("{0} : {1}", de.Key, de.Value);
+            }
+          
+            
         }
 
         public IEnumerable<UserDTO> GetUsers()
