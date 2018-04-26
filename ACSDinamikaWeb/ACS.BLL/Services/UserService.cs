@@ -10,7 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-
+using ACS.BLL.BusinessModels;
 namespace ACS.BLL.Services
 {
     public class UserService : IUserService
@@ -21,29 +21,47 @@ namespace ACS.BLL.Services
         {
             Database = uow;
         }
+
+        string UNIQEUserString(UserDTO UserData)
+        {
+            return String.Format("{0} {1} {2} {3}", Helper.RemoveSpacesBeginnEndStr(UserData.LName), Helper.RemoveSpacesBeginnEndStr(UserData.FName)
+                , Helper.RemoveSpacesBeginnEndStr(UserData.MName), Helper.RemoveSpacesBeginnEndStr(UserData.Email));
+
+        }
+
+        string UNIQEUserString(User UserData)
+        {
+            return String.Format("{0} {1} {2} {3}", Helper.RemoveSpacesBeginnEndStr(UserData.LName), Helper.RemoveSpacesBeginnEndStr(UserData.FName)
+      , Helper.RemoveSpacesBeginnEndStr(UserData.MName), Helper.RemoveSpacesBeginnEndStr(UserData.Email));
+        }
+
         public void MakeUser(UserDTO UserDTO)
         {
-            User user = Database.Users.Get(UserDTO.Id);
+            var resultString = UNIQEUserString(UserDTO);
+            User user = Database.Users.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
 
             if (user != null)
-                throw new ValidationException("Пользователь с таким ID уже создан", "");
+                throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его ID : {1}", resultString, user.Id), "");
 
             try
             {
-                User User = new User
-                {
-                    LName = UserDTO.LName,
-                    FName = UserDTO.FName,
-                    MName = UserDTO.MName,
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, User>()).CreateMapper();
+                User User = mapper.Map<UserDTO, User>(UserDTO);
 
-                    SID = UserDTO.SID,
-                    Guid1C = UserDTO.Guid1C,
+                //User User = new User
+                //{
+                //    LName = UserDTO.LName,
+                //    FName = UserDTO.FName,
+                //    MName = UserDTO.MName,
 
-                    Birthday = UserDTO.Birthday,
+                //    SID = UserDTO.SID,
+                //    Guid1C = UserDTO.Guid1C,
 
-                    PersonnelNumber = UserDTO.PersonnelNumber,
+                //    Birthday = UserDTO.Birthday,
 
-                };
+                //    PersonnelNumber = UserDTO.PersonnelNumber,
+
+                //};
                 Database.Users.Create(User);
                 Database.Save();
             }
@@ -62,15 +80,23 @@ namespace ACS.BLL.Services
                 foreach (DictionaryEntry de in e.Data)
                     Console.WriteLine("{0} : {1}", de.Key, de.Value);
             }
-          
-            
+
+
         }
         public void MakeUser(UserDTO UserDTO, string authorEmail)
         {
-            var Author = Database.Users.Find(u=> u.EMail == authorEmail).FirstOrDefault();
+
+            var Author = Database.Users.Find(u => u.Email == authorEmail).FirstOrDefault();
 
             if (Author == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
+
+
+            var resultString = UNIQEUserString(UserDTO);
+            User user = Database.Users.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
+
+            if (user != null)
+                throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его ID : {1}", resultString, user.Id), "");
 
             try
             {
@@ -115,7 +141,7 @@ namespace ACS.BLL.Services
 
         public void UpdateUser(UserDTO UserDTO, string authorEmail)
         {
-            var Author = Database.Users.Find(u => u.EMail == authorEmail).FirstOrDefault();
+            var Author = Database.Users.Find(u => u.Email == authorEmail).FirstOrDefault();
 
             User EditableObj = Database.Users.Get(UserDTO.Id);
 
@@ -168,8 +194,6 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<User>, List<UserDTO>>(Database.Users.GetAll());
         }
 
-        
-
         public UserDTO GetUser(int? id)
         {
             if (id == null)
@@ -185,12 +209,12 @@ namespace ACS.BLL.Services
             //    LName = User.LName,
             //    FName = User.MName,
             //    MName = User.MName,
-              
+
             //    SID = User.SID,
             //    Guid1C = User.Guid1C,
 
             //    Birthday = User.Birthday,
-               
+
             //    PersonnelNumber = User.PersonnelNumber,
 
             //};

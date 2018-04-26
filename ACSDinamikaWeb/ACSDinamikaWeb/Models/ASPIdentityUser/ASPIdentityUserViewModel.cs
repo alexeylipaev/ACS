@@ -34,7 +34,7 @@ namespace ACSWeb.ViewModel
         /// </summary>
         public string SecurityStamp { get; set; }
 
-        public string EMail { get; set; }
+        public string Email { get; set; }
 
         ///// <summary>
         ///// Свойство навигации для утверждений пользователя

@@ -30,7 +30,7 @@ namespace ACS.DAL.Entities
 
         public string MName { get; set; }
 
-        public string EMail { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
         /// Табельный номер

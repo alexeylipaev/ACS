@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessModels\AccessBusineesModel.cs" />
+    <Compile Include="BusinessModels\Helper.cs" />
     <Compile Include="DTO\Access\AccessDTO.cs" />
     <Compile Include="DTO\Access\TypeAccessDTO.cs" />
     <Compile Include="DTO\ASPIdentityUser\ASPClaimsIdentityUserDTO.cs" />

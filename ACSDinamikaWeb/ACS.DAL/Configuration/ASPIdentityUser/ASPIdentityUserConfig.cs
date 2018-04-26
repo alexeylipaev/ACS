@@ -18,7 +18,7 @@ namespace ACS.DAL.Configuration
             Property(e => e.SecurityStamp)
                  .IsUnicode(true);
 
-            Property(e => e.EMail)
+            Property(e => e.Email)
                 .IsUnicode(true);
         }
     }

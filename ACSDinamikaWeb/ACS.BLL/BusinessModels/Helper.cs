@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.BusinessModels
 {
-    public class AccessBusineesModel
+    public static class Helper
     {
-        
+        public static string RemoveSpacesBeginnEndStr(string str)
+        {
+            return str.TrimStart().TrimEnd();
+        }
     }
 }

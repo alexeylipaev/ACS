@@ -32,7 +32,7 @@ namespace ACS.BLL.DTO
         /// </summary>
         public string SecurityStamp { get; set; }
 
-        public string EMail { get; set; }
+        public string Email { get; set; }
 
         public string SID { get; set; }
 

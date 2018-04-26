@@ -1537,7 +1537,7 @@ public static class DataLoader1C
                 Guid1C = Guid.Parse(dataUser.КодФизЛицо),
 
                 Birthday = XMLDataTypeConverter.GetDateTime(dataUser.ДатаРождения),
-                EMail = dataUserAD.Email,
+                Email = dataUserAD.Email,
                 //PersonnelNumber = Convert.ToInt32(dataUser.ТабельныйНомер),
                 PersonnelNumber = dataUser.ТабельныйНомер,
 

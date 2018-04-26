@@ -41,7 +41,7 @@ namespace ACS.DAL.Entities
         public string SecurityStamp { get; set; }
 
         //[Required, Index("EMail_Index", IsUnique = true), StringLength(150)]
-        public string EMail { get; set; }
+        public string Email { get; set; }
 
         public string SID { get; set; }
 
