@@ -20,7 +20,7 @@ namespace ACS.DAL.Repositories
             this.db = context;
         }
 
-        public IEnumerable<Chancellery> GetAll()
+        public IEnumerable<Chancellery> GetAll()        
         {
             return db.Chancelleries;
         }
@@ -28,10 +28,6 @@ namespace ACS.DAL.Repositories
         public Chancellery Get(int id)
         {
             return db.Chancelleries.Find(id);
-        }
-        public Chancellery Get(Guid guid)
-        {
-            return db.Chancelleries.Find(guid);
         }
 
         public void Create(Chancellery Chancellery)

@@ -30,10 +30,6 @@ namespace ACS.DAL.Repositories
             return db.TypeAccesses.Find(id);
         }
 
-        public TypeAccess Get(Guid guid)
-        {
-            return db.TypeAccesses.Find(guid);
-        }
 
         public void Create(TypeAccess type)
         {

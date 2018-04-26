@@ -29,10 +29,7 @@ namespace ACS.DAL.Repositories
             return db.ToChancelleries.Find(id);
         }
 
-        public ToChancellery Get(Guid guid)
-        {
-            return db.ToChancelleries.Find(guid);
-        }
+
         public void Create(ToChancellery ToChancellery)
         {
             db.ToChancelleries.Add(ToChancellery);

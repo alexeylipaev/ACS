@@ -29,10 +29,6 @@ namespace ACS.DAL.Repositories
             return db.PostUsers.Find(id);
         }
 
-        public PostNameUser Get(Guid Guid)
-        {
-            return db.PostUsers.Find(Guid);
-        }
 
         public void Create(PostNameUser PostNameUser)
         {

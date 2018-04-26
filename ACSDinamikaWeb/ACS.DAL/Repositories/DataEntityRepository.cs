@@ -29,10 +29,6 @@ namespace ACS.DAL.Repositories
             return db.DataEntityis.Find(id);
         }
 
-        public DataEntity Get(Guid guid)
-        {
-            return db.DataEntityis.Find(guid);
-        }
 
         public void Create(DataEntity DataEntity)
         {

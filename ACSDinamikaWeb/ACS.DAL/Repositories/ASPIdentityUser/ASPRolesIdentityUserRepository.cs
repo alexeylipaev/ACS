@@ -30,10 +30,7 @@ namespace ACS.DAL.Repositories
             return db.ASPRolesIdentityUsers.Find(id);
         }
 
-        public ASPRolesIdentityUser Get(Guid guid)
-        {
-            return db.ASPRolesIdentityUsers.Find(guid);
-        }
+
 
         public void Create(ASPRolesIdentityUser ASPRolesIdentityUser)
         {

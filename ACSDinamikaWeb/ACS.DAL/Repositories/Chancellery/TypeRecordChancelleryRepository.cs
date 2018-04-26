@@ -29,10 +29,6 @@ namespace ACS.DAL.Repositories
         {
             return db.TypeRecordChancelleries.Find(id);
         }
-        public TypeRecordChancellery Get(Guid guid)
-        {
-            return db.TypeRecordChancelleries.Find(guid);
-        }
 
         public void Create(TypeRecordChancellery type)
         {

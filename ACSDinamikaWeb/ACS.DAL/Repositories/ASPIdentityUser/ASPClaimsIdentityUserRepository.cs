@@ -29,11 +29,6 @@ namespace ACS.DAL.Repositories
         {
             return db.ASPClaimsIdentityUsers.Find(id);
         }
-        public ASPClaimsIdentityUser Get(Guid guid)
-        {
-            return db.ASPClaimsIdentityUsers.Find(guid);
-        }
-
 
         public void Create(ASPClaimsIdentityUser ASPClaimsIdentityUser)
         {

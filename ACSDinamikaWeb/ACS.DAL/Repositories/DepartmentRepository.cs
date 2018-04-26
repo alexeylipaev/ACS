@@ -29,10 +29,6 @@ namespace ACS.DAL.Repositories
             return db.Departments.Find(id);
         }
 
-        public Department Get(Guid Guid)
-        {
-            return db.Departments.Find(Guid);
-        }
 
 
         public void Create(Department Department)

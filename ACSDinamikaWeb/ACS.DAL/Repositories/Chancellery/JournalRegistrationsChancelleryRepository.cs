@@ -28,10 +28,7 @@ namespace ACS.DAL.Repositories
         {
             return db.JournalRegistrationsChancelleries.Find(id);
         }
-        public JournalRegistrationsChancellery Get(Guid guid)
-        {
-            return db.JournalRegistrationsChancelleries.Find(guid);
-        }
+
 
         public void Create(JournalRegistrationsChancellery JournalRegistrationsChancellery)
         {

@@ -29,19 +29,17 @@ namespace ACS.DAL.Repositories
         {
             return db.Users.Find(id);
         }
-        public User Get(Guid Guid)
-        {
-            return db.Users.Find(Guid);
-        }
+
+
 
         public void Create(User user)
         {
             db.Users.Add(user);
         }
 
-        public void Update(User book)
+        public void Update(User User)
         {
-            db.Entry(book).State = EntityState.Modified;
+            db.Entry(User).State = EntityState.Modified;
         }
 
         public IEnumerable<User> Find(Func<User, Boolean> predicate)
