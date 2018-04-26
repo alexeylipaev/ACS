@@ -39,18 +39,16 @@ namespace ACS.DAL.EF
         public virtual DbSet<UserPassport> PassportDataUsers { get; set; }
 
 
-        static ACSContext()
-        {
-            Database.SetInitializer(new System.Data.Entity.MigrateDatabaseToLatestVersion<ACSContext, ACS.DAL.Migrations.Configuration>());
-            //Database.SetInitializer<ACSContext>(new StoreDbInitializer());
-        }
+
 
         //ACSContextConnection
         //DefaultConnection
         public ACSContext(string connectionString = "ACSContextConnection")
             : base(connectionString)
         {
-        }
+            Database.SetInitializer(new System.Data.Entity.MigrateDatabaseToLatestVersion<ACSContext, ACS.DAL.Migrations.Configuration>());
+            //Database.SetInitializer<ACSContext>(new StoreDbInitializer());
+        }  
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

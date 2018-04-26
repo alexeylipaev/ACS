@@ -22,12 +22,15 @@ namespace ACS.DAL.Entities
 
         public int Id { get; set; }
 
+
         [Required]
         public string FName { get; set; }
 
         public string LName { get; set; }
 
         public string MName { get; set; }
+
+        public string EMail { get; set; }
 
         /// <summary>
         /// Табельный номер
@@ -37,7 +40,7 @@ namespace ACS.DAL.Entities
         [Column(TypeName = "date")]
         public DateTime? Birthday { get; set; }
 
-        [StringLength(50)]
+
         public string SID { get; set; }
 
         public Guid? Guid1C { get; set; }
