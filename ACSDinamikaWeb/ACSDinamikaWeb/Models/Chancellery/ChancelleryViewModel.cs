@@ -11,12 +11,12 @@ namespace ACSWeb.ViewModel
     public partial class ChancelleryViewModel : SystemParametersViewModel
     {
 
-        public ChancelleryViewModel()
-        {
-            FileRecordChancelleries = new HashSet<FileRecordChancelleryViewModel>();
-            FromChancelleries = new HashSet<FromChancelleryViewModel>();
-            ToChancelleries = new HashSet<ToChancelleryViewModel>();
-        }
+        //public ChancelleryViewModel()
+        //{
+        //    FileRecordChancelleries = new HashSet<FileRecordChancelleryViewModel>();
+        //    FromChancelleries = new HashSet<FromChancelleryViewModel>();
+        //    ToChancelleries = new HashSet<ToChancelleryViewModel>();
+        //}
 
         public int Id { get; set; }
 
@@ -42,7 +42,7 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Папка
         /// </summary>
-        public virtual FolderChancelleryViewModel FolderChancellery { get; set; }
+        //public virtual FolderChancelleryViewModel FolderChancellery { get; set; }
 
         #endregion
 
@@ -52,7 +52,7 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Журнал
         /// </summary>
-        public virtual JournalRegistrationsChancelleryViewModel JournalRegistrationsChancellery { get; set; }
+        //public virtual JournalRegistrationsChancelleryViewModel JournalRegistrationsChancellery { get; set; }
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Тип записи
         /// </summary>
-        public virtual TypeRecordChancelleryViewModel TypeRecordChancellery { get; set; }
+        //public virtual TypeRecordChancelleryViewModel TypeRecordChancellery { get; set; }
 
         #endregion
 
@@ -75,26 +75,26 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Ответственный
         /// </summary>
-        public virtual UserViewModel User { get; set; }
+        //public virtual UserViewModel User { get; set; }
 
         #endregion
 
 
-        /// <summary>
-        /// Файлы
-        /// </summary>
-        public virtual ICollection<FileRecordChancelleryViewModel> FileRecordChancelleries { get; set; }
+        ///// <summary>
+        ///// Файлы
+        ///// </summary>
+        //public virtual ICollection<FileRecordChancelleryViewModel> FileRecordChancelleries { get; set; }
 
 
-        /// <summary>
-        /// От кого"
-        /// </summary>
-        public virtual ICollection<FromChancelleryViewModel> FromChancelleries { get; set; }
+        ///// <summary>
+        ///// От кого"
+        ///// </summary>
+        //public virtual ICollection<FromChancelleryViewModel> FromChancelleries { get; set; }
 
 
-        /// <summary>
-        /// Кому
-        /// </summary>
-        public virtual ICollection<ToChancelleryViewModel> ToChancelleries { get; set; }
+        ///// <summary>
+        ///// Кому
+        ///// </summary>
+        //public virtual ICollection<ToChancelleryViewModel> ToChancelleries { get; set; }
     }
 }

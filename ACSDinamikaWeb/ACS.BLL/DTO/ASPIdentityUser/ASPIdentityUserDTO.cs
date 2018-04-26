@@ -9,12 +9,12 @@ namespace ACS.BLL.DTO
 {
     public partial class ASPIdentityUserDTO : SystemParametersDTO
     {
-        public ASPIdentityUserDTO()
-        {
-            Claims = new HashSet<ASPClaimsIdentityUserDTO>();
-            Logins = new HashSet<ASPLoginsIdentityUserDTO>();
-            Roles = new HashSet<ASPRolesIdentityUserDTO>();
-        }
+        //public ASPIdentityUserDTO()
+        //{
+        //    Claims = new HashSet<ASPClaimsIdentityUserDTO>();
+        //    Logins = new HashSet<ASPLoginsIdentityUserDTO>();
+        //    Roles = new HashSet<ASPRolesIdentityUserDTO>();
+        //}
 
         /// <summary>
         /// Имя пользователя
@@ -34,20 +34,20 @@ namespace ACS.BLL.DTO
 
         public string EMail { get; set; }
 
-        /// <summary>
-        /// Свойство навигации для утверждений пользователя
-        /// </summary>
-        public virtual ICollection<ASPClaimsIdentityUserDTO> Claims { get; set; }
+        ///// <summary>
+        ///// Свойство навигации для утверждений пользователя
+        ///// </summary>
+        //public virtual ICollection<ASPClaimsIdentityUserDTO> Claims { get; set; }
 
-        /// <summary>
-        /// Логины (1 пользователь имеет N логинов (google, fb...))
-        /// </summary>
-        public virtual ICollection<ASPLoginsIdentityUserDTO> Logins { get; set; }
+        ///// <summary>
+        ///// Логины (1 пользователь имеет N логинов (google, fb...))
+        ///// </summary>
+        //public virtual ICollection<ASPLoginsIdentityUserDTO> Logins { get; set; }
 
-        /// <summary>
-        /// Роли N to N
-        /// </summary>
-        public virtual ICollection<ASPRolesIdentityUserDTO> Roles { get; set; }
+        ///// <summary>
+        ///// Роли N to N
+        ///// </summary>
+        //public virtual ICollection<ASPRolesIdentityUserDTO> Roles { get; set; }
 
         /// <summary>
         /// Id пользователя
@@ -57,7 +57,7 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Пользователь
         /// </summary>
-        public virtual UserDTO User { get; set; }
+        //public virtual UserDTO User { get; set; }
 
     }
 }

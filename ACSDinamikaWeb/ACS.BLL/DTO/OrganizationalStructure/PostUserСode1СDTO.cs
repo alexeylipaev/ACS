@@ -15,12 +15,11 @@ namespace ACS.BLL.DTO
 
         public int Id { get; set; }
 
-
         public Guid CodePost1C { get; set; }
 
         public int? UserId { get; set; }
 
-        public virtual UserDTO User { get; set; }
+        //public virtual UserDTO User { get; set; }
 
     }
 }

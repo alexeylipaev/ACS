@@ -22,14 +22,14 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Отдел
         /// </summary>
-        public virtual DepartmentDTO Department { get; set; }
+        //public virtual DepartmentDTO Department { get; set; }
 
         public int PostUserСode1СId { get; set; }
 
         /// <summary>
         /// Пользователь и Код должности 1С
         /// </summary>
-        public virtual PostUserСode1СDTO PostUserСode1С { get; set; }
+        //public virtual PostUserСode1СDTO PostUserСode1С { get; set; }
 
         /// <summary>
         /// Ставка

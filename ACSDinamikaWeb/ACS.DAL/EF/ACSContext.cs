@@ -47,7 +47,7 @@ namespace ACS.DAL.EF
 
         //ACSContextConnection
         //DefaultConnection
-        public ACSContext(string connectionString = "DefaultConnection")
+        public ACSContext(string connectionString = "ACSContextConnection")
             : base(connectionString)
         {
         }
@@ -56,8 +56,6 @@ namespace ACS.DAL.EF
         {
             base.OnModelCreating(modelBuilder);
 
-            var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
-            modelBuilder.Conventions.Add(convention);
 
             modelBuilder.Configurations.Add(new AccessConfig());
             modelBuilder.Configurations.Add(new ASPClaimsIdentityUserConfig());
@@ -77,6 +75,9 @@ namespace ACS.DAL.EF
             modelBuilder.Configurations.Add(new UserConfig());
             modelBuilder.Configurations.Add(new UserPassportConfig());
 
+
+            var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
+            modelBuilder.Conventions.Add(convention);
         }
 
     }

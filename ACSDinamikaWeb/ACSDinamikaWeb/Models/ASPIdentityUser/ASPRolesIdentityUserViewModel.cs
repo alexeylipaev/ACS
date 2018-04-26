@@ -20,6 +20,6 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Пользователи, которое владеют этой ролью
         /// </summary>
-        public virtual ICollection<ASPIdentityUserViewModel> IdentityUser { get; set; }
+        //public virtual ICollection<ASPIdentityUserViewModel> IdentityUser { get; set; }
     }
 }

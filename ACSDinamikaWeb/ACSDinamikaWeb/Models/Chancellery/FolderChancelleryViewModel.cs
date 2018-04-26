@@ -13,10 +13,10 @@ namespace ACSWeb.ViewModel
     public partial class FolderChancelleryViewModel : SystemParametersViewModel
     {
 
-        public FolderChancelleryViewModel()
-        {
-            Chancelleries = new HashSet<ChancelleryViewModel>();
-        }
+        //public FolderChancelleryViewModel()
+        //{
+        //    Chancelleries = new HashSet<ChancelleryViewModel>();
+        //}
 
         public int Id { get; set; }
 
@@ -26,6 +26,6 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Канцелярские записи в папке
         /// </summary>
-        public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
+        //public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
     }
 }

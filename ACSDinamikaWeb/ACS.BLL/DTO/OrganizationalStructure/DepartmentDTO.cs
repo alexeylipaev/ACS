@@ -11,11 +11,11 @@ namespace ACS.BLL.DTO
     public partial class DepartmentDTO : SystemParametersDTO
     {
 
-        public DepartmentDTO()
-        {
-            ChildrenDepartments = new HashSet<DepartmentDTO>();
-            WorkHistories = new HashSet<WorkHistoryDTO>();
-        }
+        //public DepartmentDTO()
+        //{
+        //    ChildrenDepartments = new HashSet<DepartmentDTO>();
+        //    WorkHistories = new HashSet<WorkHistoryDTO>();
+        //}
 
         public int Id { get; set; }
 
@@ -41,16 +41,16 @@ namespace ACS.BLL.DTO
 
         public int? ParentDepartmentId { get; set; }
 
-        public virtual DepartmentDTO ParentDepartment { get; set; }
+        //public virtual DepartmentDTO ParentDepartment { get; set; }
 
         #endregion
 
-        public virtual ICollection<DepartmentDTO> ChildrenDepartments { get; set; }
+        //public virtual ICollection<DepartmentDTO> ChildrenDepartments { get; set; }
 
-        /// <summary>
-        /// Подключения к подразделению
-        /// </summary>
-        public virtual ICollection<WorkHistoryDTO> WorkHistories { get; set; }
+        ///// <summary>
+        ///// Подключения к подразделению
+        ///// </summary>
+        //public virtual ICollection<WorkHistoryDTO> WorkHistories { get; set; }
 
     }
 }

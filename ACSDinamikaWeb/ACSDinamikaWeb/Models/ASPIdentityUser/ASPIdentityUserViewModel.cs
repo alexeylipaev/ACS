@@ -9,12 +9,12 @@ namespace ACSWeb.ViewModel
 {
     public partial class ASPIdentityUserViewModel : SystemParametersViewModel
     {
-        public ASPIdentityUserViewModel()
-        {
-            Claims = new HashSet<ASPClaimsIdentityUserViewModel>();
-            Logins = new HashSet<ASPLoginsIdentityUserViewModel>();
-            Roles = new HashSet<ASPRolesIdentityUserViewModel>();
-        }
+        //public ASPIdentityUserViewModel()
+        //{
+        //    Claims = new HashSet<ASPClaimsIdentityUserViewModel>();
+        //    Logins = new HashSet<ASPLoginsIdentityUserViewModel>();
+        //    Roles = new HashSet<ASPRolesIdentityUserViewModel>();
+        //}
 
         /// <summary>
         /// Имя пользователя
@@ -34,20 +34,20 @@ namespace ACSWeb.ViewModel
 
         public string EMail { get; set; }
 
-        /// <summary>
-        /// Свойство навигации для утверждений пользователя
-        /// </summary>
-        public virtual ICollection<ASPClaimsIdentityUserViewModel> Claims { get; set; }
+        ///// <summary>
+        ///// Свойство навигации для утверждений пользователя
+        ///// </summary>
+        //public virtual ICollection<ASPClaimsIdentityUserViewModel> Claims { get; set; }
 
-        /// <summary>
-        /// Логины (1 пользователь имеет N логинов (google, fb...))
-        /// </summary>
-        public virtual ICollection<ASPLoginsIdentityUserViewModel> Logins { get; set; }
+        ///// <summary>
+        ///// Логины (1 пользователь имеет N логинов (google, fb...))
+        ///// </summary>
+        //public virtual ICollection<ASPLoginsIdentityUserViewModel> Logins { get; set; }
 
-        /// <summary>
-        /// Роли N to N
-        /// </summary>
-        public virtual ICollection<ASPRolesIdentityUserViewModel> Roles { get; set; }
+        ///// <summary>
+        ///// Роли N to N
+        ///// </summary>
+        //public virtual ICollection<ASPRolesIdentityUserViewModel> Roles { get; set; }
 
         /// <summary>
         /// Id пользователя
@@ -57,7 +57,7 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Пользователь
         /// </summary>
-        public virtual UserViewModel User { get; set; }
+        //public virtual UserViewModel User { get; set; }
 
     }
 }

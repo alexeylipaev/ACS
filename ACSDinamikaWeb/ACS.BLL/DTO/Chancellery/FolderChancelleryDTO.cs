@@ -13,10 +13,10 @@ namespace ACS.BLL.DTO
     public partial class FolderChancelleryDTO : SystemParametersDTO
     {
 
-        public FolderChancelleryDTO()
-        {
-            Chancelleries = new HashSet<ChancelleryDTO>();
-        }
+        //public FolderChancelleryDTO()
+        //{
+        //    Chancelleries = new HashSet<ChancelleryDTO>();
+        //}
 
         public int Id { get; set; }
 
@@ -26,6 +26,6 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Канцелярские записи в папке
         /// </summary>
-        public virtual ICollection<ChancelleryDTO> Chancelleries { get; set; }
+        //public virtual ICollection<ChancelleryDTO> Chancelleries { get; set; }
     }
 }
