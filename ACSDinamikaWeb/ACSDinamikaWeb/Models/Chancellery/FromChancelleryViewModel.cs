@@ -18,7 +18,7 @@ namespace ACSWeb.ViewModel
 
         public int? UserId { get; set; }
 
-        public virtual UserViewModel User { get; set; }
+        //public virtual UserViewModel User { get; set; }
 
         #endregion
 
@@ -26,12 +26,12 @@ namespace ACSWeb.ViewModel
 
         public int? ExternalOrganizationId { get; set; }
 
-        public virtual ExternalOrganizationChancelleryViewModel ExternalOrganization { get; set; }
+        //public virtual ExternalOrganizationChancelleryViewModel ExternalOrganization { get; set; }
 
         #endregion
 
         public int? ChancelleryId { get; set; }
 
-        public virtual ChancelleryViewModel Chancellery { get; set; }
+        //public virtual ChancelleryViewModel Chancellery { get; set; }
     }
 }

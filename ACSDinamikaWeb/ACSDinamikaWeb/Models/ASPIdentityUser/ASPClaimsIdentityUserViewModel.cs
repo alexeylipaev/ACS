@@ -24,7 +24,7 @@ namespace ACSWeb.ViewModel
 
         public int? IdentityUserId { get; set; }
 
-        public virtual ASPIdentityUserViewModel IdentityUser { get; set; }
+        //public virtual ASPIdentityUserViewModel IdentityUser { get; set; }
 
     }
 }

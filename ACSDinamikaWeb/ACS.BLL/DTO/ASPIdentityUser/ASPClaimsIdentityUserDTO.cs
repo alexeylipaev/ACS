@@ -24,7 +24,7 @@ namespace ACS.BLL.DTO
 
         public int? IdentityUserId { get; set; }
 
-        public virtual ASPIdentityUserDTO IdentityUser { get; set; }
+        //public virtual ASPIdentityUserDTO IdentityUser { get; set; }
 
     }
 }

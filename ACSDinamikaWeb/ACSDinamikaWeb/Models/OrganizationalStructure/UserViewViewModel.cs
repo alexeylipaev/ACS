@@ -13,12 +13,12 @@ namespace ACSWeb.ViewModel
     public partial class UserViewModel : SystemParametersViewModel
     {
 
-        public UserViewModel()
-        {
-            Accesses = new HashSet<AccessViewModel>();
-            Chancelleries = new HashSet<ChancelleryViewModel>();
-            PostUserСode1С = new HashSet<PostUserСode1СViewModel>();
-        }
+        //public UserViewModel()
+        //{
+        //    Accesses = new HashSet<AccessViewModel>();
+        //    Chancelleries = new HashSet<ChancelleryViewModel>();
+        //    PostUserСode1С = new HashSet<PostUserСode1СViewModel>();
+        //}
 
         public int Id { get; set; }
 
@@ -42,19 +42,19 @@ namespace ACSWeb.ViewModel
 
         public Guid? Guid1C { get; set; }
 
-        /// <summary>
-        /// Доступы пользователя
-        /// </summary>
-        public virtual ICollection<AccessViewModel> Accesses { get; set; }
+        ///// <summary>
+        ///// Доступы пользователя
+        ///// </summary>
+        //public virtual ICollection<AccessViewModel> Accesses { get; set; }
 
-        /// <summary>
-        /// Канцелярские записи пользователя
-        /// </summary>
-        public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
+        ///// <summary>
+        ///// Канцелярские записи пользователя
+        ///// </summary>
+        //public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
 
-        /// <summary>
-        /// Коды1С должностей пользователя
-        /// </summary>
-        public virtual ICollection<PostUserСode1СViewModel> PostUserСode1С { get; set; }
+        ///// <summary>
+        ///// Коды1С должностей пользователя
+        ///// </summary>
+        //public virtual ICollection<PostUserСode1СViewModel> PostUserСode1С { get; set; }
     }
 }

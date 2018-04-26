@@ -16,7 +16,7 @@ namespace ACS.DAL.Migrations
             AutomaticMigrationsEnabled = true;//автоматическое обновление бд
             AutomaticMigrationDataLossAllowed = true;//обновлять бд даже если при этом будут утеряны данные
             // DefaultValue Sql Generator
-            SetSqlGenerator("System.Data.SqlClient", new DefaultValueSqlServerMigrationSqlGenerator());
+            //SetSqlGenerator("System.Data.SqlClient", new DefaultValueSqlServerMigrationSqlGenerator());
         }
 
         protected override void Seed(ACSContext db)

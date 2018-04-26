@@ -11,11 +11,11 @@ namespace ACSWeb.ViewModel
     public partial class DepartmentViewModel : SystemParametersViewModel
     {
 
-        public DepartmentViewModel()
-        {
-            ChildrenDepartments = new HashSet<DepartmentViewModel>();
-            WorkHistories = new HashSet<WorkHistoryViewModel>();
-        }
+        //public DepartmentViewModel()
+        //{
+        //    ChildrenDepartments = new HashSet<DepartmentViewModel>();
+        //    WorkHistories = new HashSet<WorkHistoryViewModel>();
+        //}
 
         public int Id { get; set; }
 
@@ -41,16 +41,16 @@ namespace ACSWeb.ViewModel
 
         public int? ParentDepartmentId { get; set; }
 
-        public virtual DepartmentViewModel ParentDepartment { get; set; }
+        //public virtual DepartmentViewModel ParentDepartment { get; set; }
 
         #endregion
 
-        public virtual ICollection<DepartmentViewModel> ChildrenDepartments { get; set; }
+        //public virtual ICollection<DepartmentViewModel> ChildrenDepartments { get; set; }
 
-        /// <summary>
-        /// Подключения к подразделению
-        /// </summary>
-        public virtual ICollection<WorkHistoryViewModel> WorkHistories { get; set; }
+        ///// <summary>
+        ///// Подключения к подразделению
+        ///// </summary>
+        //public virtual ICollection<WorkHistoryViewModel> WorkHistories { get; set; }
 
     }
 }

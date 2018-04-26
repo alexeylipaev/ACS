@@ -18,7 +18,7 @@ namespace ACS.BLL.DTO
 
         public int? UserId { get; set; }
 
-        public virtual UserDTO User { get; set; }
+        //public virtual UserDTO User { get; set; }
 
         #endregion
 
@@ -26,12 +26,12 @@ namespace ACS.BLL.DTO
 
         public int? ExternalOrganizationId { get; set; }
 
-        public virtual ExternalOrganizationChancelleryDTO ExternalOrganization { get; set; }
+        //public virtual ExternalOrganizationChancelleryDTO ExternalOrganization { get; set; }
 
         #endregion
 
         public int? ChancelleryId { get; set; }
 
-        public virtual ChancelleryDTO Chancellery { get; set; }
+        //public virtual ChancelleryDTO Chancellery { get; set; }
     }
 }

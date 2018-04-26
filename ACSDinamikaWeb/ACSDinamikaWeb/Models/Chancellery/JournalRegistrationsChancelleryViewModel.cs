@@ -13,10 +13,10 @@ namespace ACSWeb.ViewModel
     public partial class JournalRegistrationsChancelleryViewModel : SystemParametersViewModel
     {
 
-        public JournalRegistrationsChancelleryViewModel()
-        {
-            Chancelleries = new HashSet<ChancelleryViewModel>();
-        }
+        //public JournalRegistrationsChancelleryViewModel()
+        //{
+        //    Chancelleries = new HashSet<ChancelleryViewModel>();
+        //}
 
         public int Id { get; set; }
 
@@ -24,7 +24,7 @@ namespace ACSWeb.ViewModel
         public string Name { get; set; }
 
 
-        public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
+        //public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
 
     }
 }

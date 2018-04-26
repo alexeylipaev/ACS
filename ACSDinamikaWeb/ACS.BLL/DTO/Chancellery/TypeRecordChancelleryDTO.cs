@@ -13,10 +13,10 @@ namespace ACS.BLL.DTO
     /// </summary>
     public partial class TypeRecordChancelleryDTO : SystemParametersDTO
     {
-        public TypeRecordChancelleryDTO()
-        {
-            Chancelleries = new HashSet<ChancelleryDTO>();
-        }
+        //public TypeRecordChancelleryDTO()
+        //{
+        //    Chancelleries = new HashSet<ChancelleryDTO>();
+        //}
 
 
         public byte Id { get; set; }
@@ -25,6 +25,6 @@ namespace ACS.BLL.DTO
         public string Name { get; set; }
 
      
-        public virtual ICollection<ChancelleryDTO> Chancelleries { get; set; }
+        //public virtual ICollection<ChancelleryDTO> Chancelleries { get; set; }
     }
 }

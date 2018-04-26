@@ -15,10 +15,10 @@ namespace ACSWeb.ViewModel
 
         public int? TypeAccessId { get; set; }
 
-        public virtual TypeAccessViewModel TypeAccess { get; set; }
+        //public virtual TypeAccessViewModel TypeAccess { get; set; }
 
         public int? UserId { get; set; }
 
-        public virtual UserViewModel User { get; set; }
+        //public virtual UserViewModel User { get; set; }
     }
 }

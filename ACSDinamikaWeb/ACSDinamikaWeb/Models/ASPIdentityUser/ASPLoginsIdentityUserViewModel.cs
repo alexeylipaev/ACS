@@ -28,7 +28,7 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Владелец this логина
         /// </summary>
-        public virtual ASPIdentityUserViewModel IdentityUser { get; set; }
+        //public virtual ASPIdentityUserViewModel IdentityUser { get; set; }
 
     }
 }

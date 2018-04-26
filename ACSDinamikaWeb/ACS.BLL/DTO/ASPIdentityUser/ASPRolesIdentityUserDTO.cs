@@ -20,6 +20,6 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Пользователи, которое владеют этой ролью
         /// </summary>
-        public virtual ICollection<ASPIdentityUserDTO> IdentityUser { get; set; }
+        //public virtual ICollection<ASPIdentityUserDTO> IdentityUser { get; set; }
     }
 }
