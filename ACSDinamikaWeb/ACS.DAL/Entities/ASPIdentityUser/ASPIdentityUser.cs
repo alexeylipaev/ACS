@@ -41,6 +41,7 @@ namespace ACS.DAL.Entities
         public string SecurityStamp { get; set; }
 
         [StringLength(100)]
+        [Required]
         public string EMail { get; set; }
 
         /// <summary>

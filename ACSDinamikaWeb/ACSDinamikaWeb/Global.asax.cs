@@ -27,6 +27,7 @@ namespace ACSWeb
 
             NinjectModule userModule = new UserModule();
             var kernel = new StandardKernel(userModule, serviceModule);
+            kernel.Unbind<ModelValidatorProvider>();
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
 
             //NinjectModule accessModule = new AccessModule();
