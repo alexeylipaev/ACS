@@ -1,6 +1,6 @@
 using System;
 
-namespace ACSWeb.Models
+namespace ACSWeb.ViewModel
 {
 
     public partial class AccessViewModel : SystemParametersViewModel
@@ -9,13 +9,15 @@ namespace ACSWeb.Models
 
         public Guid? GuidObject { get; set; }
 
-        public int? TypeAccessId { get; set; }
-
         public int? Value { get; set; }
 
         public string Note { get; set; }
 
+        public int? TypeAccessId { get; set; }
+
         public virtual TypeAccessViewModel TypeAccess { get; set; }
+
+        public int? UserId { get; set; }
 
         public virtual UserViewModel User { get; set; }
     }

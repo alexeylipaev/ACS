@@ -1,6 +1,7 @@
 ﻿using ACS.BLL.DTO;
 using ACS.BLL.Interfaces;
 using ACSWeb.Models;
+using ACSWeb.ViewModel;
 using AutoMapper;
 using System;
 using System.Collections.Generic;

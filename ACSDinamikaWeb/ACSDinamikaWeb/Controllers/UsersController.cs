@@ -6,6 +6,7 @@ using ACSWeb.Models;
 using ACS.BLL.DTO;
 using AutoMapper;
 using ACS.BLL.Infrastructure;
+using ACSWeb.ViewModel;
 
 namespace ACSWeb.Controllers
 {
@@ -54,8 +55,13 @@ namespace ACSWeb.Controllers
         {
             try
             {
-                UserDTO userDTO = userService.GetUser(id);
-                var userVM = new UserViewModel { Id = userDTO.Id };
+                var userVM = new UserViewModel ();
+                if (id != null)
+                {
+                    UserDTO userDTO = userService.GetUser(id);
+                    userVM.Id = userDTO.Id;
+                }
+                
 
                 return View(userVM);
             }

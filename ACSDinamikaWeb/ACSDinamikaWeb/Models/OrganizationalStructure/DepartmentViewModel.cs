@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACSWeb.Models
+namespace ACSWeb.ViewModel
 {
 
     public partial class DepartmentViewModel : SystemParametersViewModel
@@ -14,11 +14,12 @@ namespace ACSWeb.Models
         public DepartmentViewModel()
         {
             ChildrenDepartments = new HashSet<DepartmentViewModel>();
+            WorkHistories = new HashSet<WorkHistoryViewModel>();
         }
 
         public int Id { get; set; }
 
-      
+
         public string Name { get; set; }
 
         /// <summary>
@@ -36,10 +37,20 @@ namespace ACSWeb.Models
         /// </summary>
         public bool? Inactive { get; set; }
 
+        #region связь с родителем 
+
+        public int? ParentDepartmentId { get; set; }
+
+        public virtual DepartmentViewModel ParentDepartment { get; set; }
+
+        #endregion
 
         public virtual ICollection<DepartmentViewModel> ChildrenDepartments { get; set; }
 
-        public virtual DepartmentViewModel ParentDepartment { get; set; }
+        /// <summary>
+        /// Подключения к подразделению
+        /// </summary>
+        public virtual ICollection<WorkHistoryViewModel> WorkHistories { get; set; }
 
     }
 }

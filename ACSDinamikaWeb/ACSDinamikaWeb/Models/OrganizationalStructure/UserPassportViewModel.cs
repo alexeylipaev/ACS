@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ACSWeb.Models
+namespace ACSWeb.ViewModel
 {
 
     public class UserPassportViewModel : SystemParametersViewModel
@@ -18,7 +18,10 @@ namespace ACSWeb.Models
 
         public string UnitCode { get; set; }
 
-     
         public DateTime? DateOfIssue { get; set; }
+
+        public int? UserId { get; set; }
+
+        public virtual UserViewModel User { get; set; }
     }
 }

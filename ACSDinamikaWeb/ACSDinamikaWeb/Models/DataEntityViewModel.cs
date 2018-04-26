@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ACSWeb.ViewModel;
+using System;
 using System.Collections.Generic;
 
 
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACSWeb.Models
+namespace ACSWeb.ViewModels
 {
 
     public partial class DataEntityViewModel : SystemParametersViewModel
@@ -18,11 +19,7 @@ namespace ACSWeb.Models
         public string Name { get; set; }
 
         
-        public int object_id { get; set; }
-
-        
-        public string type_desc { get; set; }
-
+        public int Object_id { get; set; }
 
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 
 
-namespace ACSWeb.Models
+namespace ACSWeb.ViewModel
 {
 
     public partial class TypeAccessViewModel : SystemParametersViewModel

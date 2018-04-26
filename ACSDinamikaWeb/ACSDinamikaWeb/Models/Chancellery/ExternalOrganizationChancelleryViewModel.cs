@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACSWeb.Models
+namespace ACSWeb.ViewModel
 {
-
+    /// <summary>
+    /// Внешняя организация
+    /// </summary>
     public partial class ExternalOrganizationChancelleryViewModel : SystemParametersViewModel
     {
         public int Id { get; set; }

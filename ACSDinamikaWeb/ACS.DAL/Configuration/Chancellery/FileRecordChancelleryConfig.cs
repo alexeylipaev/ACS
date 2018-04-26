@@ -15,7 +15,7 @@ namespace ACS.DAL.Configuration
             Property(e => e.Name)
                    .IsUnicode(true);
 
-            Property(e => e.format)
+            Property(e => e.Format)
                   .IsUnicode(true);
 
             Property(e => e.Path)

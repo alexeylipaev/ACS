@@ -2,9 +2,9 @@
 using System.ComponentModel;
 
 
-namespace ACS.BLL.DTO
+namespace ACSWeb.ViewModel
 {
-    public class SystemParametersDTO
+    public class SystemParametersViewModel
     {
        
         public Guid? s_Guid { get; private set; }

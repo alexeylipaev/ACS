@@ -15,9 +15,6 @@ namespace ACS.DAL.Configuration
         {
             HasKey(e => e.Id);
 
-            Property(e => e.ClaimsId)
-            .IsUnicode(true);
-
             Property(e => e.ClaimType)
             .IsUnicode(true);
 

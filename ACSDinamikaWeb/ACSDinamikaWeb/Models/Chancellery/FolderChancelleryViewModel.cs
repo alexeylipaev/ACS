@@ -5,13 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACSWeb.Models
+namespace ACSWeb.ViewModel
 {
- 
-    public partial class JournalRegistrationsChancelleryViewModel : SystemParametersViewModel
+    /// <summary>
+    /// Канцелярская папка
+    /// </summary>
+    public partial class FolderChancelleryViewModel : SystemParametersViewModel
     {
 
-        public JournalRegistrationsChancelleryViewModel()
+        public FolderChancelleryViewModel()
         {
             Chancelleries = new HashSet<ChancelleryViewModel>();
         }
@@ -21,8 +23,9 @@ namespace ACSWeb.Models
        
         public string Name { get; set; }
 
-
+        /// <summary>
+        /// Канцелярские записи в папке
+        /// </summary>
         public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
-
     }
 }

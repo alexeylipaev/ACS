@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACSWeb.Models
+namespace ACSWeb.ViewModel
 {
 
     public partial class PostNameUserViewModel : SystemParametersViewModel

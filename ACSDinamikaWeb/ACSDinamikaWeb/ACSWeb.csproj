@@ -199,32 +199,32 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Access\AccessViewModel.cs" />
-    <Compile Include="Models\Access\TypeAccessDTO.cs" />
+    <Compile Include="Models\Access\AccessDTO.cs" />
+    <Compile Include="Models\Access\TypeAccessViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\ASPIdentityUser\ASPClaimsIdentityUserDTO.cs" />
-    <Compile Include="Models\ASPIdentityUser\ASPIdentityUserDTO.cs" />
-    <Compile Include="Models\ASPIdentityUser\ASPLoginsIdentityUserDTO.cs" />
-    <Compile Include="Models\ASPIdentityUser\ASPRolesIdentityUserDTO.cs" />
-    <Compile Include="Models\Chancellery\ChancelleryDTO.cs" />
-    <Compile Include="Models\Chancellery\ExternalOrganizationChancelleryDTO.cs" />
-    <Compile Include="Models\Chancellery\FileRecordChancelleryDTO.cs" />
-    <Compile Include="Models\Chancellery\FolderChancelleryDTO.cs" />
-    <Compile Include="Models\Chancellery\FromChancelleryDTO.cs" />
-    <Compile Include="Models\Chancellery\JournalRegistrationsChancelleryDTO.cs" />
-    <Compile Include="Models\Chancellery\ToChancelleryDTO.cs" />
-    <Compile Include="Models\Chancellery\TypeRecordChancelleryDTO.cs" />
+    <Compile Include="Models\ASPIdentityUser\ASPClaimsIdentityUserViewModel.cs" />
+    <Compile Include="Models\ASPIdentityUser\ASPIdentityUserViewModel.cs" />
+    <Compile Include="Models\ASPIdentityUser\ASPLoginsIdentityUserViewModel.cs" />
+    <Compile Include="Models\ASPIdentityUser\ASPRolesIdentityUserViewModel.cs" />
+    <Compile Include="Models\Chancellery\ChancelleryViewModel.cs" />
+    <Compile Include="Models\Chancellery\ExternalOrganizationChancelleryViewModel.cs" />
+    <Compile Include="Models\Chancellery\FileRecordChancelleryViewModel.cs" />
+    <Compile Include="Models\Chancellery\FolderChancelleryViewModel.cs" />
+    <Compile Include="Models\Chancellery\FromChancelleryViewModel.cs" />
+    <Compile Include="Models\Chancellery\JournalRegistrationsChancelleryViewModel.cs" />
+    <Compile Include="Models\Chancellery\ToChancelleryViewModel.cs" />
+    <Compile Include="Models\Chancellery\TypeRecordChancelleryViewModel.cs" />
     <Compile Include="Models\Class1.cs" />
-    <Compile Include="Models\DataEntityDTO.cs" />
+    <Compile Include="Models\DataEntityViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\OrganizationalStructure\DepartmentDTO.cs" />
-    <Compile Include="Models\OrganizationalStructure\PostNameUserDTO.cs" />
-    <Compile Include="Models\OrganizationalStructure\PostUserСode1СDTO.cs" />
-    <Compile Include="Models\OrganizationalStructure\UserViewModel.cs" />
-    <Compile Include="Models\OrganizationalStructure\UserPassportDTO.cs" />
-    <Compile Include="Models\OrganizationalStructure\WorkHistoryDTO.cs" />
-    <Compile Include="Models\SystemParametersDTO.cs" />
+    <Compile Include="Models\OrganizationalStructure\DepartmentViewModel.cs" />
+    <Compile Include="Models\OrganizationalStructure\PostNameUserViewModel.cs" />
+    <Compile Include="Models\OrganizationalStructure\PostUserСode1СViewModel.cs" />
+    <Compile Include="Models\OrganizationalStructure\UserViewViewModel.cs" />
+    <Compile Include="Models\OrganizationalStructure\UserPassportViewModel.cs" />
+    <Compile Include="Models\OrganizationalStructure\WorkHistoryViewModel.cs" />
+    <Compile Include="Models\SystemParametersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Util\UserModule.cs" />
@@ -296,6 +296,7 @@
     <Content Include="Views\Shared\_LayoutCancelaria.cshtml" />
     <Content Include="Views\.editorconfig" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
