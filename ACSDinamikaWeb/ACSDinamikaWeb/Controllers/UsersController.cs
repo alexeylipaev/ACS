@@ -90,14 +90,14 @@ namespace ACSWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FName,LName,MName,Email")] UserViewModel userVM)
+        public ActionResult Create([Bind(Include = "Id,FName,LName,MName,Email,Birthday")] UserViewModel userVM)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     string currentUserEmail = CurrentUserEmail();
-                    var userDto = new UserDTO { Id = userVM.Id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName, Email  = userVM.Email};
+                    var userDto = new UserDTO { Id = userVM.Id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName, Email  = userVM.Email, Birthday = userVM.Birthday};
                     userService.MakeUser(userDto, currentUserEmail);
                     return RedirectToAction("Index");
                 }
