@@ -39,7 +39,6 @@ namespace ACS.DAL.Repositories
 
         public void Update(User User)
         {
-            db.Users.Add(User);
             db.Entry(User).State = EntityState.Modified;
         }
 

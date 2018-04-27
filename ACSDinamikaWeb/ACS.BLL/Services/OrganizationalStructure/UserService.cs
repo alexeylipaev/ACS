@@ -92,8 +92,6 @@ namespace ACS.BLL.Services
             }
             catch (Exception e)
             {
-
-
                 Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
                 Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
                 Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);
@@ -105,8 +103,6 @@ namespace ACS.BLL.Services
                 foreach (DictionaryEntry de in e.Data)
                     Console.WriteLine("{0} : {1}", de.Key, de.Value);
             }
-
-
         }
 
         public void UpdateUser(UserDTO UserDTO, string authorEmail)
@@ -118,25 +114,24 @@ namespace ACS.BLL.Services
             if (editor == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
 
-
             if (EditableObj == null)
                 throw new ValidationException("Не возможно редактировать объект с Id", UserDTO.Id.ToString());
 
-            
             try
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, User>()).CreateMapper();
-                EditableObj = mapper.Map<UserDTO, User>(UserDTO);
-                EditableObj.s_EditorID = editor.Id;
+                EditableObj.LName = UserDTO.LName;
+                EditableObj.FName = UserDTO.FName;
+                EditableObj.MName = UserDTO.MName;
                 EditableObj.Email = UserDTO.Email;
 
-                //Database.Users.Update(EditableObj);
+                EditableObj.s_EditDate = DateTime.Now;
+                EditableObj.s_EditorID = editor.Id;
+
+                Database.Users.Update(EditableObj);
                 Database.Save();
             }
             catch (Exception e)
             {
-
-
                 Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
                 Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
                 Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);

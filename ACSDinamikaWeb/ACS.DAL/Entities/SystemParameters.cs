@@ -20,7 +20,7 @@ namespace ACS.DAL.Entities
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [DefaultValue("getdate()")]
-        public DateTime? s_EditDate { get; private set; }
+        public DateTime? s_EditDate { get;  set; }
 
         public bool? s_IsLocked { get; set; }
 
