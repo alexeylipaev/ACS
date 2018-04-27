@@ -21,11 +21,11 @@ namespace ACSWeb.ViewModel
 
         public int Id { get; set; }
 
-       
+       [Display(Name = "Имя")]
         public string FName { get; set; }
-
+        [Display(Name = "Фамилия")]
         public string LName { get; set; }
-
+        [Display(Name = "Отчество")]
         public string MName { get; set; }
 
         public string Email { get; set; }
@@ -33,9 +33,11 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Табельный номер
         /// </summary>
+        [Display(Name = "Табельный номер")]
         public string PersonnelNumber { get; set; }
 
        [DataType(DataType.Date)]
+        [Display(Name = "Дата рождения")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? Birthday { get; set; }
 
