@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.DataEntityis;
         }
 
-        public DataEntity Get(int id)
+        public DataEntity Get(int Id)
         {
-            return db.DataEntityis.Find(id);
+            return db.DataEntityis.Find(Id);
         }
 
 
@@ -45,9 +45,9 @@ namespace ACS.DAL.Repositories
             return db.DataEntityis.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            DataEntity DataEntity = db.DataEntityis.Find(id);
+            DataEntity DataEntity = db.DataEntityis.Find(Id);
             if (DataEntity != null)
                 db.DataEntityis.Remove(DataEntity);
         }

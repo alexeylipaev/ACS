@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.JournalRegistrationsChancelleries;
         }
 
-        public JournalRegistrationsChancellery Get(int id)
+        public JournalRegistrationsChancellery Get(int Id)
         {
-            return db.JournalRegistrationsChancelleries.Find(id);
+            return db.JournalRegistrationsChancelleries.Find(Id);
         }
 
 
@@ -45,9 +45,9 @@ namespace ACS.DAL.Repositories
             return db.JournalRegistrationsChancelleries.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            JournalRegistrationsChancellery Journal = db.JournalRegistrationsChancelleries.Find(id);
+            JournalRegistrationsChancellery Journal = db.JournalRegistrationsChancelleries.Find(Id);
             if (Journal != null)
                 db.JournalRegistrationsChancelleries.Remove(Journal);
         }

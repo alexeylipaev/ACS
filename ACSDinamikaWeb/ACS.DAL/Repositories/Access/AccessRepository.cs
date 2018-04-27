@@ -25,9 +25,9 @@ namespace ACS.DAL.Repositories
             return db.Accesses;
         }
 
-        public Access Get(int id)
+        public Access Get(int Id)
         {
-            return db.Accesses.Find(id);
+            return db.Accesses.Find(Id);
         }
 
 
@@ -46,9 +46,9 @@ namespace ACS.DAL.Repositories
             return db.Accesses.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            Access access = db.Accesses.Find(id);
+            Access access = db.Accesses.Find(Id);
             if (access != null)
                 db.Accesses.Remove(access);
         }

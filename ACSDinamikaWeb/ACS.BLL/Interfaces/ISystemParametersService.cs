@@ -10,7 +10,7 @@ namespace ACS.BLL.Interfaces
     public interface ISystemParametersService
     {
         void MakeSystemParameters(SystemParametersDTO SystemParametersDTO);
-        SystemParametersDTO GetSystemParameters(int? id);
+        SystemParametersDTO GetSystemParameters(int? Id);
         IEnumerable<SystemParametersDTO> GetSystemParameters();
         void Dispose();
     }

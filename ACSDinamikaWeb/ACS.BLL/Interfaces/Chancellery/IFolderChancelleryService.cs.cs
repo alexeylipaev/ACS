@@ -9,9 +9,12 @@ namespace ACS.BLL.Interfaces
 {
     public interface IFolderChancelleryService
     {
-        void MakeFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO);
-        FolderChancelleryDTO GetFolderChancellery(int? id);
-        IEnumerable<FolderChancelleryDTO> GetFolderChancellery();
+        void MakeFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail);
+
+        void UpdateFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail);
+
+        FolderChancelleryDTO GetFolderChancellery(int? Id);
+        IEnumerable<FolderChancelleryDTO> GetFoldersChancellery();
         void Dispose();
     }
 }

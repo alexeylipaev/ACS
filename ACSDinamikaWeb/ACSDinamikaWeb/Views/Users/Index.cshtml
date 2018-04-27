@@ -5,8 +5,8 @@
 }
 
 <h2>Пользователи</h2>
-<div id="modDialog" class="modal fade">
-    <div id="dialogContent" class="modal-dialog"></div>
+<div Id="modDialog" class="modal fade">
+    <div Id="dialogContent" class="modal-dialog"></div>
 </div>
 <p>
     @Html.ActionLink("Создать нового", "Create")
@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Подробнее", "Details", new { id = item.Id }, new { @class = "compItem" }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+                @Html.ActionLink("Редактировать", "Edit", new { Id = item.Id }) |
+                @Html.ActionLink("Подробнее", "Details", new { Id = item.Id }, new { @class = "compItem" }) |
+                @Html.ActionLink("Удалить", "Delete", new { Id = item.Id })
             </td>
         </tr>
     }

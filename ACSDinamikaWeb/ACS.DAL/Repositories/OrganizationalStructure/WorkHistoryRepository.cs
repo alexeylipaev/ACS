@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.WorkHistories;
         }
 
-        public WorkHistory Get(int id)
+        public WorkHistory Get(int Id)
         {
-            return db.WorkHistories.Find(id);
+            return db.WorkHistories.Find(Id);
         }
 
 
@@ -45,9 +45,9 @@ namespace ACS.DAL.Repositories
             return db.WorkHistories.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            WorkHistory WorkHistory = db.WorkHistories.Find(id);
+            WorkHistory WorkHistory = db.WorkHistories.Find(Id);
             if (WorkHistory != null)
                 db.WorkHistories.Remove(WorkHistory);
         }

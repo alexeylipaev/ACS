@@ -581,7 +581,7 @@ $.extend($.validator, {
 					}
 				} catch(e) {
 					if ( this.settings.debug && window.console ) {
-						console.log( "Exception occurred when checking element " + element.id + ", check the '" + rule.method + "' method.", e );
+						console.log( "Exception occurred when checking element " + element.Id + ", check the '" + rule.method + "' method.", e );
 					}
 					throw e;
 				}
@@ -734,7 +734,7 @@ $.extend($.validator, {
 		},
 
 		idOrName: function( element ) {
-			return this.groups[element.name] || (this.checkable(element) ? element.name : element.id || element.name);
+			return this.groups[element.name] || (this.checkable(element) ? element.name : element.Id || element.name);
 		},
 
 		validationTargetFor: function( element ) {

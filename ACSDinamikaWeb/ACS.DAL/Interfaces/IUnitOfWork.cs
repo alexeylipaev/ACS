@@ -28,7 +28,7 @@ namespace ACS.DAL.Interfaces
         IRepository<PostNameUser> PostUsers { get; }
         IRepository<PostUserСode1С> PostUserСode1С { get; }
         IRepository<ToChancellery> ToChancelleries { get; }
-        IRepository<TypeAccess> TypeAccesses { get; }
+        IRepository<TypeAccess> TypesAccesses { get; }
         IRepository<TypeRecordChancellery> TypeRecordChancelleries { get; }
         IRepository<User> Users { get; }
         IRepository<WorkHistory> WorkHistories { get; }

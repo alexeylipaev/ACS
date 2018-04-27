@@ -9,9 +9,16 @@ namespace ACS.BLL.Interfaces
 {
     public interface IAccessService
     {
-        void MakeAccess(AccessDTO AccessDTO);
-        AccessDTO GetAccess(int? id);
+        void MakeAccess(AccessDTO accessDTO, string authorEmail);
+
+        void UpdateAccess(AccessDTO accessDTO, string authorEmail);
+
+        AccessDTO GetAccess(int? Id);
+
+        UserDTO GetUser(int? Id);
+
         IEnumerable<AccessDTO> GetAccesses();
+
         void Dispose();
     }
 }

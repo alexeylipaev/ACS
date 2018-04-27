@@ -97,8 +97,16 @@
     <Compile Include="Interfaces\OrganizationalStructure\IUserService.cs" />
     <Compile Include="Interfaces\OrganizationalStructure\IWorkHistoryService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AccessService.cs" />
-    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\Accesses\AccessService.cs" />
+    <Compile Include="Services\Accesses\TypeAccessService.cs" />
+    <Compile Include="Services\Chancellery\ChancelleryService.cs" />
+    <Compile Include="Services\Chancellery\FileRecordChancelleryService.cs" />
+    <Compile Include="Services\Chancellery\FolderChancelleryService.cs" />
+    <Compile Include="Services\Chancellery\JournalRegistrationsChancelleryService.cs" />
+    <Compile Include="Services\Chancellery\TypeRecordChancelleryService.cs" />
+    <Compile Include="Services\OrganizationalStructure\DepartmentService.cs" />
+    <Compile Include="Services\OrganizationalStructure\UserPassportService.cs" />
+    <Compile Include="Services\OrganizationalStructure\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

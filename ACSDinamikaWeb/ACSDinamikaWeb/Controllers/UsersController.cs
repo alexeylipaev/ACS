@@ -34,15 +34,15 @@ namespace ACSWeb.Controllers
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             try
             {
-                UserDTO user = userService.GetUser(id);
+                UserDTO user = userService.GetUser(Id);
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, UserViewModel>()).CreateMapper();
                 var userVM = mapper.Map<UserDTO, UserViewModel>(user);
                 //var userVM = new UserViewModel { Id = user.Id };
@@ -56,14 +56,14 @@ namespace ACSWeb.Controllers
         }
 
         // GET: Users/Create
-        public ActionResult Create(int? id)
+        public ActionResult Create(int? Id)
         {
             try
             {
                 var userVM = new UserViewModel ();
-                if (id != null)
+                if (Id != null)
                 {
-                    UserDTO userDTO = userService.GetUser(id);
+                    UserDTO userDTO = userService.GetUser(Id);
                     var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, UserViewModel>()).CreateMapper();
                     userVM = mapper.Map<UserDTO, UserViewModel>(userDTO);
                     //userVM.Id = userDTO.Id;
@@ -110,12 +110,12 @@ namespace ACSWeb.Controllers
         }
 
         // GET: Users/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? Id)
         {
             var userVM = new UserViewModel();
-            if (id != null)
+            if (Id != null)
             {
-                UserDTO userDTO = userService.GetUser(id);
+                UserDTO userDTO = userService.GetUser(Id);
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, UserViewModel>()).CreateMapper();
                 userVM = mapper.Map<UserDTO, UserViewModel>(userDTO);
                 //userVM.Id = userDTO.Id;
@@ -149,13 +149,13 @@ namespace ACSWeb.Controllers
         }
 
         //// GET: Users/Delete/5
-        //public ActionResult Delete(int? id)
+        //public ActionResult Delete(int? Id)
         //{
-        //    if (id == null)
+        //    if (Id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    User user = db.Users.Find(id);
+        //    User user = db.Users.Find(Id);
         //    if (user == null)
         //    {
         //        return HttpNotFound();
@@ -166,9 +166,9 @@ namespace ACSWeb.Controllers
         //// POST: Users/Delete/5
         //[HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
+        //public ActionResult DeleteConfirmed(int Id)
         //{
-        //    User user = db.Users.Find(id);
+        //    User user = db.Users.Find(Id);
         //    db.Users.Remove(user);
         //    db.SaveChanges();
         //    return RedirectToAction("Index");

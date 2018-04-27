@@ -10,7 +10,7 @@ namespace ACS.BLL.Interfaces
     public interface IPostNameUserService
     {
         void MakePostNameUser(PostNameUserDTO PostNameUserDTO);
-        PostNameUserDTO GetPostNameUser(int? id);
+        PostNameUserDTO GetPostNameUser(int? Id);
         IEnumerable<PostNameUserDTO> GetPostNameUser();
         void Dispose();
     }

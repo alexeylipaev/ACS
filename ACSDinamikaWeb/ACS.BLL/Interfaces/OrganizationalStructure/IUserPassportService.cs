@@ -9,9 +9,14 @@ namespace ACS.BLL.Interfaces
 {
     public interface IUserPassportService
     {
-        void MakeUserPassport(UserPassportDTO UserPassportDTO);
-        UserPassportDTO GetUserPassport(int? id);
-        IEnumerable<UserPassportDTO> GetUserPassport();
+        void MakeUserPassport(UserPassportDTO UserPassportDTO, string authorEmail);
+
+        void UpdateUserPassport(UserPassportDTO UserPassportDTO, string authorEmail);
+
+    
+        UserPassportDTO GetUserPassport(int? Id);
+        UserDTO GetUser(int? Id);
+        IEnumerable<UserPassportDTO> GetUsersPassport();
         void Dispose();
     }
 }

@@ -9,11 +9,11 @@ namespace ACS.DAL.Interfaces
     public interface IRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
-        T Get(int id);
+        T Get(int Id);
 
         IEnumerable<T> Find(Func<T, Boolean> predicate);
         void Create(T item);
         void Update(T item);
-        void Delete(int id);
+        void Delete(int Id);
     }
 }

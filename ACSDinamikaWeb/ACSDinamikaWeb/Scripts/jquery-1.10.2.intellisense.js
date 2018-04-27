@@ -1525,10 +1525,10 @@ intellisense.annotate(jQuery.fn, {
     ///   <returns type="jQuery" />
     /// </signature>
   },
-  'id': function() {
+  'Id': function() {
     /// <signature>
-    ///   <summary>Selects a single element with the given id attribute.</summary>
-    ///   <param name="id" type="String">An ID to search for, specified via the id attribute of an element.</param>
+    ///   <summary>Selects a single element with the given Id attribute.</summary>
+    ///   <param name="Id" type="String">An Id to search for, specified via the Id attribute of an element.</param>
     /// </signature>
   },
   'image': function() {

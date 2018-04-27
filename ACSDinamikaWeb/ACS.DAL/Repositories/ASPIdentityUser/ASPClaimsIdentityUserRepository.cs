@@ -25,9 +25,9 @@ namespace ACS.DAL.Repositories
             return db.ASPClaimsIdentityUsers;
         }
 
-        public ASPClaimsIdentityUser Get(int id)
+        public ASPClaimsIdentityUser Get(int Id)
         {
-            return db.ASPClaimsIdentityUsers.Find(id);
+            return db.ASPClaimsIdentityUsers.Find(Id);
         }
 
         public void Create(ASPClaimsIdentityUser ASPClaimsIdentityUser)
@@ -45,9 +45,9 @@ namespace ACS.DAL.Repositories
             return db.ASPClaimsIdentityUsers.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            ASPClaimsIdentityUser Claim = db.ASPClaimsIdentityUsers.Find(id);
+            ASPClaimsIdentityUser Claim = db.ASPClaimsIdentityUsers.Find(Id);
             if (Claim != null)
                 db.ASPClaimsIdentityUsers.Remove(Claim);
         }

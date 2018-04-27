@@ -25,9 +25,9 @@ namespace ACS.DAL.Repositories
             return db.ASPIdentityUsers;
         }
 
-        public ASPIdentityUser Get(int id)
+        public ASPIdentityUser Get(int Id)
         {
-            return db.ASPIdentityUsers.Find(id);
+            return db.ASPIdentityUsers.Find(Id);
         }
 
         public void Create(ASPIdentityUser ASPIdentityUser)
@@ -45,9 +45,9 @@ namespace ACS.DAL.Repositories
             return db.ASPIdentityUsers.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            ASPIdentityUser IdentityUser = db.ASPIdentityUsers.Find(id);
+            ASPIdentityUser IdentityUser = db.ASPIdentityUsers.Find(Id);
             if (IdentityUser != null)
                 db.ASPIdentityUsers.Remove(IdentityUser);
         }

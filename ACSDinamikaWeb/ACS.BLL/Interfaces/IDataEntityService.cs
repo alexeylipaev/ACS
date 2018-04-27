@@ -10,7 +10,7 @@ namespace ACS.BLL.Interfaces
    public interface IDataEntityService
     {
         void MakeDataEntity(DataEntityDTO DataEntityDTO);
-        DataEntityDTO GetDataEntity(int? id);
+        DataEntityDTO GetDataEntity(int? Id);
         IEnumerable<DataEntityDTO> GetDataEntity();
         void Dispose();
     }

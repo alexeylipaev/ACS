@@ -10,7 +10,7 @@ namespace ACS.BLL.Interfaces
    public interface IASPRolesIdentityUserService
     {
         void MakeASPRolesIdentityUser(ASPRolesIdentityUserDTO ASPRolesIdentityUserDTO);
-        ASPRolesIdentityUserDTO GetASPRolesIdentityUser(int? id);
+        ASPRolesIdentityUserDTO GetASPRolesIdentityUser(int? Id);
         IEnumerable<ASPRolesIdentityUserDTO> GetASPRolesIdentityUser();
         void Dispose();
     }

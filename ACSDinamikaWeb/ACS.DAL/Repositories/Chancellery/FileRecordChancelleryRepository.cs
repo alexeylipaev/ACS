@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.FileRecordChancelleries;
         }
 
-        public FileRecordChancellery Get(int id)
+        public FileRecordChancellery Get(int Id)
         {
-            return db.FileRecordChancelleries.Find(id);
+            return db.FileRecordChancelleries.Find(Id);
         }
 
 
@@ -45,9 +45,9 @@ namespace ACS.DAL.Repositories
             return db.FileRecordChancelleries.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            FileRecordChancellery FileRecord = db.FileRecordChancelleries.Find(id);
+            FileRecordChancellery FileRecord = db.FileRecordChancelleries.Find(Id);
             if (FileRecord != null)
                 db.FileRecordChancelleries.Remove(FileRecord);
         }

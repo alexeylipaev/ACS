@@ -9,9 +9,12 @@ namespace ACS.BLL.Interfaces
 {
     public interface IFileRecordFileRecordChancelleryService
     {
-        void MakeFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDto);
-        FileRecordChancelleryDTO GetFileRecordChancellery(int? id);
-        IEnumerable<FileRecordChancelleryDTO> GetChancelleries();
+        void MakeFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDto, string authorEmail);
+
+        void UpdateFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDto, string authorEmail);
+
+        FileRecordChancelleryDTO GetFileRecordChancellery(int? Id);
+        IEnumerable<FileRecordChancelleryDTO> GetFilesRecordChancellery();
         void Dispose();
     }
 }

@@ -87,7 +87,7 @@ var
 	rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,
 
 	// A simple way to check for HTML strings
-	// Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
+	// Prioritize #Id over <tag> to avoid XSS via location.hash (#9521)
 	// Strict HTML recognition (#11290: must start with <)
 	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,
 
@@ -153,7 +153,7 @@ jQuery.fn = jQuery.prototype = {
 				match = rquickExpr.exec( selector );
 			}
 
-			// Match html or make sure no context is specified for #id
+			// Match html or make sure no context is specified for #Id
 			if ( match && (match[1] || !context) ) {
 
 				// HANDLE: $(html) -> $(array)
@@ -183,7 +183,7 @@ jQuery.fn = jQuery.prototype = {
 
 					return this;
 
-				// HANDLE: $(#id)
+				// HANDLE: $(#Id)
 				} else {
 					elem = document.getElementById( match[2] );
 
@@ -191,8 +191,8 @@ jQuery.fn = jQuery.prototype = {
 					// nodes that are no longer in the document #6963
 					if ( elem && elem.parentNode ) {
 						// Handle the case where IE and Opera return items
-						// by name instead of ID
-						if ( elem.id !== match[2] ) {
+						// by name instead of Id
+						if ( elem.Id !== match[2] ) {
 							return rootjQuery.find( selector );
 						}
 
@@ -1124,7 +1124,7 @@ var i,
 	ridentifier = new RegExp( "^" + identifier + "$" ),
 
 	matchExpr = {
-		"ID": new RegExp( "^#(" + characterEncoding + ")" ),
+		"Id": new RegExp( "^#(" + characterEncoding + ")" ),
 		"CLASS": new RegExp( "^\\.(" + characterEncoding + ")" ),
 		"TAG": new RegExp( "^(" + characterEncoding.replace( "w", "w*" ) + ")" ),
 		"ATTR": new RegExp( "^" + attributes ),
@@ -1141,7 +1141,7 @@ var i,
 
 	rnative = /^[^{]+\{\s*\[native \w/,
 
-	// Easily-parseable/retrievable ID or TAG or CLASS selectors
+	// Easily-parseable/retrievable Id or TAG or CLASS selectors
 	rquickExpr = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,
 
 	rinputs = /^(?:input|select|textarea|button)$/i,
@@ -1218,7 +1218,7 @@ function Sizzle( selector, context, results, seed ) {
 
 		// Shortcuts
 		if ( (match = rquickExpr.exec( selector )) ) {
-			// Speed-up: Sizzle("#ID")
+			// Speed-up: Sizzle("#Id")
 			if ( (m = match[1]) ) {
 				if ( nodeType === 9 ) {
 					elem = context.getElementById( m );
@@ -1226,8 +1226,8 @@ function Sizzle( selector, context, results, seed ) {
 					// nodes that are no longer in the document #6963
 					if ( elem && elem.parentNode ) {
 						// Handle the case where IE, Opera, and Webkit return items
-						// by name instead of ID
-						if ( elem.id === m ) {
+						// by name instead of Id
+						if ( elem.Id === m ) {
 							results.push( elem );
 							return results;
 						}
@@ -1237,7 +1237,7 @@ function Sizzle( selector, context, results, seed ) {
 				} else {
 					// Context is not a document
 					if ( context.ownerDocument && (elem = context.ownerDocument.getElementById( m )) &&
-						contains( context, elem ) && elem.id === m ) {
+						contains( context, elem ) && elem.Id === m ) {
 						results.push( elem );
 						return results;
 					}
@@ -1262,18 +1262,18 @@ function Sizzle( selector, context, results, seed ) {
 			newSelector = nodeType === 9 && selector;
 
 			// qSA works strangely on Element-rooted queries
-			// We can work around this by specifying an extra ID on the root
+			// We can work around this by specifying an extra Id on the root
 			// and working up from there (Thanks to Andrew Dupont for the technique)
 			// IE 8 doesn't work on object elements
 			if ( nodeType === 1 && context.nodeName.toLowerCase() !== "object" ) {
 				groups = tokenize( selector );
 
-				if ( (old = context.getAttribute("id")) ) {
+				if ( (old = context.getAttribute("Id")) ) {
 					nid = old.replace( rescape, "\\$&" );
 				} else {
-					context.setAttribute( "id", nid );
+					context.setAttribute( "Id", nid );
 				}
-				nid = "[id='" + nid + "'] ";
+				nid = "[Id='" + nid + "'] ";
 
 				i = groups.length;
 				while ( i-- ) {
@@ -1292,7 +1292,7 @@ function Sizzle( selector, context, results, seed ) {
 				} catch(qsaError) {
 				} finally {
 					if ( !old ) {
-						context.removeAttribute("id");
+						context.removeAttribute("Id");
 					}
 				}
 			}
@@ -1521,35 +1521,35 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// The broken getElementById methods don't pick up programatically-set names,
 	// so use a roundabout getElementsByName test
 	support.getById = assert(function( div ) {
-		docElem.appendChild( div ).id = expando;
+		docElem.appendChild( div ).Id = expando;
 		return !doc.getElementsByName || !doc.getElementsByName( expando ).length;
 	});
 
-	// ID find and filter
+	// Id find and filter
 	if ( support.getById ) {
-		Expr.find["ID"] = function( id, context ) {
+		Expr.find["Id"] = function( Id, context ) {
 			if ( typeof context.getElementById !== strundefined && documentIsHTML ) {
-				var m = context.getElementById( id );
+				var m = context.getElementById( Id );
 				// Check parentNode to catch when Blackberry 4.6 returns
 				// nodes that are no longer in the document #6963
 				return m && m.parentNode ? [m] : [];
 			}
 		};
-		Expr.filter["ID"] = function( id ) {
-			var attrId = id.replace( runescape, funescape );
+		Expr.filter["Id"] = function( Id ) {
+			var attrId = Id.replace( runescape, funescape );
 			return function( elem ) {
-				return elem.getAttribute("id") === attrId;
+				return elem.getAttribute("Id") === attrId;
 			};
 		};
 	} else {
 		// Support: IE6/7
 		// getElementById is not reliable as a find shortcut
-		delete Expr.find["ID"];
+		delete Expr.find["Id"];
 
-		Expr.filter["ID"] =  function( id ) {
-			var attrId = id.replace( runescape, funescape );
+		Expr.filter["Id"] =  function( Id ) {
+			var attrId = Id.replace( runescape, funescape );
 			return function( elem ) {
-				var node = typeof elem.getAttributeNode !== strundefined && elem.getAttributeNode("id");
+				var node = typeof elem.getAttributeNode !== strundefined && elem.getAttributeNode("Id");
 				return node && node.value === attrId;
 			};
 		};
@@ -2268,7 +2268,7 @@ Expr = Sizzle.selectors = {
 		// Miscellaneous
 		"target": function( elem ) {
 			var hash = window.location && window.location.hash;
-			return hash && hash.slice( 1 ) === elem.id;
+			return hash && hash.slice( 1 ) === elem.Id;
 		},
 
 		"root": function( elem ) {
@@ -2864,13 +2864,13 @@ function select( selector, context, results, seed ) {
 		// Try to minimize operations if there is only one group
 		if ( match.length === 1 ) {
 
-			// Take a shortcut and set the context if the root selector is an ID
+			// Take a shortcut and set the context if the root selector is an Id
 			tokens = match[0] = match[0].slice( 0 );
-			if ( tokens.length > 2 && (token = tokens[0]).type === "ID" &&
+			if ( tokens.length > 2 && (token = tokens[0]).type === "Id" &&
 					support.getById && context.nodeType === 9 && documentIsHTML &&
 					Expr.relative[ tokens[1].type ] ) {
 
-				context = ( Expr.find["ID"]( token.matches[0].replace(runescape, funescape), context ) || [] )[0];
+				context = ( Expr.find["Id"]( token.matches[0].replace(runescape, funescape), context ) || [] )[0];
 				if ( !context ) {
 					return results;
 				}
@@ -3595,43 +3595,43 @@ function internalData( elem, name, data, pvt /* Internal Use Only */ ){
 		// attached directly to the object so GC can occur automatically
 		cache = isNode ? jQuery.cache : elem,
 
-		// Only defining an ID for JS objects if its cache already exists allows
+		// Only defining an Id for JS objects if its cache already exists allows
 		// the code to shortcut on the same path as a DOM node with no cache
-		id = isNode ? elem[ internalKey ] : elem[ internalKey ] && internalKey;
+		Id = isNode ? elem[ internalKey ] : elem[ internalKey ] && internalKey;
 
 	// Avoid doing any more work than we need to when trying to get data on an
 	// object that has no data at all
-	if ( (!id || !cache[id] || (!pvt && !cache[id].data)) && data === undefined && typeof name === "string" ) {
+	if ( (!Id || !cache[Id] || (!pvt && !cache[Id].data)) && data === undefined && typeof name === "string" ) {
 		return;
 	}
 
-	if ( !id ) {
-		// Only DOM nodes need a new unique ID for each element since their data
+	if ( !Id ) {
+		// Only DOM nodes need a new unique Id for each element since their data
 		// ends up in the global cache
 		if ( isNode ) {
-			id = elem[ internalKey ] = core_deletedIds.pop() || jQuery.guid++;
+			Id = elem[ internalKey ] = core_deletedIds.pop() || jQuery.guid++;
 		} else {
-			id = internalKey;
+			Id = internalKey;
 		}
 	}
 
-	if ( !cache[ id ] ) {
+	if ( !cache[ Id ] ) {
 		// Avoid exposing jQuery metadata on plain JS objects when the object
 		// is serialized using JSON.stringify
-		cache[ id ] = isNode ? {} : { toJSON: jQuery.noop };
+		cache[ Id ] = isNode ? {} : { toJSON: jQuery.noop };
 	}
 
 	// An object can be passed to jQuery.data instead of a key/value pair; this gets
 	// shallow copied over onto the existing cache
 	if ( typeof name === "object" || typeof name === "function" ) {
 		if ( pvt ) {
-			cache[ id ] = jQuery.extend( cache[ id ], name );
+			cache[ Id ] = jQuery.extend( cache[ Id ], name );
 		} else {
-			cache[ id ].data = jQuery.extend( cache[ id ].data, name );
+			cache[ Id ].data = jQuery.extend( cache[ Id ].data, name );
 		}
 	}
 
-	thisCache = cache[ id ];
+	thisCache = cache[ Id ];
 
 	// jQuery data() is stored in a separate object inside the object's internal data
 	// cache in order to avoid key collisions between internal data and user-defined
@@ -3678,17 +3678,17 @@ function internalRemoveData( elem, name, pvt ) {
 
 		// See jQuery.data for more information
 		cache = isNode ? jQuery.cache : elem,
-		id = isNode ? elem[ jQuery.expando ] : jQuery.expando;
+		Id = isNode ? elem[ jQuery.expando ] : jQuery.expando;
 
 	// If there is already no cache entry for this object, there is no
 	// purpose in continuing
-	if ( !cache[ id ] ) {
+	if ( !cache[ Id ] ) {
 		return;
 	}
 
 	if ( name ) {
 
-		thisCache = pvt ? cache[ id ] : cache[ id ].data;
+		thisCache = pvt ? cache[ Id ] : cache[ Id ].data;
 
 		if ( thisCache ) {
 
@@ -3733,11 +3733,11 @@ function internalRemoveData( elem, name, pvt ) {
 
 	// See jQuery.data for more information
 	if ( !pvt ) {
-		delete cache[ id ].data;
+		delete cache[ Id ].data;
 
 		// Don't destroy the parent cache unless the internal data object
 		// had been the only thing left in it
-		if ( !isEmptyDataObject( cache[ id ] ) ) {
+		if ( !isEmptyDataObject( cache[ Id ] ) ) {
 			return;
 		}
 	}
@@ -3750,11 +3750,11 @@ function internalRemoveData( elem, name, pvt ) {
 	/* jshint eqeqeq: false */
 	} else if ( jQuery.support.deleteExpando || cache != cache.window ) {
 		/* jshint eqeqeq: true */
-		delete cache[ id ];
+		delete cache[ Id ];
 
 	// When all else fails, null
 	} else {
-		cache[ id ] = null;
+		cache[ Id ] = null;
 	}
 }
 
@@ -4590,7 +4590,7 @@ if ( !getSetAttribute ) {
 				undefined;
 		}
 	};
-	jQuery.expr.attrHandle.id = jQuery.expr.attrHandle.name = jQuery.expr.attrHandle.coords =
+	jQuery.expr.attrHandle.Id = jQuery.expr.attrHandle.name = jQuery.expr.attrHandle.coords =
 		// Some attributes are constructed with empty-string values when not defined
 		function( elem, name, isXML ) {
 			var ret;
@@ -4763,7 +4763,7 @@ jQuery.event = {
 			selector = handleObjIn.selector;
 		}
 
-		// Make sure that the handler has a unique ID, used to find/remove it later
+		// Make sure that the handler has a unique Id, used to find/remove it later
 		if ( !handler.guid ) {
 			handler.guid = jQuery.guid++;
 		}
@@ -6676,7 +6676,7 @@ jQuery.extend({
 	},
 
 	cleanData: function( elems, /* internal */ acceptData ) {
-		var elem, type, id, data,
+		var elem, type, Id, data,
 			i = 0,
 			internalKey = jQuery.expando,
 			cache = jQuery.cache,
@@ -6687,8 +6687,8 @@ jQuery.extend({
 
 			if ( acceptData || jQuery.acceptData( elem ) ) {
 
-				id = elem[ internalKey ];
-				data = id && cache[ id ];
+				Id = elem[ internalKey ];
+				data = Id && cache[ Id ];
 
 				if ( data ) {
 					if ( data.events ) {
@@ -6704,9 +6704,9 @@ jQuery.extend({
 					}
 
 					// Remove cache only if it was not already removed by jQuery.event.remove
-					if ( cache[ id ] ) {
+					if ( cache[ Id ] ) {
 
-						delete cache[ id ];
+						delete cache[ Id ];
 
 						// IE does not allow us to delete expando properties from nodes,
 						// nor does it have a removeAttribute function on Document nodes;
@@ -6721,7 +6721,7 @@ jQuery.extend({
 							elem[ internalKey ] = null;
 						}
 
-						core_deletedIds.push( id );
+						core_deletedIds.push( Id );
 					}
 				}
 			}
@@ -7242,8 +7242,8 @@ function getWidthOrHeight( elem, name, extra ) {
 		isBorderBox = jQuery.support.boxSizing && jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
 
 	// some non-html elements return undefined for offsetWidth, so check for null/undefined
-	// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
-	// MathML - https://bugzilla.mozilla.org/show_bug.cgi?id=491668
+	// svg - https://bugzilla.mozilla.org/show_bug.cgi?Id=649285
+	// MathML - https://bugzilla.mozilla.org/show_bug.cgi?Id=491668
 	if ( val <= 0 || val == null ) {
 		// Fall back to computed then uncomputed css if necessary
 		val = curCSS( elem, name, styles );
@@ -7405,7 +7405,7 @@ jQuery(function() {
 		};
 	}
 
-	// Webkit bug: https://bugs.webkit.org/show_bug.cgi?id=29084
+	// Webkit bug: https://bugs.webkit.org/show_bug.cgi?Id=29084
 	// getComputedStyle returns percent when specified for top/left/bottom/right
 	// rather than make the css module depend on the offset module, we just check for it here
 	if ( !jQuery.support.pixelPosition && jQuery.fn.position ) {

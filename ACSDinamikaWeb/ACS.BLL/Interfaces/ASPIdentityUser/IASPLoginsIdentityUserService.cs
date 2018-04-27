@@ -11,7 +11,7 @@ namespace ACS.BLL.Interfaces
     {
          
         void MakeASPLoginsIdentityUser(ASPLoginsIdentityUserDTO ASPLoginsIdentityUserDTO);
-        ASPLoginsIdentityUserDTO GetASPLoginsIdentityUser(int? id);
+        ASPLoginsIdentityUserDTO GetASPLoginsIdentityUser(int? Id);
         IEnumerable<ASPLoginsIdentityUserDTO> GetASPLoginsIdentityUser();
         void Dispose();
 

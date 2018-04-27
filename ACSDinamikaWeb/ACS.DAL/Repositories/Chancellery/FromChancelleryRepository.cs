@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.FromChancelleries;
         }
 
-        public FromChancellery Get(int id)
+        public FromChancellery Get(int Id)
         {
-            return db.FromChancelleries.Find(id);
+            return db.FromChancelleries.Find(Id);
         }
 
 
@@ -45,9 +45,9 @@ namespace ACS.DAL.Repositories
             return db.FromChancelleries.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            FromChancellery From = db.FromChancelleries.Find(id);
+            FromChancellery From = db.FromChancelleries.Find(Id);
             if (From != null)
                 db.FromChancelleries.Remove(From);
         }

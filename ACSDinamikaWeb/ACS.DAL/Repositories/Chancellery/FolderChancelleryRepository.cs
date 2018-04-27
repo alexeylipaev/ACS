@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.FolderChancelleries;
         }
 
-        public  FolderChancellery Get(int id)
+        public  FolderChancellery Get(int Id)
         {
-            return db.FolderChancelleries.Find(id);
+            return db.FolderChancelleries.Find(Id);
         }
 
 
@@ -45,9 +45,9 @@ namespace ACS.DAL.Repositories
             return db.FolderChancelleries.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-             FolderChancellery folder = db.FolderChancelleries.Find(id);
+             FolderChancellery folder = db.FolderChancelleries.Find(Id);
             if (folder != null)
                 db.FolderChancelleries.Remove(folder);
         }

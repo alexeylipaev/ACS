@@ -25,7 +25,6 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Путь к файлу
         /// </summary>
-  
         public string Path { get; set; }
    
     }

@@ -25,9 +25,9 @@ namespace ACS.DAL.Repositories
             return db.TypeRecordChancelleries;
         }
 
-        public TypeRecordChancellery Get(int id)
+        public TypeRecordChancellery Get(int Id)
         {
-            return db.TypeRecordChancelleries.Find(id);
+            return db.TypeRecordChancelleries.Find(Id);
         }
 
         public void Create(TypeRecordChancellery type)
@@ -45,9 +45,9 @@ namespace ACS.DAL.Repositories
             return db.TypeRecordChancelleries.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            TypeRecordChancellery type = db.TypeRecordChancelleries.Find(id);
+            TypeRecordChancellery type = db.TypeRecordChancelleries.Find(Id);
             if (type != null)
                 db.TypeRecordChancelleries.Remove(type);
         }

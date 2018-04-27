@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.ExternalOrganizationChancelleries;
         }
 
-        public ExternalOrganizationChancellery Get(int id)
+        public ExternalOrganizationChancellery Get(int Id)
         {
-            return db.ExternalOrganizationChancelleries.Find(id);
+            return db.ExternalOrganizationChancelleries.Find(Id);
         }
 
 
@@ -45,9 +45,9 @@ namespace ACS.DAL.Repositories
             return db.ExternalOrganizationChancelleries.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            ExternalOrganizationChancellery book = db.ExternalOrganizationChancelleries.Find(id);
+            ExternalOrganizationChancellery book = db.ExternalOrganizationChancelleries.Find(Id);
             if (book != null)
                 db.ExternalOrganizationChancelleries.Remove(book);
         }

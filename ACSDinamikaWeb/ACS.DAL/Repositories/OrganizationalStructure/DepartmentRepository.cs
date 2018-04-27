@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.Departments;
         }
 
-        public Department Get(int id)
+        public Department Get(int Id)
         {
-            return db.Departments.Find(id);
+            return db.Departments.Find(Id);
         }
 
 
@@ -46,9 +46,9 @@ namespace ACS.DAL.Repositories
             return db.Departments.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            Department department = db.Departments.Find(id);
+            Department department = db.Departments.Find(Id);
             if (department != null)
                 db.Departments.Remove(department);
         }

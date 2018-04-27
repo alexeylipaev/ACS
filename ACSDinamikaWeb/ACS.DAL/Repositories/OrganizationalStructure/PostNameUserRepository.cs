@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.PostUsers;
         }
 
-        public PostNameUser Get(int id)
+        public PostNameUser Get(int Id)
         {
-            return db.PostUsers.Find(id);
+            return db.PostUsers.Find(Id);
         }
 
 
@@ -45,9 +45,9 @@ namespace ACS.DAL.Repositories
             return db.PostUsers.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            PostNameUser namePost = db.PostUsers.Find(id);
+            PostNameUser namePost = db.PostUsers.Find(Id);
             if (namePost != null)
                 db.PostUsers.Remove(namePost);
         }

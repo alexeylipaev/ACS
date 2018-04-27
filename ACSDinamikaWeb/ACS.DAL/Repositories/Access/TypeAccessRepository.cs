@@ -25,9 +25,9 @@ namespace ACS.DAL.Repositories
             return db.TypeAccesses;
         }
 
-        public TypeAccess Get(int id)
+        public TypeAccess Get(int Id)
         {
-            return db.TypeAccesses.Find(id);
+            return db.TypeAccesses.Find(Id);
         }
 
 
@@ -46,9 +46,9 @@ namespace ACS.DAL.Repositories
             return db.TypeAccesses.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            TypeAccess type = db.TypeAccesses.Find(id);
+            TypeAccess type = db.TypeAccesses.Find(Id);
             if (type != null)
                 db.TypeAccesses.Remove(type);
         }

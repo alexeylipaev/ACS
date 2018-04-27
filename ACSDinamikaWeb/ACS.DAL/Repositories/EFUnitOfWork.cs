@@ -190,7 +190,7 @@ namespace ACS.DAL.Repositories
             }
         }
 
-        public IRepository<TypeAccess> TypeAccesses
+        public IRepository<TypeAccess> TypesAccesses
         {
             get
             {

@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.PostUserСode1С;
         }
 
-        public PostUserСode1С Get(int id)
+        public PostUserСode1С Get(int Id)
         {
-            return db.PostUserСode1С.Find(id);
+            return db.PostUserСode1С.Find(Id);
         }
 
 
@@ -46,9 +46,9 @@ namespace ACS.DAL.Repositories
             return db.PostUserСode1С.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            PostUserСode1С code = db.PostUserСode1С.Find(id);
+            PostUserСode1С code = db.PostUserСode1С.Find(Id);
             if (code != null)
                 db.PostUserСode1С.Remove(code);
         }

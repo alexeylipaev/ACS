@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.PassportDataUsers;
         }
 
-        public UserPassport Get(int id)
+        public UserPassport Get(int Id)
         {
-            return db.PassportDataUsers.Find(id);
+            return db.PassportDataUsers.Find(Id);
         }
 
         public void Create(UserPassport UserPassport)
@@ -44,9 +44,9 @@ namespace ACS.DAL.Repositories
             return db.PassportDataUsers.Where(predicate).ToList();
         }
 
-        public void Delete(int id)
+        public void Delete(int Id)
         {
-            UserPassport UserPassport = db.PassportDataUsers.Find(id);
+            UserPassport UserPassport = db.PassportDataUsers.Find(Id);
             if (UserPassport != null)
                 db.PassportDataUsers.Remove(UserPassport);
         }

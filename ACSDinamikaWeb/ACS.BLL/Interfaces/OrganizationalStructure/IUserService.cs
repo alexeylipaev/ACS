@@ -15,7 +15,7 @@ namespace ACS.BLL.Interfaces
 
         void UpdateUser(UserDTO userDto, string authorEmail);
 
-        UserDTO GetUser(int? id);
+        UserDTO GetUser(int? Id);
 
         IEnumerable<UserDTO> GetUsers();
 

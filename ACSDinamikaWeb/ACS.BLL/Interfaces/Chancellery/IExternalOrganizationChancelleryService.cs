@@ -9,8 +9,11 @@ namespace ACS.BLL.Interfaces
 {
     public interface IExternalOrganizationChancelleryService
     {
-        void MakeExternalOrganizationChancellery(ExternalOrganizationChancelleryDTO ExternalOrganizationChancelleryDTO);
-        ExternalOrganizationChancelleryDTO GetExternalOrganizationChancellery(int? id);
+        void MakeExternalOrganizationChancellery(ExternalOrganizationChancelleryDTO ExternalOrganizationChancelleryDTO, string authorEmail);
+
+        void UpdateExternalOrganizationChancellery(ExternalOrganizationChancelleryDTO ExternalOrganizationChancelleryDTO, string authorEmail);
+
+        ExternalOrganizationChancelleryDTO GetExternalOrganizationChancellery(int? Id);
         IEnumerable<ExternalOrganizationChancelleryDTO> GetExternalOrganizationChancellery();
         void Dispose();
     }

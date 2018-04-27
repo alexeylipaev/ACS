@@ -9,9 +9,13 @@ namespace ACS.BLL.Interfaces
 {
     public interface ITypeAccessService
     {
-        void MakeTypeAccess(TypeAccessDTO TypeAccessDTO);
-        TypeAccessDTO GetTypeAccess(int? id);
-        IEnumerable<TypeAccessDTO> GetTypeAccess();
+
+        void MakeTypeAccess(TypeAccessDTO TypeAccessDTO, string authorEmail);
+
+        void UpdateChancellery(TypeAccessDTO TypeAccessDTO, string authorEmail);
+
+        TypeAccessDTO GetTypeAccess(int? Id);
+        IEnumerable<TypeAccessDTO> GetTypesAccess();
         void Dispose();
     }
 

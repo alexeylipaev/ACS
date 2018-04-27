@@ -41,7 +41,7 @@ namespace ACS.BLL.Services
             User user = Database.Users.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
 
             if (user != null)
-                throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его ID : {1}", resultString, user.Id), "");
+                throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его Id : {1}", resultString, user.Id), "");
 
             try
             {
@@ -67,8 +67,6 @@ namespace ACS.BLL.Services
             }
             catch (Exception e)
             {
-
-
                 Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
                 Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
                 Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);
@@ -80,9 +78,8 @@ namespace ACS.BLL.Services
                 foreach (DictionaryEntry de in e.Data)
                     Console.WriteLine("{0} : {1}", de.Key, de.Value);
             }
-
-
         }
+
         public void MakeUser(UserDTO UserDTO, string authorEmail)
         {
 
@@ -96,7 +93,7 @@ namespace ACS.BLL.Services
             User user = Database.Users.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
 
             if (user != null)
-                throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его ID : {1}", resultString, user.Id), "");
+                throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его Id : {1}", resultString, user.Id), "");
 
             try
             {
@@ -150,7 +147,7 @@ namespace ACS.BLL.Services
 
 
             if (EditableObj == null)
-                throw new ValidationException("Не возможно редактировать объект с ID", UserDTO.Id.ToString());
+                throw new ValidationException("Не возможно редактировать объект с Id", UserDTO.Id.ToString());
 
             try
             {
@@ -189,17 +186,18 @@ namespace ACS.BLL.Services
 
         public IEnumerable<UserDTO> GetUsers()
         {
+      
             // применяем автомаппер для проекции одной коллекции на другую
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<User>, List<UserDTO>>(Database.Users.GetAll());
         }
 
-        public UserDTO GetUser(int? id)
+        public UserDTO GetUser(int? Id)
         {
-            if (id == null)
-                throw new ValidationException("Не установлено id пользователя", "");
+            if (Id == null)
+                throw new ValidationException("Не установлено Id пользователя", "");
 
-            var User = Database.Users.Get(id.Value);
+            var User = Database.Users.Get(Id.Value);
             if (User == null)
                 throw new ValidationException("Пользователь не найден", "");
 
