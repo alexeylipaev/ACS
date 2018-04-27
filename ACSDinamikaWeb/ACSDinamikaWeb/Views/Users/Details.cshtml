@@ -1,7 +1,7 @@
 ﻿@model ACSWeb.ViewModel.UserViewModel
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutModal.cshtml";
 }
 <div class="modal-content">
     <div class="modal-header">
@@ -32,6 +32,12 @@
                     @Html.DisplayFor(model => model.MName)
                 </dd>
                 <dt>
+                    @Html.DisplayNameFor(model => model.Email)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Email)
+                </dd>
+                <dt>
                     @Html.DisplayNameFor(model => model.PersonnelNumber)
                 </dt>
                 <dd>
@@ -51,9 +57,9 @@
                 </dd>
             </dl>
         </div>
-        <p>
+        @*<p>
             @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }) |
             @Html.ActionLink("Вернуться к списку", "Index")
-        </p>
+        </p>*@
     </div>
 </div>

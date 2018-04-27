@@ -129,7 +129,7 @@ namespace ACSWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FName,LName,MName,PersonnelNumber,Birthday,PassportSeries,PassportNumber,PassportIssuedBy,PassportUnitCode,PassportDateOfIssue,SID,Guid1C")] UserViewModel userVM)
+        public ActionResult Edit([Bind(Include = "Id,FName,LName,MName,EMail")] UserViewModel userVM)
         {
             try
             {

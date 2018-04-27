@@ -48,20 +48,6 @@ namespace ACS.BLL.Services
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, User>()).CreateMapper();
                 User User = mapper.Map<UserDTO, User>(UserDTO);
 
-                //User User = new User
-                //{
-                //    LName = UserDTO.LName,
-                //    FName = UserDTO.FName,
-                //    MName = UserDTO.MName,
-
-                //    SID = UserDTO.SID,
-                //    Guid1C = UserDTO.Guid1C,
-
-                //    Birthday = UserDTO.Birthday,
-
-                //    PersonnelNumber = UserDTO.PersonnelNumber,
-
-                //};
                 Database.Users.Create(User);
                 Database.Save();
             }
@@ -86,9 +72,9 @@ namespace ACS.BLL.Services
         public void MakeUser(UserDTO UserDTO, string authorEmail)
         {
 
-            var Author = Database.Users.Find(u => u.Email == authorEmail).FirstOrDefault();
+            var author = Database.Users.Find(u => u.Email == authorEmail).FirstOrDefault();
 
-            if (Author == null)
+            if (author == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
 
 
@@ -102,21 +88,8 @@ namespace ACS.BLL.Services
             {
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, User>()).CreateMapper();
                 User User = mapper.Map<UserDTO, User>(UserDTO);
-
-                //User User = new User
-                //{
-                //    LName = UserDTO.LName,
-                //    FName = UserDTO.FName,
-                //    MName = UserDTO.MName,
-
-                //    SID = UserDTO.SID,
-                //    Guid1C = UserDTO.Guid1C,
-
-                //    Birthday = UserDTO.Birthday,
-
-                //    PersonnelNumber = UserDTO.PersonnelNumber,
-
-                //};
+                User.s_AuthorID = author.Id;
+                User.s_EditorID = author.Id;
                 Database.Users.Create(User);
                 Database.Save();
             }
@@ -141,32 +114,24 @@ namespace ACS.BLL.Services
 
         public void UpdateUser(UserDTO UserDTO, string authorEmail)
         {
-            var Author = Database.Users.Find(u => u.Email == authorEmail).FirstOrDefault();
+            var editor = Database.Users.Find(u => u.Email == authorEmail).FirstOrDefault();
 
             User EditableObj = Database.Users.Get(UserDTO.Id);
 
-            if (Author == null)
+            if (editor == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
 
 
             if (EditableObj == null)
                 throw new ValidationException("Не возможно редактировать объект с ID", UserDTO.Id.ToString());
 
+            
             try
             {
-
-                EditableObj.LName = UserDTO.LName;
-                EditableObj.FName = UserDTO.FName;
-                EditableObj.MName = UserDTO.MName;
-
-                EditableObj.SID = UserDTO.SID;
-                EditableObj.Guid1C = UserDTO.Guid1C;
-
-                EditableObj.Birthday = UserDTO.Birthday;
-
-                EditableObj.PersonnelNumber = UserDTO.PersonnelNumber;
-
-
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, User>()).CreateMapper();
+                EditableObj = mapper.Map<UserDTO, User>(UserDTO);
+                EditableObj.s_EditorID = editor.Id;
+                
                 Database.Users.Update(EditableObj);
                 Database.Save();
             }
@@ -205,19 +170,7 @@ namespace ACS.BLL.Services
 
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
             return mapper.Map<User, UserDTO>(User);
-            //return new UserDTO {
-            //    LName = User.LName,
-            //    FName = User.MName,
-            //    MName = User.MName,
 
-            //    SID = User.SID,
-            //    Guid1C = User.Guid1C,
-
-            //    Birthday = User.Birthday,
-
-            //    PersonnelNumber = User.PersonnelNumber,
-
-            //};
         }
 
         public void Dispose()

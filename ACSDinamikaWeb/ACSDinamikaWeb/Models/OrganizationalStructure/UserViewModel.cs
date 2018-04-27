@@ -21,7 +21,7 @@ namespace ACSWeb.ViewModel
 
         public int Id { get; set; }
 
-       [Display(Name = "Имя")]
+        [Display(Name = "Имя")]
         public string FName { get; set; }
         [Display(Name = "Фамилия")]
         public string LName { get; set; }
@@ -36,12 +36,19 @@ namespace ACSWeb.ViewModel
         [Display(Name = "Табельный номер")]
         public string PersonnelNumber { get; set; }
 
-       [DataType(DataType.Date)]
+        [DataType(DataType.Date)]
         [Display(Name = "Дата рождения")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Birthday { get; set; }
 
-    
+        [Display(Name = "ФИО")]
+        public string FullName
+        {
+            get
+            {
+                return (this.LName ?? "") + " " + (this.FName ?? "") + " " + (this.MName ?? "");
+            }
+        }
         public string SID { get; set; }
 
         public Guid? Guid1C { get; set; }

@@ -5642,6 +5642,7 @@ body.modal-open,
   z-index: 1050;
   width: auto;
   padding: 10px;
+  margin-top: 10%;
   margin-right: auto;
   margin-left: auto;
 }
