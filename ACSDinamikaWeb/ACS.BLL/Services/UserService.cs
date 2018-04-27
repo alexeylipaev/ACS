@@ -131,8 +131,9 @@ namespace ACS.BLL.Services
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, User>()).CreateMapper();
                 EditableObj = mapper.Map<UserDTO, User>(UserDTO);
                 EditableObj.s_EditorID = editor.Id;
-                
-                Database.Users.Update(EditableObj);
+                EditableObj.Email = UserDTO.Email;
+
+                //Database.Users.Update(EditableObj);
                 Database.Save();
             }
             catch (Exception e)
