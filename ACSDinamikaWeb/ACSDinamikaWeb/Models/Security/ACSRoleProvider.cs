@@ -10,14 +10,16 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 
-namespace ACSWeb.Models.Security
+namespace ACSWeb.Models
 {
     public class ACSRoleProvider : RoleProvider
     {
 
         SecurityService _SecurityService;
         SecurityService SecurityService
-        { get {
+        {
+            get
+            {
                 if (_SecurityService == null)
                     _SecurityService = new SecurityService(new EFUnitOfWork(ConfigurationManager.ConnectionStrings["ACSContextConnection"].ConnectionString));
                 return _SecurityService;
@@ -27,11 +29,13 @@ namespace ACSWeb.Models.Security
         ApplicationUserService _ApplicationUserService;
         ApplicationUserService ApplicationUserService
         {
-            get {
-            if (_ApplicationUserService == null)
+            get
+            {
+                if (_ApplicationUserService == null)
                     _ApplicationUserService = new ApplicationUserService(new EFUnitOfWork(ConfigurationManager.ConnectionStrings["ACSContextConnection"].ConnectionString));
                 return _ApplicationUserService;
-    } }
+            }
+        }
         public override string ApplicationName
         {
             get
@@ -71,7 +75,7 @@ namespace ACSWeb.Models.Security
         }
 
         public override string[] GetRolesForUser(string domainUsername)
-        {       
+        {
             string email = ActiveDirectory.IdentityUserEmailFromActiveDirectory(domainUsername);
             //находим пользователя по его email
             var applicationUserDTO = SecurityService.GetIdentityUser(email);
@@ -81,7 +85,7 @@ namespace ACSWeb.Models.Security
             {
                 result.Add(SecurityService.GetRoleById(roleId));
             }
-                return result.ToArray();
+            return result.ToArray();
         }
 
         public override string[] GetUsersInRole(string roleName)

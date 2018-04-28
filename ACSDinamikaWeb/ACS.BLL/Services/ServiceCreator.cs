@@ -8,14 +8,11 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Services
 {
-    /// <summary>
-    /// класс фабрики, которая будет создавать этот сервис
-    /// </summary>
     public class ServiceCreator : IServiceCreator
     {
-        public IUserService CreateUserService(string connection)
+        public IApplicationUserService CreateUserService(string connection)
         {
-            return new UserService(new EFUnitOfWork(connection));
+            return new ApplicationUserService(new EFUnitOfWork(connection));
         }
     }
 }

@@ -20,6 +20,7 @@ namespace ACS.DAL.Repositories
 
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
+        private ApplicationSignInManager signInManager;
 
         //private ApplicationUserRepository ApplicationUserRepository;
 
@@ -55,13 +56,12 @@ namespace ACS.DAL.Repositories
 
             userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
             roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
+
             //ApplicationUserRepository = new ApplicationUserRepository(db);
 
         }
 
 
-
-      
 
         public IRepository<Employee> Employees
         {
@@ -84,6 +84,10 @@ namespace ACS.DAL.Repositories
             get { return roleManager; }
         }
 
+        public ApplicationSignInManager SignInManager
+        {
+            get { return signInManager; }
+        }
 
 
         public IRepository<Access> Accesses

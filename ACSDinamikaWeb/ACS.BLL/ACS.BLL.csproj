@@ -118,8 +118,6 @@
     <Compile Include="DTO\OrganizationalStructure\EmployeePassportDTO.cs" />
     <Compile Include="DTO\OrganizationalStructure\WorkHistoryDTO.cs" />
     <Compile Include="DTO\SystemParametersDTO.cs" />
-    <Compile Include="Identity\ApplicationRoleManager.cs" />
-    <Compile Include="Identity\IdentityConfig.cs" />
     <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
@@ -129,6 +127,7 @@
     <Compile Include="Interfaces\ASPIdentityUser\IApplicationLoginService.cs" />
     <Compile Include="Interfaces\ASPIdentityUser\IApplicationRoleService.cs" />
     <Compile Include="Interfaces\IDataEntityService.cs" />
+    <Compile Include="Interfaces\IServiceCreator.cs" />
     <Compile Include="Interfaces\OrganizationalStructure\IDepartmentService.cs" />
     <Compile Include="Interfaces\Chancellery\IChancelleryService.cs" />
     <Compile Include="Interfaces\Chancellery\IExternalOrganizationChancelleryService.cs" />
@@ -160,6 +159,7 @@
     <Compile Include="Services\OrganizationalStructure\EmployeeService.cs" />
     <Compile Include="Services\Security\ApplicationUserService.cs" />
     <Compile Include="Services\Security\SecurityService.cs" />
+    <Compile Include="Services\ServiceCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -22,7 +22,7 @@ namespace ACSWeb.ViewModel
         public string ClaimValue { get; set; }
 
 
-        public int? IdentityUserId { get; set; }
+        public int? IdentityEmployeeId { get; set; }
 
         //public virtual ApplicationUserViewModel IdentityUser { get; set; }
 

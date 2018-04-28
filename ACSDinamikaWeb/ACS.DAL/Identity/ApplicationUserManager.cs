@@ -13,26 +13,9 @@ using Microsoft.Owin.Security;
 using ACS.DAL.Entities;
 using ACS.DAL.EF;
 
+
 namespace ACS.DAL.Identity
 {
-    public class EmailService : IIdentityMessageService
-    {
-        public Task SendAsync(IdentityMessage message)
-        {
-            // Plug in your email service here to send an email.
-            return Task.FromResult(0);
-        }
-    }
-
-    public class SmsService : IIdentityMessageService
-    {
-        public Task SendAsync(IdentityMessage message)
-        {
-            // Plug in your SMS service here to send a text message.
-            return Task.FromResult(0);
-        }
-    }
-
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
@@ -41,7 +24,7 @@ namespace ACS.DAL.Identity
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ACSContext>()));
             // Configure validation logic for usernames
@@ -82,13 +65,12 @@ namespace ACS.DAL.Identity
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
         }
-
-        public  ApplicationUser FindByEmail(string email)
+        public ApplicationUser FindByEmail(string email)
         {
             return (from user in Users
                     where user.Email == email
@@ -119,31 +101,23 @@ namespace ACS.DAL.Identity
 
         string GetFullName(Employee empl)
         {
-            return string.Format("{0} {1} {2}",empl.LName,empl.FName,empl.MName);
+            return string.Format("{0} {1} {2}", empl.LName, empl.FName, empl.MName);
         }
     }
-
-    // Configure the application sign-in manager which is used in this application.
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
+    public class EmailService : IIdentityMessageService
     {
-        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
-            : base(userManager, authenticationManager)
+        public Task SendAsync(IdentityMessage message)
         {
+            // Plug in your email service here to send an email.
+            return Task.FromResult(0);
         }
-
-        //public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
-        //{
-        //    return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
-        //}
-
-        public override Task SignInAsync(ApplicationUser user, bool isPersistent, bool rememberBrowser)
+    }
+    public class SmsService : IIdentityMessageService
+    {
+        public Task SendAsync(IdentityMessage message)
         {
-            return base.SignInAsync(user, isPersistent, rememberBrowser);
-        }
-
-        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
-        {
-            return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+            // Plug in your SMS service here to send a text message.
+            return Task.FromResult(0);
         }
     }
 }

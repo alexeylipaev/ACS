@@ -17,7 +17,7 @@ namespace ACS.BLL.DTO
 
         public Guid CodePost1C { get; set; }
 
-        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
 
         //public virtual UserDTO Employee { get; set; }
 

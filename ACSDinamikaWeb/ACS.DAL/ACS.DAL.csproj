@@ -94,9 +94,9 @@
   <ItemGroup>
     <Compile Include="Configuration\Access\AccessConfig.cs" />
     <Compile Include="Configuration\Access\TypeAccessConfig.cs" />
-    <Compile Include="Configuration\ASPIdentityUser\ASPClaimsIdentityUserConfig.cs" />
-    <Compile Include="Configuration\ASPIdentityUser\ASPLoginsIdentityUserConfig.cs" />
-    <Compile Include="Configuration\ASPIdentityUser\ASPRolesIdentityUserConfig.cs" />
+    <Compile Include="Configuration\ASPIdentityUser\ApplicationClaimConfig.cs" />
+    <Compile Include="Configuration\ASPIdentityUser\ApplicationLoginConfig.cs" />
+    <Compile Include="Configuration\ASPIdentityUser\ApplicationRoleConfig.cs" />
     <Compile Include="Configuration\Chancellery\ChancelleryConfig.cs" />
     <Compile Include="Configuration\Chancellery\ExternalOrganizationChancelleryConfig.cs" />
     <Compile Include="Configuration\Chancellery\FileRecordChancelleryConfig.cs" />
@@ -106,11 +106,11 @@
     <Compile Include="Configuration\DataEntityConfig.cs" />
     <Compile Include="Configuration\OrganizationalStructure\DepartmentConfig.cs" />
     <Compile Include="Configuration\OrganizationalStructure\PostNameUserConfig.cs" />
-    <Compile Include="Configuration\OrganizationalStructure\UserConfig.cs" />
+    <Compile Include="Configuration\OrganizationalStructure\EmployeeConfig.cs" />
     <Compile Include="EF\ACSContext.cs" />
-    <Compile Include="Configuration\ASPIdentityUser\ASPIdentityUserConfig.cs" />
+    <Compile Include="Configuration\ASPIdentityUser\ApplicationUserConfig.cs" />
     <Compile Include="EF\MyContextFactory.cs" />
-    <Compile Include="Configuration\OrganizationalStructure\UserPassportConfig.cs" />
+    <Compile Include="Configuration\OrganizationalStructure\EmployeePassportConfig.cs" />
     <Compile Include="Entities\Access\Access.cs" />
     <Compile Include="Entities\ASPIdentityUser\ApplicationClaim.cs" />
     <Compile Include="Entities\ASPIdentityUser\ApplicationLogin.cs" />
@@ -134,7 +134,8 @@
     <Compile Include="Entities\OrganizationalStructure\EmployeePassport.cs" />
     <Compile Include="Entities\OrganizationalStructure\WorkHistory.cs" />
     <Compile Include="Identity\ApplicationRoleManager.cs" />
-    <Compile Include="Identity\IdentityConfig.cs" />
+    <Compile Include="Identity\ApplicationSignInManager.cs" />
+    <Compile Include="Identity\ApplicationUserManager.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Migrations\Configuration.cs" />

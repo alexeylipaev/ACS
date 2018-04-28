@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces.Security
 {
-    class IUserService
+    class IApplicationUserService
     {
     }
 }

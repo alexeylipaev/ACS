@@ -23,7 +23,7 @@ namespace ACS.BLL.DTO
         public string LoginProvider { get; set; }
 
 
-        public int? IdentityUserId { get; set; }
+        public int? IdentityEmployeeId { get; set; }
 
         /// <summary>
         /// Владелец this логина

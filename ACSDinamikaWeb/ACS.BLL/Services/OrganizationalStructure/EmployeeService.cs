@@ -107,9 +107,10 @@ namespace ACS.BLL.Services
 
         public void UpdateUser(EmployeeDTO UserDTO, string authorEmail)
         {
-            var editor = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
 
             Employee EditableObj = Database.Employees.Get(UserDTO.Id);
+
+            var editor = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
 
             if (editor == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
@@ -122,7 +123,7 @@ namespace ACS.BLL.Services
                 EditableObj.LName = UserDTO.LName;
                 EditableObj.FName = UserDTO.FName;
                 EditableObj.MName = UserDTO.MName;
-                EditableObj.Email = UserDTO.Email;
+                //EditableObj.Email = UserDTO.Email;
 
                 EditableObj.s_EditDate = DateTime.Now;
                 EditableObj.s_EditorID = editor.Id;

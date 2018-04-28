@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Configuration
 {
-    class UserConfig : EntityTypeConfiguration<Employee>
+    class EmployeeConfig : EntityTypeConfiguration<Employee>
     {
-        public UserConfig()
+        public EmployeeConfig()
         {
+            HasKey(e => e.Id);
 
             Property(e => e.FName)
             .IsUnicode(true);
@@ -28,19 +29,22 @@ namespace ACS.DAL.Configuration
             Property(e => e.SID)
             .IsUnicode(true);
 
+    HasOptional(s => s.ApplicationUser)
+                .WithRequired(ad => ad.Employee); 
+
             HasMany(e => e.Chancelleries)
             .WithOptional(e => e.Employee)
-            .HasForeignKey(e => e.ResponsibleUserId)
+            .HasForeignKey(e => e.ResponsibleEmployeeId)
             .WillCascadeOnDelete(false);//при удалении пользователя, канцелярию где он ответственный не удаляем
 
             HasMany(e => e.Accesses)
             .WithOptional(e => e.Employee)
-              .HasForeignKey(e => e.UserId)
+              .HasForeignKey(e => e.EmployeeId)
             .WillCascadeOnDelete(false);
 
             HasMany(e => e.PostsEmployeesСode1С)
            .WithOptional(e => e.Employee)
-           .HasForeignKey(e => e.UserId)
+           .HasForeignKey(e => e.EmployeeId)
            .WillCascadeOnDelete();
 
         }

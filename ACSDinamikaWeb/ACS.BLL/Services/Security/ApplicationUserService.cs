@@ -31,9 +31,12 @@ namespace ACS.BLL.Services
             if (user == null)
             {
                 user = new ApplicationUser { Email = applicationUserDTO.Email, UserName = applicationUserDTO.Email };
+
                 var result = await Database.UserManager.CreateAsync(user, applicationUserDTO.Password);
+
                 if (result.Errors.Count() > 0)
                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
+
                 // добавляем роль
                 foreach (var roleId in applicationUserDTO.RolesID)
                 {
@@ -57,7 +60,22 @@ namespace ACS.BLL.Services
                 return new OperationDetails(false, "Пользователь с таким логином уже существует", "Email");
             }
         }
+       
 
+        // начальная инициализация бд
+        public async Task SetInitialData(ApplicationUserDTO adminDto, List<string> roles)
+        {
+            foreach (string roleName in roles)
+            {
+                var role = await Database.RoleManager.FindByNameAsync(roleName);
+                if (role == null)
+                {
+                    role = new ApplicationRole { Name = roleName };
+                    await Database.RoleManager.CreateAsync(role);
+                }
+            }
+            await Create(adminDto);
+        }
         public IEnumerable<ApplicationUserDTO> GetUsers()
         {
             throw new NotImplementedException();
@@ -75,24 +93,13 @@ namespace ACS.BLL.Services
             return claim;
         }
 
-        // начальная инициализация бд
-        public async Task SetInitialData(ApplicationUserDTO adminDto, List<string> roles)
-        {
-            foreach (string roleName in roles)
-            {
-                var role = await Database.RoleManager.FindByNameAsync(roleName);
-                if (role == null)
-                {
-                    role = new ApplicationRole { Name = roleName };
-                    await Database.RoleManager.CreateAsync(role);
-                }
-            }
-            await Create(adminDto);
-        }
+
 
         public void Dispose()
         {
             Database.Dispose();
         }
+
+
     }
 }

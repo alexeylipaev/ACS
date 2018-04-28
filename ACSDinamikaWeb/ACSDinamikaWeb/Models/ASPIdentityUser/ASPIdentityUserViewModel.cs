@@ -52,7 +52,7 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Id пользователя
         /// </summary>
-        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
 
         /// <summary>
         /// Пользователь

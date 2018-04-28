@@ -16,7 +16,7 @@ namespace ACSWeb.ViewModel
 
         #region от пользователя
 
-        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
 
         //public virtual UserViewModel Employee { get; set; }
 

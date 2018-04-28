@@ -22,7 +22,7 @@ namespace ACS.BLL.DTO
         public string ClaimValue { get; set; }
 
 
-        public int? IdentityUserId { get; set; }
+        public int? IdentityEmployeeId { get; set; }
 
         //public virtual ApplicationUserDTO IdentityUser { get; set; }
 

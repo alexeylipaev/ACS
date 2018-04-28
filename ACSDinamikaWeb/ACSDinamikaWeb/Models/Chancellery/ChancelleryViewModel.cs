@@ -70,7 +70,7 @@ namespace ACSWeb.ViewModel
 
         #region Ответственный
 
-        public int? ResponsibleUserId { get; set; }
+        public int? ResponsibleEmployeeId { get; set; }
 
         /// <summary>
         /// Ответственный

@@ -20,7 +20,7 @@ namespace ACS.DAL.Entities
 
         public virtual TypeAccess TypeAccess { get; set; }
 
-        public int?  UserId { get; set; }
+        public int?  EmployeeId { get; set; }
 
         public virtual Employee Employee { get; set; }
     }

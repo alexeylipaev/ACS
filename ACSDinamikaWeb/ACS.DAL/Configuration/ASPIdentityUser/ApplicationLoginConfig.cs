@@ -13,7 +13,8 @@ namespace ACS.DAL.Configuration
     {
         public ApplicationLoginConfig()
         {
-             Property(e => e.ProviderKey)
+        
+            Property(e => e.ProviderKey)
                 .IsUnicode(true);
 
             Property(e => e.LoginProvider)

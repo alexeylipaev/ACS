@@ -7,7 +7,7 @@ namespace ACS.DAL.Configuration
     {
         public ApplicationUserConfig()
         {
-
+            HasKey(e => e.Id);
 
             Property(e => e.UserName)
                 .IsUnicode(true);
@@ -20,6 +20,10 @@ namespace ACS.DAL.Configuration
 
             Property(e => e.Email)
                 .IsUnicode(true);
+
+            HasOptional(s => s.Employee)
+                        .WithRequired(ad => ad.ApplicationUser);
+
         }
     }
 }

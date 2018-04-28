@@ -20,6 +20,7 @@ namespace ACS.DAL.Entities
             PostsEmployeesСode1С = new HashSet<PostsEmployeesСode1С>();
         }
 
+
         public int Id { get; set; }
 
 
@@ -44,6 +45,8 @@ namespace ACS.DAL.Entities
         public string SID { get; set; }
 
         public Guid? Guid1C { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         /// <summary>
         /// Доступы пользователя

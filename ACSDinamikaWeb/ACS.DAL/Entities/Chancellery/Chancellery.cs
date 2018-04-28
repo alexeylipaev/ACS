@@ -60,7 +60,7 @@ namespace ACS.DAL.Entities
 
         #region Ответственный
 
-        public int? ResponsibleUserId { get; set; }
+        public int? ResponsibleEmployeeId { get; set; }
 
         [Display(Name = "Ответственный")]
         public virtual Employee Employee { get; set; }

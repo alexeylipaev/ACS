@@ -42,6 +42,8 @@ namespace ACS.BLL.DTO
 
         public Guid? Guid1C { get; set; }
 
+        public int? ApplicationEmployeeId { get; set; }
+
         ///// <summary>
         ///// Доступы пользователя
         ///// </summary>

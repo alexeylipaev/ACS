@@ -20,6 +20,9 @@ namespace ACS.DAL.Configuration
 
             Property(e => e.ClaimValue)
             .IsUnicode(true);
+
+          
+
         }
     }
 }

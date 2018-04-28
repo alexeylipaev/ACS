@@ -189,9 +189,8 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminApplicationUserVMController.cs" />
@@ -219,7 +218,6 @@
     <Compile Include="Models\Chancellery\ToChancelleryViewModel.cs" />
     <Compile Include="Models\Chancellery\TypeRecordChancelleryViewModel.cs" />
     <Compile Include="Models\DataEntityViewModel.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrganizationalStructure\DepartmentViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\PostNameUserViewModel.cs" />
@@ -230,7 +228,6 @@
     <Compile Include="Models\Security\ACSRoleProvider.cs" />
     <Compile Include="Models\SystemParametersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
     <Compile Include="Util\ActiveDirectory.cs" />
     <Compile Include="Util\UserModule.cs" />
   </ItemGroup>
@@ -347,7 +344,7 @@
       <Name>ACS.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\ACS.DAL\ACS.DAL.csproj">
-      <Project>{ca4ff575-ee2c-45b8-beb7-8e396218dcef}</Project>
+      <Project>{CA4FF575-EE2C-45B8-BEB7-8E396218DCEF}</Project>
       <Name>ACS.DAL</Name>
     </ProjectReference>
   </ItemGroup>

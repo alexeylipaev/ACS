@@ -22,17 +22,17 @@ namespace ACS.DAL.Repositories
 
         public IEnumerable<ApplicationRole> GetAll()
         {
-            return db.ApplicationRoleRepository;
+            return db.Roles.OfType<ApplicationRole>();
         }
 
         public ApplicationRole Get(int Id)
         {
-            return db.ApplicationRoleRepository.Find(Id);
+            return db.Roles.OfType<ApplicationRole>().FirstOrDefault(r=>r.Id==Id.ToString());
         }
 
         public void Create(ApplicationRole ApplicationRole)
         {
-            db.ApplicationRoleRepository.Add(ApplicationRole);
+            db.Roles.Add(ApplicationRole);
         }
 
         public void Update(ApplicationRole ApplicationRole)
@@ -42,14 +42,14 @@ namespace ACS.DAL.Repositories
 
         public IEnumerable<ApplicationRole> Find(Func<ApplicationRole, Boolean> predicate)
         {
-            return db.ApplicationRoleRepository.Where(predicate).ToList();
+            return db.Roles.OfType<ApplicationRole>().Where(predicate).ToList();
         }
 
         public void Delete(int Id)
         {
-            ApplicationRole Role = db.ApplicationRoleRepository.Find(Id);
+            ApplicationRole Role = db.Roles.OfType<ApplicationRole>().FirstOrDefault(r=>r.Id==Id.ToString());
             if (Role != null)
-                db.ApplicationRoleRepository.Remove(Role);
+                db.Roles.Remove(Role);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace ACSWeb.ViewModel
 
         public Guid CodePost1C { get; set; }
 
-        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
 
         //public virtual UserViewModel Employee { get; set; }
 

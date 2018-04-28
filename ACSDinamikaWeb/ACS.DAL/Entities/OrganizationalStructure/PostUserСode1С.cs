@@ -17,7 +17,7 @@ namespace ACS.DAL.Entities
         [Required]
         public Guid CodePost1C { get; set; }
 
-        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
 
         public virtual Employee Employee { get; set; }
     }

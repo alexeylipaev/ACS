@@ -1,4 +1,5 @@
-﻿using ACS.DAL.Entities;
+﻿
+using ACS.DAL.Entities;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -26,12 +27,25 @@ namespace ACS.DAL.Identity
                     where role.Id == roleId
                     select role).FirstOrDefault();
         }
+
         public ApplicationRole FindByName(string roleName)
         {
             return (from role in Roles
                     where role.Name == roleName
                     select role).FirstOrDefault();
         }
+
+        //public ApplicationRole FindByRoleDTO(ApplicationRoleDTO AppRoleDTO)
+        //{
+        //    return (from role in Roles
+        //            where role.Name == AppRoleDTO.Name
+        //            select role).FirstOrDefault();
+        //}
+
+        //public IEnumerable<ApplicationUser> FindAllAppUsersByRole(ApplicationRoleDTO AppRoleDTO)
+        //{
+        //    return FindById(AppRoleDTO.Id.ToString()).Users.OfType<ApplicationUser>();
+        //}
 
     }
 }

@@ -1515,6 +1515,13 @@ public static class DataLoader1C
                     orderby XMLDataTypeConverter.GetDateTime(dataEmpl.Принят), dataEmpl.ФИО
                     select dataEmpl;
 
+        //{
+        //    Email = "somemail@mail.ru",
+        //        UserName = "somemail@mail.ru",
+        //        Password = "ad46D_ewr3",
+        //        Name = "Семен Семенович Горбунков",
+        //        Address = "ул. Спортивная, д.30, кв.75",
+        //        Role = "admin",
 
         foreach (var dataUser in query)
         {

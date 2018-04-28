@@ -20,7 +20,7 @@ namespace ACS.BLL.DTO
 
         public DateTime? DateOfIssue { get; set; }
 
-        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
 
         public virtual EmployeeDTO Employee { get; set; }
     }

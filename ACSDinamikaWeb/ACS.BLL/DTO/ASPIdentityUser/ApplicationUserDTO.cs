@@ -52,7 +52,7 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Id пользователя
         /// </summary>
-        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
 
         /// <summary>
         /// Пользователь

@@ -16,7 +16,7 @@ namespace ACS.BLL.DTO
 
         #region от пользователя
 
-        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
 
         //public virtual UserDTO Employee { get; set; }
 

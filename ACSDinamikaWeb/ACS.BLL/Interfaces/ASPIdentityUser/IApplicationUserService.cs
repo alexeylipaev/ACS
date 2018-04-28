@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface IApplicationUserService
+    public interface IApplicationUserService : IDisposable
     {
 
         //ApplicationUserDTO GetApplicationUser(int? Id);
         //IEnumerable<ApplicationUserDTO> GetApplicationUser();
-
         Task<OperationDetails> Create(ApplicationUserDTO applicationUserDTO);
+
         Task<ClaimsIdentity> Authenticate(ApplicationUserDTO applicationUserDTO);
+
         Task SetInitialData(ApplicationUserDTO adminDto, List<string> roles);
 
-        void Dispose();
         IEnumerable<ApplicationUserDTO> GetUsers();
     }
 }

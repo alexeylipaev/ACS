@@ -26,7 +26,7 @@ namespace ACS.DAL.Entities
 
         /***************** 1 to 1 Passport to Employee *********************/
 
-        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
 
         public virtual Employee Employee { get; set; }
 
