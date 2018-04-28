@@ -13,7 +13,7 @@ using ACSWeb.Util;
 
 namespace ACSWeb.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Authorize(Roles = "Administrators")]
     public class UsersController : Controller
     {

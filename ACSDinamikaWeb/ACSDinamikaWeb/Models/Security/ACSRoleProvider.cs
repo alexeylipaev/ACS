@@ -23,7 +23,6 @@ namespace ACSWeb.Models.Security
                 return _SecurityService;
             }
         }
-        UserService UserService;
 
         public override string ApplicationName
         {
@@ -65,14 +64,17 @@ namespace ACSWeb.Models.Security
 
         public override string[] GetRolesForUser(string username)
         {
+            //получаем емайл авторизованного пользователя по ActiveDirectory
             string email = ActiveDirectory.IdentityUserEmailFromActiveDirectory(username);
             var userDTO = SecurityService.GetIdentityUser(email);
-            var rolesDTO =  SecurityService.Find(u=>userDTO.RolesID.Contains(u.Id)).Select(u=> u.Name );
-            //string[] rolesDTO = new string []{ "Administrators" };
-            if (rolesDTO != null)
-                return rolesDTO.ToArray();
-            else
-                return new string[] { }; ;
+            if (userDTO != null)
+            {
+                var rolesDTO = SecurityService.Find(u => userDTO.RolesID != null && userDTO.RolesID.Contains(u.Id));
+                //string[] rolesDTO = new string []{ "Administrators" };
+                if (rolesDTO != null)
+                    return rolesDTO.Select(u => u.Name).ToArray();
+            }
+                return new string[] { };
         }
 
         public override string[] GetUsersInRole(string roleName)
