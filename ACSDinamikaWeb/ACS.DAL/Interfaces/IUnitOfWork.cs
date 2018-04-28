@@ -24,7 +24,6 @@ namespace ACS.DAL.Interfaces
         //IRepository<ApplicationClaim> ApplicationClaims { get; }
         //IRepository<ApplicationLogin> ApplicationLogins{ get; }
         //IRepository<ApplicationRole> ApplicationRoles{ get; }
-
         IRepository<Employee> Employees { get; }
         IRepository<Access> Accesses { get; }
         IRepository<Chancellery> Chancelleries { get; }

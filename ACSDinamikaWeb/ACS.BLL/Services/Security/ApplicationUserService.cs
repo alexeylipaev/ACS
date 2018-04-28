@@ -27,6 +27,7 @@ namespace ACS.BLL.Services
         public async Task<OperationDetails> Create(ApplicationUserDTO applicationUserDTO)
         {
             ApplicationUser user = await Database.UserManager.FindByEmailAsync(applicationUserDTO.Email);
+            user.Claims
             if (user == null)
             {
                 user = new ApplicationUser { Email = applicationUserDTO.Email, UserName = applicationUserDTO.Email };

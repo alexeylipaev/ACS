@@ -13,7 +13,7 @@ using Microsoft.Owin.Security;
 using ACS.DAL.Entities;
 using ACS.DAL.EF;
 
-namespace ACS.DAL.Identity
+namespace ACS.BLL.Identity
 {
     public class EmailService : IIdentityMessageService
     {
@@ -115,7 +115,6 @@ namespace ACS.DAL.Identity
                     where GetFullName(user.Employee) == fullName
                     select user).FirstOrDefault();
         }
-
 
         string GetFullName(Employee empl)
         {

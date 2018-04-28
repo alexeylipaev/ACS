@@ -64,6 +64,7 @@ namespace ACSWeb.Models.Security
 
         public override string[] GetRolesForUser(string username)
         {
+
             string email = ActiveDirectory.IdentityUserEmailFromActiveDirectory(username);
             var applicationUserDTO = SecurityService.GetIdentityUser(email);
 

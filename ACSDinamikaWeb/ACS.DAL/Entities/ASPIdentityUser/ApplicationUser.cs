@@ -15,6 +15,7 @@ namespace ACS.DAL.Entities
 
         public virtual Employee Employee { get; set; }
 
+        
         //public string UserName { get; set; }
     }
 }
