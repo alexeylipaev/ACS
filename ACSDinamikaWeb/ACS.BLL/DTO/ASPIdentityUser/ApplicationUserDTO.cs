@@ -13,7 +13,7 @@ namespace ACS.BLL.DTO
         {
             //Claims = new HashSet<ApplicationClaimDTO>();
             //Logins = new HashSet<ApplicationLoginDTO>();
-            //Roles = new HashSet<ApplicationRolesDTO>();
+            RolesID = new HashSet<int>();
         }
 
         /// <summary>
@@ -23,9 +23,6 @@ namespace ACS.BLL.DTO
 
 
         public string Password { get; set; }
-
-
-        public string Role { get; set; }
 
         /// <summary>
         /// Случайное значение, которое должно меняться при изменении учетных данных пользователя 
@@ -50,7 +47,7 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Роли N to N
         /// </summary>
-        //public virtual ICollection<int> RolesID { get; set; }
+        public virtual ICollection<int> RolesID { get; set; }
 
         /// <summary>
         /// Id пользователя

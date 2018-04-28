@@ -23,7 +23,6 @@ namespace ACSWeb.Models.Security
                 return _SecurityService;
             }
         }
-        EmployeeService EmployeeService;
 
         public override string ApplicationName
         {

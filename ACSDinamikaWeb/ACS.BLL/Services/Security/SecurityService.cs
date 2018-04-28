@@ -105,11 +105,12 @@ namespace ACS.BLL.Services
         {
             bool result = false;
             var applicationUser = Database.ApplicationUsers.Find(u => u.Email == userEmail).FirstOrDefault();
+
             if (applicationUser != null)
             {
-
-                var roles = Database.ApplicationRoles.Find(r => r.Name == roleName && r.IdentityUser.Contains(applicationUser));
-                result = roles.Count() > 0;
+                var roleId = Database.RoleManager.FindByNameAsync(roleName).Id.ToString();
+                //.ApplicationRoles.Find(r => r.Name == roleName && applicationUser.rol);
+                return applicationUser.Roles.Any(r => r.RoleId == roleId);
             }
             return result;
         }

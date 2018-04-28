@@ -24,20 +24,25 @@ namespace ACS.BLL.Services
             Database = uow;
         }
 
-        public async Task<OperationDetails> Create(ApplicationUserDTO ApplicationUserDTO)
+        public async Task<OperationDetails> Create(ApplicationUserDTO applicationUserDTO)
         {
-            ApplicationUser user = await Database.UserManager.FindByEmailAsync(ApplicationUserDTO.Email);
+            ApplicationUser user = await Database.UserManager.FindByEmailAsync(applicationUserDTO.Email);
             if (user == null)
             {
-                user = new ApplicationUser { Email = ApplicationUserDTO.Email, UserName = ApplicationUserDTO.Email };
-                var result = await Database.UserManager.CreateAsync(user, ApplicationUserDTO.Password);
+                user = new ApplicationUser { Email = applicationUserDTO.Email, UserName = applicationUserDTO.Email };
+                var result = await Database.UserManager.CreateAsync(user, applicationUserDTO.Password);
                 if (result.Errors.Count() > 0)
                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");
                 // добавляем роль
-                await Database.UserManager.AddToRoleAsync(user.Id, ApplicationUserDTO.Role);
+                foreach (var roleId in applicationUserDTO.RolesID)
+                {
+                    var roleName = Database.RoleManager.FindById(roleId.ToString()).Name;
+                    await Database.UserManager.AddToRoleAsync(user.Id, roleName);
+                }
+
                 // создаем профиль клиента
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUser>()).CreateMapper();
-                ApplicationUser applicationUser = mapper.Map<ApplicationUserDTO, ApplicationUser>(ApplicationUserDTO);
+                ApplicationUser applicationUser = mapper.Map<ApplicationUserDTO, ApplicationUser>(applicationUserDTO);
 
                 //User.s_AuthorID = author.Id;
                 //User.s_EditorID = author.Id;
