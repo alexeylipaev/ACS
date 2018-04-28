@@ -20,7 +20,7 @@ namespace ACS.DAL.EF
     {
         public virtual DbSet<Access> Accesses { get; set; }
 
-        public virtual DbSet<ApplicationUser> ApplicationUserRepository { get; set; }
+        //public virtual DbSet<ApplicationUser> ApplicationUserRepository { get; set; }
         public virtual DbSet<ApplicationClaim> ApplicationClaims { get; set; }
         public virtual DbSet<ApplicationLogin> ApplicationLogins { get; set; }
         public virtual DbSet<ApplicationRole> ApplicationRoleRepository { get; set; }
@@ -60,10 +60,10 @@ namespace ACS.DAL.EF
 
 
             modelBuilder.Configurations.Add(new AccessConfig());
-            modelBuilder.Configurations.Add(new ApplicationClaimConfig());
-            modelBuilder.Configurations.Add(new ApplicationUserConfig());
-            modelBuilder.Configurations.Add(new ApplicationLoginConfig());
-            modelBuilder.Configurations.Add(new ApplicationRoleConfig());
+            //modelBuilder.Configurations.Add(new ApplicationClaimConfig());
+            //modelBuilder.Configurations.Add(new ApplicationUserConfig());
+            //modelBuilder.Configurations.Add(new ApplicationLoginConfig());
+            //modelBuilder.Configurations.Add(new ApplicationRoleConfig());
             modelBuilder.Configurations.Add(new ChancelleryConfig());
             modelBuilder.Configurations.Add(new DataEntityConfig());
             modelBuilder.Configurations.Add(new DepartmentConfig());
@@ -74,7 +74,7 @@ namespace ACS.DAL.EF
             modelBuilder.Configurations.Add(new PostNameUserConfig());
             modelBuilder.Configurations.Add(new TypeAccessConfig());
             modelBuilder.Configurations.Add(new TypeRecordChancelleryConfig());
-            modelBuilder.Configurations.Add(new UserConfig());
+            //modelBuilder.Configurations.Add(new UserConfig());
             modelBuilder.Configurations.Add(new UserPassportConfig());
 
 

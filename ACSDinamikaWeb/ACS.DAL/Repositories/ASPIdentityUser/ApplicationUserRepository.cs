@@ -22,17 +22,17 @@ namespace ACS.DAL.Repositories
 
         public IEnumerable<ApplicationUser> GetAll()
         {
-            return db.ApplicationUserRepository;
+            return db.Users;
         }
 
         public ApplicationUser Get(int Id)
         {
-            return db.ApplicationUserRepository.Find(Id);
+            return db.Users.Find(Id);
         }
 
         public void Create(ApplicationUser ApplicationUser)
         {
-            db.ApplicationUserRepository.Add(ApplicationUser);
+            db.Users.Add(ApplicationUser);
         }
 
         public void Update(ApplicationUser ApplicationUser)
@@ -42,14 +42,14 @@ namespace ACS.DAL.Repositories
 
         public IEnumerable<ApplicationUser> Find(Func<ApplicationUser, Boolean> predicate)
         {
-            return db.ApplicationUserRepository.Where(predicate).ToList();
+            return db.Users.Where(predicate).ToList();
         }
 
         public void Delete(int Id)
         {
-            ApplicationUser IdentityUser = db.ApplicationUserRepository.Find(Id);
+            ApplicationUser IdentityUser = db.Users.Find(Id);
             if (IdentityUser != null)
-                db.ApplicationUserRepository.Remove(IdentityUser);
+                db.Users.Remove(IdentityUser);
         }
     }
 }
