@@ -198,7 +198,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -223,7 +223,7 @@
     <Compile Include="Models\OrganizationalStructure\DepartmentViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\PostNameUserViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\PostUserСode1СViewModel.cs" />
-    <Compile Include="Models\OrganizationalStructure\UserViewModel.cs" />
+    <Compile Include="Models\OrganizationalStructure\EmployeeViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\UserPassportViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\WorkHistoryViewModel.cs" />
     <Compile Include="Models\Security\ACSRoleProvider.cs" />
@@ -311,13 +311,13 @@
     <Content Include="Views\Access\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutCancelaria.cshtml" />
     <Content Include="Views\.editorconfig" />
-    <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Employees\Delete.cshtml" />
+    <Content Include="Views\Employees\Details.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Shared\_LayoutModal.cshtml" />
     <Content Include="Views\Employees\Create.cshtml" />
     <Content Include="Views\Employees\Delete.cshtml" />
