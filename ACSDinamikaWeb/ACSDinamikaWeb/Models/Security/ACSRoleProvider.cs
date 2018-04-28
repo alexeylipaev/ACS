@@ -87,7 +87,7 @@ namespace ACSWeb.Models.Security
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            return SecurityService.IsUserInRole(username, roleName);
+            return SecurityService.IsUserInRoleAsync(username, roleName);
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)

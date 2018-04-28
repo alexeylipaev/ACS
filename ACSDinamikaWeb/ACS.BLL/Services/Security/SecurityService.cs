@@ -56,16 +56,16 @@ namespace ACS.BLL.Services
             throw new NotImplementedException();
         }
 
-        public bool IsUserInRole(string userEmail, string roleName)
+        public async Task< bool> IsUserInRoleAsync(string userEmail, string roleName)
         {
             bool result = false;
             var applicationUser = Database.UserManager.FindByEmailAsync(userEmail);
 
             if (applicationUser != null)
             {
-                var roleId = Database.RoleManager.FindByNameAsync(roleName).Id.ToString();
-                //.ApplicationRoles.Find(r => r.Name == roleName && applicationUser.rol);
-                return Database.rol. applicationUser..r.Any(r => r.RoleId == roleId);
+                var role = await Database.RoleManager.FindByNameAsync(roleName);
+                if(role != null)
+                return role.Users.Any(u => u.UserId == applicationUser.Id.ToString());
             }
             return result;
         }
