@@ -11,6 +11,7 @@
     <AssemblyName>ACS.BLL</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,9 +35,36 @@
       <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\..\..\..\..\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\..\..\..\..\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\..\..\..\..\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\..\..\..\..\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\..\..\..\..\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\..\..\..\..\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\..\..\..\..\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\..\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\..\..\..\..\Documents\Visual Studio 2015\Projects\ConsoleApplication1\ConsoleApplication1\bin\Debug\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,7 +83,7 @@
     <Compile Include="DTO\ASPIdentityUser\ApplicationClaimDTO.cs" />
     <Compile Include="DTO\ASPIdentityUser\ApplicationUserDTO.cs" />
     <Compile Include="DTO\ASPIdentityUser\ApplicationLoginDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\ApplicationRolesDTO.cs" />
+    <Compile Include="DTO\ASPIdentityUser\ApplicationRoleDTO.cs" />
     <Compile Include="DTO\Chancellery\ChancelleryDTO.cs" />
     <Compile Include="DTO\Chancellery\ExternalOrganizationChancelleryDTO.cs" />
     <Compile Include="DTO\Chancellery\FileRecordChancelleryDTO.cs" />
@@ -68,17 +96,18 @@
     <Compile Include="DTO\OrganizationalStructure\DepartmentDTO.cs" />
     <Compile Include="DTO\OrganizationalStructure\PostNameUserDTO.cs" />
     <Compile Include="DTO\OrganizationalStructure\PostUserСode1СDTO.cs" />
-    <Compile Include="DTO\OrganizationalStructure\UserDTO.cs" />
-    <Compile Include="DTO\OrganizationalStructure\UserPassportDTO.cs" />
+    <Compile Include="DTO\OrganizationalStructure\EmployeeDTO.cs" />
+    <Compile Include="DTO\OrganizationalStructure\EmployeePassportDTO.cs" />
     <Compile Include="DTO\OrganizationalStructure\WorkHistoryDTO.cs" />
     <Compile Include="DTO\SystemParametersDTO.cs" />
+    <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Interfaces\Access\IAccessService.cs" />
-    <Compile Include="Interfaces\ASPIdentityUser\IASPClaimsIdentityUserService.cs" />
-    <Compile Include="Interfaces\ASPIdentityUser\IASPIdentityUserService.cs" />
-    <Compile Include="Interfaces\ASPIdentityUser\IASPLoginsIdentityUserService.cs" />
-    <Compile Include="Interfaces\ASPIdentityUser\IASPRolesIdentityUserService.cs" />
+    <Compile Include="Interfaces\ASPIdentityUser\IApplicationClaimService.cs" />
+    <Compile Include="Interfaces\ASPIdentityUser\IApplicationUserService.cs" />
+    <Compile Include="Interfaces\ASPIdentityUser\IApplicationLoginService.cs" />
+    <Compile Include="Interfaces\ASPIdentityUser\IApplicationRoleService.cs" />
     <Compile Include="Interfaces\IDataEntityService.cs" />
     <Compile Include="Interfaces\OrganizationalStructure\IDepartmentService.cs" />
     <Compile Include="Interfaces\Chancellery\IChancelleryService.cs" />
@@ -87,16 +116,17 @@
     <Compile Include="Interfaces\Chancellery\IFolderChancelleryService.cs.cs" />
     <Compile Include="Interfaces\Chancellery\IFromChancelleryService.cs" />
     <Compile Include="Interfaces\Chancellery\IJournalRegistrationsChancelleryService.cs" />
-    <Compile Include="Interfaces\OrganizationalStructure\IPostNameUserService.cs" />
+    <Compile Include="Interfaces\OrganizationalStructure\IPostNameEmployeeService.cs" />
     <Compile Include="Interfaces\OrganizationalStructure\IPostUserСode1СService.cs" />
     <Compile Include="Interfaces\ISystemParametersService.cs" />
     <Compile Include="Interfaces\Chancellery\IToChancelleryService.cs" />
     <Compile Include="Interfaces\Access\ITypeAccessService.cs" />
     <Compile Include="Interfaces\Chancellery\ITypeRecordChancelleryService.cs" />
-    <Compile Include="Interfaces\OrganizationalStructure\IUserPassportService.cs" />
-    <Compile Include="Interfaces\OrganizationalStructure\IUserService.cs" />
+    <Compile Include="Interfaces\OrganizationalStructure\IEmployeePassportService.cs" />
+    <Compile Include="Interfaces\OrganizationalStructure\IEmployeeService.cs" />
     <Compile Include="Interfaces\OrganizationalStructure\IWorkHistoryService.cs" />
     <Compile Include="Interfaces\Security\ISecurityService.cs" />
+    <Compile Include="Interfaces\Security\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Accesses\AccessService.cs" />
     <Compile Include="Services\Accesses\TypeAccessService.cs" />
@@ -106,8 +136,9 @@
     <Compile Include="Services\Chancellery\JournalRegistrationsChancelleryService.cs" />
     <Compile Include="Services\Chancellery\TypeRecordChancelleryService.cs" />
     <Compile Include="Services\OrganizationalStructure\DepartmentService.cs" />
-    <Compile Include="Services\OrganizationalStructure\UserPassportService.cs" />
-    <Compile Include="Services\OrganizationalStructure\UserService.cs" />
+    <Compile Include="Services\OrganizationalStructure\EmployeePassportService.cs" />
+    <Compile Include="Services\OrganizationalStructure\EmployeeService.cs" />
+    <Compile Include="Services\Security\ApplicationUserService.cs" />
     <Compile Include="Services\Security\SecurityService.cs" />
   </ItemGroup>
   <ItemGroup>

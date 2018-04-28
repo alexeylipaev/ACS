@@ -19,23 +19,23 @@ namespace ACSWeb.Controllers
     {
         //private ACSContext db = new ACSContext();
 
-        IUserService userService;
+        IEmployeeService EmployeeService;
 
-        public UsersController(IUserService serv)
+        public UsersController(IEmployeeService serv)
         {
-            userService = serv;
+            EmployeeService = serv;
         }
 
-        // GET: Users
+        // GET: Employees
         public ActionResult Index()
         {
-            IEnumerable<UserDTO> userDtos = userService.GetUsers();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, UserViewModel>()).CreateMapper();
-            var users = mapper.Map<IEnumerable<UserDTO>, List<UserViewModel>>(userDtos);
+            IEnumerable<EmployeeDTO> userDtos = EmployeeService.GetUsers();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, UserViewModel>()).CreateMapper();
+            var users = mapper.Map<IEnumerable<EmployeeDTO>, List<UserViewModel>>(userDtos);
             return View(users);
         }
 
-        // GET: Users/Details/5
+        // GET: Employees/Details/5
         public ActionResult Details(int? Id)
         {
             if (Id == null)
@@ -44,9 +44,9 @@ namespace ACSWeb.Controllers
             }
             try
             {
-                UserDTO user = userService.GetUser(Id);
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, UserViewModel>()).CreateMapper();
-                var userVM = mapper.Map<UserDTO, UserViewModel>(user);
+                EmployeeDTO user = EmployeeService.GetUser(Id);
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, UserViewModel>()).CreateMapper();
+                var userVM = mapper.Map<EmployeeDTO, UserViewModel>(user);
                 //var userVM = new UserViewModel { Id = user.Id };
 
                 return View(userVM);
@@ -57,7 +57,7 @@ namespace ACSWeb.Controllers
             }
         }
 
-        // GET: Users/Create
+        // GET: Employees/Create
         public ActionResult Create(int? Id)
         {
             try
@@ -65,9 +65,9 @@ namespace ACSWeb.Controllers
                 var userVM = new UserViewModel ();
                 if (Id != null)
                 {
-                    UserDTO userDTO = userService.GetUser(Id);
-                    var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, UserViewModel>()).CreateMapper();
-                    userVM = mapper.Map<UserDTO, UserViewModel>(userDTO);
+                    EmployeeDTO userDTO = EmployeeService.GetUser(Id);
+                    var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, UserViewModel>()).CreateMapper();
+                    userVM = mapper.Map<EmployeeDTO, UserViewModel>(userDTO);
                     //userVM.Id = userDTO.Id;
                 }
                 return View(userVM);
@@ -80,7 +80,7 @@ namespace ACSWeb.Controllers
 
         
 
-        //POST: Users/Create
+        //POST: Employees/Create
         //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -93,8 +93,8 @@ namespace ACSWeb.Controllers
                 {
                     string name = this.User.Identity.Name;
                     string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
-                    var userDto = new UserDTO { Id = userVM.Id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName, Email  = userVM.Email};
-                    userService.MakeUser(userDto, currentUserEmail);
+                    var userDto = new EmployeeDTO { Id = userVM.Id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName, Email  = userVM.Email};
+                    EmployeeService.MakeUser(userDto, currentUserEmail);
                     return RedirectToAction("Index");
                 }
             }
@@ -105,22 +105,22 @@ namespace ACSWeb.Controllers
             return View(userVM);
         }
 
-        // GET: Users/Edit/5
+        // GET: Employees/Edit/5
         public ActionResult Edit(int? Id)
         {
             var userVM = new UserViewModel();
             if (Id != null)
             {
-                UserDTO userDTO = userService.GetUser(Id);
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, UserViewModel>()).CreateMapper();
-                userVM = mapper.Map<UserDTO, UserViewModel>(userDTO);
+                EmployeeDTO userDTO = EmployeeService.GetUser(Id);
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, UserViewModel>()).CreateMapper();
+                userVM = mapper.Map<EmployeeDTO, UserViewModel>(userDTO);
                 //userVM.Id = userDTO.Id;
             }
 
             return View(userVM);
         }
 
-        // POST: Users/Edit/5
+        // POST: Employees/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -133,8 +133,8 @@ namespace ACSWeb.Controllers
                 {
                     string name = this.User.Identity.Name;
                     string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
-                    var userDto = new UserDTO { Id = userVM.Id, LName = userVM.LName, FName = userVM.FName, MName = userVM.MName, Email = userVM.Email };
-                    userService.UpdateUser(userDto, currentUserEmail);
+                    var userDto = new EmployeeDTO { Id = userVM.Id, LName = userVM.LName, FName = userVM.FName, MName = userVM.MName, Email = userVM.Email };
+                    EmployeeService.UpdateUser(userDto, currentUserEmail);
                     return View(userVM); 
                 }
             }
@@ -145,14 +145,14 @@ namespace ACSWeb.Controllers
             return View(userVM);
         }
 
-        //// GET: Users/Delete/5
+        //// GET: Employees/Delete/5
         //public ActionResult Delete(int? Id)
         //{
         //    if (Id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    User user = db.Users.Find(Id);
+        //    Employee user = db.Employees.Find(Id);
         //    if (user == null)
         //    {
         //        return HttpNotFound();
@@ -160,13 +160,13 @@ namespace ACSWeb.Controllers
         //    return View(user);
         //}
 
-        //// POST: Users/Delete/5
+        //// POST: Employees/Delete/5
         //[HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         //public ActionResult DeleteConfirmed(int Id)
         //{
-        //    User user = db.Users.Find(Id);
-        //    db.Users.Remove(user);
+        //    Employee user = db.Employees.Find(Id);
+        //    db.Employees.Remove(user);
         //    db.SaveChanges();
         //    return RedirectToAction("Index");
         //}
@@ -175,7 +175,7 @@ namespace ACSWeb.Controllers
         {
             if (disposing)
             {
-                userService.Dispose();
+                EmployeeService.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -16,7 +16,7 @@ namespace ACSWeb.ViewModel
         //{
         //    Accesses = new HashSet<AccessViewModel>();
         //    Chancelleries = new HashSet<ChancelleryViewModel>();
-        //    PostUserСode1С = new HashSet<PostUserСode1СViewModel>();
+        //    PostsEmployeesСode1С = new HashSet<PostsEmployeesСode1СViewModel>();
         //}
 
         public int Id { get; set; }
@@ -66,6 +66,6 @@ namespace ACSWeb.ViewModel
         ///// <summary>
         ///// Коды1С должностей пользователя
         ///// </summary>
-        //public virtual ICollection<PostUserСode1СViewModel> PostUserСode1С { get; set; }
+        //public virtual ICollection<PostsEmployeesСode1СViewModel> PostsEmployeesСode1С { get; set; }
     }
 }

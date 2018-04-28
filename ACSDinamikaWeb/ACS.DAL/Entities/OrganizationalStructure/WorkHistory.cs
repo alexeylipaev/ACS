@@ -26,12 +26,12 @@ namespace ACS.DAL.Entities
         /// </summary>
         public virtual Department Department { get; set; }
 
-        public int PostUserСode1СId { get; set; }
+        public int PostsEmployeesСode1СId { get; set; }
 
         /// <summary>
         /// Пользователь и Код должности 1С
         /// </summary>
-        public virtual PostUserСode1С PostUserСode1С { get; set; }
+        public virtual PostsEmployeesСode1С PostsEmployeesСode1С { get; set; }
 
         /// <summary>
         /// Ставка

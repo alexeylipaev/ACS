@@ -10,7 +10,7 @@ namespace ACSWeb.ViewModel
     /// <summary>
     /// Роли пользователя
     /// </summary>
-    public partial class ASPRolesIdentityUserViewModel : SystemParametersViewModel
+    public partial class ApplicationRoleViewModel : SystemParametersViewModel
     {
         
         public int Id { get; set; }
@@ -20,6 +20,6 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Пользователи, которое владеют этой ролью
         /// </summary>
-        //public virtual ICollection<ASPIdentityUserViewModel> IdentityUser { get; set; }
+        //public virtual ICollection<ApplicationUserViewModel> IdentityUser { get; set; }
     }
 }

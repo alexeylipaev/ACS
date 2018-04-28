@@ -28,7 +28,7 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Владелец this логина
         /// </summary>
-        //public virtual ASPIdentityUserDTO IdentityUser { get; set; }
+        //public virtual ApplicationUserDTO IdentityUser { get; set; }
 
     }
 }

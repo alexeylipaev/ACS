@@ -27,13 +27,13 @@ namespace ACS.BLL.Interfaces
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        UserDTO UserDTO(int? Id);
+        EmployeeDTO UserDTO(int? Id);
 
         /// <summary>
         /// Все пользователя
         /// </summary>
         /// <returns></returns>
-        IEnumerable<UserDTO> GetAllUsers();
+        IEnumerable<EmployeeDTO> GetAllUsers();
 
 
         FromChancelleryDTO GetFromChancellery(int? Id);

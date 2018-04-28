@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace ACS.DAL.Configuration
 {
 
-    class ASPClaimsIdentityUserConfig: EntityTypeConfiguration<ApplicationClaim>
+    class ApplicationClaimConfig: EntityTypeConfiguration<ApplicationClaim>
     {
-        public ASPClaimsIdentityUserConfig()
+        public ApplicationClaimConfig()
         {
             HasKey(e => e.Id);
 

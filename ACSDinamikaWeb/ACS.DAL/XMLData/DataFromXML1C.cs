@@ -1525,7 +1525,7 @@ public static class DataLoader1C
             dataUserAD.SearchData(DataFullNameEmp[0], DataFullNameEmp[1]);
 
             Console.WriteLine(dataUserAD.SID.ToString().Length.ToString());
-            var newDataUser = new User()
+            var newDataUser = new Employee()
             {
 
                 LName = DataFullNameEmp[0],
@@ -1546,7 +1546,7 @@ public static class DataLoader1C
             };
 
 
-            UserPassport Passport = new UserPassport()
+            EmployeePassport Passport = new EmployeePassport()
             {
                 //паспортные данные
                 DateOfIssue = XMLDataTypeConverter.GetDateTime(dataUser.ДокументДатаВыдачи),
@@ -1554,11 +1554,11 @@ public static class DataLoader1C
                 Number = dataUser.ДокументНомер.ToString(),
                 Series = dataUser.ДокументСерия,
                 UnitCode = dataUser.ДокументКодПодразделения,
-                User = newDataUser
+                Employee = newDataUser
             };
 
             //добавляя паспартные данные, автоматически добавляются и пользовательские
-            Context.PassportDataUsers.Add(Passport);
+            Context.EmployeesPassports.Add(Passport);
 
             Context.SaveChanges();
         }
@@ -1609,14 +1609,14 @@ public static class DataLoader1C
 
         foreach (var namePost in query)
         {
-            var post = new PostNameUser()
+            var post = new PostNameEmployee()
             {
                 Name = namePost,
                 s_AuthorID = 1,
                 s_EditorID = 1,
             };
 
-            Context.PostUsers.Add(post);
+            Context.PostsEmployees.Add(post);
             Context.SaveChanges();
         }
     }
@@ -1637,7 +1637,7 @@ public static class DataLoader1C
     /// <summary>
     /// Заполнение бд код должности 1с и кому этот код пренадлежит
     /// </summary>
-    public static void GeneratePostUserСode1СRepository(ACSContext Context)
+    public static void GeneratePostsEmployeesСode1СRepository(ACSContext Context)
     {
         //все должности
         //var query = (from dUser in DataLoader1C.Data.Сотрудники
@@ -1664,22 +1664,22 @@ public static class DataLoader1C
             if (!Guid.TryParse(empl.КодФизЛицо, out Guid1C)) continue;
 
 
-            User userWithGuid1C = Context.DataUsers.FirstOrDefault(u => u.Guid1C == Guid1C);
+            Employee userWithGuid1C = Context.Employees.FirstOrDefault(u => u.Guid1C == Guid1C);
 
             if (userWithGuid1C == null) continue;
 
             int? Id = userWithGuid1C.Id;
 
-            var postUserСode1С = new PostUserСode1С()
+            var PostsEmployeesСode1С = new PostsEmployeesСode1С()
             {
                 CodePost1C = Guid.Parse(empl.Код),
 
-                User = userWithGuid1C,
+                Employee = userWithGuid1C,
                 s_AuthorID = 1,
                 s_EditorID = 1
             };
 
-            Context.PostUserСode1С.Add(postUserСode1С);
+            Context.PostsEmployeesСode1С.Add(PostsEmployeesСode1С);
             Context.SaveChanges();
         }
     }
@@ -1727,7 +1727,7 @@ public static class DataLoader1C
             if (department == null) continue;
 
             //КодДолжности1С
-            PostUserСode1С PUC = Context.PostUserСode1С.FirstOrDefault
+            PostsEmployeesСode1С PUC = Context.PostsEmployeesСode1С.FirstOrDefault
                 (puc => puc.CodePost1C == WorkHistory.Код);
 
             if (PUC == null) continue;
@@ -1741,7 +1741,7 @@ public static class DataLoader1C
                 EndDate = WorkHistory.ДатаОкончания,
                 Rate = double.Parse(WorkHistory.Ставка),
 
-                PostUserСode1С = PUC,
+                PostsEmployeesСode1С = PUC,
                 s_AuthorID = 1,
                 s_EditorID = 1
             };

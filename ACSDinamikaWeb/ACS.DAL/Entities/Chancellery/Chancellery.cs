@@ -63,7 +63,7 @@ namespace ACS.DAL.Entities
         public int? ResponsibleUserId { get; set; }
 
         [Display(Name = "Ответственный")]
-        public virtual User User { get; set; }
+        public virtual Employee Employee { get; set; }
 
         #endregion
 

@@ -1,6 +1,6 @@
 ﻿using ACS.DAL.Configuration;
 using ACS.DAL.Entities;
-using ACS.DAL.Entities.ASPIdentityUser;
+
 using ACS.XMLData;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
@@ -20,10 +20,10 @@ namespace ACS.DAL.EF
     {
         public virtual DbSet<Access> Accesses { get; set; }
 
-        public virtual DbSet<ApplicationUser> ApplicationUsersRepository { get; set; }
+        public virtual DbSet<ApplicationUser> ApplicationUserRepository { get; set; }
         public virtual DbSet<ApplicationClaim> ApplicationClaims { get; set; }
         public virtual DbSet<ApplicationLogin> ApplicationLogins { get; set; }
-        public virtual DbSet<ApplicationUser> ApplicationRolesRepository { get; set; }
+        public virtual DbSet<ApplicationRole> ApplicationRoleRepository { get; set; }
         public virtual DbSet<Chancellery> Chancelleries { get; set; }
         public virtual DbSet<DataEntity> DataEntityis { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
@@ -32,15 +32,15 @@ namespace ACS.DAL.EF
         public virtual DbSet<FolderChancellery> FolderChancelleries { get; set; }
         public virtual DbSet<FromChancellery> FromChancelleries { get; set; }
         public virtual DbSet<JournalRegistrationsChancellery> JournalRegistrationsChancelleries { get; set; }
-        public virtual DbSet<PostNameUser> PostUsers { get; set; }
-        public virtual DbSet<PostUserСode1С> PostUserСode1С { get; set; }
+        public virtual DbSet<PostNameEmployee> PostsEmployees { get; set; }
+        public virtual DbSet<PostsEmployeesСode1С> PostsEmployeesСode1С { get; set; }
         public virtual DbSet<ToChancellery> ToChancelleries { get; set; }
         public virtual DbSet<TypeAccess> TypeAccesses { get; set; }
         public virtual DbSet<TypeRecordChancellery> TypeRecordChancelleries { get; set; }
-        public virtual DbSet<User> DataUsers { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
         
         public virtual DbSet<WorkHistory> WorkHistories { get; set; }
-        public virtual DbSet<UserPassport> PassportDataUsers { get; set; }
+        public virtual DbSet<EmployeePassport> EmployeesPassports { get; set; }
 
 
 
@@ -60,10 +60,10 @@ namespace ACS.DAL.EF
 
 
             modelBuilder.Configurations.Add(new AccessConfig());
-            modelBuilder.Configurations.Add(new ASPClaimsIdentityUserConfig());
-            modelBuilder.Configurations.Add(new ASPIdentityUserConfig());
-            modelBuilder.Configurations.Add(new ASPLoginsIdentityUserConfig());
-            modelBuilder.Configurations.Add(new ASPRolesIdentityUserConfig());
+            modelBuilder.Configurations.Add(new ApplicationClaimConfig());
+            modelBuilder.Configurations.Add(new ApplicationUserConfig());
+            modelBuilder.Configurations.Add(new ApplicationLoginConfig());
+            modelBuilder.Configurations.Add(new ApplicationRoleConfig());
             modelBuilder.Configurations.Add(new ChancelleryConfig());
             modelBuilder.Configurations.Add(new DataEntityConfig());
             modelBuilder.Configurations.Add(new DepartmentConfig());
@@ -94,8 +94,8 @@ namespace ACS.DAL.EF
     //DataLoader1C.GenerateDepartmentRepository(db);
     //Console.WriteLine("GeneratePostRepository");
     //DataLoader1C.GeneratePostRepository(db);
-    //Console.WriteLine("GeneratePostUserСode1СRepository");
-    //DataLoader1C.GeneratePostUserСode1СRepository(db);
+    //Console.WriteLine("GeneratePostsEmployeesСode1СRepository");
+    //DataLoader1C.GeneratePostsEmployeesСode1СRepository(db);
     //Console.WriteLine("GenerateWorkHistoryRepository");
     //DataLoader1C.GenerateWorkHistoryRepository(db);
     //Console.WriteLine("GenerateTypeAccessRepository");

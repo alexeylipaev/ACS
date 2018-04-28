@@ -10,47 +10,47 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Repositories
 {
-    public class PostUserСode1СRepository : IRepository<PostUserСode1С>
+    public class PostsEmployeesСode1СRepository : IRepository<PostsEmployeesСode1С>
     {
         private ACSContext db;
 
-        public PostUserСode1СRepository(ACSContext context)
+        public PostsEmployeesСode1СRepository(ACSContext context)
         {
             this.db = context;
         }
 
-        public IEnumerable<PostUserСode1С> GetAll()
+        public IEnumerable<PostsEmployeesСode1С> GetAll()
         {
-            return db.PostUserСode1С;
+            return db.PostsEmployeesСode1С;
         }
 
-        public PostUserСode1С Get(int Id)
+        public PostsEmployeesСode1С Get(int Id)
         {
-            return db.PostUserСode1С.Find(Id);
+            return db.PostsEmployeesСode1С.Find(Id);
         }
 
 
 
-        public void Create(PostUserСode1С PostUserСode1С)
+        public void Create(PostsEmployeesСode1С PostsEmployeesСode1С)
         {
-            db.PostUserСode1С.Add(PostUserСode1С);
+            db.PostsEmployeesСode1С.Add(PostsEmployeesСode1С);
         }
 
-        public void Update(PostUserСode1С PostUserСode1С)
+        public void Update(PostsEmployeesСode1С PostsEmployeesСode1С)
         {
-            db.Entry(PostUserСode1С).State = EntityState.Modified;
+            db.Entry(PostsEmployeesСode1С).State = EntityState.Modified;
         }
 
-        public IEnumerable<PostUserСode1С> Find(Func<PostUserСode1С, Boolean> predicate)
+        public IEnumerable<PostsEmployeesСode1С> Find(Func<PostsEmployeesСode1С, Boolean> predicate)
         {
-            return db.PostUserСode1С.Where(predicate).ToList();
+            return db.PostsEmployeesСode1С.Where(predicate).ToList();
         }
 
         public void Delete(int Id)
         {
-            PostUserСode1С code = db.PostUserСode1С.Find(Id);
+            PostsEmployeesСode1С code = db.PostsEmployeesСode1С.Find(Id);
             if (code != null)
-                db.PostUserСode1С.Remove(code);
+                db.PostsEmployeesСode1С.Remove(code);
         }
     }
 }

@@ -12,56 +12,56 @@ using ACS.DAL.Entities;
 
 namespace ACS.BLL.Services
 {
-    public class UserPassportService : IUserPassportService
+    public class EmployeePassportService : IEmployeePassportService
     {
 
         IUnitOfWork Database { get; set; }
 
-        public UserPassportService(IUnitOfWork uow)
+        public EmployeePassportService(IUnitOfWork uow)
         {
             Database = uow;
         }
 
-        public UserDTO GetUser(int? Id)
+        public EmployeeDTO GetUser(int? Id)
         {
             if (Id == null)
                 throw new ValidationException("Не установлено Id пользователя", "");
 
-            var user = Database.Users.Get(Id.Value);
+            var user = Database.Employees.Get(Id.Value);
             if (user == null)
                 throw new ValidationException("Пользователь не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
-            return mapper.Map<User, UserDTO>(user);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return mapper.Map<Employee, EmployeeDTO>(user);
         }
 
-        public UserPassportDTO GetUserPassport(int? Id)
+        public EmployeePassportDTO GetUserPassport(int? Id)
         {
             if (Id == null)
                 throw new ValidationException("Не установлено Id паспорта", "");
 
-            var Passport = Database.PassportDataUsers.Get(Id.Value);
+            var Passport = Database.EmployeesPassports.Get(Id.Value);
             if (Passport == null)
                 throw new ValidationException("Паспорт не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserPassport, UserPassportDTO>()).CreateMapper();
-            return mapper.Map<UserPassport, UserPassportDTO>(Passport);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeePassport, EmployeePassportDTO>()).CreateMapper();
+            return mapper.Map<EmployeePassport, EmployeePassportDTO>(Passport);
         }
 
-        public IEnumerable<UserPassportDTO> GetUsersPassport()
+        public IEnumerable<EmployeePassportDTO> GetUsersPassport()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserPassport, UserPassportDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<UserPassport>, List<UserPassportDTO>>(Database.PassportDataUsers.GetAll());
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeePassport, EmployeePassportDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<EmployeePassport>, List<EmployeePassportDTO>>(Database.EmployeesPassports.GetAll());
         }
 
 
-        public void MakeUserPassport(UserPassportDTO UserPassportDTO, string authorEmail)
+        public void MakeUserPassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateUserPassport(UserPassportDTO UserPassportDTO, string authorEmail)
+        public void UpdateUserPassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail)
         {
             throw new NotImplementedException();
         }

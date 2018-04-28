@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface IPostNameUserService
+    public interface IPostNameEmployeeService
     {
         void MakePostNameUser(PostNameUserDTO PostNameUserDTO);
         PostNameUserDTO GetPostNameUser(int? Id);

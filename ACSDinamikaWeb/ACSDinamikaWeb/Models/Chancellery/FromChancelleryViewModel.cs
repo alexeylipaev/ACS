@@ -18,7 +18,7 @@ namespace ACSWeb.ViewModel
 
         public int? UserId { get; set; }
 
-        //public virtual UserViewModel User { get; set; }
+        //public virtual UserViewModel Employee { get; set; }
 
         #endregion
 

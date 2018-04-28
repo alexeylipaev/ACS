@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Repositories
 {
-    class ApplicationClaimsRepository : IRepository<ApplicationClaim>
+    public class ApplicationClaimRepository : IRepository<ApplicationClaim>
 
     {
         private ACSContext db;
 
-        public ApplicationClaimsRepository(ACSContext context)
+        public ApplicationClaimRepository(ACSContext context)
         {
             this.db = context;
         }

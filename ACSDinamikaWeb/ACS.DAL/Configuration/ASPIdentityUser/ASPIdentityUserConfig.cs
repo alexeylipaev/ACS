@@ -3,9 +3,9 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace ACS.DAL.Configuration
 {
-    internal class ASPIdentityUserConfig : EntityTypeConfiguration<ApplicationUser>
+    internal class ApplicationUserConfig : EntityTypeConfiguration<ApplicationUser>
     {
-        public ASPIdentityUserConfig()
+        public ApplicationUserConfig()
         {
 
 

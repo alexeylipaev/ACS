@@ -8,7 +8,7 @@ using System.Web;
 namespace ACS.BLL.DTO
 {
 
-    public class UserPassportDTO : SystemParametersDTO
+    public class EmployeePassportDTO : SystemParametersDTO
     {
         public string Series { get; set; }
 
@@ -22,6 +22,6 @@ namespace ACS.BLL.DTO
 
         public int? UserId { get; set; }
 
-        public virtual UserDTO User { get; set; }
+        public virtual EmployeeDTO Employee { get; set; }
     }
 }

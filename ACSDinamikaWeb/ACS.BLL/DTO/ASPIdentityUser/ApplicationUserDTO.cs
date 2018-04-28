@@ -11,8 +11,8 @@ namespace ACS.BLL.DTO
     {
         public ApplicationUserDTO()
         {
-            //Claims = new HashSet<ASPClaimsIdentityUserDTO>();
-            //Logins = new HashSet<ASPLoginsIdentityUserDTO>();
+            //Claims = new HashSet<ApplicationClaimDTO>();
+            //Logins = new HashSet<ApplicationLoginDTO>();
             //Roles = new HashSet<ApplicationRolesDTO>();
         }
 
@@ -21,10 +21,11 @@ namespace ACS.BLL.DTO
         /// </summary>
         public string UserName { get; set; }
 
-        /// <summary>
-        /// Начальная и хэшированная формы пароля пользователя
-        /// </summary>
-        public string PasswordHash { get; set; }
+
+        public string Password { get; set; }
+
+
+        public string Role { get; set; }
 
         /// <summary>
         /// Случайное значение, которое должно меняться при изменении учетных данных пользователя 
@@ -39,17 +40,17 @@ namespace ACS.BLL.DTO
         ///// <summary>
         ///// Свойство навигации для утверждений пользователя
         ///// </summary>
-        //public virtual ICollection<ASPClaimsIdentityUserDTO> Claims { get; set; }
+        //public virtual ICollection<ApplicationClaimDTO> Claims { get; set; }
 
         ///// <summary>
         ///// Логины (1 пользователь имеет N логинов (google, fb...))
         ///// </summary>
-        //public virtual ICollection<ASPLoginsIdentityUserDTO> Logins { get; set; }
+        //public virtual ICollection<ApplicationLoginDTO> Logins { get; set; }
 
         /// <summary>
         /// Роли N to N
         /// </summary>
-        public virtual ICollection<int> RolesID { get; set; }
+        //public virtual ICollection<int> RolesID { get; set; }
 
         /// <summary>
         /// Id пользователя
@@ -59,7 +60,7 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Пользователь
         /// </summary>
-        //public virtual UserDTO User { get; set; }
+        //public virtual UserDTO Employee { get; set; }
 
     }
 }

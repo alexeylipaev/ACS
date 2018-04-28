@@ -9,10 +9,10 @@ namespace ACS.DAL.Interfaces
 {
     interface IUserRepository
     {
-        IQueryable<User> All { get; }
-        User CurrentUser { get; }
-        void InsertOrUpdate(User user);
-        void Remove(User user);
+        IQueryable<Employee> All { get; }
+        Employee CurrentUser { get; }
+        void InsertOrUpdate(Employee user);
+        void Remove(Employee user);
         void Save();
     }
 }

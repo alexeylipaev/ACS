@@ -10,14 +10,14 @@ namespace ACS.DAL.Entities
     /// <summary>
     /// Пользователь
     /// </summary>
-    public partial class User : SystemParameters
+    public partial class Employee : SystemParameters
     {
 
-        public User()
+        public Employee()
         {
             Accesses = new HashSet<Access>();
             Chancelleries = new HashSet<Chancellery>();
-            PostUserСode1С = new HashSet<PostUserСode1С>();
+            PostsEmployeesСode1С = new HashSet<PostsEmployeesСode1С>();
         }
 
         public int Id { get; set; }
@@ -58,6 +58,6 @@ namespace ACS.DAL.Entities
         /// <summary>
         /// Коды1С должностей пользователя
         /// </summary>
-        public virtual ICollection<PostUserСode1С> PostUserСode1С { get; set; }
+        public virtual ICollection<PostsEmployeesСode1С> PostsEmployeesСode1С { get; set; }
     }
 }

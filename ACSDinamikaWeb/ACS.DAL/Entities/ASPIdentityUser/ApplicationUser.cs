@@ -11,9 +11,9 @@ namespace ACS.DAL.Entities
 
     public partial class ApplicationUser : IdentityUser
     {
-        //public string Email { get; set; }
+       // public override string Email { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual Employee Employee { get; set; }
 
         //public string UserName { get; set; }
     }

@@ -29,8 +29,8 @@ namespace ACS.DAL.Migrations
             //DataLoader1C.GenerateDepartmentRepository(db);
             //Debug.WriteLine("GeneratePostRepository");
             //DataLoader1C.GeneratePostRepository(db);
-            //Debug.WriteLine("GeneratePostUser—ode1—Repository");
-            //DataLoader1C.GeneratePostUser—ode1—Repository(db);
+            //Debug.WriteLine("GeneratePostsEmployees—ode1—Repository");
+            //DataLoader1C.GeneratePostsEmployees—ode1—Repository(db);
             //Debug.WriteLine("GenerateWorkHistoryRepository");
             //DataLoader1C.GenerateWorkHistoryRepository(db);
             //Debug.WriteLine("GenerateTypeAccessRepository");

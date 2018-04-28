@@ -8,7 +8,7 @@ using System.Web;
 namespace ACS.DAL.Entities
 {
     //[ComplexType]
-    public class UserPassport : SystemParameters
+    public class EmployeePassport : SystemParameters
     {
         [Key]
         public int Id { get; set; }
@@ -24,11 +24,11 @@ namespace ACS.DAL.Entities
         [Column(TypeName = "date")]
         public DateTime? DateOfIssue { get; set; }
 
-        /***************** 1 to 1 Passport to User *********************/
+        /***************** 1 to 1 Passport to Employee *********************/
 
         public int? UserId { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual Employee Employee { get; set; }
 
     }
 }

@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace ACS.DAL.Configuration
 {
-    internal class UserPassportConfig : EntityTypeConfiguration<UserPassport>
+    internal class UserPassportConfig : EntityTypeConfiguration<EmployeePassport>
     {
         public UserPassportConfig()
         {

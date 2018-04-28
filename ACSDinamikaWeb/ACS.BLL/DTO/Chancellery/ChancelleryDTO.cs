@@ -75,7 +75,7 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Ответственный
         /// </summary>
-        //public virtual UserDTO User { get; set; }
+        //public virtual UserDTO Employee { get; set; }
 
         #endregion
 

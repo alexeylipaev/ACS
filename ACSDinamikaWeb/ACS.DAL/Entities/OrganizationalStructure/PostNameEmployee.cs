@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ACS.DAL.Entities
 {
     [Table("PostUser")]
-    public partial class PostNameUser : SystemParameters
+    public partial class PostNameEmployee : SystemParameters
     {
        
         public int Id { get; set; }

@@ -13,42 +13,42 @@ using System.Linq;
 using ACS.BLL.BusinessModels;
 namespace ACS.BLL.Services
 {
-    public class UserService : IUserService
+    public class EmployeeService : IEmployeeService
     {
         IUnitOfWork Database { get; set; }
 
-        public UserService(IUnitOfWork uow)
+        public EmployeeService(IUnitOfWork uow)
         {
             Database = uow;
         }
 
-        string UNIQEUserString(UserDTO UserData)
+        string UNIQEUserString(EmployeeDTO UserData)
         {
             return String.Format("{0} {1} {2} {3}", Helper.RemoveSpacesBeginnEndStr(UserData.LName), Helper.RemoveSpacesBeginnEndStr(UserData.FName)
                 , Helper.RemoveSpacesBeginnEndStr(UserData.MName), Helper.RemoveSpacesBeginnEndStr(UserData.Email));
 
         }
 
-        string UNIQEUserString(User UserData)
+        string UNIQEUserString(Employee UserData)
         {
             return String.Format("{0} {1} {2} {3}", Helper.RemoveSpacesBeginnEndStr(UserData.LName), Helper.RemoveSpacesBeginnEndStr(UserData.FName)
       , Helper.RemoveSpacesBeginnEndStr(UserData.MName), Helper.RemoveSpacesBeginnEndStr(UserData.Email));
         }
 
-        public void MakeUser(UserDTO UserDTO)
+        public void MakeUser(EmployeeDTO UserDTO)
         {
             var resultString = UNIQEUserString(UserDTO);
-            User user = Database.Users.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
+            Employee user = Database.Employees.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
 
             if (user != null)
                 throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его Id : {1}", resultString, user.Id), "");
 
             try
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, User>()).CreateMapper();
-                User User = mapper.Map<UserDTO, User>(UserDTO);
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, Employee>()).CreateMapper();
+                Employee Employee = mapper.Map<EmployeeDTO, Employee>(UserDTO);
 
-                Database.Users.Create(User);
+                Database.Employees.Create(Employee);
                 Database.Save();
             }
             catch (Exception e)
@@ -66,28 +66,28 @@ namespace ACS.BLL.Services
             }
         }
 
-        public void MakeUser(UserDTO UserDTO, string authorEmail)
+        public void MakeUser(EmployeeDTO UserDTO, string authorEmail)
         {
 
-            var author = Database.Users.Find(u => u.Email == authorEmail).FirstOrDefault();
+            var author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
 
             if (author == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
 
 
             var resultString = UNIQEUserString(UserDTO);
-            User user = Database.Users.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
+            Employee user = Database.Employees.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
 
             if (user != null)
                 throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его Id : {1}", resultString, user.Id), "");
 
             try
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserDTO, User>()).CreateMapper();
-                User User = mapper.Map<UserDTO, User>(UserDTO);
-                User.s_AuthorID = author.Id;
-                User.s_EditorID = author.Id;
-                Database.Users.Create(User);
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, Employee>()).CreateMapper();
+                Employee Employee = mapper.Map<EmployeeDTO, Employee>(UserDTO);
+                Employee.s_AuthorID = author.Id;
+                Employee.s_EditorID = author.Id;
+                Database.Employees.Create(Employee);
                 Database.Save();
             }
             catch (Exception e)
@@ -105,11 +105,11 @@ namespace ACS.BLL.Services
             }
         }
 
-        public void UpdateUser(UserDTO UserDTO, string authorEmail)
+        public void UpdateUser(EmployeeDTO UserDTO, string authorEmail)
         {
-            var editor = Database.Users.Find(u => u.Email == authorEmail).FirstOrDefault();
+            var editor = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
 
-            User EditableObj = Database.Users.Get(UserDTO.Id);
+            Employee EditableObj = Database.Employees.Get(UserDTO.Id);
 
             if (editor == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
@@ -127,7 +127,7 @@ namespace ACS.BLL.Services
                 EditableObj.s_EditDate = DateTime.Now;
                 EditableObj.s_EditorID = editor.Id;
 
-                Database.Users.Update(EditableObj);
+                Database.Employees.Update(EditableObj);
                 Database.Save();
             }
             catch (Exception e)
@@ -145,25 +145,25 @@ namespace ACS.BLL.Services
             }
         }
 
-        public IEnumerable<UserDTO> GetUsers()
+        public IEnumerable<EmployeeDTO> GetUsers()
         {
       
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<User>, List<UserDTO>>(Database.Users.GetAll());
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
         }
 
-        public UserDTO GetUser(int? Id)
+        public EmployeeDTO GetUser(int? Id)
         {
             if (Id == null)
                 throw new ValidationException("Не установлено Id пользователя", "");
 
-            var User = Database.Users.Get(Id.Value);
-            if (User == null)
+            var Employee = Database.Employees.Get(Id.Value);
+            if (Employee == null)
                 throw new ValidationException("Пользователь не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
-            return mapper.Map<User, UserDTO>(User);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return mapper.Map<Employee, EmployeeDTO>(Employee);
 
         }
 

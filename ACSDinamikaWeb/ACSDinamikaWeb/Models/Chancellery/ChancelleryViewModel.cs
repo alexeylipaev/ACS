@@ -75,7 +75,7 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Ответственный
         /// </summary>
-        //public virtual UserViewModel User { get; set; }
+        //public virtual UserViewModel Employee { get; set; }
 
         #endregion
 

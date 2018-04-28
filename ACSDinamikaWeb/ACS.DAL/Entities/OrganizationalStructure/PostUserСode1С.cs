@@ -10,7 +10,7 @@ namespace ACS.DAL.Entities
     /// <summary>
     /// Код1С должности 
     /// </summary>
-    public partial class PostUserСode1С : SystemParameters
+    public partial class PostsEmployeesСode1С : SystemParameters
     {
         public int Id { get; set; }
 
@@ -19,6 +19,6 @@ namespace ACS.DAL.Entities
 
         public int? UserId { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

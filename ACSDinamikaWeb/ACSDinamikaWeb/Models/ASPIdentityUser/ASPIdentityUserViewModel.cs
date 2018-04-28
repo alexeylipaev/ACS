@@ -7,13 +7,13 @@ using System.Web;
 
 namespace ACSWeb.ViewModel
 {
-    public partial class ASPIdentityUserViewModel : SystemParametersViewModel
+    public partial class ApplicationUserViewModel : SystemParametersViewModel
     {
-        //public ASPIdentityUserViewModel()
+        //public ApplicationUserViewModel()
         //{
-        //    Claims = new HashSet<ASPClaimsIdentityUserViewModel>();
-        //    Logins = new HashSet<ASPLoginsIdentityUserViewModel>();
-        //    Roles = new HashSet<ASPRolesIdentityUserViewModel>();
+        //    Claims = new HashSet<ApplicationClaimViewModel>();
+        //    Logins = new HashSet<ApplicationLoginViewModel>();
+        //    Roles = new HashSet<ApplicationRoleViewModel>();
         //}
 
         /// <summary>
@@ -39,17 +39,17 @@ namespace ACSWeb.ViewModel
         ///// <summary>
         ///// Свойство навигации для утверждений пользователя
         ///// </summary>
-        //public virtual ICollection<ASPClaimsIdentityUserViewModel> Claims { get; set; }
+        //public virtual ICollection<ApplicationClaimViewModel> Claims { get; set; }
 
         ///// <summary>
         ///// Логины (1 пользователь имеет N логинов (google, fb...))
         ///// </summary>
-        //public virtual ICollection<ASPLoginsIdentityUserViewModel> Logins { get; set; }
+        //public virtual ICollection<ApplicationLoginViewModel> Logins { get; set; }
 
         ///// <summary>
         ///// Роли N to N
         ///// </summary>
-        //public virtual ICollection<ASPRolesIdentityUserViewModel> Roles { get; set; }
+        //public virtual ICollection<ApplicationRoleViewModel> Roles { get; set; }
 
         /// <summary>
         /// Id пользователя
@@ -59,7 +59,7 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Пользователь
         /// </summary>
-        //public virtual UserViewModel User { get; set; }
+        //public virtual UserViewModel Employee { get; set; }
 
     }
 }

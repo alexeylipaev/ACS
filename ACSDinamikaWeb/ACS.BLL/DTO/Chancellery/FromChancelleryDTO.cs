@@ -18,7 +18,7 @@ namespace ACS.BLL.DTO
 
         public int? UserId { get; set; }
 
-        //public virtual UserDTO User { get; set; }
+        //public virtual UserDTO Employee { get; set; }
 
         #endregion
 

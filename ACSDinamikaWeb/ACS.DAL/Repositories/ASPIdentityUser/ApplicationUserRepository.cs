@@ -10,46 +10,46 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Repositories
 {
-    class ApplicationUsersRepository : IRepository<ApplicationUser>
+   public class ApplicationUserRepository : IRepository<ApplicationUser>
 
     {
         private ACSContext db;
 
-        public ApplicationUsersRepository(ACSContext context)
+        public ApplicationUserRepository(ACSContext context)
         {
             this.db = context;
         }
 
         public IEnumerable<ApplicationUser> GetAll()
         {
-            return db.ApplicationUsersRepository;
+            return db.ApplicationUserRepository;
         }
 
         public ApplicationUser Get(int Id)
         {
-            return db.ApplicationUsersRepository.Find(Id);
+            return db.ApplicationUserRepository.Find(Id);
         }
 
-        public void Create(ApplicationUser ASPIdentityUser)
+        public void Create(ApplicationUser ApplicationUser)
         {
-            db.ApplicationUsersRepository.Add(ASPIdentityUser);
+            db.ApplicationUserRepository.Add(ApplicationUser);
         }
 
-        public void Update(ApplicationUser ASPIdentityUser)
+        public void Update(ApplicationUser ApplicationUser)
         {
-            db.Entry(ASPIdentityUser).State = EntityState.Modified;
+            db.Entry(ApplicationUser).State = EntityState.Modified;
         }
 
         public IEnumerable<ApplicationUser> Find(Func<ApplicationUser, Boolean> predicate)
         {
-            return db.ApplicationUsersRepository.Where(predicate).ToList();
+            return db.ApplicationUserRepository.Where(predicate).ToList();
         }
 
         public void Delete(int Id)
         {
-            ApplicationUser IdentityUser = db.ApplicationUsersRepository.Find(Id);
+            ApplicationUser IdentityUser = db.ApplicationUserRepository.Find(Id);
             if (IdentityUser != null)
-                db.ApplicationUsersRepository.Remove(IdentityUser);
+                db.ApplicationUserRepository.Remove(IdentityUser);
         }
     }
 }

@@ -14,13 +14,13 @@ namespace ACS.DAL.Entities
         public ToChancellery()
         {
             ExternalOrganizations = new HashSet<ExternalOrganizationChancellery>();
-            Users = new HashSet<User>();
+            Employees = new HashSet<Employee>();
         }
 
         public int Id { get; set; }
 
         public ICollection<ExternalOrganizationChancellery> ExternalOrganizations { get; set; }
-        public ICollection<User> Users { get; set; }
+        public ICollection<Employee> Employees { get; set; }
 
         public int? ChancelleryId { get; set; }
         public virtual Chancellery Chancellery { get; set; }

@@ -10,7 +10,7 @@ namespace ACSWeb.ViewModel
     /// <summary>
     /// Код1С должности 
     /// </summary>
-    public partial class PostUserСode1СViewModel : SystemParametersViewModel
+    public partial class PostsEmployeesСode1СViewModel : SystemParametersViewModel
     {
 
         public int Id { get; set; }
@@ -20,7 +20,7 @@ namespace ACSWeb.ViewModel
 
         public int? UserId { get; set; }
 
-        //public virtual UserViewModel User { get; set; }
+        //public virtual UserViewModel Employee { get; set; }
 
     }
 }

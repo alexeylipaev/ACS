@@ -10,14 +10,14 @@ namespace ACS.BLL.DTO
     /// <summary>
     /// Пользователь
     /// </summary>
-    public partial class UserDTO : SystemParametersDTO
+    public partial class EmployeeDTO : SystemParametersDTO
     {
 
         //public UserDTO()
         //{
         //    Accesses = new HashSet<AccessDTO>();
         //    Chancelleries = new HashSet<ChancelleryDTO>();
-        //    PostUserСode1С = new HashSet<PostUserСode1СDTO>();
+        //    PostsEmployeesСode1С = new HashSet<PostsEmployeesСode1СDTO>();
         //}
 
         public int Id { get; set; }
@@ -55,6 +55,6 @@ namespace ACS.BLL.DTO
         ///// <summary>
         ///// Коды1С должностей пользователя
         ///// </summary>
-        //public virtual ICollection<PostUserСode1СDTO> PostUserСode1С { get; set; }
+        //public virtual ICollection<PostsEmployeesСode1СDTO> PostsEmployeesСode1С { get; set; }
     }
 }

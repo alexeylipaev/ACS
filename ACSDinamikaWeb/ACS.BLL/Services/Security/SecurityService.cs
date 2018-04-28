@@ -1,6 +1,6 @@
 ﻿using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
-
+//using Microsoft.AspNet.Identity.EntityFramework;
 
 using System;
 using System.Collections.Generic;
@@ -26,28 +26,32 @@ namespace ACS.BLL.Services
             Database = uow;
         }
 
-        public IEnumerable<ApplicationRolesDTO> Find(Func<ApplicationRolesDTO, Boolean> predicate)
+        public IEnumerable<ApplicationRoleDTO> Find(Func<ApplicationRoleDTO, Boolean> predicate)
         {
             //var conv = new ExpressionConverter();
-            //Expression<Func<ApplicationRolesDTO, bool>> bllExpr = mc => predicate(mc);
-            //Expression <Func<ApplicationUser, bool>> dllExpr = (Expression<Func<ApplicationUser, bool>>)conv.Convert(bllExpr);
-            Func<ApplicationUser, bool> userPredicate = u => predicate(MapSourceToDest(u));
+            //Expression<Func<ApplicationRoleDTO, bool>> bllExpr = mc => predicate(mc);
+            //Expression <Func<ApplicationRole, bool>> dllExpr = (Expression<Func<ApplicationRole, bool>>)conv.Convert(bllExpr);
+
+            Func<ApplicationRole, bool> userPredicate = u => predicate(MapSourceToDest(u));
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, ApplicationRolesDTO>()).CreateMapper();
-            
-            return mapper.Map<IEnumerable<ApplicationUser>, List<ApplicationRolesDTO>>(Database.ApplicationRolesRepository.Find(userPredicate));
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRole, ApplicationRoleDTO>()).CreateMapper();
+
+
+            return mapper.Map<IEnumerable<ApplicationRole>, List<ApplicationRoleDTO>>(Database.ApplicationRoles.Find(userPredicate));
+
         }
 
-        ApplicationRolesDTO MapSourceToDest(ApplicationUser v) {
-            ApplicationRolesDTO dest = new ApplicationRolesDTO();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRolesDTO, ApplicationUser>()).CreateMapper();
-            dest = mapper.Map<ApplicationUser, ApplicationRolesDTO>(v);
+        ApplicationRoleDTO MapSourceToDest(ApplicationRole v)
+        {
+            ApplicationRoleDTO dest = new ApplicationRoleDTO();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRole>()).CreateMapper();
+            dest = mapper.Map<ApplicationRole, ApplicationRoleDTO>(v);
             return dest;
         }
 
         public void MakeAccess(AccessDTO AccessDto, string authorEmail)
         {
-            var Author = Database.Users.Find(u => u.Email == authorEmail).FirstOrDefault();
+            var Author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
 
             if (Author == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
@@ -63,7 +67,7 @@ namespace ACS.BLL.Services
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<AccessDTO, Access>()).CreateMapper();
                 Access Access = mapper.Map<AccessDTO, Access>(AccessDto);
 
-                //User User = new User
+                //Employee Employee = new Employee
                 //{
                 //    LName = UserDTO.LName,
                 //    FName = UserDTO.FName,
@@ -100,10 +104,11 @@ namespace ACS.BLL.Services
         public bool IsUserInRole(string userEmail, string roleName)
         {
             bool result = false;
-            var user = Database.ApplicationUsersRepository.Find(u => u.Email == userEmail).FirstOrDefault();
-            if (user != null)
+            var applicationUser = Database.ApplicationUsers.Find(u => u.Email == userEmail).FirstOrDefault();
+            if (applicationUser != null)
             {
-                var roles = Database.ApplicationRolesRepository.Find(r => r.Name==roleName && r.IdentityUser.Contains(user));
+
+                var roles = Database.ApplicationRoles.Find(r => r.Name == roleName && r.IdentityUser.Contains(applicationUser));
                 result = roles.Count() > 0;
             }
             return result;
@@ -113,19 +118,19 @@ namespace ACS.BLL.Services
         {
             ApplicationUserDTO result = null;
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, ApplicationUserDTO>()).CreateMapper();
-            var user = Database.ApplicationUsersRepository.Find(u => u.UserName == username).FirstOrDefault();
-            if (user != null)
-                result = mapper.Map<ApplicationUser, ApplicationUserDTO>(user);
+            var applicationUser = Database.ApplicationUsers.Find(u => u.UserName == username).FirstOrDefault();
+            if (applicationUser != null)
+                result = mapper.Map<ApplicationUser, ApplicationUserDTO>(applicationUser);
             return result;
         }
 
-        public UserDTO GetUserDTO(string username)
+        public EmployeeDTO GetUserDTO(string username)
         {
-            UserDTO result = null;
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
-            var user = Database.Users.Find(u => u.Email == username).FirstOrDefault();
-            if (user != null)
-                result = mapper.Map<User, UserDTO>(user);
+            EmployeeDTO result = null;
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            var employee = Database.Employees.Find(u => u.Email == username).FirstOrDefault();
+            if (employee != null)
+                result = mapper.Map<Employee, EmployeeDTO>(employee);
             return result;
         }
 
@@ -149,17 +154,17 @@ namespace ACS.BLL.Services
             return mapper.Map<Access, AccessDTO>(access);
         }
 
-        public UserDTO GetUser(int? Id)
+        public EmployeeDTO GetUser(int? Id)
         {
             if (Id == null)
                 throw new ValidationException("Не установлено Id пользователя", "");
 
-            var User = Database.Users.Get(Id.Value);
-            if (User == null)
+            var employee = Database.Employees.Get(Id.Value);
+            if (employee == null)
                 throw new ValidationException("Пользователь не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
-            return mapper.Map<User, UserDTO>(User);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return mapper.Map<Employee, EmployeeDTO>(employee);
         }
 
         public void UpdateAccess(AccessDTO accessDTO, string authorEmail)
@@ -178,26 +183,26 @@ namespace ACS.BLL.Services
 
             protected override Expression VisitLambda<T>(Expression<T> node)
             {
-                if (typeof(T) == typeof(Func<ApplicationRolesDTO, bool>))
+                if (typeof(T) == typeof(Func<ApplicationRoleDTO, bool>))
                 {
-                    replaceParam = Expression.Parameter(typeof(ApplicationUser), "p");
-                    return Expression.Lambda<Func<ApplicationUser, bool>>(Visit(node.Body), replaceParam);
+                    replaceParam = Expression.Parameter(typeof(ApplicationRole), "p");
+                    return Expression.Lambda<Func<ApplicationRole, bool>>(Visit(node.Body), replaceParam);
                 }
                 return base.VisitLambda<T>(node);
             }
 
             protected override Expression VisitParameter(ParameterExpression node)
             {
-                if (node.Type == typeof(ApplicationUser))
+                if (node.Type == typeof(ApplicationRole))
                     return replaceParam; // Expression.Parameter(typeof(DataObject), "p");
                 return base.VisitParameter(node);
             }
 
             protected override Expression VisitMember(MemberExpression node)
             {
-                if (node.Member.DeclaringType == typeof(ApplicationRolesDTO))
+                if (node.Member.DeclaringType == typeof(ApplicationRoleDTO))
                 {
-                    var member = typeof(ApplicationUser).GetMember(node.Member.Name, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance).FirstOrDefault();
+                    var member = typeof(ApplicationRole).GetMember(node.Member.Name, System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance).FirstOrDefault();
                     if (member == null)
                         throw new InvalidOperationException("Cannot identify corresponding member of DataObject");
                     return Expression.MakeMemberAccess(Visit(node.Expression), member);

@@ -27,7 +27,7 @@ namespace ACS.BLL.Services
 
         public void MakeAccess(AccessDTO AccessDto, string authorEmail)
         {
-            var Author = Database.Users.Find(u => u.Email == authorEmail).FirstOrDefault();
+            var Author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
 
             if (Author == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
@@ -43,7 +43,7 @@ namespace ACS.BLL.Services
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<AccessDTO, Access>()).CreateMapper();
                 Access Access = mapper.Map<AccessDTO, Access>(AccessDto);
 
-                //User User = new User
+                //Employee Employee = new Employee
                 //{
                 //    LName = UserDTO.LName,
                 //    FName = UserDTO.FName,
@@ -97,17 +97,17 @@ namespace ACS.BLL.Services
             return mapper.Map<Access, AccessDTO>(access);
         }
 
-        public UserDTO GetUser(int? Id)
+        public EmployeeDTO GetUser(int? Id)
         {
             if (Id == null)
                 throw new ValidationException("Не установлено Id пользователя", "");
 
-            var User = Database.Users.Get(Id.Value);
-            if (User == null)
+            var Employee = Database.Employees.Get(Id.Value);
+            if (Employee == null)
                 throw new ValidationException("Пользователь не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
-            return mapper.Map<User, UserDTO>(User);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return mapper.Map<Employee, EmployeeDTO>(Employee);
         }
 
         public void UpdateAccess(AccessDTO accessDTO, string authorEmail)

@@ -36,13 +36,13 @@ namespace ACS.BLL.Services
             if(Id == null)
                 throw new ValidationException("Не установлено Id", "");
 
-            var type = Database.Users.Get(Id.Value);
+            var type = Database.Employees.Get(Id.Value);
             if (type == null)
                 throw new ValidationException("Тип не найден", "");
 
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancellery>()).CreateMapper();
 
-            return mapper.Map<User, TypeRecordChancelleryDTO>(type);
+            return mapper.Map<Employee, TypeRecordChancelleryDTO>(type);
         }
 
         public void MakeTypeRecordChancellery(TypeRecordChancelleryDTO TypeRecordChancelleryDTO, string authorEmail)

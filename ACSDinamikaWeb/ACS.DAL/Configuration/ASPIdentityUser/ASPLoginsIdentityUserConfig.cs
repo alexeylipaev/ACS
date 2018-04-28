@@ -1,5 +1,5 @@
 ﻿using ACS.DAL.Entities;
-using ACS.DAL.Entities.ASPIdentityUser;
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Configuration
 {
-    class ASPLoginsIdentityUserConfig : EntityTypeConfiguration<ApplicationLogin>
+    class ApplicationLoginConfig : EntityTypeConfiguration<ApplicationLogin>
     {
-        public ASPLoginsIdentityUserConfig()
+        public ApplicationLoginConfig()
         {
              Property(e => e.ProviderKey)
                 .IsUnicode(true);

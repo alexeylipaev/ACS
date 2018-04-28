@@ -10,7 +10,7 @@ namespace ACS.BLL.DTO
     /// <summary>
     /// Роли пользователя
     /// </summary>
-    public partial class ApplicationRolesDTO : SystemParametersDTO
+    public partial class ApplicationRoleDTO : SystemParametersDTO
     {
         
         public int Id { get; set; }
@@ -20,6 +20,6 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Пользователи, которое владеют этой ролью
         /// </summary>
-        //public virtual ICollection<ASPIdentityUserDTO> IdentityUser { get; set; }
+        //public virtual ICollection<ApplicationUserDTO> IdentityUser { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace ACS.BLL.Interfaces
 
         AccessDTO GetAccess(int? Id);
 
-        UserDTO GetUser(int? Id);
+        EmployeeDTO GetUser(int? Id);
 
         IEnumerable<AccessDTO> GetAccesses();
 

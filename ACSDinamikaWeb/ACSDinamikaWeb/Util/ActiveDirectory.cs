@@ -12,7 +12,7 @@ namespace ACSWeb.Util
         {
             PrincipalContext pc = new PrincipalContext(ContextType.Domain);
             UserPrincipal up = UserPrincipal.FindByIdentity(pc, identityName);
-            //userService.GetUser
+            //EmployeeService.GetUser
             return up.EmailAddress;
         }
     }

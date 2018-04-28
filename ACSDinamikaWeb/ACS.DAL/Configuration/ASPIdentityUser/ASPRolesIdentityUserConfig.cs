@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Configuration
 {
-    class ASPRolesIdentityUserConfig : EntityTypeConfiguration<ApplicationUser>
+    class ApplicationRoleConfig : EntityTypeConfiguration<ApplicationUser>
     {
-        public ASPRolesIdentityUserConfig()
+        public ApplicationRoleConfig()
         {
 
             //Property(e => e.Name)

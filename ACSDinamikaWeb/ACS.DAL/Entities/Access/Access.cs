@@ -22,6 +22,6 @@ namespace ACS.DAL.Entities
 
         public int?  UserId { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

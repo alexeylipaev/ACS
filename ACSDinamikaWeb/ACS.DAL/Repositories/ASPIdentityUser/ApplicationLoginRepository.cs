@@ -1,6 +1,6 @@
 ﻿using ACS.DAL.EF;
 using ACS.DAL.Entities;
-using ACS.DAL.Entities.ASPIdentityUser;
+
 using ACS.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Repositories
 {
-    class ApplicationLoginsRepository : IRepository<ApplicationLogin>
+    public class ApplicationLoginRepository : IRepository<ApplicationLogin>
 
     {
         private ACSContext db;
 
-        public ApplicationLoginsRepository(ACSContext context)
+        public ApplicationLoginRepository(ACSContext context)
         {
             this.db = context;
         }

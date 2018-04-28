@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Configuration
 {
-    class UserConfig : EntityTypeConfiguration<User>
+    class UserConfig : EntityTypeConfiguration<Employee>
     {
         public UserConfig()
         {
@@ -29,17 +29,17 @@ namespace ACS.DAL.Configuration
             .IsUnicode(true);
 
             HasMany(e => e.Chancelleries)
-            .WithOptional(e => e.User)
+            .WithOptional(e => e.Employee)
             .HasForeignKey(e => e.ResponsibleUserId)
             .WillCascadeOnDelete(false);//при удалении пользователя, канцелярию где он ответственный не удаляем
 
             HasMany(e => e.Accesses)
-            .WithOptional(e => e.User)
+            .WithOptional(e => e.Employee)
               .HasForeignKey(e => e.UserId)
             .WillCascadeOnDelete(false);
 
-            HasMany(e => e.PostUserСode1С)
-           .WithOptional(e => e.User)
+            HasMany(e => e.PostsEmployeesСode1С)
+           .WithOptional(e => e.Employee)
            .HasForeignKey(e => e.UserId)
            .WillCascadeOnDelete();
 

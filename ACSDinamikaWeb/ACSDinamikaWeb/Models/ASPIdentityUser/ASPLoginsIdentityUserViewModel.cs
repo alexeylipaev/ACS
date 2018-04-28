@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ACSWeb.ViewModel
 {
-    public partial class ASPLoginsIdentityUserViewModel : SystemParametersViewModel
+    public partial class ApplicationLoginViewModel : SystemParametersViewModel
     {
     
         public int Id { get; set; }
@@ -28,7 +28,7 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Владелец this логина
         /// </summary>
-        //public virtual ASPIdentityUserViewModel IdentityUser { get; set; }
+        //public virtual ApplicationUserViewModel IdentityUser { get; set; }
 
     }
 }
