@@ -65,8 +65,14 @@ namespace ACSWeb.Models.Security
         public override string[] GetRolesForUser(string username)
         {
             string email = ActiveDirectory.IdentityUserEmailFromActiveDirectory(username);
-            var userDTO = SecurityService.GetIdentityUser(email);
-            var rolesDTO =  SecurityService.Find(u=>userDTO.RolesID.Contains(u.Id)).Select(u=> u.Name );
+            var applicationUserDTO = SecurityService.GetIdentityUser(email);
+
+            List<string> result = new List<string>();
+            foreach (var roleId in applicationUserDTO.RolesID)
+            {
+                result.Add(SecurityService.GetRoleById(roleId));
+            }
+            var rolesDTO =  SecurityService.GetRoles.Find(u=>userDTO.RolesID.Contains(u.Id)).Select(u=> u.Name );
             //string[] rolesDTO = new string []{ "Administrators" };
             if (rolesDTO != null)
                 return rolesDTO.ToArray();

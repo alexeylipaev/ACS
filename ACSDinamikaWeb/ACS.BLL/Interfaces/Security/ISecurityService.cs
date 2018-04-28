@@ -11,18 +11,15 @@ namespace ACS.BLL.Interfaces
     {
         //void GetRoles(AccessDTO accessDTO, string authorEmail);
 
-        IEnumerable<ApplicationRoleDTO> Find(Func<ApplicationRoleDTO, Boolean> predicate);
+        //IEnumerable<ApplicationRoleDTO> Find(Func<ApplicationRoleDTO, Boolean> predicate);
 
         bool IsUserInRole(string userEmail, string roleName);
 
-        void UpdateAccess(AccessDTO accessDTO, string authorEmail);
+        
 
-        AccessDTO GetAccess(int? Id);
+        ApplicationUserDTO GetApplicationUser(int? Id);
 
-        EmployeeDTO GetUser(int? Id);
-
-        IEnumerable<AccessDTO> GetAccesses();
-
+       
         void Dispose();
     }
 }
