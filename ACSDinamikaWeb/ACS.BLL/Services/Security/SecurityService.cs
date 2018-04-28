@@ -56,26 +56,26 @@ namespace ACS.BLL.Services
             throw new NotImplementedException();
         }
 
-        public async Task< bool> IsUserInRoleAsync(string userEmail, string roleName)
+        public  bool IsUserInRole(string userEmail, string roleName)
         {
             bool result = false;
             var applicationUser = Database.UserManager.FindByEmailAsync(userEmail);
 
             if (applicationUser != null)
             {
-                var role = await Database.RoleManager.FindByNameAsync(roleName);
+                var role = Database.RoleManager.FindByName(roleName);
                 if(role != null)
                 return role.Users.Any(u => u.UserId == applicationUser.Id.ToString());
             }
             return result;
         }
 
-        public async Task<ApplicationUserDTO> GetIdentityUser(string username)
+        public ApplicationUserDTO GetIdentityUser(string userEmail)
         {
             ApplicationUserDTO result = null;
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, ApplicationUserDTO>()).CreateMapper();
 
-            var applicationUser = await Database.UserManager.FindByNameAsync(username);
+            var applicationUser = Database.UserManager.FindByEmail(userEmail);
 
             if (applicationUser != null)
                 result = mapper.Map<ApplicationUser, ApplicationUserDTO>(applicationUser);
@@ -94,18 +94,18 @@ namespace ACS.BLL.Services
         }
 
        
-        public EmployeeDTO GetApplicationUser(int? Id)
-        {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id пользователя", "");
+        //public ApplicationUserDTO GetApplicationUser(int? id)
+        //{
+        //    if (id == null)
+        //        throw new ValidationException("Не установлено Id пользователя", "");
 
-            var employee = Database.Employees.Get(Id.Value);
-            if (employee == null)
-                throw new ValidationException("Пользователь не найден", "");
+        //    var applicationUser = Database.UserManager.FindById(id.Value);
+        //    if (applicationUser == null)
+        //        throw new ValidationException("Пользователь не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
-            return mapper.Map<Employee, EmployeeDTO>(employee);
-        }
+        //    var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, ApplicationUserDTO>()).CreateMapper();
+        //    return mapper.Map<ApplicationUser, ApplicationUserDTO>(applicationUser);
+        //}
 
         
 
@@ -152,7 +152,5 @@ namespace ACS.BLL.Services
         {
             Database.Dispose();
         }
-
-
     }
 }

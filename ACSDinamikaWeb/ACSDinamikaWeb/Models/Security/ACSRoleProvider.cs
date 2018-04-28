@@ -18,12 +18,20 @@ namespace ACSWeb.Models.Security
         SecurityService _SecurityService;
         SecurityService SecurityService
         { get {
-                if(_SecurityService == null )
-                 _SecurityService = new SecurityService(new EFUnitOfWork(ConfigurationManager.ConnectionStrings["ACSContextConnection"].ConnectionString));
+                if (_SecurityService == null)
+                    _SecurityService = new SecurityService(new EFUnitOfWork(ConfigurationManager.ConnectionStrings["ACSContextConnection"].ConnectionString));
                 return _SecurityService;
             }
         }
 
+        ApplicationUserService _ApplicationUserService;
+        ApplicationUserService ApplicationUserService
+        {
+            get {
+            if (_ApplicationUserService == null)
+                    _ApplicationUserService = new ApplicationUserService(new EFUnitOfWork(ConfigurationManager.ConnectionStrings["ACSContextConnection"].ConnectionString));
+                return _ApplicationUserService;
+    } }
         public override string ApplicationName
         {
             get
@@ -62,10 +70,10 @@ namespace ACSWeb.Models.Security
             throw new NotImplementedException();
         }
 
-        public override string[] GetRolesForUser(string username)
-        {
-
-            string email = ActiveDirectory.IdentityUserEmailFromActiveDirectory(username);
+        public override string[] GetRolesForUser(string domainUsername)
+        {       
+            string email = ActiveDirectory.IdentityUserEmailFromActiveDirectory(domainUsername);
+            //находим пользователя по его email
             var applicationUserDTO = SecurityService.GetIdentityUser(email);
 
             List<string> result = new List<string>();
@@ -73,12 +81,7 @@ namespace ACSWeb.Models.Security
             {
                 result.Add(SecurityService.GetRoleById(roleId));
             }
-            var rolesDTO =  SecurityService.GetRoles.Find(u=>userDTO.RolesID.Contains(u.Id)).Select(u=> u.Name );
-            //string[] rolesDTO = new string []{ "Administrators" };
-            if (rolesDTO != null)
-                return rolesDTO.ToArray();
-            else
-                return new string[] { }; ;
+                return result.ToArray();
         }
 
         public override string[] GetUsersInRole(string roleName)
@@ -88,7 +91,7 @@ namespace ACSWeb.Models.Security
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            return SecurityService.IsUserInRoleAsync(username, roleName);
+            return SecurityService.IsUserInRole(username, roleName);
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)

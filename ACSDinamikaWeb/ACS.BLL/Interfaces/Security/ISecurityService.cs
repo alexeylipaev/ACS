@@ -15,11 +15,10 @@ namespace ACS.BLL.Interfaces
 
         bool IsUserInRole(string userEmail, string roleName);
 
-        
 
-        ApplicationUserDTO GetApplicationUser(int? Id);
+        //ApplicationUserDTO GetApplicationUser(int? Id);
 
-       
+
         void Dispose();
     }
 }
