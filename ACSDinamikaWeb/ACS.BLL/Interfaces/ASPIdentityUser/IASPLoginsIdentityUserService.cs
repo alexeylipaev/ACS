@@ -10,9 +10,9 @@ namespace ACS.BLL.Interfaces
     public interface IASPLoginsIdentityUserService
     {
          
-        void MakeASPLoginsIdentityUser(ASPLoginsIdentityUserDTO ASPLoginsIdentityUserDTO);
-        ASPLoginsIdentityUserDTO GetASPLoginsIdentityUser(int? Id);
-        IEnumerable<ASPLoginsIdentityUserDTO> GetASPLoginsIdentityUser();
+        void MakeASPLoginsIdentityUser(ApplicationLoginDTO ASPLoginsIdentityUserDTO);
+        ApplicationLoginDTO GetASPLoginsIdentityUser(int? Id);
+        IEnumerable<ApplicationLoginDTO> GetASPLoginsIdentityUser();
         void Dispose();
 
 }

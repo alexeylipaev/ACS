@@ -226,9 +226,11 @@
     <Compile Include="Models\OrganizationalStructure\UserViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\UserPassportViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\WorkHistoryViewModel.cs" />
+    <Compile Include="Models\Security\ACSRoleProvider.cs" />
     <Compile Include="Models\SystemParametersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Util\ActiveDirectory.cs" />
     <Compile Include="Util\UserModule.cs" />
   </ItemGroup>
   <ItemGroup>

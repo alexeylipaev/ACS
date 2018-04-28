@@ -10,48 +10,48 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Repositories
 {
-    class ASPRolesIdentityUserRepository : IRepository<ASPRolesIdentityUser>
+    class ApplicationRolesRepository : IRepository<ApplicationUser>
 
     {
         private ACSContext db;
 
-        public ASPRolesIdentityUserRepository(ACSContext context)
+        public ApplicationRolesRepository(ACSContext context)
         {
             this.db = context;
         }
 
-        public IEnumerable<ASPRolesIdentityUser> GetAll()
+        public IEnumerable<ApplicationUser> GetAll()
         {
-            return db.ASPRolesIdentityUsers;
+            return db.ApplicationRolesRepository;
         }
 
-        public ASPRolesIdentityUser Get(int Id)
+        public ApplicationUser Get(int Id)
         {
-            return db.ASPRolesIdentityUsers.Find(Id);
+            return db.ApplicationRolesRepository.Find(Id);
         }
 
 
 
-        public void Create(ASPRolesIdentityUser ASPRolesIdentityUser)
+        public void Create(ApplicationUser ApplicationUser)
         {
-            db.ASPRolesIdentityUsers.Add(ASPRolesIdentityUser);
+            db.ApplicationRolesRepository.Add(ApplicationUser);
         }
 
-        public void Update(ASPRolesIdentityUser ASPRolesIdentityUser)
+        public void Update(ApplicationUser ApplicationUser)
         {
-            db.Entry(ASPRolesIdentityUser).State = EntityState.Modified;
+            db.Entry(ApplicationUser).State = EntityState.Modified;
         }
 
-        public IEnumerable<ASPRolesIdentityUser> Find(Func<ASPRolesIdentityUser, Boolean> predicate)
+        public IEnumerable<ApplicationUser> Find(Func<ApplicationUser, Boolean> predicate)
         {
-            return db.ASPRolesIdentityUsers.Where(predicate).ToList();
+            return db.ApplicationRolesRepository.Where(predicate).ToList();
         }
 
         public void Delete(int Id)
         {
-            ASPRolesIdentityUser Role = db.ASPRolesIdentityUsers.Find(Id);
+            ApplicationUser Role = db.ApplicationRolesRepository.Find(Id);
             if (Role != null)
-                db.ASPRolesIdentityUsers.Remove(Role);
+                db.ApplicationRolesRepository.Remove(Role);
         }
     }
 }

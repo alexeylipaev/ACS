@@ -1,6 +1,9 @@
 ﻿using ACS.DAL.EF;
 using ACS.DAL.Entities;
+using ACS.DAL.Entities.ASPIdentityUser;
+using ACS.DAL.Identity;
 using ACS.DAL.Interfaces;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +19,14 @@ namespace ACS.DAL.Repositories
     {
         private ACSContext db;
 
+        private ApplicationUserManager userManager;
+        private ApplicationRoleManager roleManager;
+
         private AccessRepository AccessRepository;
-        private ASPIdentityUserRepository ASPIdentityUserRepository;
-        private ASPClaimsIdentityUserRepository ASPClaimsIdentityUserRepository;
-        private ASPLoginsIdentityUserRepository ASPLoginsIdentityUserRepository;
-        private ASPRolesIdentityUserRepository ASPRolesIdentityUserRepository;
+        private ApplicationUsersRepository ApplicationUsersRepository;
+        private ApplicationClaimsRepository ApplicationClaimsRepository;
+        private ApplicationLoginsRepository ApplicationLoginsRepository;
+        private ApplicationRolesRepository ApplicationRolesRepository;
         private ChancelleryRepository ChancelleryRepository;
         private DataEntityRepository DataEntityRepository;
         private DepartmentRepository DepartmentRepository;
@@ -41,6 +47,22 @@ namespace ACS.DAL.Repositories
         public EFUnitOfWork(string connectionString)
         {
             db = new ACSContext(connectionString);
+
+            userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
+            roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
+            UserRepository = new UserRepository(db);
+
+        }
+
+
+        public ApplicationUserManager UserManager
+        {
+            get { return userManager; }
+        }
+
+        public ApplicationRoleManager RoleManager
+        {
+            get { return roleManager; }
         }
 
         public IRepository<Access> Accesses
@@ -52,42 +74,42 @@ namespace ACS.DAL.Repositories
                 return AccessRepository;
             }
         }
-        public IRepository<ASPIdentityUser> ASPIdentityUsers
-        {
-            get
-            {
-                if (ASPIdentityUserRepository == null)
-                    ASPIdentityUserRepository = new ASPIdentityUserRepository(db);
-                return ASPIdentityUserRepository;
-            }
-        }
-        public IRepository<ASPClaimsIdentityUser> ASPClaimsIdentityUsers
-        {
-            get
-            {
-                if (ASPClaimsIdentityUserRepository == null)
-                    ASPClaimsIdentityUserRepository = new ASPClaimsIdentityUserRepository(db);
-                return ASPClaimsIdentityUserRepository;
-            }
-        }
-        public IRepository<ASPLoginsIdentityUser> ASPLoginsIdentityUsers
-        {
-            get
-            {
-                if (ASPLoginsIdentityUserRepository == null)
-                    ASPLoginsIdentityUserRepository = new ASPLoginsIdentityUserRepository(db);
-                return ASPLoginsIdentityUserRepository;
-            }
-        }
-        public IRepository<ASPRolesIdentityUser> ASPRolesIdentityUsers
-        {
-            get
-            {
-                if (ASPRolesIdentityUserRepository == null)
-                    ASPRolesIdentityUserRepository = new ASPRolesIdentityUserRepository(db);
-                return ASPRolesIdentityUserRepository;
-            }
-        }
+        //public IRepository<ApplicationUser> ApplicationUsersRepository
+        //{
+        //    get
+        //    {
+        //        if (ApplicationUsersRepository == null)
+        //            ApplicationUsersRepository = new ApplicationUsersRepository(db);
+        //        return ApplicationUsersRepository;
+        //    }
+        //}
+        //public IRepository<ApplicationClaim> ApplicationClaimsRepository
+        //{
+        //    get
+        //    {
+        //        if (ApplicationClaimsRepository == null)
+        //            ApplicationClaimsRepository = new ApplicationClaimsRepository(db);
+        //        return ApplicationClaimsRepository;
+        //    }
+        //}
+        //public IRepository<ApplicationLogin> ApplicationLoginsRepository
+        //{
+        //    get
+        //    {
+        //        if (ApplicationLoginsRepository == null)
+        //            ApplicationLoginsRepository = new ApplicationLoginsRepository(db);
+        //        return ApplicationLoginsRepository;
+        //    }
+        //}
+        //public IRepository<ApplicationUser> ApplicationRolesRepository
+        //{
+        //    get
+        //    {
+        //        if (ApplicationRolesRepository == null)
+        //            ApplicationRolesRepository = new ApplicationRolesRepository(db);
+        //        return ApplicationRolesRepository;
+        //    }
+        //}
         public IRepository<Chancellery> Chancelleries
         {
             get
@@ -266,5 +288,11 @@ namespace ACS.DAL.Repositories
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        public async Task SaveAsync()
+        {
+            await db.SaveChangesAsync();
+        }
+
     }
 }

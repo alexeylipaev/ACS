@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ACS.DAL.Configuration
 {
 
-    class ASPClaimsIdentityUserConfig: EntityTypeConfiguration<ASPClaimsIdentityUser>
+    class ASPClaimsIdentityUserConfig: EntityTypeConfiguration<ApplicationClaim>
     {
         public ASPClaimsIdentityUserConfig()
         {

@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Configuration
 {
-    class ASPRolesIdentityUserConfig : EntityTypeConfiguration<ASPRolesIdentityUser>
+    class ASPRolesIdentityUserConfig : EntityTypeConfiguration<ApplicationUser>
     {
         public ASPRolesIdentityUserConfig()
         {
 
-            Property(e => e.Name)
-              .IsUnicode(true);
+            //Property(e => e.Name)
+            //  .IsUnicode(true);
 
         }
     }

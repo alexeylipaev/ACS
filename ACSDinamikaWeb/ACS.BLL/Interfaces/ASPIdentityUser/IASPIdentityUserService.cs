@@ -9,9 +9,9 @@ namespace ACS.BLL.Interfaces
 {
     public interface IASPIdentityUserService
     {
-        void MakeASPIdentityUser(ASPIdentityUserDTO ASPIdentityUserDTO);
-        ASPIdentityUserDTO GetASPIdentityUser(int? Id);
-        IEnumerable<ASPIdentityUserDTO> GetASPIdentityUser();
+        void MakeASPIdentityUser(ApplicationUserDTO ASPIdentityUserDTO);
+        ApplicationUserDTO GetASPIdentityUser(int? Id);
+        IEnumerable<ApplicationUserDTO> GetASPIdentityUser();
         void Dispose();
     }
 }

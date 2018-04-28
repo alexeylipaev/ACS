@@ -1,4 +1,6 @@
 ﻿using ACS.DAL.Entities;
+using ACS.DAL.Entities.ASPIdentityUser;
+using ACS.DAL.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +14,18 @@ namespace ACS.DAL.Interfaces
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {
+        /// <summary>
+        /// Данный класс будет управлять пользователями: добавлять их в базу данных и аутентифицировать.
+        /// </summary>
+        ApplicationUserManager UserManager { get; }
+
+        ApplicationRoleManager RoleManager { get; }
+
         IRepository<Access> Accesses { get; }
-        IRepository<ASPClaimsIdentityUser> ASPClaimsIdentityUsers { get; }
-        IRepository<ASPIdentityUser> ASPIdentityUsers { get; }
-        IRepository<ASPLoginsIdentityUser> ASPLoginsIdentityUsers { get; }
-        IRepository<ASPRolesIdentityUser> ASPRolesIdentityUsers { get; }
+        IRepository<ApplicationClaim> ApplicationClaimsRepository { get; }
+        IRepository<ApplicationUser> ApplicationUsersRepository { get; }
+        IRepository<ApplicationLogin> ApplicationLoginsRepository { get; }
+        IRepository<ApplicationRole> ApplicationRolesRepository { get; }
         IRepository<Chancellery> Chancelleries { get; }
         IRepository<DataEntity> DataEntityis { get; }
         IRepository<Department> Departments { get; }
@@ -35,5 +44,7 @@ namespace ACS.DAL.Interfaces
         IRepository<UserPassport> PassportDataUsers { get; }
 
         void Save();
+
+        Task SaveAsync();
     }
 }

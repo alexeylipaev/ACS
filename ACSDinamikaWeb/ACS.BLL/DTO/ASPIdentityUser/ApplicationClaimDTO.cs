@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.DTO
 {
-    public partial class ASPClaimsIdentityUserDTO : SystemParametersDTO
+    public partial class ApplicationClaimDTO : SystemParametersDTO
     {
         public int Id { get; set; }
 

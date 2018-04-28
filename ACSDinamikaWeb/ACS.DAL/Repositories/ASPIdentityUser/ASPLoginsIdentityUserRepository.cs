@@ -1,5 +1,6 @@
 ﻿using ACS.DAL.EF;
 using ACS.DAL.Entities;
+using ACS.DAL.Entities.ASPIdentityUser;
 using ACS.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,48 +11,48 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Repositories
 {
-    class ASPLoginsIdentityUserRepository : IRepository<ASPLoginsIdentityUser>
+    class ApplicationLoginsRepository : IRepository<ApplicationLogin>
 
     {
         private ACSContext db;
 
-        public ASPLoginsIdentityUserRepository(ACSContext context)
+        public ApplicationLoginsRepository(ACSContext context)
         {
             this.db = context;
         }
 
-        public IEnumerable<ASPLoginsIdentityUser> GetAll()
+        public IEnumerable<ApplicationLogin> GetAll()
         {
-            return db.ASPLoginsIdentityUsers;
+            return db.ApplicationLogins;
         }
 
-        public ASPLoginsIdentityUser Get(int Id)
+        public ApplicationLogin Get(int Id)
         {
-            return db.ASPLoginsIdentityUsers.Find(Id);
+            return db.ApplicationLogins.Find(Id);
         }
 
 
 
-        public void Create(ASPLoginsIdentityUser ASPLoginsIdentityUser)
+        public void Create(ApplicationLogin ApplicationLogin)
         {
-            db.ASPLoginsIdentityUsers.Add(ASPLoginsIdentityUser);
+            db.ApplicationLogins.Add(ApplicationLogin);
         }
 
-        public void Update(ASPLoginsIdentityUser ASPLoginsIdentityUser)
+        public void Update(ApplicationLogin ApplicationLogin)
         {
-            db.Entry(ASPLoginsIdentityUser).State = EntityState.Modified;
+            db.Entry(ApplicationLogin).State = EntityState.Modified;
         }
 
-        public IEnumerable<ASPLoginsIdentityUser> Find(Func<ASPLoginsIdentityUser, Boolean> predicate)
+        public IEnumerable<ApplicationLogin> Find(Func<ApplicationLogin, Boolean> predicate)
         {
-            return db.ASPLoginsIdentityUsers.Where(predicate).ToList();
+            return db.ApplicationLogins.Where(predicate).ToList();
         }
 
         public void Delete(int Id)
         {
-            ASPLoginsIdentityUser Login = db.ASPLoginsIdentityUsers.Find(Id);
+            ApplicationLogin Login = db.ApplicationLogins.Find(Id);
             if (Login != null)
-                db.ASPLoginsIdentityUsers.Remove(Login);
+                db.ApplicationLogins.Remove(Login);
         }
     }
 }

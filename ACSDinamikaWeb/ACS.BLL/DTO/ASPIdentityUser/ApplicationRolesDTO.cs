@@ -10,7 +10,7 @@ namespace ACS.BLL.DTO
     /// <summary>
     /// Роли пользователя
     /// </summary>
-    public partial class ASPRolesIdentityUserDTO : SystemParametersDTO
+    public partial class ApplicationRolesDTO : SystemParametersDTO
     {
         
         public int Id { get; set; }

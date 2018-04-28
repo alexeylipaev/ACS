@@ -9,9 +9,9 @@ namespace ACS.BLL.Interfaces
 {
     public interface IASPClaimsIdentityUserService
     {
-        void MakeASPClaimsIdentityUser(ASPClaimsIdentityUserDTO ASPClaimsIdentityUserDTO);
-        ASPClaimsIdentityUserDTO GetASPClaimsIdentityUser(int? Id);
-        IEnumerable<ASPClaimsIdentityUserDTO> GetASPClaimsIdentityUser();
+        void MakeASPClaimsIdentityUser(ApplicationClaimDTO ASPClaimsIdentityUserDTO);
+        ApplicationClaimDTO GetASPClaimsIdentityUser(int? Id);
+        IEnumerable<ApplicationClaimDTO> GetASPClaimsIdentityUser();
         void Dispose();
     }
 }

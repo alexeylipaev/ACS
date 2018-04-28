@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACS.DAL.Entities
+namespace ACS.BLL.DTO
 {
-    /// <summary>
-    /// Данные  для  входа пользователя (т. е. Facebook, Google)
-    /// </summary>
-    public partial class  ASPLoginsIdentityUser : SystemParameters
+    public partial class ApplicationLoginDTO : SystemParametersDTO
     {
-
+    
         public int Id { get; set; }
 
         /// <summary>
@@ -31,7 +28,7 @@ namespace ACS.DAL.Entities
         /// <summary>
         /// Владелец this логина
         /// </summary>
-        public virtual ASPIdentityUser IdentityUser { get; set; }
+        //public virtual ASPIdentityUserDTO IdentityUser { get; set; }
 
     }
 }

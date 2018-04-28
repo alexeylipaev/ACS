@@ -10,46 +10,46 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Repositories
 {
-    class ASPIdentityUserRepository : IRepository<ASPIdentityUser>
+    class ApplicationUsersRepository : IRepository<ApplicationUser>
 
     {
         private ACSContext db;
 
-        public ASPIdentityUserRepository(ACSContext context)
+        public ApplicationUsersRepository(ACSContext context)
         {
             this.db = context;
         }
 
-        public IEnumerable<ASPIdentityUser> GetAll()
+        public IEnumerable<ApplicationUser> GetAll()
         {
-            return db.ASPIdentityUsers;
+            return db.ApplicationUsersRepository;
         }
 
-        public ASPIdentityUser Get(int Id)
+        public ApplicationUser Get(int Id)
         {
-            return db.ASPIdentityUsers.Find(Id);
+            return db.ApplicationUsersRepository.Find(Id);
         }
 
-        public void Create(ASPIdentityUser ASPIdentityUser)
+        public void Create(ApplicationUser ASPIdentityUser)
         {
-            db.ASPIdentityUsers.Add(ASPIdentityUser);
+            db.ApplicationUsersRepository.Add(ASPIdentityUser);
         }
 
-        public void Update(ASPIdentityUser ASPIdentityUser)
+        public void Update(ApplicationUser ASPIdentityUser)
         {
             db.Entry(ASPIdentityUser).State = EntityState.Modified;
         }
 
-        public IEnumerable<ASPIdentityUser> Find(Func<ASPIdentityUser, Boolean> predicate)
+        public IEnumerable<ApplicationUser> Find(Func<ApplicationUser, Boolean> predicate)
         {
-            return db.ASPIdentityUsers.Where(predicate).ToList();
+            return db.ApplicationUsersRepository.Where(predicate).ToList();
         }
 
         public void Delete(int Id)
         {
-            ASPIdentityUser IdentityUser = db.ASPIdentityUsers.Find(Id);
+            ApplicationUser IdentityUser = db.ApplicationUsersRepository.Find(Id);
             if (IdentityUser != null)
-                db.ASPIdentityUsers.Remove(IdentityUser);
+                db.ApplicationUsersRepository.Remove(IdentityUser);
         }
     }
 }

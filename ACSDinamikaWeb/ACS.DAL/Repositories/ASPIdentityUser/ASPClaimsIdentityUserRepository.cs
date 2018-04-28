@@ -10,46 +10,46 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Repositories
 {
-    class ASPClaimsIdentityUserRepository : IRepository<ASPClaimsIdentityUser>
+    class ApplicationClaimsRepository : IRepository<ApplicationClaim>
 
     {
         private ACSContext db;
 
-        public ASPClaimsIdentityUserRepository(ACSContext context)
+        public ApplicationClaimsRepository(ACSContext context)
         {
             this.db = context;
         }
 
-        public IEnumerable<ASPClaimsIdentityUser> GetAll()
+        public IEnumerable<ApplicationClaim> GetAll()
         {
-            return db.ASPClaimsIdentityUsers;
+            return db.ApplicationClaims;
         }
 
-        public ASPClaimsIdentityUser Get(int Id)
+        public ApplicationClaim Get(int Id)
         {
-            return db.ASPClaimsIdentityUsers.Find(Id);
+            return db.ApplicationClaims.Find(Id);
         }
 
-        public void Create(ASPClaimsIdentityUser ASPClaimsIdentityUser)
+        public void Create(ApplicationClaim ApplicationClaim)
         {
-            db.ASPClaimsIdentityUsers.Add(ASPClaimsIdentityUser);
+            db.ApplicationClaims.Add(ApplicationClaim);
         }
 
-        public void Update(ASPClaimsIdentityUser ASPClaimsIdentityUser)
+        public void Update(ApplicationClaim ApplicationClaim)
         {
-            db.Entry(ASPClaimsIdentityUser).State = EntityState.Modified;
+            db.Entry(ApplicationClaim).State = EntityState.Modified;
         }
 
-        public IEnumerable<ASPClaimsIdentityUser> Find(Func<ASPClaimsIdentityUser, Boolean> predicate)
+        public IEnumerable<ApplicationClaim> Find(Func<ApplicationClaim, Boolean> predicate)
         {
-            return db.ASPClaimsIdentityUsers.Where(predicate).ToList();
+            return db.ApplicationClaims.Where(predicate).ToList();
         }
 
         public void Delete(int Id)
         {
-            ASPClaimsIdentityUser Claim = db.ASPClaimsIdentityUsers.Find(Id);
+            ApplicationClaim Claim = db.ApplicationClaims.Find(Id);
             if (Claim != null)
-                db.ASPClaimsIdentityUsers.Remove(Claim);
+                db.ApplicationClaims.Remove(Claim);
         }
     }
 }

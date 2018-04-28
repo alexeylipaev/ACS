@@ -1,4 +1,5 @@
 ﻿using ACS.DAL.Entities;
+using ACS.DAL.Entities.ASPIdentityUser;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Configuration
 {
-    class ASPLoginsIdentityUserConfig : EntityTypeConfiguration<ASPLoginsIdentityUser>
+    class ASPLoginsIdentityUserConfig : EntityTypeConfiguration<ApplicationLogin>
     {
         public ASPLoginsIdentityUserConfig()
         {

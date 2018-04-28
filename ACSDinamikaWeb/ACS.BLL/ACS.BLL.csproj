@@ -52,10 +52,10 @@
     <Compile Include="BusinessModels\Helper.cs" />
     <Compile Include="DTO\Access\AccessDTO.cs" />
     <Compile Include="DTO\Access\TypeAccessDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\ASPClaimsIdentityUserDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\ASPIdentityUserDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\ASPLoginsIdentityUserDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\ASPRolesIdentityUserDTO.cs" />
+    <Compile Include="DTO\ASPIdentityUser\ApplicationClaimDTO.cs" />
+    <Compile Include="DTO\ASPIdentityUser\ApplicationUserDTO.cs" />
+    <Compile Include="DTO\ASPIdentityUser\ApplicationLoginDTO.cs" />
+    <Compile Include="DTO\ASPIdentityUser\ApplicationRolesDTO.cs" />
     <Compile Include="DTO\Chancellery\ChancelleryDTO.cs" />
     <Compile Include="DTO\Chancellery\ExternalOrganizationChancelleryDTO.cs" />
     <Compile Include="DTO\Chancellery\FileRecordChancelleryDTO.cs" />
@@ -96,6 +96,7 @@
     <Compile Include="Interfaces\OrganizationalStructure\IUserPassportService.cs" />
     <Compile Include="Interfaces\OrganizationalStructure\IUserService.cs" />
     <Compile Include="Interfaces\OrganizationalStructure\IWorkHistoryService.cs" />
+    <Compile Include="Interfaces\Security\ISecurityService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Accesses\AccessService.cs" />
     <Compile Include="Services\Accesses\TypeAccessService.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Services\OrganizationalStructure\DepartmentService.cs" />
     <Compile Include="Services\OrganizationalStructure\UserPassportService.cs" />
     <Compile Include="Services\OrganizationalStructure\UserService.cs" />
+    <Compile Include="Services\Security\SecurityService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

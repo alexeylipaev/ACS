@@ -1664,7 +1664,7 @@ public static class DataLoader1C
             if (!Guid.TryParse(empl.КодФизЛицо, out Guid1C)) continue;
 
 
-            User userWithGuid1C = Context.Users.FirstOrDefault(u => u.Guid1C == Guid1C);
+            User userWithGuid1C = Context.DataUsers.FirstOrDefault(u => u.Guid1C == Guid1C);
 
             if (userWithGuid1C == null) continue;
 

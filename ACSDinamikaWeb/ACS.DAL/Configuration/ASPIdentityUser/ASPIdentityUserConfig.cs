@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace ACS.DAL.Configuration
 {
-    internal class ASPIdentityUserConfig : EntityTypeConfiguration<ASPIdentityUser>
+    internal class ASPIdentityUserConfig : EntityTypeConfiguration<ApplicationUser>
     {
         public ASPIdentityUserConfig()
         {

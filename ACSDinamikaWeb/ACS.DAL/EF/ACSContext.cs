@@ -1,6 +1,8 @@
 ﻿using ACS.DAL.Configuration;
 using ACS.DAL.Entities;
+using ACS.DAL.Entities.ASPIdentityUser;
 using ACS.XMLData;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,14 +15,15 @@ using System.Threading.Tasks;
 namespace ACS.DAL.EF
 {
 
-    public class ACSContext : DbContext
+    //public class ACSContext : DbContext
+    public class ACSContext : IdentityDbContext<ApplicationUser>
     {
         public virtual DbSet<Access> Accesses { get; set; }
 
-        public virtual DbSet<ASPIdentityUser> ASPIdentityUsers { get; set; }
-        public virtual DbSet<ASPClaimsIdentityUser> ASPClaimsIdentityUsers { get; set; }
-        public virtual DbSet<ASPLoginsIdentityUser> ASPLoginsIdentityUsers { get; set; }
-        public virtual DbSet<ASPRolesIdentityUser> ASPRolesIdentityUsers { get; set; }
+        public virtual DbSet<ApplicationUser> ApplicationUsersRepository { get; set; }
+        public virtual DbSet<ApplicationClaim> ApplicationClaims { get; set; }
+        public virtual DbSet<ApplicationLogin> ApplicationLogins { get; set; }
+        public virtual DbSet<ApplicationUser> ApplicationRolesRepository { get; set; }
         public virtual DbSet<Chancellery> Chancelleries { get; set; }
         public virtual DbSet<DataEntity> DataEntityis { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
@@ -34,7 +37,8 @@ namespace ACS.DAL.EF
         public virtual DbSet<ToChancellery> ToChancelleries { get; set; }
         public virtual DbSet<TypeAccess> TypeAccesses { get; set; }
         public virtual DbSet<TypeRecordChancellery> TypeRecordChancelleries { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<User> DataUsers { get; set; }
+        
         public virtual DbSet<WorkHistory> WorkHistories { get; set; }
         public virtual DbSet<UserPassport> PassportDataUsers { get; set; }
 
