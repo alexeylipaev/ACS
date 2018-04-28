@@ -20,5 +20,6 @@ namespace ACS.BLL.Interfaces
         Task SetInitialData(ApplicationUserDTO adminDto, List<string> roles);
 
         void Dispose();
+        IEnumerable<ApplicationUserDTO> GetUsers();
     }
 }

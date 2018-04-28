@@ -9,24 +9,20 @@ namespace ACSWeb.ViewModel
 {
     public partial class ApplicationUserViewModel : SystemParametersViewModel
     {
-        //public ApplicationUserViewModel()
-        //{
-        //    Claims = new HashSet<ApplicationClaimViewModel>();
-        //    Logins = new HashSet<ApplicationLoginViewModel>();
-        //    Roles = new HashSet<ApplicationRoleViewModel>();
-        //}
+        public ApplicationUserViewModel()
+        {
+            //Claims = new HashSet<ApplicationClaimDTO>();
+            //Logins = new HashSet<ApplicationLoginDTO>();
+            RolesID = new HashSet<int>();
+        }
 
         /// <summary>
         /// Имя пользователя
         /// </summary>
         public string UserName { get; set; }
 
-        public string SID { get; set; }
 
-        /// <summary>
-        /// Начальная и хэшированная формы пароля пользователя
-        /// </summary>
-        public string PasswordHash { get; set; }
+        public string Password { get; set; }
 
         /// <summary>
         /// Случайное значение, которое должно меняться при изменении учетных данных пользователя 
@@ -36,20 +32,22 @@ namespace ACSWeb.ViewModel
 
         public string Email { get; set; }
 
+        public string SID { get; set; }
+
         ///// <summary>
         ///// Свойство навигации для утверждений пользователя
         ///// </summary>
-        //public virtual ICollection<ApplicationClaimViewModel> Claims { get; set; }
+        //public virtual ICollection<ApplicationClaimDTO> Claims { get; set; }
 
         ///// <summary>
         ///// Логины (1 пользователь имеет N логинов (google, fb...))
         ///// </summary>
-        //public virtual ICollection<ApplicationLoginViewModel> Logins { get; set; }
+        //public virtual ICollection<ApplicationLoginDTO> Logins { get; set; }
 
-        ///// <summary>
-        ///// Роли N to N
-        ///// </summary>
-        //public virtual ICollection<ApplicationRoleViewModel> Roles { get; set; }
+        /// <summary>
+        /// Роли N to N
+        /// </summary>
+        public virtual ICollection<int> RolesID { get; set; }
 
         /// <summary>
         /// Id пользователя
@@ -59,7 +57,7 @@ namespace ACSWeb.ViewModel
         /// <summary>
         /// Пользователь
         /// </summary>
-        //public virtual UserViewModel Employee { get; set; }
+        //public virtual UserDTO Employee { get; set; }
 
     }
 }

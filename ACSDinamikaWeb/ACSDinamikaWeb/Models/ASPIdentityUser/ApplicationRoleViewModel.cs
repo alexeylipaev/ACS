@@ -12,14 +12,10 @@ namespace ACSWeb.ViewModel
     /// </summary>
     public partial class ApplicationRoleViewModel : SystemParametersViewModel
     {
-        
+
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        /// <summary>
-        /// Пользователи, которое владеют этой ролью
-        /// </summary>
-        //public virtual ICollection<ApplicationUserViewModel> IdentityUser { get; set; }
     }
 }

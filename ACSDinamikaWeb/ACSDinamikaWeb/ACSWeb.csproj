@@ -194,6 +194,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminApplicationUserVMController.cs" />
     <Compile Include="Controllers\ChancelleryController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -208,7 +209,7 @@
     <Compile Include="Models\ASPIdentityUser\ASPClaimsIdentityUserViewModel.cs" />
     <Compile Include="Models\ASPIdentityUser\ASPIdentityUserViewModel.cs" />
     <Compile Include="Models\ASPIdentityUser\ASPLoginsIdentityUserViewModel.cs" />
-    <Compile Include="Models\ASPIdentityUser\ASPRolesIdentityUserViewModel.cs" />
+    <Compile Include="Models\ASPIdentityUser\ApplicationRoleViewModel.cs" />
     <Compile Include="Models\Chancellery\ChancelleryViewModel.cs" />
     <Compile Include="Models\Chancellery\ExternalOrganizationChancelleryViewModel.cs" />
     <Compile Include="Models\Chancellery\FileRecordChancelleryViewModel.cs" />
@@ -326,6 +327,7 @@
     <Content Include="Views\Employees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\AdminApplicationUserVM\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>

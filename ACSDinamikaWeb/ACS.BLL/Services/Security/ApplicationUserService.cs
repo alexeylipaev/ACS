@@ -58,6 +58,11 @@ namespace ACS.BLL.Services
             }
         }
 
+        public IEnumerable<ApplicationUserDTO> GetUsers()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ClaimsIdentity> Authenticate(ApplicationUserDTO ApplicationUserDTO)
         {
             ClaimsIdentity claim = null;
