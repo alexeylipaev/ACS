@@ -21,11 +21,11 @@ namespace ACS.DAL.Repositories
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
 
-        private ApplicationUserRepository ApplicationUserRepository;
+        //private ApplicationUserRepository ApplicationUserRepository;
 
-        private ApplicationClaimRepository ApplicationClaimRepository;
-        private ApplicationLoginRepository ApplicationLoginRepository;
-        private ApplicationRoleRepository ApplicationRoleRepository;
+        //private ApplicationClaimRepository ApplicationClaimRepository;
+        //private ApplicationLoginRepository ApplicationLoginRepository;
+        //private ApplicationRoleRepository ApplicationRoleRepository;
 
         private ChancelleryRepository ChancelleryRepository;
         private DataEntityRepository DataEntityRepository;
@@ -61,15 +61,7 @@ namespace ACS.DAL.Repositories
 
 
 
-        public IRepository<ApplicationUser> ApplicationUsers
-        {
-            get
-            {
-                if (ApplicationUserRepository == null)
-                    ApplicationUserRepository = new ApplicationUserRepository(db);
-                return ApplicationUserRepository;
-            }
-        }
+      
 
         public IRepository<Employee> Employees
         {
@@ -104,34 +96,42 @@ namespace ACS.DAL.Repositories
             }
         }
 
-
-        public IRepository<ApplicationClaim> ApplicationClaims
-        {
-            get
-            {
-                if (ApplicationClaimRepository == null)
-                    ApplicationClaimRepository = new ApplicationClaimRepository(db);
-                return ApplicationClaimRepository;
-            }
-        }
-        public IRepository<ApplicationLogin> ApplicationLogins
-        {
-            get
-            {
-                if (ApplicationLoginRepository == null)
-                    ApplicationLoginRepository = new ApplicationLoginRepository(db);
-                return ApplicationLoginRepository;
-            }
-        }
-        public IRepository<ApplicationRole> ApplicationRoles
-        {
-            get
-            {
-                if (ApplicationRoleRepository == null)
-                    ApplicationRoleRepository = new ApplicationRoleRepository(db);
-                return ApplicationRoleRepository;
-            }
-        }
+        //public IRepository<ApplicationUser> ApplicationUsers
+        //{
+        //    get
+        //    {
+        //        if (ApplicationUserRepository == null)
+        //            ApplicationUserRepository = new ApplicationUserRepository(db);
+        //        return ApplicationUserRepository;
+        //    }
+        //}
+        //public IRepository<ApplicationClaim> ApplicationClaims
+        //{
+        //    get
+        //    {
+        //        if (ApplicationClaimRepository == null)
+        //            ApplicationClaimRepository = new ApplicationClaimRepository(db);
+        //        return ApplicationClaimRepository;
+        //    }
+        //}
+        //public IRepository<ApplicationLogin> ApplicationLogins
+        //{
+        //    get
+        //    {
+        //        if (ApplicationLoginRepository == null)
+        //            ApplicationLoginRepository = new ApplicationLoginRepository(db);
+        //        return ApplicationLoginRepository;
+        //    }
+        //}
+        //public IRepository<ApplicationRole> ApplicationRoles
+        //{
+        //    get
+        //    {
+        //        if (ApplicationRoleRepository == null)
+        //            ApplicationRoleRepository = new ApplicationRoleRepository(db);
+        //        return ApplicationRoleRepository;
+        //    }
+        //}
 
         public IRepository<Chancellery> Chancelleries
         {

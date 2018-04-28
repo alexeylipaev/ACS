@@ -47,7 +47,7 @@ namespace ACS.BLL.Services
                 //User.s_AuthorID = author.Id;
                 //User.s_EditorID = author.Id;
 
-                Database.ApplicationUsers.Create(applicationUser);
+                Database.UserManager.Create(applicationUser);
                 await Database.SaveAsync();
                 return new OperationDetails(true, "Регистрация успешно пройдена", "");
             }

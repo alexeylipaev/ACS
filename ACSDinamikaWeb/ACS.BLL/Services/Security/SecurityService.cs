@@ -104,7 +104,7 @@ namespace ACS.BLL.Services
         public bool IsUserInRole(string userEmail, string roleName)
         {
             bool result = false;
-            var applicationUser = Database.ApplicationUsers.Find(u => u.Email == userEmail).FirstOrDefault();
+            var applicationUser = Database.UserManager.FindByEmailAsync(userEmail);
 
             if (applicationUser != null)
             {
@@ -119,9 +119,12 @@ namespace ACS.BLL.Services
         {
             ApplicationUserDTO result = null;
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, ApplicationUserDTO>()).CreateMapper();
-            var applicationUser = Database.ApplicationUsers.Find(u => u.UserName == username).FirstOrDefault();
+
+            var applicationUser = Database.UserManager.FindByNameAsync(username);
+
             if (applicationUser != null)
                 result = mapper.Map<ApplicationUser, ApplicationUserDTO>(applicationUser);
+
             return result;
         }
 
