@@ -9,12 +9,12 @@ namespace ACS.BLL.DTO
 {
     public partial class ASPIdentityUserDTO : SystemParametersDTO
     {
-        //public ASPIdentityUserDTO()
-        //{
-        //    Claims = new HashSet<ASPClaimsIdentityUserDTO>();
-        //    Logins = new HashSet<ASPLoginsIdentityUserDTO>();
-        //    Roles = new HashSet<ASPRolesIdentityUserDTO>();
-        //}
+        public ASPIdentityUserDTO()
+        {
+            //Claims = new HashSet<ASPClaimsIdentityUserDTO>();
+            //Logins = new HashSet<ASPLoginsIdentityUserDTO>();
+            //Roles = new HashSet<ASPRolesIdentityUserDTO>();
+        }
 
         /// <summary>
         /// Имя пользователя
@@ -46,10 +46,10 @@ namespace ACS.BLL.DTO
         ///// </summary>
         //public virtual ICollection<ASPLoginsIdentityUserDTO> Logins { get; set; }
 
-        ///// <summary>
-        ///// Роли N to N
-        ///// </summary>
-        //public virtual ICollection<ASPRolesIdentityUserDTO> Roles { get; set; }
+        /// <summary>
+        /// Роли N to N
+        /// </summary>
+        public virtual ICollection<int> RolesID { get; set; }
 
         /// <summary>
         /// Id пользователя

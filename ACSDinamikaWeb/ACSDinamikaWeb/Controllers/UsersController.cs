@@ -9,10 +9,12 @@ using ACS.BLL.Infrastructure;
 using ACSWeb.ViewModel;
 using System.DirectoryServices.AccountManagement;
 using System.Web.Security;
+using ACSWeb.Util;
 
 namespace ACSWeb.Controllers
 {
-    [Authorize]
+    //[Authorize]
+    [Authorize(Roles = "Administrators")]
     public class UsersController : Controller
     {
         //private ACSContext db = new ACSContext();
@@ -76,28 +78,22 @@ namespace ACSWeb.Controllers
             }
         }
 
-        public string CurrentUserEmail()
-        {
-            string name = this.User.Identity.Name;
-            PrincipalContext pc = new PrincipalContext(ContextType.Domain);
-            UserPrincipal up = UserPrincipal.FindByIdentity(pc, name);
-            //userService.GetUser
-            return up.EmailAddress;
-        }
+        
 
         //POST: Users/Create
         //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FName,LName,MName,Email,Birthday")] UserViewModel userVM)
+        public ActionResult Create([Bind(Include = "Id,FName,LName,MName,Email")] UserViewModel userVM)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    string currentUserEmail = CurrentUserEmail();
-                    var userDto = new UserDTO { Id = userVM.Id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName, Email  = userVM.Email, Birthday = userVM.Birthday};
+                    string name = this.User.Identity.Name;
+                    string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
+                    var userDto = new UserDTO { Id = userVM.Id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName, Email  = userVM.Email};
                     userService.MakeUser(userDto, currentUserEmail);
                     return RedirectToAction("Index");
                 }
@@ -135,7 +131,8 @@ namespace ACSWeb.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string currentUserEmail = CurrentUserEmail();
+                    string name = this.User.Identity.Name;
+                    string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
                     var userDto = new UserDTO { Id = userVM.Id, LName = userVM.LName, FName = userVM.FName, MName = userVM.MName, Email = userVM.Email };
                     userService.UpdateUser(userDto, currentUserEmail);
                     return View(userVM); 
