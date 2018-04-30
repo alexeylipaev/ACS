@@ -16,7 +16,6 @@ namespace ACS.DAL.Entities
     /// </summary>
     public partial class ApplicationUser : IdentityUser
     {
-        // public override string Email { get; set; }
         public virtual int? EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

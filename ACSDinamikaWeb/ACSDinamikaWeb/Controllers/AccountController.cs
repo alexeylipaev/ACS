@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using ACS.BLL.Interfaces;
 using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
+using ACS.DAL.Identity;
+using ACS.DAL.Entities;
 
 namespace ACSWeb.Controllers
 {
@@ -49,7 +51,7 @@ namespace ACSWeb.Controllers
             await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
-                ApplicationUserDTO applicationUserDTO = new ApplicationUserDTO { Email = model.Email, Password = model.Password };
+                ApplicationUserDTO applicationUserDTO = new ApplicationUserDTO { Email = model.Email, PasswordHash = model.Password };
                 ClaimsIdentity claim = await ApplicationUserService.Authenticate(applicationUserDTO);
                 if (claim == null)
                 {
@@ -74,13 +76,6 @@ namespace ACSWeb.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
@@ -91,34 +86,52 @@ namespace ACSWeb.Controllers
                 ApplicationUserDTO applicationUserDTO = new ApplicationUserDTO
                 {
                     Email = model.Email,
-                    Password = model.Password,
+                    PasswordHash = model.Password,
                     //Address = model.Address,
                     //Name = model.Name,
                     RolesID = { 1 }
                 };
 
-                OperationDetails operationDetails = await ApplicationUserService.Create(applicationUserDTO);
-                if (operationDetails.Succedeed)
-                    return View("SuccessRegister");
+                OperationDetails operationDetails = await ApplicationUserService.CreateAsync(applicationUserDTO);
+                if (operationDetails.Succeeded)
+                {
+                    string code = await ApplicationUserService.GenerateEmailConfirmationTokenAsync(applicationUserDTO.Id.ToString());
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { UserID = applicationUserDTO.Id, code = code }, protocol: Request.Url.Scheme);
+                    await ApplicationUserService.SendEmailAsync(applicationUserDTO.Id.ToString(), "Подтвердите свой аккаунт", "Подтвердите свой аккаунт, нажав <a href=\"" +
+                callbackUrl + "\">сюда</a>");
+
+                    return RedirectToAction("Index", "Home");
+                    //return View("SuccessRegister");
+                }
                 else
                     ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
             }
             return View(model);
         }
+
+
         private async Task SetInitialDataAsync()
         {
             await ApplicationUserService.SetInitialData(new ApplicationUserDTO
             {
                 Email = "asu_dinamika@dinamika-avia.ru",
                 UserName = "Система",
-                Password = "ad46D_ewr3",
+                PasswordHash = "ad46D_ewr3",
                 s_AuthorID = 1,
                 s_EditorID = 1,
                 RolesID = { 2 }
             }, new List<string> { "User", "Admin" });
         }
-        /////////////////////////////////   OLD !!!!!!!!!!!!!!!!
 
+
+        /////////////////////////////////////////////////////////////////
+
+        public AccountController()
+        {
+        }
+
+        //
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -130,6 +143,29 @@ namespace ACSWeb.Controllers
         }
 
 
+        //
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+
+        //
+        // GET: /Account/ConfirmEmail
+        [AllowAnonymous]
+        public async Task<ActionResult> ConfirmEmail(string UserId, string code)
+        {
+            if (UserId == null || code == null)
+            {
+                return View("Error");
+            }
+            var result = await ApplicationUserService.ConfirmEmailAsync(UserId, code);
+            return View(result.Succeeded ? "Confirm Email" : "Error");
+        }
+
+        //
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
@@ -137,6 +173,37 @@ namespace ACSWeb.Controllers
             return View();
         }
 
+        // POST: /Account/ForgotPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await ApplicationUserService.FindByNameAsync(model.Email);
+                if (user == null || !(await ApplicationUserService.IsEmailConfirmedAsync(user.Id)))
+                {
+                    // Don't reveal that the user does not exist or is not confirmed
+                    return View("ForgotPasswordConfirmation");
+                }
+
+                // For more information on how to enable account confirmation and password reset please visit 
+                //http://go.microsoft.com/fwlink/?LinkID=320771
+                     // Send an email with this link
+                     string code = await ApplicationUserService.GeneratePasswordResetTokenAsync(user.Id);
+               var callbackUrl = Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme);
+
+               await ApplicationUserService.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking < a href =\"" + callbackUrl + "\">here</a>");
+
+                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        //
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
@@ -152,6 +219,31 @@ namespace ACSWeb.Controllers
             return code == null ? View("Error") : View();
         }
 
+        //
+        // POST: /Account/ResetPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var user = await ApplicationUserService.FindByNameAsync(model.Email);
+            if (user == null)
+            {
+                // Don't reveal that the user does not exist
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
+            }
+            var result = await ApplicationUserService.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
+            }
+           // AddErrors(result);
+            return View();
+        }
 
         //
         // GET: /Account/ResetPasswordConfirmation
@@ -160,6 +252,42 @@ namespace ACSWeb.Controllers
         {
             return View();
         }
+
+        //
+        // POST: /Account/ExternalLogin
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ExternalLogin(string provider, string returnUrl)
+        {
+            // Request a redirect to the external login provider
+            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+        }
+
+
+        //
+        // POST: /Account/LogOff
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
+
+        //
+        // GET: /Account/ExternalLoginFailure
+        [AllowAnonymous]
+        public ActionResult ExternalLoginFailure()
+        {
+            return View();
+        }
+
+       
+
+        #region Helpers
+        // Used for XSRF protection when adding external logins
+        private const string XsrfKey = "XsrfId";
 
 
         private void AddErrors(IdentityResult result)
@@ -197,9 +325,6 @@ namespace ACSWeb.Controllers
             public string RedirectUri { get; set; }
             public string UserId { get; set; }
 
-            // Used for XSRF protection when adding external logins
-            private const string XsrfKey = "XsrfId";
-
             public override void ExecuteResult(ControllerContext context)
             {
                 var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
@@ -210,6 +335,7 @@ namespace ACSWeb.Controllers
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
         }
+        #endregion
 
     }
 
@@ -364,7 +490,8 @@ namespace ACSWeb.Controllers
     //                // Send an email with this link
     //                // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
     //                // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { UserID = user.Id, code = code }, protocol: Request.Url.Scheme);
-    //                // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+    //                // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" +
+    //callbackUrl + "\">here</a>");
 
     //                return RedirectToAction("Index", "Home");
     //            }
@@ -412,11 +539,14 @@ namespace ACSWeb.Controllers
     //                return View("ForgotPasswordConfirmation");
     //            }
 
-    //            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+    //            // For more information on how to enable account confirmation and password reset please visit 
+    //http://go.microsoft.com/fwlink/?LinkID=320771
     //            // Send an email with this link
     //            // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-    //            // var callbackUrl = Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-    //            // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+    //            // var callbackUrl = Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, 
+   // protocol: Request.Url.Scheme);		
+    //            // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking 
+    //<a href=\"" + callbackUrl + "\">here</a>");
     //            // return RedirectToAction("ForgotPasswordConfirmation", "Account");
     //        }
 

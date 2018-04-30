@@ -1,6 +1,10 @@
 ﻿
+using ACS.DAL.EF;
 using ACS.DAL.Entities;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +18,12 @@ namespace ACS.DAL.Identity
     /// </summary>
     public class ApplicationRoleManager : RoleManager<ApplicationRole>
     {
-     
+
         public ApplicationRoleManager(Microsoft.AspNet.Identity.EntityFramework.RoleStore<ApplicationRole> store)
                     : base(store)
         { }
 
- 
+
 
         public ApplicationRole FindById(string roleId)
         {
@@ -34,7 +38,12 @@ namespace ACS.DAL.Identity
                     where role.Name == roleName
                     select role).FirstOrDefault();
         }
-
+        public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options,
+                                            IOwinContext context)
+        {
+            return new ApplicationRoleManager(new
+                    RoleStore<ApplicationRole>(context.Get<ACSContext>()));
+        }
         //public ApplicationRole FindByRoleDTO(ApplicationRoleDTO AppRoleDTO)
         //{
         //    return (from role in Roles

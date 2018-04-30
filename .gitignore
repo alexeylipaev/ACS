@@ -12,7 +12,7 @@
 /ACSDinamikaWeb/ACS.DAL/bin/Debug
 /ACSDinamikaWeb/ACS.DAL/obj/Debug
 /ACSDinamikaWeb/ACS.BLL/bin/Debug
-/ACSDinamikaWeb/ACS.DAL/App_Data
+/ACSDinamikaWeb/ACS.DAL/App_Data/
 /ACSDinamikaWeb/ACSDinamikaWeb/App_Data
 /ACSDinamikaWeb/ACS.BLL/obj/Debug
 InitializingDBFromXML/obj/Debug
@@ -31,7 +31,7 @@ InitializingDBFromXML/obj/Debug
 /NLayerApp.WEB/NLayerApp.WEB/obj/Debug
 /NLayerApp.WEB/NLayerApp.WEB/App_Data
 /ACSDinamikaWeb/ACSDinamikaWeb/bin
-/ACSDinamikaWeb/ACSDinamikaWeb/App_Data
+/ACSDinamikaWeb/ACSDinamikaWeb/App_Data/**/*
 /ACSDinamikaWeb/.vs/ACSWeb/v15/Server/sqlite3
 /ACSDinamikaWeb/ACS.BLL/obj/Release
 /ACSDinamikaWeb/ACS.DAL/obj/Release

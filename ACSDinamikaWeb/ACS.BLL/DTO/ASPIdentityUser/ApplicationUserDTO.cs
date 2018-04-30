@@ -9,6 +9,8 @@ namespace ACS.BLL.DTO
 {
     public partial class ApplicationUserDTO : SystemParametersDTO
     {
+        public int Id { get; set; }
+
         public ApplicationUserDTO()
         {
             //Claims = new HashSet<ApplicationClaimDTO>();
@@ -22,7 +24,7 @@ namespace ACS.BLL.DTO
         public string UserName { get; set; }
 
 
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
 
         /// <summary>
         /// Случайное значение, которое должно меняться при изменении учетных данных пользователя 

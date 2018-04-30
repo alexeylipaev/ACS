@@ -169,6 +169,7 @@
     <Compile Include="XMLData\XMLDataTypeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Export_1C_Full.xml" />
     <Content Include="Configuration\FluentAPI.txt" />
     <Content Include="Description.txt" />
     <Content Include="EF\Description.txt" />

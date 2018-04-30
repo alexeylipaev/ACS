@@ -22,7 +22,7 @@ namespace ACS.DAL.Interfaces
         //IRepository<ApplicationUser> ApplicationUsers{ get; }
         ApplicationRoleManager RoleManager { get; }
 
-        ApplicationSignInManager SignInManager { get; }
+       
 
         //IRepository<ApplicationClaim> ApplicationClaims { get; }
         //IRepository<ApplicationLogin> ApplicationLogins{ get; }
