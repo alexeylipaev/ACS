@@ -12,7 +12,10 @@
 /ACSDinamikaWeb/ACS.DAL/bin/Debug
 /ACSDinamikaWeb/ACS.DAL/obj/Debug
 /ACSDinamikaWeb/ACS.BLL/bin/Debug
+/ACSDinamikaWeb/ACS.DAL/App_Data
+/ACSDinamikaWeb/ACSDinamikaWeb/App_Data
 /ACSDinamikaWeb/ACS.BLL/obj/Debug
+InitializingDBFromXML/obj/Debug
 .vs/*
 /ACSDinamikaWeb/.vs/config
 /ACSDinamikaWeb/packages
