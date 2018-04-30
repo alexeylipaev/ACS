@@ -47,13 +47,13 @@ namespace ACS.BLL.Interfaces
         /// Получить ответственного
         /// </summary>
         /// <param name="Id"></param>
-        UserDTO GetResponsible(int? Id);
+        EmployeeDTO GetResponsible(int? Id);
 
         /// <summary>
         /// Получить всех пользователей 
         /// </summary>
         /// <param name="Id"></param>
-        IEnumerable<UserDTO> GetAllUser();
+        IEnumerable<EmployeeDTO> GetAllUser();
 
 
         /// <summary>

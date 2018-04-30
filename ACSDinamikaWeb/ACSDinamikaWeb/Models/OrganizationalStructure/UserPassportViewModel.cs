@@ -20,8 +20,8 @@ namespace ACSWeb.ViewModel
 
         public DateTime? DateOfIssue { get; set; }
 
-        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
 
-        //public virtual UserViewModel User { get; set; }
+        //public virtual UserViewModel Employee { get; set; }
     }
 }

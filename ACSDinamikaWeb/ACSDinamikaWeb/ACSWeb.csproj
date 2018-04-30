@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44376</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
@@ -189,16 +189,16 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminApplicationUserVMController.cs" />
     <Compile Include="Controllers\ChancelleryController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -208,7 +208,7 @@
     <Compile Include="Models\ASPIdentityUser\ASPClaimsIdentityUserViewModel.cs" />
     <Compile Include="Models\ASPIdentityUser\ASPIdentityUserViewModel.cs" />
     <Compile Include="Models\ASPIdentityUser\ASPLoginsIdentityUserViewModel.cs" />
-    <Compile Include="Models\ASPIdentityUser\ASPRolesIdentityUserViewModel.cs" />
+    <Compile Include="Models\ASPIdentityUser\ApplicationRoleViewModel.cs" />
     <Compile Include="Models\Chancellery\ChancelleryViewModel.cs" />
     <Compile Include="Models\Chancellery\ExternalOrganizationChancelleryViewModel.cs" />
     <Compile Include="Models\Chancellery\FileRecordChancelleryViewModel.cs" />
@@ -218,17 +218,17 @@
     <Compile Include="Models\Chancellery\ToChancelleryViewModel.cs" />
     <Compile Include="Models\Chancellery\TypeRecordChancelleryViewModel.cs" />
     <Compile Include="Models\DataEntityViewModel.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrganizationalStructure\DepartmentViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\PostNameUserViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\PostUserСode1СViewModel.cs" />
-    <Compile Include="Models\OrganizationalStructure\UserViewModel.cs" />
+    <Compile Include="Models\OrganizationalStructure\EmployeeViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\UserPassportViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\WorkHistoryViewModel.cs" />
+    <Compile Include="Models\Security\ACSRoleProvider.cs" />
     <Compile Include="Models\SystemParametersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
+    <Compile Include="Util\ActiveDirectory.cs" />
     <Compile Include="Util\UserModule.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -309,16 +309,22 @@
     <Content Include="Views\Access\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutCancelaria.cshtml" />
     <Content Include="Views\.editorconfig" />
-    <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Employees\Delete.cshtml" />
+    <Content Include="Views\Employees\Details.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
     <Content Include="Views\Shared\_LayoutModal.cshtml" />
+    <Content Include="Views\Employees\Create.cshtml" />
+    <Content Include="Views\Employees\Delete.cshtml" />
+    <Content Include="Views\Employees\Details.cshtml" />
+    <Content Include="Views\Employees\Edit.cshtml" />
+    <Content Include="Views\Employees\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\AdminApplicationUserVM\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
@@ -338,7 +344,7 @@
       <Name>ACS.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\ACS.DAL\ACS.DAL.csproj">
-      <Project>{ca4ff575-ee2c-45b8-beb7-8e396218dcef}</Project>
+      <Project>{CA4FF575-EE2C-45B8-BEB7-8E396218DCEF}</Project>
       <Name>ACS.DAL</Name>
     </ProjectReference>
   </ItemGroup>

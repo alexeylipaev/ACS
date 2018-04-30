@@ -24,12 +24,12 @@ namespace ACS.BLL.DTO
         /// </summary>
         //public virtual DepartmentDTO Department { get; set; }
 
-        public int PostUserСode1СId { get; set; }
+        public int PostsEmployeesСode1СId { get; set; }
 
         /// <summary>
         /// Пользователь и Код должности 1С
         /// </summary>
-        //public virtual PostUserСode1СDTO PostUserСode1С { get; set; }
+        //public virtual PostsEmployeesСode1СDTO PostsEmployeesСode1С { get; set; }
 
         /// <summary>
         /// Ставка

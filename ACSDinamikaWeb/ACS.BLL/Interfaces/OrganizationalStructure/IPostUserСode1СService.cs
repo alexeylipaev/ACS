@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface IPostUserСode1СService
+    public interface IPostsEmployeesСode1СService
     {
-        void MakePostUserСode1С(PostUserСode1СDTO PostUserСode1СDTO);
-        PostUserСode1СDTO GetPostUserСode1С(int? Id);
-        IEnumerable<PostUserСode1СDTO> GetPostUserСode1С();
+        void MakePostsEmployeesСode1С(PostsEmployeesСode1СDTO PostsEmployeesСode1СDTO);
+        PostsEmployeesСode1СDTO GetPostsEmployeesСode1С(int? Id);
+        IEnumerable<PostsEmployeesСode1СDTO> GetPostsEmployeesСode1С();
         void Dispose();
     }
 }

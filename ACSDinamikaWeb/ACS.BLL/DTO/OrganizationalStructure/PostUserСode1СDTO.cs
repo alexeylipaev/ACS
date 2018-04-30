@@ -10,16 +10,16 @@ namespace ACS.BLL.DTO
     /// <summary>
     /// Код1С должности 
     /// </summary>
-    public partial class PostUserСode1СDTO : SystemParametersDTO
+    public partial class PostsEmployeesСode1СDTO : SystemParametersDTO
     {
 
         public int Id { get; set; }
 
         public Guid CodePost1C { get; set; }
 
-        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
 
-        //public virtual UserDTO User { get; set; }
+        //public virtual UserDTO Employee { get; set; }
 
     }
 }

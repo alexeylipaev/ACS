@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ACSWeb.ViewModel
 {
-    public partial class ASPClaimsIdentityUserViewModel : SystemParametersViewModel
+    public partial class ApplicationClaimViewModel : SystemParametersViewModel
     {
         public int Id { get; set; }
 
@@ -22,9 +22,9 @@ namespace ACSWeb.ViewModel
         public string ClaimValue { get; set; }
 
 
-        public int? IdentityUserId { get; set; }
+        public int? IdentityEmployeeId { get; set; }
 
-        //public virtual ASPIdentityUserViewModel IdentityUser { get; set; }
+        //public virtual ApplicationUserViewModel IdentityUser { get; set; }
 
     }
 }

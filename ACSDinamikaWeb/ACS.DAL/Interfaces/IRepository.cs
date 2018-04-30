@@ -10,7 +10,6 @@ namespace ACS.DAL.Interfaces
     {
         IEnumerable<T> GetAll();
         T Get(int Id);
-
         IEnumerable<T> Find(Func<T, Boolean> predicate);
         void Create(T item);
         void Update(T item);

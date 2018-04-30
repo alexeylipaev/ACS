@@ -17,8 +17,8 @@ namespace ACS.BLL.DTO
 
         public virtual TypeAccessDTO TypeAccess { get; set; }
 
-        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
 
-        public virtual UserDTO User { get; set; }
+        public virtual EmployeeDTO Employee { get; set; }
     }
 }

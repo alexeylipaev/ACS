@@ -61,28 +61,28 @@ namespace ACS.BLL.Services
         /// </summary>
         /// <param name="Id"></param>
         /// <returns></returns>
-        public UserDTO GetResponsible(int? Id)
+        public EmployeeDTO GetResponsible(int? Id)
         {
             if (Id == null)
                 throw new ValidationException("Не установлено Id ответственного", "");
 
-            var User = Database.Users.Get(Id.Value);
-            if (User == null)
+            var Employee = Database.Employees.Get(Id.Value);
+            if (Employee == null)
                 throw new ValidationException("Ответственный не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
-            return mapper.Map<User, UserDTO>(User);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return mapper.Map<Employee, EmployeeDTO>(Employee);
         }
 
         /// <summary>
         /// Получить всех пользователей
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<UserDTO> GetAllUser()
+        public IEnumerable<EmployeeDTO> GetAllUser()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<User, UserDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<User>, List<UserDTO>>(Database.Users.GetAll());
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
         }
 
         /// <summary>
@@ -237,7 +237,7 @@ namespace ACS.BLL.Services
 
         public void MakeChancellery(ChancelleryDTO chancelleryDto, string authorEmail)
         {
-            var Author = Database.Users.Find(u => u.Email == authorEmail).FirstOrDefault();
+            var Author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
 
             if (Author == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);

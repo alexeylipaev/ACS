@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Configuration
 {
-    class PostNameUserConfig : EntityTypeConfiguration<PostNameUser>
+    class PostNameUserConfig : EntityTypeConfiguration<PostNameEmployee>
     {
         public PostNameUserConfig()
         {

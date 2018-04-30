@@ -16,9 +16,9 @@ namespace ACS.DAL.Entities
 
         #region от пользователя
 
-        public int? UserId { get; set; }
+        public int? EmployeeId { get; set; }
 
-        public virtual User User { get; set; }
+        public virtual Employee Employee { get; set; }
 
         #endregion
 

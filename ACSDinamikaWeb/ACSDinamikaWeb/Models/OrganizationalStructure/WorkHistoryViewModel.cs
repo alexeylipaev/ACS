@@ -24,12 +24,12 @@ namespace ACSWeb.ViewModel
         /// </summary>
         //public virtual DepartmentViewModel Department { get; set; }
 
-        public int PostUserСode1СId { get; set; }
+        public int PostsEmployeesСode1СId { get; set; }
 
         /// <summary>
         /// Пользователь и Код должности 1С
         /// </summary>
-        //public virtual PostUserСode1СViewModel PostUserСode1С { get; set; }
+        //public virtual PostsEmployeesСode1СViewModel PostsEmployeesСode1С { get; set; }
 
         /// <summary>
         /// Ставка
