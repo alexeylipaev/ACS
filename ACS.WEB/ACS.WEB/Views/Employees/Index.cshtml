@@ -1,0 +1,75 @@
+@model IEnumerable<ACS.WEB.ViewModel.EmployeeViewModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Пользователи</h2>
+<div Id="modDialog" class="modal fade">
+    <div Id="dialogContent" class="modal-dialog"></div>
+</div>
+<p>
+    @Html.ActionLink("Создать нового", "Create")
+</p>
+<table class="table table-striped">
+    <tr>
+        @*<th>
+           @Html.DisplayNameFor(model => model.LName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MName)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.LName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MName)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { Id = item.Id }) |
+                @Html.ActionLink("Подробнее", "Details", new { Id = item.Id }, new { @class = "compItem" }) |
+                @Html.ActionLink("Удалить", "Delete", new { Id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+           $(".compItem").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+    </script>
+}

@@ -1,0 +1,22 @@
+namespace ACS.WEB.Models.EF.CFFromDB
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    [Table("FromChancellery")]
+    public partial class FromChancellery : SystemParameters
+    {
+        public int Id { get; set; }
+
+        public Guid? ToGuid { get; set; }
+
+        public int? TableId { get; set; }
+
+        public int? RecordChancelleryId { get; set; }
+
+        public virtual Chancellery Chancellery { get; set; }
+    }
+}

@@ -1,0 +1,106 @@
+﻿@model IEnumerable<ACS.WEB.ViewModel.AccessViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Доступы</h2>
+
+<p>
+    @Html.ActionLink("Создать Новый", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GuidObject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeAccessId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_Guid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_AuthorID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_DateCreation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_EditorID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_EditDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_IsLocked)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_LockedBy_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_InBasket)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Id)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.GuidObject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeAccessId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_Guid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_AuthorID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_DateCreation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_EditorID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_EditDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_IsLocked)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_LockedBy_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_InBasket)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { Id=item.Id }) |
+            @Html.ActionLink("Подробная информация", "Details", new { Id=item.Id }) |
+            @Html.ActionLink("Удалить", "Delete", new { Id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
