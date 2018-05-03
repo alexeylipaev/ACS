@@ -69,7 +69,7 @@ namespace ACS.BLL.Services
         public void MakeUser(EmployeeDTO UserDTO, string authorEmail)
         {
 
-            var author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
+            var author = Database.UserManager.FindByEmail(authorEmail);
 
             if (author == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);

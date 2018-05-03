@@ -92,8 +92,8 @@ namespace ACS.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string name = this.User.Identity.Name;
-                    string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
+                    string currentUserEmail = this.User.Identity.Name;
+                    //string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
                     var userDto = new EmployeeDTO { Id = userVM.Id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName, Email  = userVM.Email};
                     EmployeeService.MakeUser(userDto, currentUserEmail);
                     return RedirectToAction("Index");
