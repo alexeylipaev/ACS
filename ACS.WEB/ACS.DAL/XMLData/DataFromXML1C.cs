@@ -1474,8 +1474,8 @@ public static class DataLoader1C
 
     static DataLoader1C()
     {
-        // _path = @"X:\Подразделения\СВиССА\Dinamika Extension\DB\Export_1C_Full.xml";
-        _path = @"C:\Users\Человек\Source\Repos\ACS\ACS.WEB\ACS.DAL\App_Data\Export_1C_Full.xml";
+        _path = @"X:\Подразделения\СВиССА\Dinamika Extension\DB\Export_1C_Full.xml";
+        //_path = @"C:\Users\Человек\Source\Repos\ACS\ACS.WEB\ACS.DAL\App_Data\Export_1C_Full.xml";
         Deserialize();
     }
     static string _path;

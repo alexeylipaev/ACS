@@ -88,9 +88,11 @@ namespace ACS.WEB
             if (Request.IsAuthenticated && HttpContext.Current.User.Identity is WindowsIdentity)
             {
                 // note that we will be stripping the domain from the username as forms authentication doesn't capture this anyway
-
+                var wi = HttpContext.Current.User.Identity as WindowsIdentity;
+                string userLogin = ActiveDirectory.IdentityUserEmailFromActiveDirectory(wi.Name);
                 // create a temp cookie for this request only (not set in response)
-                var tempCookie = FormsAuthentication.GetAuthCookie(Regex.Replace(HttpContext.Current.User.Identity.Name, ".*\\\\(.*)", "$1", RegexOptions.None), false);
+                //var tempCookie = FormsAuthentication.GetAuthCookie(Regex.Replace(HttpContext.Current.User.Identity.Name, ".*\\\\(.*)", "$1", RegexOptions.None), false);
+                var tempCookie = FormsAuthentication.GetAuthCookie(userLogin, false);
 
                 // set the user based on this temporary cookie - just for this request
                 // we grab the roles from the identity we are replacing so that none are lost
