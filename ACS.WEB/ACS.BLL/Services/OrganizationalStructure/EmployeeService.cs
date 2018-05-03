@@ -35,7 +35,7 @@ namespace ACS.BLL.Services
       , Helper.RemoveSpacesBeginnEndStr(UserData.MName), Helper.RemoveSpacesBeginnEndStr(UserData.Email));
         }
 
-        public void MakeUser(EmployeeDTO UserDTO)
+        public void CreateUser(EmployeeDTO UserDTO)
         {
             var resultString = UNIQEUserString(UserDTO);
             Employee user = Database.Employees.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
@@ -66,10 +66,10 @@ namespace ACS.BLL.Services
             }
         }
 
-        public void MakeUser(EmployeeDTO UserDTO, string authorEmail)
+        public void CreateUser(EmployeeDTO UserDTO, string authorEmail)
         {
 
-            var author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
+            var author = GetEditor(authorEmail);
 
             if (author == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
@@ -110,7 +110,7 @@ namespace ACS.BLL.Services
 
             Employee EditableObj = Database.Employees.Get(UserDTO.Id);
 
-            var editor = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
+            var editor = GetEditor(authorEmail);
 
             if (editor == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
@@ -146,6 +146,78 @@ namespace ACS.BLL.Services
             }
         }
 
+        public void MoveToBasketUser(int userId, string authorEmail)
+        {
+            Employee EditableObj = Database.Employees.Get(userId);
+
+            var editor = GetEditor(authorEmail);
+
+            if (editor == null)
+                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
+
+            if (EditableObj == null)
+                throw new ValidationException("Не возможно редактировать объект с Id", userId.ToString());
+
+            try
+            {
+                EditableObj.s_InBasket = true;
+                EditableObj.s_EditorID = editor.Id;
+
+                Database.Employees.Update(EditableObj);
+                Database.Save();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
+                Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
+                Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);
+                Debug.WriteLine("Message:                 {0}", e.Message);
+                Debug.WriteLine("Source:                  {0}", e.Source);
+                Debug.WriteLine("Help Link:               {0}", e.HelpLink);
+                Debug.WriteLine("Stack:                   {0}", e.StackTrace);
+
+                foreach (DictionaryEntry de in e.Data)
+                    Console.WriteLine("{0} : {1}", de.Key, de.Value);
+            }
+        }
+
+        public void DeleteUser(int userId, string authorEmail)
+        {
+            Employee EditableObj = Database.Employees.Get(userId);
+            var editor = GetEditor(authorEmail);
+
+            if (editor == null)
+                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
+
+            if (EditableObj == null)
+                throw new ValidationException("Не возможно редактировать объект с Id", userId.ToString());
+
+            try
+            {
+
+                Database.Employees.Delete(userId);
+                Database.Save();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
+                Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
+                Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);
+                Debug.WriteLine("Message:                 {0}", e.Message);
+                Debug.WriteLine("Source:                  {0}", e.Source);
+                Debug.WriteLine("Help Link:               {0}", e.HelpLink);
+                Debug.WriteLine("Stack:                   {0}", e.StackTrace);
+
+                foreach (DictionaryEntry de in e.Data)
+                    Console.WriteLine("{0} : {1}", de.Key, de.Value);
+            }
+        }
+
+        private ApplicationUser GetEditor(string authorEmail)
+        {
+            return Database.UserManager.FindByEmail(authorEmail);
+        }
+
         public IEnumerable<EmployeeDTO> GetUsers()
         {
       
@@ -172,7 +244,5 @@ namespace ACS.BLL.Services
         {
             Database.Dispose();
         }
-
-
     }
 }

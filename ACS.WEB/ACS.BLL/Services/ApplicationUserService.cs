@@ -194,7 +194,13 @@ namespace ACS.BLL.Services
             if (appUser == null)
                 throw new ValidationException("Пользователь не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, ApplicationUserDTO>()).CreateMapper();
+            var mapper = new MapperConfiguration(cfg => 
+            {
+                cfg.CreateMap<AppUserRole, int>().ConvertUsing(source => source.RoleId);
+                cfg.CreateMap<ApplicationUser, ApplicationUserDTO>().ForMember(dest => dest.RolesId, opts => opts.MapFrom(src => src.Roles));
+                
+          }
+            ).CreateMapper();
 
             var result = mapper.Map<ApplicationUser, ApplicationUserDTO>(appUser);
             return result;

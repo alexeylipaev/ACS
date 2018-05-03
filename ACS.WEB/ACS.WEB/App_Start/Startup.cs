@@ -25,6 +25,7 @@ namespace ACS.WEB.App_Start
         IServiceCreator serviceCreator = new ServiceCreator();
         public void Configuration(IAppBuilder app)
         {
+            return;
             //Потом сервис региструется контекстом OWIN:
 
             app.CreatePerOwinContext(CreateUserService);

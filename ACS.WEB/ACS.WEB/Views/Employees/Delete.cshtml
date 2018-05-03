@@ -1,4 +1,4 @@
-@model ACS.WEB.ViewModel.EmployeeViewModel
+﻿@model ACS.WEB.ViewModel.EmployeeViewModel
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -60,5 +60,6 @@
             <input type="submit" value="Delete" class="btn btn-default" /> |
             @Html.ActionLink("Вернуться к списку", "Index")
         </div>
+        <div style="color:red">@ViewBag.EditResult</div>
     }
 </div>

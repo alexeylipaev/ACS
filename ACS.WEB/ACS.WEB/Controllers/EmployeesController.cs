@@ -11,6 +11,7 @@ using System.DirectoryServices.AccountManagement;
 using System.Web.Security;
 using ACS.WEB.Util;
 using ACS.BLL;
+using System.Linq;
 
 namespace ACS.WEB.Controllers
 {
@@ -30,7 +31,7 @@ namespace ACS.WEB.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            IEnumerable<EmployeeDTO> userDtos = EmployeeService.GetUsers();
+            IEnumerable<EmployeeDTO> userDtos = EmployeeService.GetUsers().Where(e => !(bool)e.s_InBasket);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
             var users = mapper.Map<IEnumerable<EmployeeDTO>, List<EmployeeViewModel>>(userDtos);
             return View(users);
@@ -92,10 +93,10 @@ namespace ACS.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string name = this.User.Identity.Name;
-                    string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
+                    string currentUserEmail = this.User.Identity.Name;
+                    //string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
                     var userDto = new EmployeeDTO { Id = userVM.Id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName, Email  = userVM.Email};
-                    EmployeeService.MakeUser(userDto, currentUserEmail);
+                    EmployeeService.CreateUser(userDto, currentUserEmail);
                     return RedirectToAction("Index");
                 }
             }
@@ -132,10 +133,11 @@ namespace ACS.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    string name = this.User.Identity.Name;
-                    string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
+                    string currentUserEmail = this.User.Identity.Name;
+                    //string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
                     var userDto = new EmployeeDTO { Id = userVM.Id, LName = userVM.LName, FName = userVM.FName, MName = userVM.MName, Email = userVM.Email };
                     EmployeeService.UpdateUser(userDto, currentUserEmail);
+                    ViewBag.EditResult = "Данные изменены";
                     return View(userVM); 
                 }
             }
@@ -143,34 +145,40 @@ namespace ACS.WEB.Controllers
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
             }
+            
             return View(userVM);
         }
 
-        //// GET: Employees/Delete/5
-        //public ActionResult Delete(int? Id)
-        //{
-        //    if (Id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Employee user = db.Employees.Find(Id);
-        //    if (user == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(user);
-        //}
+        // GET: Employees/Delete/5
+        public ActionResult Delete(int? Id)
+        {
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-        //// POST: Employees/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int Id)
-        //{
-        //    Employee user = db.Employees.Find(Id);
-        //    db.Employees.Remove(user);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
+            EmployeeDTO userDTO = EmployeeService.GetUser(Id);
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
+            var userVM = mapper.Map<EmployeeDTO, EmployeeViewModel>(userDTO);
+
+            if (userVM == null)
+            {
+                return HttpNotFound();
+            }
+            
+            return View(userVM);
+        }
+
+        // POST: Employees/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int Id)
+        {
+            string currentUserEmail = this.User.Identity.Name;
+            EmployeeService.MoveToBasketUser((int)Id, currentUserEmail);
+
+            return RedirectToAction("Index");
+        }
 
         protected override void Dispose(bool disposing)
         {

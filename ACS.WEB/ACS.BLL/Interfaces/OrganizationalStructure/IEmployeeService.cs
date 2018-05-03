@@ -1,20 +1,17 @@
 ﻿using ACS.BLL.DTO;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
     public interface IEmployeeService
     {
-        void MakeUser(EmployeeDTO userDto);
+        void CreateUser(EmployeeDTO userDto);
 
-        void MakeUser(EmployeeDTO userDto, string authorEmail);
+        void CreateUser(EmployeeDTO userDto, string authorEmail);
 
         void UpdateUser(EmployeeDTO userDto, string authorEmail);
-
+        void MoveToBasketUser(int userId, string authorEmail);
+        void DeleteUser(int userId, string authorEmail);
         EmployeeDTO GetUser(int? Id);
 
         IEnumerable<EmployeeDTO> GetUsers();
