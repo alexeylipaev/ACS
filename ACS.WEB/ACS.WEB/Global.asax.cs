@@ -1,5 +1,6 @@
 ﻿using ACS.BLL;
 using ACS.BLL.Infrastructure;
+using ACS.WEB.Providers;
 using ACS.WEB.Util;
 using Ninject;
 using Ninject.Modules;
@@ -91,12 +92,17 @@ namespace ACS.WEB
                 var wi = HttpContext.Current.User.Identity as WindowsIdentity;
                 string userLogin = ActiveDirectory.IdentityUserEmailFromActiveDirectory(wi.Name);
                 // create a temp cookie for this request only (not set in response)
+                string userName = Regex.Replace(HttpContext.Current.User.Identity.Name, ".*\\\\(.*)", "$1", RegexOptions.None);
                 //var tempCookie = FormsAuthentication.GetAuthCookie(Regex.Replace(HttpContext.Current.User.Identity.Name, ".*\\\\(.*)", "$1", RegexOptions.None), false);
                 var tempCookie = FormsAuthentication.GetAuthCookie(userLogin, false);
 
                 // set the user based on this temporary cookie - just for this request
                 // we grab the roles from the identity we are replacing so that none are lost
-                HttpContext.Current.User = new GenericPrincipal(new FormsIdentity(FormsAuthentication.Decrypt(tempCookie.Value)), (HttpContext.Current.User.Identity as WindowsIdentity).Groups.Select(group => group.Value).ToArray());
+                ACSRoleProvider acs = new Providers.ACSRoleProvider();
+                var roles = acs.GetRolesForUser(userLogin);
+                
+                //HttpContext.Current.User = new GenericPrincipal(new FormsIdentity(FormsAuthentication.Decrypt(tempCookie.Value)), (HttpContext.Current.User.Identity as WindowsIdentity).Groups.Select(group => group.Value).ToArray());
+                HttpContext.Current.User = new GenericPrincipal(new FormsIdentity(FormsAuthentication.Decrypt(tempCookie.Value)), roles.ToArray());
 
                 // now set the forms cookie
                 FormsAuthentication.SetAuthCookie(HttpContext.Current.User.Identity.Name, false);

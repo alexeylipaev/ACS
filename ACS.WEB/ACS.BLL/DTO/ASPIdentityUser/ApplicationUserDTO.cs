@@ -58,7 +58,7 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Пользователь
         /// </summary>
-        //public virtual UserDTO Employee { get; set; }
+        //public virtual ICollection<ApplicationRoleDTO> Roles { get; set; }
 
     }
 }

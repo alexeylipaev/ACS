@@ -99,7 +99,7 @@ namespace ACS.WEB.Providers
             {
                 var role = ApplicationUserService.FindRoleById(roleId);
                 if (role != null)
-                    result.Add(role.Id.ToString());
+                    result.Add(role.Name.ToString());
             }
             return result.ToArray();
         }
