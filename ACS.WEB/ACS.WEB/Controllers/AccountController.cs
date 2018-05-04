@@ -58,8 +58,11 @@ namespace ACS.WEB.Controllers
                 if (authenticationResult.IsSuccess)
                 {
                     // we are in!
-                    return RedirectPermanent(returnUrl);
-                    //return RedirectToAction("Index", "Home");
+                    if (string.IsNullOrWhiteSpace(returnUrl))
+                        return RedirectToAction("Index", "Home");
+                    else
+                        return RedirectPermanent(returnUrl);
+                    //
                 }
 
                 ModelState.AddModelError("", authenticationResult.ErrorMessage);

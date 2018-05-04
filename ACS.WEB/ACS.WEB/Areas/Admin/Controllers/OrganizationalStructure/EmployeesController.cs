@@ -104,45 +104,80 @@ namespace ACS.WEB.Areas.Admin.Controllers
         // GET: Admin/Employees/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            try
+            {
+                EmployeeDTO user = EmployeeService.GetUser(id);
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
+                var userVM = mapper.Map<EmployeeDTO, EmployeeAdminVM>(user);
+                //var userVM = new UserViewModel { Id = user.Id };
+
+                return View(userVM);
+            }
+            catch (ValidationException ex)
+            {
+                return Content(ex.Message);
+            }
         }
 
         // POST: Admin/Employees/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(EmployeeAdminVM employeeAdminVM)
         {
+            EmployeeDTO user = EmployeeService.GetUser(employeeAdminVM.Id);
+            if (user == null) throw new ArgumentNullException("Нет такого работника с Id=" + employeeAdminVM.Id);
             try
             {
-                // TODO: Add update logic here
-
+                
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
+                user = mapper.Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
+                //var userVM = new UserViewModel { Id = user.Id };
+                EmployeeService.UpdateUser(user, this.User.Identity.Name);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (ValidationException ex)
             {
-                return View();
+                return Content(ex.Message);
             }
+            
         }
 
         // GET: Admin/Employees/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                EmployeeDTO user = EmployeeService.GetUser(id);
+                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
+                var userVM = mapper.Map<EmployeeDTO, EmployeeAdminVM>(user);
+                //var userVM = new UserViewModel { Id = user.Id };
+
+                return View(userVM);
+            }
+            catch (ValidationException ex)
+            {
+                return Content(ex.Message);
+            }
         }
 
         // POST: Admin/Employees/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(EmployeeAdminVM employeeAdminVM)
         {
+            EmployeeDTO user = EmployeeService.GetUser(employeeAdminVM.Id);
+            if (user == null) return RedirectToAction("Index");
             try
             {
-                // TODO: Add delete logic here
-
+                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
+                //user = mapper.Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
+                //var userVM = new UserViewModel { Id = user.Id };
+                EmployeeService.DeleteUser(employeeAdminVM.Id, this.User.Identity.Name);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (ValidationException ex)
             {
-                return View();
+                return Content(ex.Message);
             }
+
         }
     }
 }

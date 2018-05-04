@@ -186,7 +186,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\EmployeesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ASPIdentityUser\RolesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrganizationalStructure\EmployeesController.cs" />
+    <Compile Include="Areas\Admin\Models\ASPIdentityUser\RoleAdminVM.cs" />
+    <Compile Include="Areas\Admin\Models\ASPIdentityUser\ApplicationUserAdminVM.cs" />
+    <Compile Include="Areas\Admin\Models\ASPIdentityUser\AppUserRoleAdminVM.cs" />
     <Compile Include="Areas\Admin\Models\OrganizationalStructure\EmployeeAdminVM.cs" />
     <Compile Include="Areas\Admin\Models\SystemParametersAdminVM.cs" />
     <Compile Include="Controllers\AccessController.cs" />
@@ -275,6 +279,7 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Employees\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Employees\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Employees\Edit.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Description.txt" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -374,6 +379,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Roles\" />
     <Folder Include="Views\AdminApplicationUserVM\" />
   </ItemGroup>
   <ItemGroup>
