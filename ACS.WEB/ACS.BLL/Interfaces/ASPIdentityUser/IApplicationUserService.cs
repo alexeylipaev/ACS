@@ -17,8 +17,8 @@ namespace ACS.BLL.Interfaces
 
         //ApplicationUserDTO GetApplicationUser(int? Id);
         //IEnumerable<ApplicationUserDTO> GetApplicationUser();
-
-        
+        int GetIdNewAppUser();
+        AppUserRoleDTO GetAppUserRoleAssignmentData(int RoleId, int? UserId = null);
         Task<OperationDetails> ResetPasswordAsync(int userId, string token, string newPassword);
 
         Task<string> GenerateEmailConfirmationTokenAsync(int userId);
@@ -33,7 +33,7 @@ namespace ACS.BLL.Interfaces
         Task SetInitialData(ApplicationUserDTO adminDto, List<string> roles);
 
         Task<ApplicationUserDTO> FindByNameAsync(string userName);
-   
+
         Task<ApplicationUserDTO> FindByEmailAsync(string Email);
 
         ApplicationUserDTO FindByEmail(string Email);

@@ -17,19 +17,19 @@ namespace ACS.BLL.DTO
         /// </summary>
         public string PostName { get; set; }
 
-        public int DepartmentId { get; set; }
+        //public int DepartmentId { get; set; }
 
         /// <summary>
         /// Отдел
         /// </summary>
-        //public virtual DepartmentDTO Department { get; set; }
+        public virtual DepartmentDTO Department { get; set; }
 
-        public int PostsEmployeesСode1СId { get; set; }
+        //public int PostsEmployeesСode1СId { get; set; }
 
         /// <summary>
         /// Пользователь и Код должности 1С
         /// </summary>
-        //public virtual PostsEmployeesСode1СDTO PostsEmployeesСode1С { get; set; }
+        public virtual PostEmployeeСode1СDTO PostsEmployeesСode1С { get; set; }
 
         /// <summary>
         /// Ставка

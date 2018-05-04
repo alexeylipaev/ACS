@@ -15,6 +15,7 @@ namespace ACS.DAL.Entities
     public partial class ApplicationRole : IdentityRole<int, AppUserRole>
     {
         public ApplicationRole() { }
+       
         public ApplicationRole(string name) { Name = name; }
     }
 }

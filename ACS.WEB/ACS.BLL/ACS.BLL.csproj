@@ -99,13 +99,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessModels\Helper.cs" />
+    <Compile Include="DTO\ASPIdentityUser\ApplicationRoleDTO.cs" />
+    <Compile Include="DTO\ASPIdentityUser\ApplicationClaimDTO.cs" />
+    <Compile Include="DTO\ASPIdentityUser\ApplicationLoginDTO.cs" />
+    <Compile Include="DTO\ASPIdentityUser\AppUserRoleDTO.cs" />
     <Compile Include="Сonnection.cs" />
     <Compile Include="DTO\Access\AccessDTO.cs" />
     <Compile Include="DTO\Access\TypeAccessDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\ApplicationClaimDTO.cs" />
     <Compile Include="DTO\ASPIdentityUser\ApplicationUserDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\ApplicationLoginDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\ApplicationRoleDTO.cs" />
     <Compile Include="DTO\Chancellery\ChancelleryDTO.cs" />
     <Compile Include="DTO\Chancellery\ExternalOrganizationChancelleryDTO.cs" />
     <Compile Include="DTO\Chancellery\FileRecordChancelleryDTO.cs" />
@@ -116,8 +117,8 @@
     <Compile Include="DTO\Chancellery\TypeRecordChancelleryDTO.cs" />
     <Compile Include="DTO\DataEntityDTO.cs" />
     <Compile Include="DTO\OrganizationalStructure\DepartmentDTO.cs" />
-    <Compile Include="DTO\OrganizationalStructure\PostNameUserDTO.cs" />
-    <Compile Include="DTO\OrganizationalStructure\PostUserСode1СDTO.cs" />
+    <Compile Include="DTO\OrganizationalStructure\PostNameEmployeeDTO.cs" />
+    <Compile Include="DTO\OrganizationalStructure\PostEmployeeСode1СDTO.cs" />
     <Compile Include="DTO\OrganizationalStructure\EmployeeDTO.cs" />
     <Compile Include="DTO\OrganizationalStructure\EmployeePassportDTO.cs" />
     <Compile Include="DTO\OrganizationalStructure\WorkHistoryDTO.cs" />
@@ -126,10 +127,7 @@
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Interfaces\Access\IAccessService.cs" />
-    <Compile Include="Interfaces\ASPIdentityUser\IApplicationClaimService.cs" />
     <Compile Include="Interfaces\ASPIdentityUser\IApplicationUserService.cs" />
-    <Compile Include="Interfaces\ASPIdentityUser\IApplicationLoginService.cs" />
-    <Compile Include="Interfaces\ASPIdentityUser\IApplicationRoleService.cs" />
     <Compile Include="Interfaces\IDataEntityService.cs" />
     <Compile Include="Interfaces\IServiceCreator.cs" />
     <Compile Include="Interfaces\OrganizationalStructure\IDepartmentService.cs" />

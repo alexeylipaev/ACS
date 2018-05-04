@@ -22,7 +22,6 @@ namespace ACS.DAL.Entities
         public ICollection<ExternalOrganizationChancellery> ExternalOrganizations { get; set; }
         public ICollection<Employee> Employees { get; set; }
 
-        public int? ChancelleryId { get; set; }
         public virtual Chancellery Chancellery { get; set; }
     }
 }

@@ -11,12 +11,12 @@ namespace ACS.BLL.DTO
     public partial class ChancelleryDTO : SystemParametersDTO
     {
 
-        //public ChancelleryDTO()
-        //{
-        //    FileRecordChancelleries = new HashSet<FileRecordChancelleryDTO>();
-        //    FromChancelleries = new HashSet<FromChancelleryDTO>();
-        //    ToChancelleries = new HashSet<ToChancelleryDTO>();
-        //}
+        public ChancelleryDTO()
+        {
+            FileRecordChancelleries = new HashSet<FileRecordChancelleryDTO>();
+            FromChancelleries = new HashSet<FromChancelleryDTO>();
+            ToChancelleries = new HashSet<ToChancelleryDTO>();
+        }
 
         public int Id { get; set; }
 
@@ -38,63 +38,64 @@ namespace ACS.BLL.DTO
 
         #region папка
 
-        public int? FolderId { get; set; }
+        //public int? FolderId { get; set; }
+
         /// <summary>
         /// Папка
         /// </summary>
-        //public virtual FolderChancelleryDTO FolderChancellery { get; set; }
+        public virtual FolderChancelleryDTO FolderChancellery { get; set; }
 
         #endregion
 
         #region Журнал
 
-        public int? JournalRegistrationsId { get; set; }
+        //public int? JournalRegistrationsId { get; set; }
         /// <summary>
         /// Журнал
         /// </summary>
-        //public virtual JournalRegistrationsChancelleryDTO JournalRegistrationsChancellery { get; set; }
+        public virtual JournalRegistrationsChancelleryDTO JournalRegistrationsChancellery { get; set; }
 
         #endregion
 
         #region Тип
 
         
-        public byte? TypeRecordId { get; set; }
+        //public byte? TypeRecordId { get; set; }
 
         /// <summary>
         /// Тип записи
         /// </summary>
-        //public virtual TypeRecordChancelleryDTO TypeRecordChancellery { get; set; }
+        public virtual TypeRecordChancelleryDTO TypeRecordChancellery { get; set; }
 
         #endregion
 
         #region Ответственный
 
-        public int? ResponsibleEmployeeId { get; set; }
+        //public int? ResponsibleEmployeeId { get; set; }
 
         /// <summary>
         /// Ответственный
         /// </summary>
-        //public virtual UserDTO Employee { get; set; }
+        //public virtual EmployeeDTO Employee { get; set; }
 
         #endregion
 
 
-        ///// <summary>
-        ///// Файлы
-        ///// </summary>
-        //public virtual ICollection<FileRecordChancelleryDTO> FileRecordChancelleries { get; set; }
+        /// <summary>
+        /// Файлы
+        /// </summary>
+        public virtual ICollection<FileRecordChancelleryDTO> FileRecordChancelleries { get; set; }
 
 
-        ///// <summary>
-        ///// От кого"
-        ///// </summary>
-        //public virtual ICollection<FromChancelleryDTO> FromChancelleries { get; set; }
+        /// <summary>
+        /// От кого"
+        /// </summary>
+        public virtual ICollection<FromChancelleryDTO> FromChancelleries { get; set; }
 
 
-        ///// <summary>
-        ///// Кому
-        ///// </summary>
-        //public virtual ICollection<ToChancelleryDTO> ToChancelleries { get; set; }
+        /// <summary>
+        /// Кому
+        /// </summary>
+        public virtual ICollection<ToChancelleryDTO> ToChancelleries { get; set; }
     }
 }

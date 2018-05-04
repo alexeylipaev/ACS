@@ -15,7 +15,7 @@ namespace ACS.DAL.Configuration
             HasKey(e => e.Id);
 
             Property(e => e.Name)
-              .IsUnicode(true);
+              .IsUnicode(true).IsRequired();
 
         }
     }

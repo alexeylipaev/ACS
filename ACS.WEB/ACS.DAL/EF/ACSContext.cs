@@ -20,9 +20,8 @@ namespace ACS.DAL.EF
 
     //public class ACSContext : DbContext
     public class ACSContext : IdentityDbContext<ApplicationUser, ApplicationRole,
-    int, AppUserLogin, AppUserRole, AppUserClaim>
+    int, ApplicationLogin, AppUserRole, ApplicationClaim>
     {
-    
         public virtual DbSet<Access> Accesses { get; set; }
         public virtual DbSet<Chancellery> Chancelleries { get; set; }
         public virtual DbSet<DataEntity> DataEntityis { get; set; }
@@ -38,7 +37,6 @@ namespace ACS.DAL.EF
         public virtual DbSet<TypeAccess> TypeAccesses { get; set; }
         public virtual DbSet<TypeRecordChancellery> TypeRecordChancelleries { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-                
         public virtual DbSet<WorkHistory> WorkHistories { get; set; }
         public virtual DbSet<EmployeePassport> EmployeesPassports { get; set; }
 
@@ -65,9 +63,7 @@ namespace ACS.DAL.EF
             modelBuilder.Configurations.Add(new AccessConfig());
             modelBuilder.Configurations.Add(new TypeAccessConfig());
 
-            modelBuilder.Configurations.Add(new ApplicationClaimConfig());
             modelBuilder.Configurations.Add(new ApplicationUserConfig());
-            modelBuilder.Configurations.Add(new ApplicationLoginConfig());
             modelBuilder.Configurations.Add(new ApplicationRoleConfig());
 
             modelBuilder.Configurations.Add(new ChancelleryConfig());

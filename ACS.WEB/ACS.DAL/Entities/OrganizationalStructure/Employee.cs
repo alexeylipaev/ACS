@@ -12,7 +12,6 @@ namespace ACS.DAL.Entities
     /// </summary>
     public partial class Employee : SystemParameters
     {
-
         public Employee()
         {
             Accesses = new HashSet<Access>();
@@ -30,13 +29,7 @@ namespace ACS.DAL.Entities
 
         public string Email { get; set; }
 
-        /// <summary>
-        /// Табельный номер
-        /// </summary>
-        public string PersonnelNumber { get; set; }
-
         public DateTime? Birthday { get; set; }
-
 
         public string SID { get; set; }
 

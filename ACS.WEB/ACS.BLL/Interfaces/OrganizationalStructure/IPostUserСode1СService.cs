@@ -9,9 +9,9 @@ namespace ACS.BLL.Interfaces
 {
     public interface IPostsEmployeesСode1СService
     {
-        void MakePostsEmployeesСode1С(PostsEmployeesСode1СDTO PostsEmployeesСode1СDTO);
-        PostsEmployeesСode1СDTO GetPostsEmployeesСode1С(int? Id);
-        IEnumerable<PostsEmployeesСode1СDTO> GetPostsEmployeesСode1С();
+        void MakePostsEmployeesСode1С(PostEmployeeСode1СDTO PostsEmployeesСode1СDTO);
+        PostEmployeeСode1СDTO GetPostsEmployeesСode1С(int? Id);
+        IEnumerable<PostEmployeeСode1СDTO> GetPostsEmployeesСode1С();
         void Dispose();
     }
 }

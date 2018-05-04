@@ -13,7 +13,7 @@ namespace ACS.DAL.Entities
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [DefaultValue(1)]
-        public int? s_AuthorID { get; set; }
+        public int? s_AuthorId { get;  set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [DefaultValue("getdate()")]
@@ -21,16 +21,20 @@ namespace ACS.DAL.Entities
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [DefaultValue(1)]
-        public int? s_EditorID { get;  set; } 
+        public int? s_EditorId { get;  set; } 
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [DefaultValue("getdate()")]
-        public DateTime? s_EditDate { get; private set; }
+        public DateTime? s_EditDate { get;  set; }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DefaultValue(0)]
         public bool? s_IsLocked { get; set; }
 
         public int? s_LockedBy_Id { get; set; }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DefaultValue(0)]
         public bool? s_InBasket { get; set; }
     }
 }

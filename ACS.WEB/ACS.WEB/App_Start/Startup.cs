@@ -17,7 +17,6 @@ namespace ACS.WEB.App_Start
 {
     public partial class Startup
     {
-
         /// <summary>
         /// С помощью фабрики сервисов здесь создается сервис для работы с сервисами
         /// </summary>
@@ -25,9 +24,8 @@ namespace ACS.WEB.App_Start
         IServiceCreator serviceCreator = new ServiceCreator();
         public void Configuration(IAppBuilder app)
         {
-            return;
+      
             //Потом сервис региструется контекстом OWIN:
-
             app.CreatePerOwinContext(CreateUserService);
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {

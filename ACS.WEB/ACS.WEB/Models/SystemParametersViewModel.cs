@@ -9,12 +9,12 @@ namespace ACS.WEB.ViewModel
        
         public Guid? s_Guid { get; private set; }
 
-        public int? s_AuthorID { get; set; }
+        public int? s_AuthorId { get; set; }
 
         
         public DateTime? s_DateCreation { get; private set; }
 
-        public int? s_EditorID { get; set; }
+        public int? s_EditorId { get; set; }
 
         public DateTime? s_EditDate { get; private set; }
 

@@ -29,26 +29,23 @@ namespace ACS.DAL.Configuration
             Property(e => e.SID)
             .IsUnicode(true);
 
-         //   HasOptional(s => s.ApplicationUser)
-         //.WithOptionalDependent(ad => ad.Employee);
+
+
 
             HasMany(e => e.Chancelleries)
             .WithOptional(e => e.Employee)
-            .HasForeignKey(e => e.ResponsibleEmployeeId)
+            //.HasForeignKey(e => e.ResponsibleEmployeeId)
             .WillCascadeOnDelete(false);//при удалении пользователя, канцелярию где он ответственный не удаляем
 
             HasMany(e => e.Accesses)
             .WithOptional(e => e.Employee)
-              .HasForeignKey(e => e.EmployeeId)
-            .WillCascadeOnDelete(false);
+              //.HasForeignKey(e => e.EmployeeId)
+            .WillCascadeOnDelete(true);
 
             HasMany(e => e.PostsEmployeesСode1С)
            .WithOptional(e => e.Employee)
-           .HasForeignKey(e => e.EmployeeId)
-           .WillCascadeOnDelete();
-
-
-
+           //.HasForeignKey(e => e.EmployeeId)
+           .WillCascadeOnDelete(true);
         }
     }
 }
