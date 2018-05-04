@@ -18,8 +18,8 @@ namespace ACS.DAL.Configuration
                .IsUnicode(true).IsRequired();
 
             HasMany(e => e.Chancelleries)
-                 .WithOptional(e => e.JournalRegistrationsChancellery)
-             .HasForeignKey(e => e.JournalRegistrationsId);
+                 .WithOptional(e => e.JournalRegistrationsChancellery);
+             //.HasForeignKey(e => e.JournalRegistrationsId);
         }
     }
 }

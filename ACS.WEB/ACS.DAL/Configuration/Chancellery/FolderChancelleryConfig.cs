@@ -18,8 +18,8 @@ namespace ACS.DAL.Configuration
                 .IsUnicode(true).IsRequired();
 
             HasMany(e => e.Chancelleries)
-            .WithOptional(e => e.FolderChancellery)
-            .HasForeignKey(e => e.FolderId);
+            .WithOptional(e => e.FolderChancellery);
+            //.HasForeignKey(e => e.FolderId);
         }
     }
 }

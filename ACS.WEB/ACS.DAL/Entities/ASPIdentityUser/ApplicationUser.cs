@@ -14,11 +14,9 @@ namespace ACS.DAL.Entities
     /// <summary>
     ///  You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     /// </summary>
-    public partial class ApplicationUser  : IdentityUser<int, AppUserLogin, AppUserRole,
-    AppUserClaim> 
+    public partial class ApplicationUser  : IdentityUser<int, ApplicationLogin, AppUserRole,
+    ApplicationClaim> 
     {
-  
-        public virtual int? EmployeeId { get; set; }
 
         public virtual Employee Employee { get; set; }
 

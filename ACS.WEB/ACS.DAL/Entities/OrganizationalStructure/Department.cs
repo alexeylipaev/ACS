@@ -39,8 +39,6 @@ namespace ACS.DAL.Entities
 
         #region связь с родителем 
 
-        public int? ParentDepartmentId { get; set; }
-
         public virtual Department ParentDepartment { get; set; }
 
         #endregion

@@ -30,11 +30,7 @@ namespace ACS.WEB.ViewModel
 
         public string Email { get; set; }
 
-        /// <summary>
-        /// Табельный номер
-        /// </summary>
-        [Display(Name = "Табельный номер")]
-        public string PersonnelNumber { get; set; }
+
 
         [DataType(DataType.Date)]
         [Display(Name = "Дата рождения")]

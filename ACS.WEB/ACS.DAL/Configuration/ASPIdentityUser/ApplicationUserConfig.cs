@@ -19,11 +19,10 @@ namespace ACS.DAL.Configuration
                  .IsUnicode(true);
 
             Property(e => e.Email)
-                .IsUnicode(true);
+                .IsUnicode(true).IsRequired();
 
-            HasOptional(s => s.Employee)
-               .WithOptionalDependent(ad => ad.ApplicationUser);
-
+            HasOptional(o => o.Employee)
+            .WithOptionalPrincipal(o => o.ApplicationUser);
         }
     }
 }

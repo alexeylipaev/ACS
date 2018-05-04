@@ -85,8 +85,8 @@ namespace ACS.BLL.Services
             {
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, Employee>()).CreateMapper();
                 Employee Employee = mapper.Map<EmployeeDTO, Employee>(UserDTO);
-                Employee.s_AuthorID = author.Id;
-                Employee.s_EditorID = author.Id;
+                Employee.s_AuthorId = author.Id;
+                Employee.s_EditorId = author.Id;
                 Database.Employees.Create(Employee);
                 Database.Save();
             }
@@ -126,7 +126,7 @@ namespace ACS.BLL.Services
                 //EditableObj.Email = UserDTO.Email;
 
                 //EditableObj.s_EditDate = DateTime.Now;
-                EditableObj.s_EditorID = editor.Id;
+                EditableObj.s_EditorId = editor.Id;
 
                 Database.Employees.Update(EditableObj);
                 Database.Save();
@@ -161,7 +161,7 @@ namespace ACS.BLL.Services
             try
             {
                 EditableObj.s_InBasket = true;
-                EditableObj.s_EditorID = editor.Id;
+                EditableObj.s_EditorId = editor.Id;
 
                 Database.Employees.Update(EditableObj);
                 Database.Save();

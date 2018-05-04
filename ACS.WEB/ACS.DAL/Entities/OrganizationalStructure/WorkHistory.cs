@@ -19,14 +19,12 @@ namespace ACS.DAL.Entities
         /// </summary>
         public string PostName { get; set; }
 
-        public int DepartmentId { get; set; }
 
         /// <summary>
         /// Отдел
         /// </summary>
         public virtual Department Department { get; set; }
 
-        public int PostsEmployeesСode1СId { get; set; }
 
         /// <summary>
         /// Пользователь и Код должности 1С

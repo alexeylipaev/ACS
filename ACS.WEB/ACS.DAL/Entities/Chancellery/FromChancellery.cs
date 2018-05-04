@@ -16,21 +16,14 @@ namespace ACS.DAL.Entities
 
         #region от пользователя
 
-        public int? EmployeeId { get; set; }
-
         public virtual Employee Employee { get; set; }
 
         #endregion
 
         #region от внешней организации
-
-        public int? ExternalOrganizationId { get; set; }
-
         public virtual ExternalOrganizationChancellery ExternalOrganization { get; set; }
 
         #endregion
-
-        public int?  ChancelleryId { get; set; }
 
         public virtual Chancellery Chancellery { get; set; }
     }

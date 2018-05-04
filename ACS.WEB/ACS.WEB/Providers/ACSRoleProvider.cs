@@ -95,9 +95,9 @@ namespace ACS.WEB.Providers
             var applicationUserDTO = ApplicationUserService.FindByEmail(loginEmail);//SecurityService.GetIdentityUser(Email);
 
             List<string> result = new List<string>();
-            foreach (var roleId in applicationUserDTO.RolesId)
+            foreach (var appUserRole in applicationUserDTO.Roles)
             {
-                var role = ApplicationUserService.FindRoleById(roleId);
+                var role = ApplicationUserService.FindRoleById(appUserRole.RoleId);
                 if (role != null)
                     result.Add(role.Name.ToString());
             }

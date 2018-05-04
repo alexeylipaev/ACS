@@ -28,12 +28,12 @@ namespace ACS.DAL.Configuration
 
             HasMany(e => e.FromChancelleries)//одна канцелярская запись может быть оформлена от N (обсуждали)
             .WithOptional(e => e.Chancellery)//в записи "от кого" может отсуствовать ссылка на канцелярскую запись
-            .HasForeignKey(e => e.ChancelleryId)//связываем по внешнему ключу ChancelleryId
+            //.HasForeignKey(e => e.ChancelleryId)//связываем по внешнему ключу ChancelleryId
             .WillCascadeOnDelete(false);//при удалении канцелярской записи, "от кого" не удаляем
 
             HasMany(e => e.ToChancelleries)
             .WithOptional(e => e.Chancellery)
-            .HasForeignKey(e => e.ChancelleryId)
+            //.HasForeignKey(e => e.ChancelleryId)
             .WillCascadeOnDelete(false);
         }
     }

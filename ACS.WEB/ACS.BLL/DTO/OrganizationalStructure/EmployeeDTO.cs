@@ -13,16 +13,15 @@ namespace ACS.BLL.DTO
     public partial class EmployeeDTO : SystemParametersDTO
     {
 
-        //public UserDTO()
-        //{
-        //    Accesses = new HashSet<AccessDTO>();
-        //    Chancelleries = new HashSet<ChancelleryDTO>();
-        //    PostsEmployeesСode1С = new HashSet<PostsEmployeesСode1СDTO>();
-        //}
+        public EmployeeDTO()
+        {
+            Accesses = new HashSet<AccessDTO>();
+            Chancelleries = new HashSet<ChancelleryDTO>();
+            PostsEmployeesСode1С = new HashSet<PostEmployeeСode1СDTO>();
+        }
 
         public int Id { get; set; }
 
-       
         public string FName { get; set; }
 
         public string LName { get; set; }
@@ -31,10 +30,7 @@ namespace ACS.BLL.DTO
 
         public string Email { get; set; }
 
-        /// <summary>
-        /// Табельный номер
-        /// </summary>
-        public string PersonnelNumber { get; set; }
+
 
         public DateTime? Birthday { get; set; }
 
@@ -42,21 +38,22 @@ namespace ACS.BLL.DTO
 
         public Guid? Guid1C { get; set; }
 
-        public int? ApplicationEmployeeId { get; set; }
 
-        ///// <summary>
-        ///// Доступы пользователя
-        ///// </summary>
-        //public virtual ICollection<AccessDTO> Accesses { get; set; }
+        public virtual ApplicationUserDTO ApplicationUser { get; set; }
 
-        ///// <summary>
-        ///// Канцелярские записи пользователя
-        ///// </summary>
-        //public virtual ICollection<ChancelleryDTO> Chancelleries { get; set; }
+        /// <summary>
+        /// Доступы пользователя
+        /// </summary>
+        public virtual ICollection<AccessDTO> Accesses { get; set; }
 
-        ///// <summary>
-        ///// Коды1С должностей пользователя
-        ///// </summary>
-        //public virtual ICollection<PostsEmployeesСode1СDTO> PostsEmployeesСode1С { get; set; }
+        /// <summary>
+        /// Канцелярские записи пользователя
+        /// </summary>
+        public virtual ICollection<ChancelleryDTO> Chancelleries { get; set; }
+
+        /// <summary>
+        /// Коды1С должностей пользователя
+        /// </summary>
+        public virtual ICollection<PostEmployeeСode1СDTO> PostsEmployeesСode1С { get; set; }
     }
 }

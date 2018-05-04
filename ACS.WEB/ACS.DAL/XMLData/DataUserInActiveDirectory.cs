@@ -33,7 +33,7 @@ namespace ACS.XMLData
         {
             UserPrincipal up = null;
 
-            if (up == null) return;
+            if (pc == null) return;
             try
             {
                 up = UserPrincipal.FindByIdentity(pc, IdentityType.Name, string.Format("{0} {1}", lastName, firstName));

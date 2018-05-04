@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ACS.BLL.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,22 +17,22 @@ namespace ACS.BLL.DTO
 
         #region от пользователя
 
-        public int? EmployeeId { get; set; }
+        //public int? EmployeeId { get; set; }
 
-        //public virtual UserDTO Employee { get; set; }
+        public virtual EmployeeDTO Employee { get; set; }
 
         #endregion
 
         #region от внешней организации
 
-        public int? ExternalOrganizationId { get; set; }
+       // public int? ExternalOrganizationId { get; set; }
 
-        //public virtual ExternalOrganizationChancelleryDTO ExternalOrganization { get; set; }
+        public virtual ExternalOrganizationChancelleryDTO ExternalOrganization { get; set; }
 
         #endregion
 
-        public int? ChancelleryId { get; set; }
+        //public int? ChancelleryId { get; set; }
 
-        //public virtual ChancelleryDTO Chancellery { get; set; }
+        public virtual ChancelleryDTO Chancellery { get; set; }
     }
 }

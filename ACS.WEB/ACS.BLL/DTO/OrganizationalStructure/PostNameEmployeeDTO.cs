@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ACS.BLL.DTO
 {
 
-    public partial class PostNameUserDTO : SystemParametersDTO
+    public partial class PostNameEmployeeDTO : SystemParametersDTO
     {
        
         public int Id { get; set; }

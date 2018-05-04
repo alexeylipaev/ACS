@@ -43,9 +43,6 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="fm.EntityFrameworkCore.Relational, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c09338e0a195dd14, processorArchitecture=MSIL">
-      <HintPath>..\packages\fm.EntityFrameworkCore.Relational.2.0.0\lib\netstandard2.0\fm.EntityFrameworkCore.Relational.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -61,9 +58,6 @@
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=2.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.2.0.1\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin">
       <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
@@ -159,8 +153,6 @@
   <ItemGroup>
     <Compile Include="Configuration\Access\AccessConfig.cs" />
     <Compile Include="Configuration\Access\TypeAccessConfig.cs" />
-    <Compile Include="Configuration\ASPIdentityUser\ApplicationClaimConfig.cs" />
-    <Compile Include="Configuration\ASPIdentityUser\ApplicationLoginConfig.cs" />
     <Compile Include="Configuration\ASPIdentityUser\ApplicationRoleConfig.cs" />
     <Compile Include="Configuration\Chancellery\ChancelleryConfig.cs" />
     <Compile Include="Configuration\Chancellery\ExternalOrganizationChancelleryConfig.cs" />
@@ -180,13 +172,15 @@
     <Compile Include="Configuration\ASPIdentityUser\ApplicationUserConfig.cs" />
     <Compile Include="EF\MyContextFactory.cs" />
     <Compile Include="Configuration\OrganizationalStructure\EmployeePassportConfig.cs" />
+    <Compile Include="Entities\ASPIdentityUser\AppRoleStore.cs" />
+    <Compile Include="Entities\ASPIdentityUser\AppUserRole.cs" />
+    <Compile Include="Entities\ASPIdentityUser\AppUserStore.cs" />
     <Compile Include="Сonnection.cs" />
     <Compile Include="Entities\Access\Access.cs" />
     <Compile Include="Entities\ASPIdentityUser\ApplicationClaim.cs" />
     <Compile Include="Entities\ASPIdentityUser\ApplicationLogin.cs" />
     <Compile Include="Entities\ASPIdentityUser\ApplicationUser.cs" />
     <Compile Include="Entities\ASPIdentityUser\ApplicationRole.cs" />
-    <Compile Include="Entities\ASPIdentityUser\IdentityModels.cs" />
     <Compile Include="Entities\Chancellery\Chancellery.cs" />
     <Compile Include="Entities\Chancellery\ExternalOrganizationChancellery.cs" />
     <Compile Include="Entities\DataEntity.cs" />
@@ -195,7 +189,7 @@
     <Compile Include="Entities\Chancellery\FromChancellery.cs" />
     <Compile Include="Entities\Chancellery\JournalRegistrationsChancellery.cs" />
     <Compile Include="Entities\OrganizationalStructure\Department.cs" />
-    <Compile Include="Entities\OrganizationalStructure\PostNameEmployee1C.cs" />
+    <Compile Include="Entities\OrganizationalStructure\PostNameEmployeeDTO.cs" />
     <Compile Include="Entities\OrganizationalStructure\PostEmployeeСode1С.cs" />
     <Compile Include="Entities\SystemParameters.cs" />
     <Compile Include="Entities\Chancellery\ToChancellery.cs" />

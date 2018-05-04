@@ -11,18 +11,17 @@ namespace ACS.BLL.DTO
     /// </summary>
     public partial class ToChancelleryDTO : SystemParametersDTO
     {
-        //public ToChancelleryDTO()
-        //{
-        //    ExternalOrganizations = new HashSet<ExternalOrganizationChancelleryDTO>();
-        //    Employees = new HashSet<UserDTO>();
-        //}
+        public ToChancelleryDTO()
+        {
+            ExternalOrganizations = new HashSet<ExternalOrganizationChancelleryDTO>();
+            Employees = new HashSet<EmployeeDTO>();
+        }
 
         public int Id { get; set; }
 
-        //public ICollection<ExternalOrganizationChancelleryDTO> ExternalOrganizations { get; set; }
-        //public ICollection<UserDTO> Employees { get; set; }
+        public ICollection<ExternalOrganizationChancelleryDTO> ExternalOrganizations { get; set; }
+        public ICollection<EmployeeDTO> Employees { get; set; }
 
-        public int? ChancelleryId { get; set; }
-        //public virtual ChancelleryDTO Chancellery { get; set; }
+        public virtual ChancelleryDTO Chancellery { get; set; }
     }
 }

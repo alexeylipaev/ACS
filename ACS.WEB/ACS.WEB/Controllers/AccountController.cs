@@ -104,14 +104,16 @@ namespace ACS.WEB.Controllers
             await SetInitialDataAsync();
             if (ModelState.IsValid)
             {
+
+                AppUserRoleDTO appUserRoleDto = ApplicationUserService.GetAppUserRoleAssignmentData(1);
+
                 ApplicationUserDTO applicationUserDTO = new ApplicationUserDTO
                 {
                     Email = model.Email,
                     PasswordHash = model.Password,
                     //Address = model.Address,
                     UserName = model.UserName,
-                    RolesId = { 1 }
-                   , Role = "User"
+                    Roles = { appUserRoleDto }
                 };
 
                 OperationDetails operationDetails = await ApplicationUserService.CreateAsync(applicationUserDTO);
@@ -137,14 +139,14 @@ namespace ACS.WEB.Controllers
 
         private async Task SetInitialDataAsync()
         {
+            AppUserRoleDTO appUserRoleDto = ApplicationUserService.GetAppUserRoleAssignmentData(1);
+
             await ApplicationUserService.SetInitialData(new ApplicationUserDTO
             {
                 Email = "asu_dinamika@dinamika-avia.ru",
-                UserName = "asu_dinamika",
-                PasswordHash = "ad46D_ewr3",
-                s_AuthorID = 1,
-                s_EditorID = 1,
-                RolesId = { 2 }
+                UserName = "asu_dinamika@dinamika-avia.ru",
+                PasswordHash = "systempass",
+                Roles = { { appUserRoleDto } }
             }, new List<string> { "User", "Admin" });
         }
 
