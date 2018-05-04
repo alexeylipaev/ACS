@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using ACS.BLL.Interfaces;
 using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
-
+using ACS.WEB.Models.ActiveDirectoryAuthentication;
 
 namespace ACS.WEB.Controllers
 {
@@ -44,28 +44,43 @@ namespace ACS.WEB.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model)
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            await SetInitialDataAsync();
+            //await SetInitialDataAsync();
 
             if (ModelState.IsValid)
             {
-                ApplicationUserDTO applicationUserDTO = new ApplicationUserDTO { Email = model.Email, PasswordHash = model.Password };
+                // usually this will be injected via DI. but creating this manually now for brevity
+                IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+                var authService = new AdAuthenticationService(authenticationManager);
 
-                ClaimsIdentity claim = await ApplicationUserService.Authenticate(applicationUserDTO);
-                if (claim == null)
+                var authenticationResult = authService.SignIn(model.Email, model.Password);
+                if (authenticationResult.IsSuccess)
                 {
-                    ModelState.AddModelError("", "Неверный логин или пароль.");
+                    // we are in!
+                    return RedirectPermanent(returnUrl);
+                    //return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    AuthenticationManager.SignOut();
-                    AuthenticationManager.SignIn(new AuthenticationProperties
-                    {
-                        IsPersistent = true
-                    }, claim);
-                    return RedirectToAction("Index", "Home");
-                }
+
+                ModelState.AddModelError("", authenticationResult.ErrorMessage);
+                return View(model);
+
+                //ApplicationUserDTO applicationUserDTO = new ApplicationUserDTO { Email = model.Email, PasswordHash = model.Password };
+
+                //ClaimsIdentity claim = await ApplicationUserService.Authenticate(applicationUserDTO);
+                //if (claim == null)
+                //{
+                //    ModelState.AddModelError("", "Неверный логин или пароль.");
+                //}
+                //else
+                //{
+                //    AuthenticationManager.SignOut();
+                //    AuthenticationManager.SignIn(new AuthenticationProperties
+                //    {
+                //        IsPersistent = true
+                //    }, claim);
+                //    return RedirectToAction("Index", "Home");
+                //}
             }
             return View(model);
         }

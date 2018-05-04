@@ -185,6 +185,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminApplicationUserVMController.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Models\Access\AccessViewModel.cs" />
     <Compile Include="Models\Access\TypeAccessViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ActiveDirectoryAuthentication\AdAuthenticationService.cs" />
     <Compile Include="Models\ASPIdentityUser\ApplicationClaimViewModel.cs" />
     <Compile Include="Models\ASPIdentityUser\ApplicationUserViewModel.cs" />
     <Compile Include="Models\ASPIdentityUser\ApplicationLoginViewModel.cs" />
@@ -265,6 +267,8 @@
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="packages.config" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Description.txt" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -364,6 +368,9 @@
     <Content Include="Scripts\popper-utils.js.map" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Views\AdminApplicationUserVM\" />
   </ItemGroup>
   <ItemGroup>

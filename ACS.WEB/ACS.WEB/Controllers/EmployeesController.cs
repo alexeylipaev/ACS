@@ -2,15 +2,10 @@
 using System.Net;
 using System.Web.Mvc;
 using ACS.BLL.Interfaces;
-using ACS.WEB.Models;
 using ACS.BLL.DTO;
 using AutoMapper;
 using ACS.BLL.Infrastructure;
 using ACS.WEB.ViewModel;
-using System.DirectoryServices.AccountManagement;
-using System.Web.Security;
-using ACS.WEB.Util;
-using ACS.BLL;
 using System.Linq;
 
 namespace ACS.WEB.Controllers
@@ -32,6 +27,7 @@ namespace ACS.WEB.Controllers
         public ActionResult Index()
         {
             IEnumerable<EmployeeDTO> userDtos = EmployeeService.GetUsers().Where(e => !(bool)e.s_InBasket);
+            var user = this.User;
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
             var users = mapper.Map<IEnumerable<EmployeeDTO>, List<EmployeeViewModel>>(userDtos);
             return View(users);

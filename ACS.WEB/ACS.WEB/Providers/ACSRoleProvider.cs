@@ -88,11 +88,11 @@ namespace ACS.WEB.Providers
         /// </summary>
         /// <param name="domainUsername"></param>
         /// <returns></returns>
-        public override string[] GetRolesForUser(string domainUsername)
+        public override string[] GetRolesForUser(string loginEmail)
         {
-            string Email = ActiveDirectory.IdentityUserEmailFromActiveDirectory(domainUsername);
+            //string Email = ActiveDirectory.IdentityUserEmailFromActiveDirectory(domainUsername);
             //находим пользователя по его Email
-            var applicationUserDTO = ApplicationUserService.FindByEmail(Email);//SecurityService.GetIdentityUser(Email);
+            var applicationUserDTO = ApplicationUserService.FindByEmail(loginEmail);//SecurityService.GetIdentityUser(Email);
 
             List<string> result = new List<string>();
             foreach (var roleId in applicationUserDTO.RolesId)

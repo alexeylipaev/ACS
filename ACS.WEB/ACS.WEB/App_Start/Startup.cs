@@ -25,15 +25,16 @@ namespace ACS.WEB.App_Start
         IServiceCreator serviceCreator = new ServiceCreator();
         public void Configuration(IAppBuilder app)
         {
-            return;
+            
+            //return;
             //Потом сервис региструется контекстом OWIN:
-
-            app.CreatePerOwinContext(CreateUserService);
-            app.UseCookieAuthentication(new CookieAuthenticationOptions
-            {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
-            });
+            ConfigureAuth(app);
+            //app.CreatePerOwinContext(CreateUserService);
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions
+            //{
+            //    AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+            //    LoginPath = new PathString("/Account/Login"),
+            //});
         }
 
         private IApplicationUserService CreateUserService()
