@@ -41,7 +41,7 @@ namespace ACS.BLL.DTO
 
         //public int? ParentDepartmentId { get; set; }
 
-        public virtual DepartmentDTO ParentDepartment { get; set; }
+        public virtual int? ParentDepartment_Id { get; set; }
 
         #endregion
 

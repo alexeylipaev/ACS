@@ -19,7 +19,7 @@ namespace ACS.BLL.DTO
 
         //public int? EmployeeId { get; set; }
 
-        public virtual EmployeeDTO Employee { get; set; }
+        public virtual int? Employee_Id { get; set; }
 
         #endregion
 
@@ -33,6 +33,6 @@ namespace ACS.BLL.DTO
 
         //public int? ChancelleryId { get; set; }
 
-        public virtual ChancelleryDTO Chancellery { get; set; }
+        public virtual int? Chancellery_Id { get; set; }
     }
 }

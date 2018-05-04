@@ -71,7 +71,7 @@ namespace ACS.BLL.DTO
 
         #region Ответственный
 
-        //public int? ResponsibleEmployeeId { get; set; }
+        public int? ResponsibleEmployee_Id { get; set; }
 
         /// <summary>
         /// Ответственный

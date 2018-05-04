@@ -19,7 +19,7 @@ namespace ACS.BLL.DTO
 
         //public int? EmployeeId { get; set; }
 
-        public virtual EmployeeDTO Employee { get; set; }
+        public virtual int? Employee_Id { get; set; }
 
     }
 }

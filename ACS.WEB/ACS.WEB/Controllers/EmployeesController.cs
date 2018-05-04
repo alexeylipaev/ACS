@@ -11,7 +11,7 @@ using System.Linq;
 namespace ACS.WEB.Controllers
 {
     [Authorize]
-    [Authorize(Roles = "Administrators")]
+    [Authorize(Roles = "Admin")]
     public class EmployeesController : Controller
     {
         //private ACSContext db = new ACSContext();

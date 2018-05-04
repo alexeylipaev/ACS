@@ -38,7 +38,6 @@ namespace ACS.BLL.DTO
 
         public Guid? Guid1C { get; set; }
 
-
         public virtual ApplicationUserDTO ApplicationUser { get; set; }
 
         /// <summary>

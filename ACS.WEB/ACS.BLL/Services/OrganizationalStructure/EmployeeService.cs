@@ -218,12 +218,34 @@ namespace ACS.BLL.Services
             return Database.UserManager.FindByEmail(authorEmail);
         }
 
+
+       IMapper GetMapEmplToEmpDto()
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Access, AccessDTO>().ForMember(x => x.Employee_Id,
+x => x.MapFrom(m => m.Employee.Id));
+                cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.ResponsibleEmployee_Id,
+x => x.MapFrom(m => m.Employee.Id));
+                cfg.CreateMap<ApplicationUser, ApplicationUserDTO>().ForMember(x => x.Employee_Id,
+          x => x.MapFrom(m => m.Employee.Id));
+                cfg.CreateMap<PostEmployeeСode1С, PostEmployeeСode1СDTO>().ForMember(x => x.Employee_Id,
+x => x.MapFrom(m => m.Employee.Id));
+                cfg.CreateMap<Employee, EmployeeDTO>();
+
+            }).CreateMapper();
+
+            return mapper;
+        }
+
         public IEnumerable<EmployeeDTO> GetUsers()
         {
-      
+
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            //return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
+
+            return GetMapEmplToEmpDto().Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
         }
 
         public EmployeeDTO GetUser(int? Id)
@@ -235,8 +257,8 @@ namespace ACS.BLL.Services
             if (Employee == null)
                 throw new ValidationException("Пользователь не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
-            return mapper.Map<Employee, EmployeeDTO>(Employee);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return GetMapEmplToEmpDto().Map<Employee, EmployeeDTO>(Employee);
 
         }
 
