@@ -1195,7 +1195,7 @@ try {
 }
 
 function Sizzle( selector, context, results, seed ) {
-	var match, elem, model, nodeType,
+	var match, elem, m, nodeType,
 		// QSA vars
 		i, groups, old, nid, newContext, newSelector;
 
@@ -1219,15 +1219,15 @@ function Sizzle( selector, context, results, seed ) {
 		// Shortcuts
 		if ( (match = rquickExpr.exec( selector )) ) {
 			// Speed-up: Sizzle("#Id")
-			if ( (model = match[1]) ) {
+			if ( (m = match[1]) ) {
 				if ( nodeType === 9 ) {
-					elem = context.getElementById( model );
+					elem = context.getElementById( m );
 					// Check parentNode to catch when Blackberry 4.6 returns
 					// nodes that are no longer in the document #6963
 					if ( elem && elem.parentNode ) {
 						// Handle the case where IE, Opera, and Webkit return items
 						// by name instead of Id
-						if ( elem.Id === model ) {
+						if ( elem.Id === m ) {
 							results.push( elem );
 							return results;
 						}
@@ -1236,8 +1236,8 @@ function Sizzle( selector, context, results, seed ) {
 					}
 				} else {
 					// Context is not a document
-					if ( context.ownerDocument && (elem = context.ownerDocument.getElementById( model )) &&
-						contains( context, elem ) && elem.Id === model ) {
+					if ( context.ownerDocument && (elem = context.ownerDocument.getElementById( m )) &&
+						contains( context, elem ) && elem.Id === m ) {
 						results.push( elem );
 						return results;
 					}
@@ -1249,8 +1249,8 @@ function Sizzle( selector, context, results, seed ) {
 				return results;
 
 			// Speed-up: Sizzle(".CLASS")
-			} else if ( (model = match[3]) && support.getElementsByClassName && context.getElementsByClassName ) {
-				push.apply( results, context.getElementsByClassName( model ) );
+			} else if ( (m = match[3]) && support.getElementsByClassName && context.getElementsByClassName ) {
+				push.apply( results, context.getElementsByClassName( m ) );
 				return results;
 			}
 		}
@@ -1529,10 +1529,10 @@ setDocument = Sizzle.setDocument = function( node ) {
 	if ( support.getById ) {
 		Expr.find["Id"] = function( Id, context ) {
 			if ( typeof context.getElementById !== strundefined && documentIsHTML ) {
-				var model = context.getElementById( Id );
+				var m = context.getElementById( Id );
 				// Check parentNode to catch when Blackberry 4.6 returns
 				// nodes that are no longer in the document #6963
-				return model && model.parentNode ? [model] : [];
+				return m && m.parentNode ? [m] : [];
 			}
 		};
 		Expr.filter["Id"] = function( Id ) {

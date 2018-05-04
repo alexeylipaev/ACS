@@ -1,4 +1,7 @@
-﻿@model IEnumerable<ACS.WEB.ViewModel.EmployeeViewModel>
+﻿
+@using ACS.WEB.ViewModel;
+
+@model IEnumerable<ACS.WEB.ViewModel.EmployeeViewModel>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -46,7 +49,7 @@
                 @Html.DisplayFor(modelItem => item.FullName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @ListHelper.CreateEmailLink(Html, item.Email)   
             </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { Id = item.Id }) |
@@ -73,3 +76,5 @@
         })
     </script>
 }
+
+@using ACS.WEB.Helpers
