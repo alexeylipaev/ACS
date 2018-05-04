@@ -16,7 +16,8 @@ namespace ACS.WEB
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{Id}",
-                defaults: new { controller = "Home", action = "Index", Id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", Id = UrlParameter.Optional },
+                namespaces: new[] { "ACS.WEB.Controllers" }
             );
         }
     }

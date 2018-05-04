@@ -26,7 +26,7 @@ namespace ACS.WEB.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            IEnumerable<EmployeeDTO> userDtos = EmployeeService.GetUsers().Where(e => !(bool)e.s_InBasket);
+            IEnumerable<EmployeeDTO> userDtos = EmployeeService.GetUsers().Where(e => e.s_InBasket != null && !(bool)e.s_InBasket);
             var user = this.User;
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
             var users = mapper.Map<IEnumerable<EmployeeDTO>, List<EmployeeViewModel>>(userDtos);
