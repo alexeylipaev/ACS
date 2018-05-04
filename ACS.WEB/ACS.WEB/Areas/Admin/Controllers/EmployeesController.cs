@@ -13,6 +13,7 @@ using System.Web.Mvc;
 
 namespace ACS.WEB.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class EmployeesController : Controller
     {
 

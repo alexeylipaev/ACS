@@ -188,6 +188,7 @@ namespace ACS.BLL.Services
                 throw new ValidationException("Почта пользователя не установлена", "");
 
             var appUser = (from user in Database.UserManager.Users
+                           where !string.IsNullOrWhiteSpace(user.Email) 
                            where user.Email == Email
                            select user).FirstOrDefault();
 
