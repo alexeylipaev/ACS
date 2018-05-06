@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.Departments;
         }
 
-        public Department Get(int Id)
+        public Department Get(int id)
         {
-            return db.Departments.Find(Id);
+            return db.Departments.Find(id);
         }
 
 
@@ -35,7 +35,12 @@ namespace ACS.DAL.Repositories
         {
             db.Departments.Add(Department);
         }
-
+        public void MoveToBasketEmployee(Department department, int EditorId)
+        {
+            department.s_InBasket = true;
+            department.s_EditorId = EditorId;
+            Update(department);
+        }
         public void Update(Department department)
         {
             db.Entry(department).State = EntityState.Modified;
@@ -46,9 +51,9 @@ namespace ACS.DAL.Repositories
             return db.Departments.Where(predicate).ToList();
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-            Department department = db.Departments.Find(Id);
+            Department department = db.Departments.Find(id);
             if (department != null)
                 db.Departments.Remove(department);
         }

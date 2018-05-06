@@ -14,23 +14,9 @@ namespace ACS.BLL.Interfaces
 
     public interface IApplicationUserService : IDisposable
     {
-
-        //ApplicationUserDTO GetApplicationUser(int? Id);
-        //IEnumerable<ApplicationUserDTO> GetApplicationUser();
         int GetIdNewAppUser();
+
         AppUserRoleDTO GetAppUserRoleAssignmentData(int RoleId, int? UserId = null);
-        Task<OperationDetails> ResetPasswordAsync(int userId, string token, string newPassword);
-
-        Task<string> GenerateEmailConfirmationTokenAsync(int userId);
-
-        Task<OperationDetails> ConfirmEmailAsync(int userId, string token);
-
-        Task SendEmailAsync(int userId, string subject, string body);
-
-
-        Task<ClaimsIdentity> Authenticate(ApplicationUserDTO applicationUserDTO);
-
-        Task SetInitialData(ApplicationUserDTO adminDto, List<string> roles);
 
         Task<ApplicationUserDTO> FindByNameAsync(string userName);
 
@@ -40,16 +26,23 @@ namespace ACS.BLL.Interfaces
 
         ApplicationRoleDTO FindRoleById(int roleId);
 
-        Task<bool> IsEmailConfirmedAsync(int userId);
+        ApplicationUserDTO FindById(int userId);
 
-        bool IsInRole(string userName, string role);
-
-        Task<string> GeneratePasswordResetTokenAsync(int userId);
+        Task<ApplicationUserDTO> FindByIdAsync(int userId);
 
         Task<OperationDetails> AddLoginAsync(int userId, UserLoginInfo login);
 
         Task<OperationDetails> CreateAsync(ApplicationUserDTO applicationUserDTO);
 
+        Task<OperationDetails> AssignRolesAsync(int userId);
+
         IEnumerable<ApplicationUserDTO> GetApplicationUsers();
+
+        IEnumerable<ApplicationRoleDTO> GetApplicationRoles();
+
+        void UpdateUser(ApplicationUserDTO applicationUserDTO);
+
+        void DeleteUser(int userId);
+        bool IsInRole(string username, string roleName);
     }
 }

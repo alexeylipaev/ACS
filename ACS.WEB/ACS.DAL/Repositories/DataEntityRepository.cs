@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.DataEntityis;
         }
 
-        public DataEntity Get(int Id)
+        public DataEntity Get(int id)
         {
-            return db.DataEntityis.Find(Id);
+            return db.DataEntityis.Find(id);
         }
 
 
@@ -34,7 +34,12 @@ namespace ACS.DAL.Repositories
         {
             db.DataEntityis.Add(DataEntity);
         }
-
+        public void MoveToBasketEmployee(DataEntity DataEntity, int EditorId)
+        {
+            DataEntity.s_InBasket = true;
+            DataEntity.s_EditorId = EditorId;
+            Update(DataEntity);
+        }
         public void Update(DataEntity DataEntity)
         {
             db.Entry(DataEntity).State = EntityState.Modified;
@@ -45,9 +50,9 @@ namespace ACS.DAL.Repositories
             return db.DataEntityis.Where(predicate).ToList();
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-            DataEntity DataEntity = db.DataEntityis.Find(Id);
+            DataEntity DataEntity = db.DataEntityis.Find(id);
             if (DataEntity != null)
                 db.DataEntityis.Remove(DataEntity);
         }

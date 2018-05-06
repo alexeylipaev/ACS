@@ -22,12 +22,12 @@ namespace ACS.BLL.Services
             Database = uow;
         }
 
-        public EmployeeDTO GetUser(int? Id)
+        public EmployeeDTO GetUser(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id пользователя", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id пользователя", "");
 
-            var user = Database.Employees.Get(Id.Value);
+            var user = Database.Employees.Get(id.Value);
             if (user == null)
                 throw new ValidationException("Пользователь не найден", "");
 
@@ -35,12 +35,12 @@ namespace ACS.BLL.Services
             return mapper.Map<Employee, EmployeeDTO>(user);
         }
 
-        public EmployeePassportDTO GetUserPassport(int? Id)
+        public EmployeePassportDTO GetEmployeePassport(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id паспорта", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id паспорта", "");
 
-            var Passport = Database.EmployeesPassports.Get(Id.Value);
+            var Passport = Database.EmployeesPassports.Get(id.Value);
             if (Passport == null)
                 throw new ValidationException("Паспорт не найден", "");
 
@@ -56,12 +56,12 @@ namespace ACS.BLL.Services
         }
 
 
-        public void MakeUserPassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail)
+        public void MakeEmployeePassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail)
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateUserPassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail)
+        public void UpdateEmployeePassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail)
         {
             throw new NotImplementedException();
         }

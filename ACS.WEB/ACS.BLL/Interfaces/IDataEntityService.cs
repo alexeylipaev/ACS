@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-   public interface IDataEntityService
+   public interface IDataEntityService : IDisposable
     {
         void MakeDataEntity(DataEntityDTO DataEntityDTO);
-        DataEntityDTO GetDataEntity(int? Id);
+        DataEntityDTO GetDataEntity(int? id);
         IEnumerable<DataEntityDTO> GetDataEntity();
-        void Dispose();
+
     }
 }

@@ -22,29 +22,39 @@ namespace ACS.DAL.Identity
         public ApplicationUserManager(IUserStore<ApplicationUser, int> store)
             : base(store)
         {
+            //Настройте Microsoft.AspNet.Identity, чтобы разрешить адрес электронной почты как имя пользователя
+            this.UserValidator = new UserValidator<ApplicationUser,int>(this) { AllowOnlyAlphanumericUserNames = false };
         }
-
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
+     
+    public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
 
             var manager = new ApplicationUserManager(
               new AppUserStore(context.Get<ACSContext>()));
 
-            // Configure validation logic for usernames 
-            manager.UserValidator = new UserValidator<ApplicationUser, int>(manager)
-            {
-                AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
-            };
+
+            //// валидация пользователя
+            //manager.UserValidator = new UserValidator<ApplicationUser, int>(manager)
+            //{
+            //    //если равно true, то юзернейм должен содержать только алфавитно-цифровые символы
+            //    AllowOnlyAlphanumericUserNames = false,
+            //    //если равно true, то email пользователя должен быть уникальным
+            //    RequireUniqueEmail = true,
+
+            //};
+
+            manager.UserValidator = new ApplicationUserValidator(manager);
+
+  
 
             // Configure validation logic for passwords
-            manager.PasswordValidator = new PasswordValidator
+           manager.PasswordValidator = new PasswordValidator
             {
-                RequiredLength = 8,
+                RequiredLength = 6,
                 RequireNonLetterOrDigit = false,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false,
             };
 
             // Configure user lockout defaults
@@ -54,14 +64,14 @@ namespace ACS.DAL.Identity
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
-            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser, int>
+            manager.RegisterTwoFactorProvider("Телефонный код", new PhoneNumberTokenProvider<ApplicationUser, int>
             {
-                MessageFormat = "Your security code is {0}"
+                MessageFormat = "Ваш код безопасности {0}"
             });
-            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser, int>
+            manager.RegisterTwoFactorProvider("Код электронной почты", new EmailTokenProvider<ApplicationUser, int>
             {
-                Subject = "Security Code",
-                BodyFormat = "Your security code is {0}"
+                Subject = "Код безопасности",
+                BodyFormat = "Ваш код безопасности {0}"
             });
             manager.EmailService = new EmailService();
             manager.SmsService = new SmsService();

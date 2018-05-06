@@ -12,7 +12,7 @@ namespace ACS.DAL.Configuration
     {
         public FileRecordChancelleryConfig()
         {
-            HasKey(e => e.Id);
+            HasKey(e => e.id);
 
             Property(e => e.Name)
                    .IsUnicode(true);

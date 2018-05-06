@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 
@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 namespace ACS.WEB.ViewModel
 {
 
-    public partial class PostNameUserViewModel : SystemParametersViewModel
+    public partial class PostNameEmployeeViewModel : SystemParametersViewModel
     {
        
-        public int Id { get; set; }
+        public int id { get; set; }
 
 
         public string Name { get; set; }

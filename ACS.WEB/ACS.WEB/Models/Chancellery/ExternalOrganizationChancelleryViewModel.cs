@@ -12,7 +12,7 @@ namespace ACS.WEB.ViewModel
     /// </summary>
     public partial class ExternalOrganizationChancelleryViewModel : SystemParametersViewModel
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public string Name { get; set; }
 

@@ -10,7 +10,7 @@ namespace ACS.WEB.ViewModel
 
     public partial class WorkHistoryViewModel : SystemParametersViewModel
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// Имя должности
@@ -24,7 +24,7 @@ namespace ACS.WEB.ViewModel
         /// </summary>
         //public virtual DepartmentViewModel Department { get; set; }
 
-        public int PostsEmployeesСode1СId { get; set; }
+        public int PostsEmployeesСode1Сid { get; set; }
 
         /// <summary>
         /// Пользователь и Код должности 1С

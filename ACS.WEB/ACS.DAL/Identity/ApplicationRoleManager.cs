@@ -53,7 +53,7 @@ namespace ACS.DAL.Identity
 
         //public IEnumerable<ApplicationUser> FindAllAppUsersByRole(ApplicationRoleDTO AppRoleDTO)
         //{
-        //    return FindById(AppRoleDTO.Id.ToString()).Users.OfType<ApplicationUser>();
+        //    return FindById(AppRoleDTO.id.ToString()).Users.OfType<ApplicationUser>();
         //}
 
     }

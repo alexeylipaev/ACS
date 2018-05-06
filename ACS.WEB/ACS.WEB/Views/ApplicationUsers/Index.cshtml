@@ -1,0 +1,58 @@
+﻿
+@using ACS.WEB.ViewModel;
+@model IEnumerable<ACS.WEB.ViewModel.ApplicationUserViewModel>
+
+@{
+    ViewBag.Title = "Учетные записи";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Учетные записи</h2>
+
+<p>
+    @Html.ActionLink("Создать учетную запись", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+
+        <th>Роли</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+
+            <td>
+                    <table class="table">
+                    @foreach (var nameRole in item.NamesRoles)
+                    {
+                        <tr>
+                            @Html.DisplayFor(model => nameRole.Name)   
+                        </tr>
+                    }
+                   </table>
+                </td>
+            <td>
+                @Html.ActionLink("Редактирование", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Подробнее", "Details", new { id = item.id }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.id })
+                @Html.ActionLink("Редактирование ролей", "AddOrEditRoles", new { id = item.id })
+            </td>
+                </tr>
+            }
+
+</table>

@@ -14,7 +14,7 @@ namespace ACS.DAL.Entities
     public partial class DataEntity : SystemParameters
     {
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// Имя типа/таблицы
@@ -22,7 +22,7 @@ namespace ACS.DAL.Entities
         public string Name { get; set; }
 
         /// <summary>
-        /// Id таблицы 
+        /// id таблицы 
         /// </summary>
         public int Object_id { get; set; }
 

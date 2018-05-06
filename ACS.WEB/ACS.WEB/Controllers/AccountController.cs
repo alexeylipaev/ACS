@@ -1,4 +1,6 @@
-﻿using System;
+﻿#warning Закомментить   HomeDev
+#define HomeDev
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -15,16 +17,18 @@ using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
 using ACS.WEB.Models.ActiveDirectoryAuthentication;
 
+
+
 namespace ACS.WEB.Controllers
 {
     //[Authorize]
     public class AccountController : Controller
     {
-        private IApplicationUserService ApplicationUserService
+        private IAccountAppUserService AccountAppUserService
         {
             get
             {
-                return HttpContext.GetOwinContext().GetUserManager<IApplicationUserService>();
+                return HttpContext.GetOwinContext().GetUserManager<IAccountAppUserService>();
             }
         }
 
@@ -40,8 +44,34 @@ namespace ACS.WEB.Controllers
         {
             return View();
         }
+        #if HomeDev
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginViewModel model)
+        {
+            await SetInitialDataAsync();
+            if (ModelState.IsValid)
+            {
+                ApplicationUserDTO applicationUserDTO = new ApplicationUserDTO { Email = model.Email, PasswordHash = model.Password };
+                ClaimsIdentity claim = await AccountAppUserService.Authenticate(applicationUserDTO);
+                if (claim == null)
+                {
+                    ModelState.AddModelError("", "Неверный логин или пароль.");
+                }
+                else
+                {
+                    AuthenticationManager.SignOut();
+                    AuthenticationManager.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = true
+                    }, claim);
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+            return View(model);
+        }
 
-
+#else
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
@@ -84,7 +114,7 @@ namespace ACS.WEB.Controllers
             }
             return View(model);
         }
-
+#endif
         public ActionResult Logout()
         {
             AuthenticationManager.SignOut();
@@ -102,33 +132,33 @@ namespace ACS.WEB.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             await SetInitialDataAsync();
+
             if (ModelState.IsValid)
             {
-
-                AppUserRoleDTO appUserRoleDto = ApplicationUserService.GetAppUserRoleAssignmentData(1);
+                AppUserRoleDTO appUserRoleDto = AccountAppUserService.GetAppUserRoleAssignmentData(1);
 
                 ApplicationUserDTO applicationUserDTO = new ApplicationUserDTO
                 {
                     Email = model.Email,
                     PasswordHash = model.Password,
                     //Address = model.Address,
-                    UserName = model.UserName,
+                    UserName = model.Email,
                     Roles = { appUserRoleDto }
                 };
 
-                OperationDetails operationDetails = await ApplicationUserService.CreateAsync(applicationUserDTO);
+                OperationDetails operationDetails = await AccountAppUserService.CreateAsync(applicationUserDTO);
 
                 if (operationDetails.Succeeded)
                 {
-                    //    string code = await ApplicationUserService.GenerateEmailConfirmationTokenAsync(applicationUserDTO.Id.ToString());
+                    //    string code = await ApplicationUserService.GenerateEmailConfirmationTokenAsync(applicationUserDTO.id.ToString());
                     //    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    //    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { UserID = applicationUserDTO.Id, code = code }, protocol: Request.Url.Scheme);
-                    //    await ApplicationUserService.SendEmailAsync(applicationUserDTO.Id.ToString(), "Подтвердите свой аккаунт", "Подтвердите свой аккаунт, нажав <a href=\"" +
+                    //    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { UserID = applicationUserDTO.id, code = code }, protocol: Request.Url.Scheme);
+                    //    await ApplicationUserService.SendEmailAsync(applicationUserDTO.id.ToString(), "Подтвердите свой аккаунт", "Подтвердите свой аккаунт, нажав <a href=\"" +
                     //callbackUrl + "\">сюда</a>");
 
                     //    return RedirectToAction("Index", "Home");
                     //return View("SuccessRegister");
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
                 else
                     ModelState.AddModelError(operationDetails.Property, operationDetails.Message);
@@ -139,9 +169,9 @@ namespace ACS.WEB.Controllers
 
         private async Task SetInitialDataAsync()
         {
-            AppUserRoleDTO appUserRoleDto = ApplicationUserService.GetAppUserRoleAssignmentData(1);
+            AppUserRoleDTO appUserRoleDto = AccountAppUserService.GetAppUserRoleAssignmentData(1);
 
-            await ApplicationUserService.SetInitialData(new ApplicationUserDTO
+            await AccountAppUserService.SetInitialData(new ApplicationUserDTO
             {
                 Email = "asu_dinamika@dinamika-avia.ru",
                 UserName = "asu_dinamika@dinamika-avia.ru",
@@ -216,7 +246,7 @@ namespace ACS.WEB.Controllers
         //    if (ModelState.IsValid)
         //    {
         //        var user = await ApplicationUserService.FindByNameAsync(model.Email);
-        //        if (user == null || !(await ApplicationUserService.IsEmailConfirmedAsync(user.Id)))
+        //        if (user == null || !(await ApplicationUserService.IsEmailConfirmedAsync(user.id)))
         //        {
         //            // Don't reveal that the user does not exist or is not confirmed
         //            return View("ForgotPasswordConfirmation");
@@ -225,10 +255,10 @@ namespace ACS.WEB.Controllers
         //        // For more information on how to enable account confirmation and password reset please visit 
         //        //http://go.microsoft.com/fwlink/?LinkID=320771
         //             // Send an email with this link
-        //             string code = await ApplicationUserService.GeneratePasswordResetTokenAsync(user.Id);
-        //       var callbackUrl = Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, protocol: Request.Url.Scheme);
+        //             string code = await ApplicationUserService.GeneratePasswordResetTokenAsync(user.id);
+        //       var callbackUrl = Url.Action("ResetPassword", "Account", new { UserId = user.id, code = code }, protocol: Request.Url.Scheme);
 
-        //       await ApplicationUserService.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking < a href =\"" + callbackUrl + "\">here</a>");
+        //       await ApplicationUserService.SendEmailAsync(user.id, "Reset Password", "Please reset your password by clicking < a href =\"" + callbackUrl + "\">here</a>");
 
         //         return RedirectToAction("ForgotPasswordConfirmation", "Account");
         //    }
@@ -270,7 +300,7 @@ namespace ACS.WEB.Controllers
         //        // Don't reveal that the user does not exist
         //        return RedirectToAction("ResetPasswordConfirmation", "Account");
         //    }
-        //    var result = await ApplicationUserService.ResetPasswordAsync(user.Id, model.Code, model.Password);
+        //    var result = await ApplicationUserService.ResetPasswordAsync(user.id, model.Code, model.Password);
         //    if (result.Succeeded)
         //    {
         //        return RedirectToAction("ResetPasswordConfirmation", "Account");
@@ -522,9 +552,9 @@ namespace ACS.WEB.Controllers
 
     //                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
     //                // Send an email with this link
-    //                // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-    //                // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { UserID = user.Id, code = code }, protocol: Request.Url.Scheme);
-    //                // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" +
+    //                // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.id);
+    //                // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { UserID = user.id, code = code }, protocol: Request.Url.Scheme);
+    //                // await UserManager.SendEmailAsync(user.id, "Confirm your account", "Please confirm your account by clicking <a href=\"" +
     //callbackUrl + "\">here</a>");
 
     //                return RedirectToAction("Index", "Home");
@@ -567,7 +597,7 @@ namespace ACS.WEB.Controllers
     //        if (ModelState.IsValid)
     //        {
     //            var user = await UserManager.FindByNameAsync(model.Email);
-    //            if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+    //            if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.id)))
     //            {
     //                // Don't reveal that the user does not exist or is not confirmed
     //                return View("ForgotPasswordConfirmation");
@@ -576,10 +606,10 @@ namespace ACS.WEB.Controllers
     //            // For more information on how to enable account confirmation and password reset please visit 
     //http://go.microsoft.com/fwlink/?LinkID=320771
     //            // Send an email with this link
-    //            // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-    //            // var callbackUrl = Url.Action("ResetPassword", "Account", new { UserId = user.Id, code = code }, 
+    //            // string code = await UserManager.GeneratePasswordResetTokenAsync(user.id);
+    //            // var callbackUrl = Url.Action("ResetPassword", "Account", new { UserId = user.id, code = code }, 
     // protocol: Request.Url.Scheme);		
-    //            // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking 
+    //            // await UserManager.SendEmailAsync(user.id, "Reset Password", "Please reset your password by clicking 
     //<a href=\"" + callbackUrl + "\">here</a>");
     //            // return RedirectToAction("ForgotPasswordConfirmation", "Account");
     //        }
@@ -621,7 +651,7 @@ namespace ACS.WEB.Controllers
     //            // Don't reveal that the user does not exist
     //            return RedirectToAction("ResetPasswordConfirmation", "Account");
     //        }
-    //        var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+    //        var result = await UserManager.ResetPasswordAsync(user.id, model.Code, model.Password);
     //        if (result.Succeeded)
     //        {
     //            return RedirectToAction("ResetPasswordConfirmation", "Account");
@@ -738,7 +768,7 @@ namespace ACS.WEB.Controllers
     //            var result = await UserManager.CreateAsync(user);
     //            if (result.Succeeded)
     //            {
-    //                result = await UserManager.AddLoginAsync(user.Id, info.Login);
+    //                result = await UserManager.AddLoginAsync(user.id, info.Login);
     //                if (result.Succeeded)
     //                {
     //                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

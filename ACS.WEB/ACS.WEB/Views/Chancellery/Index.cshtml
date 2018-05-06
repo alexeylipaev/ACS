@@ -14,7 +14,7 @@
 <table class="table">
     <tr>
         <th>
-            Id
+            id
         </th>
         <th>
             Регистрационный номер
@@ -41,7 +41,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @Html.DisplayFor(modelItem => item.id)
                 
             </td>
             <td>
@@ -67,9 +67,9 @@
             </td>
 
             <td>
-                @Html.ActionLink("Редактировать", "Edit", new { Id = item.Id }) |
-                @Html.ActionLink("Подробнее", "Details", new { Id = item.Id }) |
-                @Html.ActionLink("Удалить", "Delete", new { Id = item.Id })
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Подробнее", "Details", new { id = item.id }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.id })
             </td>
         </tr>
     }

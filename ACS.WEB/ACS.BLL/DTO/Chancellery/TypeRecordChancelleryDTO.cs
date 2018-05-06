@@ -19,7 +19,7 @@ namespace ACS.BLL.DTO
         }
 
 
-        public byte Id { get; set; }
+        public byte id { get; set; }
 
       
         public string Name { get; set; }

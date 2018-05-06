@@ -18,7 +18,7 @@ namespace ACS.DAL.Entities
             ToChancelleries = new HashSet<ToChancellery>();
         }
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public DateTime? DateRegistration { get; set; }
 

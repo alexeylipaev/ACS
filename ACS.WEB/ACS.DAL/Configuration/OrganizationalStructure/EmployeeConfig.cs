@@ -12,10 +12,10 @@ namespace ACS.DAL.Configuration
     {
         public EmployeeConfig()
         {
-            HasKey(e => e.Id);
+            HasKey(e => e.id);
 
             Property(e => e.FName)
-            .IsUnicode(true).IsRequired();
+            .IsUnicode(true)/*.IsRequired()*/;
 
             Property(e => e.LName)
             .IsUnicode(true);
@@ -28,9 +28,6 @@ namespace ACS.DAL.Configuration
 
             Property(e => e.SID)
             .IsUnicode(true);
-
-
-
 
             HasMany(e => e.Chancelleries)
             .WithOptional(e => e.Employee)

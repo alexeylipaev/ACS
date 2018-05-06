@@ -10,7 +10,7 @@ namespace ACS.BLL.DTO
 
     public partial class WorkHistoryDTO : SystemParametersDTO
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// Имя должности
@@ -24,7 +24,7 @@ namespace ACS.BLL.DTO
         /// </summary>
         public virtual DepartmentDTO Department { get; set; }
 
-        //public int PostsEmployeesСode1СId { get; set; }
+        //public int PostsEmployeesСode1Сid { get; set; }
 
         /// <summary>
         /// Пользователь и Код должности 1С

@@ -16,7 +16,7 @@ namespace ACS.BLL.DTO
             Roles = new HashSet<AppUserRoleDTO>();
         }
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public string Email { get; set; }
 
@@ -37,7 +37,7 @@ namespace ACS.BLL.DTO
         public string SID { get; set; }
 
         /// <summary>
-        /// Id пользователя
+        /// id пользователя
         /// </summary>
         public virtual int? Employee_Id { get; set; }
 

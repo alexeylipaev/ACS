@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface IAccessService
+    public interface IAccessService:IDisposable
     {
         void MakeAccess(AccessDTO accessDTO, string authorEmail);
 
         void UpdateAccess(AccessDTO accessDTO, string authorEmail);
 
-        AccessDTO GetAccess(int? Id);
+        AccessDTO GetAccess(int? id);
 
-        EmployeeDTO GetUser(int? Id);
+        EmployeeDTO GetUser(int? id);
 
         IEnumerable<AccessDTO> GetAccesses();
 
-        void Dispose();
     }
 }

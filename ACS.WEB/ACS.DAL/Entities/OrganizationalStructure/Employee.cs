@@ -18,8 +18,9 @@ namespace ACS.DAL.Entities
             Chancelleries = new HashSet<Chancellery>();
             PostsEmployeesСode1С = new HashSet<PostEmployeeСode1С>();
         }
-
-        public int Id { get; set; }
+        //[Key]
+        //[ForeignKey("ApplicationUser")]
+        public int id { get; set; }
 
         public string FName { get; set; }
 
@@ -34,6 +35,7 @@ namespace ACS.DAL.Entities
         public string SID { get; set; }
 
         public Guid? Guid1C { get; set; }
+
 
         public virtual ApplicationUser ApplicationUser { get; set; }
 

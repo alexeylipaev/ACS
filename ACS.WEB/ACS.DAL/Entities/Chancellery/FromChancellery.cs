@@ -12,7 +12,7 @@ namespace ACS.DAL.Entities
     /// </summary>
     public partial class FromChancellery : SystemParameters
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         #region от пользователя
 

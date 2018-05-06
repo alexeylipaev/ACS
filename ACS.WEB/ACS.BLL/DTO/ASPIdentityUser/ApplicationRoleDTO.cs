@@ -8,16 +8,8 @@ namespace ACS.BLL.DTO
 {
   public  class ApplicationRoleDTO
     {
-        public ApplicationRoleDTO()
-        {
-            Users = new HashSet<AppUserRoleDTO>();
-        }
-        public int Id { get; set; }
-        public string Name { get; set; }
+        public int id { get; set; }
 
-        /// <summary>
-        /// Объект хранить в себе ID шники UserId и RoleId
-        /// </summary>
-        public ICollection<AppUserRoleDTO> Users { get; set; }
+        public string Name { get; set; }
     }
 }

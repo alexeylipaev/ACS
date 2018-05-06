@@ -12,7 +12,7 @@ namespace ACS.DAL.Entities
     /// </summary>
     public partial class PostEmployeeСode1С : SystemParameters
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public Guid CodePost1C { get; set; }
 

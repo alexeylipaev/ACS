@@ -32,11 +32,11 @@ namespace ACS.BLL.Services
             if (Author == null)
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
 
-            //Access access = Database.Accesses.Get(AccessDto.Id);
+            //Access access = Database.Accesses.Get(AccessDto.id);
 
             //// валидация
             //if (access != null)
-            //    throw new ValidationException("Доступ с таким Id уже создан", "");
+            //    throw new ValidationException("Доступ с таким id уже создан", "");
 
             try
             {
@@ -84,12 +84,12 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<Access>, List<AccessDTO>>(Database.Accesses.GetAll());
         }
 
-        public AccessDTO GetAccess(int? Id)
+        public AccessDTO GetAccess(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id доступа", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id доступа", "");
 
-            var access = Database.Accesses.Get(Id.Value);
+            var access = Database.Accesses.Get(id.Value);
             if (access == null)
                 throw new ValidationException("Доступ не найден", "");
 
@@ -97,12 +97,12 @@ namespace ACS.BLL.Services
             return mapper.Map<Access, AccessDTO>(access);
         }
 
-        public EmployeeDTO GetUser(int? Id)
+        public EmployeeDTO GetUser(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id пользователя", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id пользователя", "");
 
-            var Employee = Database.Employees.Get(Id.Value);
+            var Employee = Database.Employees.Get(id.Value);
             if (Employee == null)
                 throw new ValidationException("Пользователь не найден", "");
 

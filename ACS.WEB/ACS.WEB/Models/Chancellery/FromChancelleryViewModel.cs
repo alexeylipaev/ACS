@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,26 +12,26 @@ namespace ACS.WEB.ViewModel
     /// </summary>
     public partial class FromChancelleryViewModel : SystemParametersViewModel
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         #region от пользователя
 
-        public int? EmployeeId { get; set; }
+        //public int? EmployeeId { get; set; }
 
-        //public virtual UserViewModel Employee { get; set; }
+        public virtual int? Employee_Id { get; set; }
 
         #endregion
 
         #region от внешней организации
 
-        public int? ExternalOrganizationId { get; set; }
+        // public int? ExternalOrganizationId { get; set; }
 
-        //public virtual ExternalOrganizationChancelleryViewModel ExternalOrganization { get; set; }
+        public virtual ExternalOrganizationChancelleryViewModel ExternalOrganization { get; set; }
 
         #endregion
 
-        public int? ChancelleryId { get; set; }
+        //public int? ChancelleryId { get; set; }
 
-        //public virtual ChancelleryViewModel Chancellery { get; set; }
+        public virtual int? Chancellery_Id { get; set; }
     }
 }

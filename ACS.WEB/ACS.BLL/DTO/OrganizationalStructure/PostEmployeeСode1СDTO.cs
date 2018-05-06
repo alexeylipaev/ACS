@@ -13,11 +13,9 @@ namespace ACS.BLL.DTO
     public partial class PostEmployeeСode1СDTO : SystemParametersDTO
     {
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public Guid CodePost1C { get; set; }
-
-        //public int? EmployeeId { get; set; }
 
         public virtual int? Employee_Id { get; set; }
 

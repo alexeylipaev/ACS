@@ -69,9 +69,19 @@ namespace ACS.WEB.Models
 
     public class RegisterViewModel
     {
+        private string _email;
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Email
+        {
+            get {
+                return _email;
+            }
+            set {
+                _email = value;
+                UserName = _email;
+            }
+        }
 
         //[Required]
         //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]

@@ -12,7 +12,7 @@ namespace ACS.BLL.DTO
         {
             Accesses = new HashSet<AccessDTO>();
         }
-        public int Id { get; set; }
+        public int id { get; set; }
 
      
         public string Name { get; set; }

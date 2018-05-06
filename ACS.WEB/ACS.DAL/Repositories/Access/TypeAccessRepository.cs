@@ -25,9 +25,9 @@ namespace ACS.DAL.Repositories
             return db.TypeAccesses;
         }
 
-        public TypeAccess Get(int Id)
+        public TypeAccess Get(int id)
         {
-            return db.TypeAccesses.Find(Id);
+            return db.TypeAccesses.Find(id);
         }
 
 
@@ -35,7 +35,12 @@ namespace ACS.DAL.Repositories
         {
             db.TypeAccesses.Add(type);
         }
-
+        public void MoveToBasketEmployee(TypeAccess type, int EditorId)
+        {
+            type.s_InBasket = true;
+            type.s_EditorId = EditorId;
+            Update(type);
+        }
         public void Update(TypeAccess type)
         {
             db.Entry(type).State = EntityState.Modified;
@@ -46,9 +51,9 @@ namespace ACS.DAL.Repositories
             return db.TypeAccesses.Where(predicate).ToList();
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-            TypeAccess type = db.TypeAccesses.Find(Id);
+            TypeAccess type = db.TypeAccesses.Find(id);
             if (type != null)
                 db.TypeAccesses.Remove(type);
         }

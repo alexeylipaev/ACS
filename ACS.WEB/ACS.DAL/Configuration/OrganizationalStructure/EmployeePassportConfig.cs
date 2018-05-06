@@ -7,7 +7,7 @@ namespace ACS.DAL.Configuration
     {
         public EmployeePassportConfig()
         {
-            HasKey(e => e.Id);
+            HasKey(e => e.id);
 
             Property(e => e.Series)
                 .IsUnicode(true);

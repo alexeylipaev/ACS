@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.FolderChancelleries;
         }
 
-        public  FolderChancellery Get(int Id)
+        public  FolderChancellery Get(int id)
         {
-            return db.FolderChancelleries.Find(Id);
+            return db.FolderChancelleries.Find(id);
         }
 
 
@@ -45,11 +45,16 @@ namespace ACS.DAL.Repositories
             return db.FolderChancelleries.Where(predicate).ToList();
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-             FolderChancellery folder = db.FolderChancelleries.Find(Id);
+             FolderChancellery folder = db.FolderChancelleries.Find(id);
             if (folder != null)
                 db.FolderChancelleries.Remove(folder);
+        }
+
+        public void MoveToBasketEmployee(FolderChancellery MoveObj, int EditorId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

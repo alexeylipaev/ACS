@@ -57,8 +57,8 @@ namespace ACS.DAL.EF
         {
             base.OnModelCreating(modelBuilder);
 
-            var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
-            modelBuilder.Conventions.Add(convention);
+            //var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
+            //modelBuilder.Conventions.Add(convention);
 
             modelBuilder.Configurations.Add(new AccessConfig());
             modelBuilder.Configurations.Add(new TypeAccessConfig());

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 using System.Linq;
@@ -10,17 +10,14 @@ namespace ACS.WEB.ViewModel
     /// <summary>
     /// Код1С должности 
     /// </summary>
-    public partial class PostsEmployeesСode1СViewModel : SystemParametersViewModel
+    public partial class PostsEmployeeСode1СViewModel : SystemParametersViewModel
     {
 
-        public int Id { get; set; }
-
+        public int id { get; set; }
 
         public Guid CodePost1C { get; set; }
 
-        public int? EmployeeId { get; set; }
-
-        //public virtual UserViewModel Employee { get; set; }
+        public virtual int? Employee_Id { get; set; }
 
     }
 }

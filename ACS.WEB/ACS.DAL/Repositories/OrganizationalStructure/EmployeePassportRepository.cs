@@ -24,19 +24,24 @@ namespace ACS.DAL.Repositories
             return db.EmployeesPassports;
         }
 
-        public EmployeePassport Get(int Id)
+        public EmployeePassport Get(int id)
         {
-            return db.EmployeesPassports.Find(Id);
+            return db.EmployeesPassports.Find(id);
         }
 
-        public void Create(EmployeePassport UserPassport)
+        public void Create(EmployeePassport EmployeePassport)
         {
-            db.EmployeesPassports.Add(UserPassport);
+            db.EmployeesPassports.Add(EmployeePassport);
         }
-
-        public void Update(EmployeePassport UserPassport)
+        public void MoveToBasketEmployee(EmployeePassport EmployeePassport, int EditorId)
         {
-            db.Entry(UserPassport).State = EntityState.Modified;
+            EmployeePassport.s_InBasket = true;
+            EmployeePassport.s_EditorId = EditorId;
+            Update(EmployeePassport);
+        }
+        public void Update(EmployeePassport EmployeePassport)
+        {
+            db.Entry(EmployeePassport).State = EntityState.Modified;
         }
 
         public IEnumerable<EmployeePassport> Find(Func<EmployeePassport, Boolean> predicate)
@@ -44,11 +49,11 @@ namespace ACS.DAL.Repositories
             return db.EmployeesPassports.Where(predicate).ToList();
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-            EmployeePassport UserPassport = db.EmployeesPassports.Find(Id);
-            if (UserPassport != null)
-                db.EmployeesPassports.Remove(UserPassport);
+            EmployeePassport EmployeePassport = db.EmployeesPassports.Find(id);
+            if (EmployeePassport != null)
+                db.EmployeesPassports.Remove(EmployeePassport);
         }
     }
 }

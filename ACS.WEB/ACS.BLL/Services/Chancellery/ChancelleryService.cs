@@ -26,16 +26,16 @@ namespace ACS.BLL.Services
             Database = uow;
         }
         /// <summary>
-        /// Получить данные о файле по Id
+        /// Получить данные о файле по id
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public FileRecordChancelleryDTO GetFile(int? Id)
+        public FileRecordChancelleryDTO GetFile(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id файла ", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id файла ", "");
 
-            var File = Database.FileRecordChancelleries.Get(Id.Value);
+            var File = Database.FileRecordChancelleries.Get(id.Value);
 
             if (File == null)
                 throw new ValidationException("Отсутствует ссылка на файл", "");
@@ -59,14 +59,14 @@ namespace ACS.BLL.Services
         /// <summary>
         /// Получить ответственного
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public EmployeeDTO GetResponsible(int? Id)
+        public EmployeeDTO GetResponsible(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id ответственного", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id ответственного", "");
 
-            var Employee = Database.Employees.Get(Id.Value);
+            var Employee = Database.Employees.Get(id.Value);
             if (Employee == null)
                 throw new ValidationException("Ответственный не найден", "");
 
@@ -88,14 +88,14 @@ namespace ACS.BLL.Services
         /// <summary>
         /// Тип канцелярской записи
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public TypeRecordChancelleryDTO GetType(int? Id)
+        public TypeRecordChancelleryDTO GetType(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id типа", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id типа", "");
 
-            var type = Database.TypeRecordChancelleries.Get(Id.Value);
+            var type = Database.TypeRecordChancelleries.Get(id.Value);
             if (type == null)
                 throw new ValidationException("Тип не найден", "");
 
@@ -115,16 +115,16 @@ namespace ACS.BLL.Services
         }
 
         /// <summary>
-        /// Получить канцеляскую запись по Id
+        /// Получить канцеляскую запись по id
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public ChancelleryDTO GetChancellery(int? Id)
+        public ChancelleryDTO GetChancellery(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id канцелярской записи", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id канцелярской записи", "");
 
-            var Chancellery = Database.Chancelleries.Get(Id.Value);
+            var Chancellery = Database.Chancelleries.Get(id.Value);
 
             if (Chancellery == null)
                 throw new ValidationException("Канцелярская запись не найдена", "");
@@ -150,14 +150,14 @@ namespace ACS.BLL.Services
         /// <summary>
         /// Получить папку по ее ID
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public FolderChancelleryDTO GetFolder(int? Id)
+        public FolderChancelleryDTO GetFolder(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id папки ", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id папки ", "");
 
-            var Folder = Database.FolderChancelleries.Get(Id.Value);
+            var Folder = Database.FolderChancelleries.Get(id.Value);
 
             if (Folder == null)
                 throw new ValidationException("Отсутствует папка", "");
@@ -182,14 +182,14 @@ namespace ACS.BLL.Services
         /// <summary>
         /// Получить журнал канцелярии
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public JournalRegistrationsChancelleryDTO GetJournalRegistrations(int? Id)
+        public JournalRegistrationsChancelleryDTO GetJournalRegistrations(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id  ", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id  ", "");
 
-            var Journal = Database.JournalRegistrationsChancelleries.Get(Id.Value);
+            var Journal = Database.JournalRegistrationsChancelleries.Get(id.Value);
 
             if (Journal == null)
                 throw new ValidationException("Отсутствует данные о журнале регистрации", "");
@@ -209,12 +209,12 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll());
         }
 
-        public FromChancelleryDTO GetFromWhom(int? Id)
+        public FromChancelleryDTO GetFromWhom(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id  ", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id  ", "");
 
-            var from = Database.FromChancelleries.Get(Id.Value);
+            var from = Database.FromChancelleries.Get(id.Value);
 
             if (from == null)
                 throw new ValidationException("Отсутствует данные от кого", "");

@@ -18,7 +18,7 @@ namespace ACS.BLL.DTO
             Chancelleries = new HashSet<ChancelleryDTO>();
         }
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
        
         public string Name { get; set; }

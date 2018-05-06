@@ -12,7 +12,7 @@ namespace ACS.DAL.Configuration
     {
         public FolderChancelleryConfig()
         {
-            HasKey(e => e.Id);
+            HasKey(e => e.id);
 
             Property(e => e.Name)
                 .IsUnicode(true).IsRequired();

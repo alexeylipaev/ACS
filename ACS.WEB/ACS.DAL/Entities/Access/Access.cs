@@ -8,7 +8,7 @@ namespace ACS.DAL.Entities
 
     public partial class Access: SystemParameters
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public Guid? GuidObject { get; set; }
 

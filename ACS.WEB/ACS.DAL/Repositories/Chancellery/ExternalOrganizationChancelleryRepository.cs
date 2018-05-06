@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.ExternalOrganizationChancelleries;
         }
 
-        public ExternalOrganizationChancellery Get(int Id)
+        public ExternalOrganizationChancellery Get(int id)
         {
-            return db.ExternalOrganizationChancelleries.Find(Id);
+            return db.ExternalOrganizationChancelleries.Find(id);
         }
 
 
@@ -34,7 +34,12 @@ namespace ACS.DAL.Repositories
         {
             db.ExternalOrganizationChancelleries.Add(ExternalOrganizationChancellery);
         }
-
+        public void MoveToBasketEmployee(ExternalOrganizationChancellery ExternalOrganizationChancellery, int EditorId)
+        {
+            ExternalOrganizationChancellery.s_InBasket = true;
+            ExternalOrganizationChancellery.s_EditorId = EditorId;
+            Update(ExternalOrganizationChancellery);
+        }
         public void Update(ExternalOrganizationChancellery ExternalOrganizationChancellery)
         {
             db.Entry(ExternalOrganizationChancellery).State = EntityState.Modified;
@@ -45,9 +50,9 @@ namespace ACS.DAL.Repositories
             return db.ExternalOrganizationChancelleries.Where(predicate).ToList();
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-            ExternalOrganizationChancellery book = db.ExternalOrganizationChancelleries.Find(Id);
+            ExternalOrganizationChancellery book = db.ExternalOrganizationChancelleries.Find(id);
             if (book != null)
                 db.ExternalOrganizationChancelleries.Remove(book);
         }

@@ -28,12 +28,12 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll());
         }
 
-        public JournalRegistrationsChancelleryDTO GetJournalRegistrationsChancellery(int? Id)
+        public JournalRegistrationsChancelleryDTO GetJournalRegistrationsChancellery(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id  ", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id  ", "");
 
-            var Journal = Database.JournalRegistrationsChancelleries.Get(Id.Value);
+            var Journal = Database.JournalRegistrationsChancelleries.Get(id.Value);
 
             if (Journal == null)
                 throw new ValidationException("Отсутствует данные о журнале регистрации", "");

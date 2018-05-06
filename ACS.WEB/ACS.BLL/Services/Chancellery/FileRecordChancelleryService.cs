@@ -29,12 +29,12 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<FileRecordChancellery>, List<FileRecordChancelleryDTO>>(Database.FileRecordChancelleries.GetAll());
         }
 
-        public FileRecordChancelleryDTO GetFileRecordChancellery(int? Id)
+        public FileRecordChancelleryDTO GetFileRecordChancellery(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id файла ", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id файла ", "");
 
-            var File = Database.FileRecordChancelleries.Get(Id.Value);
+            var File = Database.FileRecordChancelleries.Get(id.Value);
 
             if (File == null)
                 throw new ValidationException("Отсутствует ссылка на файл", "");

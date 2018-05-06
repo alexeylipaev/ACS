@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ACS.BLL.Interfaces
 {
 
-    public interface IChancelleryService
+    public interface IChancelleryService : IDisposable
     {
 
         /// <summary>
@@ -21,47 +21,47 @@ namespace ACS.BLL.Interfaces
         /// <summary>
         /// Получить тип
         /// </summary>
-        /// <param name="Id"></param>
-        TypeRecordChancelleryDTO GetType(int? Id);
+        /// <param name="id"></param>
+        TypeRecordChancelleryDTO GetType(int? id);
 
 
         /// <summary>
         /// Получить все типы
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         IEnumerable<TypeRecordChancelleryDTO> GetAllTypes();
 
         /// <summary>
         /// Получить файл
         /// </summary>
-        /// <param name="Id"></param>
-        FileRecordChancelleryDTO GetFile(int? Id);
+        /// <param name="id"></param>
+        FileRecordChancelleryDTO GetFile(int? id);
 
         /// <summary>
         /// Получить все файлы
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         IEnumerable<FileRecordChancelleryDTO> GetAllFiles();
 
         /// <summary>
         /// Получить ответственного
         /// </summary>
-        /// <param name="Id"></param>
-        EmployeeDTO GetResponsible(int? Id);
+        /// <param name="id"></param>
+        EmployeeDTO GetResponsible(int? id);
 
         /// <summary>
         /// Получить всех пользователей 
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         IEnumerable<EmployeeDTO> GetAllUser();
 
 
         /// <summary>
         /// Получить папку
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        FolderChancelleryDTO GetFolder(int? Id);
+        FolderChancelleryDTO GetFolder(int? id);
 
         /// <summary>
         /// Все все папки
@@ -70,11 +70,11 @@ namespace ACS.BLL.Interfaces
         IEnumerable<FolderChancelleryDTO> GetAllFolders();
 
         /// <summary>
-        /// Получить журнал регистрации по Id
+        /// Получить журнал регистрации по id
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        JournalRegistrationsChancelleryDTO GetJournalRegistrations(int? Id);
+        JournalRegistrationsChancelleryDTO GetJournalRegistrations(int? id);
 
         /// <summary>
         /// Получить все журналы регистрации 
@@ -86,7 +86,7 @@ namespace ACS.BLL.Interfaces
         /// От кого
         /// </summary>
         /// <returns></returns>
-        FromChancelleryDTO GetFromWhom(int? Id);
+        FromChancelleryDTO GetFromWhom(int? id);
 
 
         /// <summary>
@@ -96,11 +96,11 @@ namespace ACS.BLL.Interfaces
         IEnumerable<ToChancelleryDTO> GetToList();
 
         /// <summary>
-        /// Получить канцелярскую запись по Id
+        /// Получить канцелярскую запись по id
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        ChancelleryDTO GetChancellery(int? Id);
+        ChancelleryDTO GetChancellery(int? id);
 
         /// <summary>
         /// Вся канцелярия
@@ -110,6 +110,6 @@ namespace ACS.BLL.Interfaces
 
         void UpdateChancellery(ChancelleryDTO ChancelleryDTO, string authorEmail);
 
-        void Dispose();
+
     }
 }

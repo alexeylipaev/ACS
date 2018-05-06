@@ -1,0 +1,57 @@
+
+
+@model IEnumerable<ACS.WEB.ViewModel.ApplicationRoleViewModel>
+@{
+    ViewBag.Title = "Роли пользователей";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Роли пользователей</h2>
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>
+<p>
+    @Html.ActionLink("Создать новую роль", "Create")
+</p>
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Name)
+            </td>
+
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Подробнее", "Details", new { id = item.id }, new { @class = "compItem" }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
+</table>
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $(".compItem").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+    </script>
+}
+
+@using ACS.WEB.Helpers

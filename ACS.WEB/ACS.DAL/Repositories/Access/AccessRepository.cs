@@ -25,9 +25,9 @@ namespace ACS.DAL.Repositories
             return db.Accesses;
         }
 
-        public Access Get(int Id)
+        public Access Get(int id)
         {
-            return db.Accesses.Find(Id);
+            return db.Accesses.Find(id);
         }
 
 
@@ -35,7 +35,12 @@ namespace ACS.DAL.Repositories
         {
             db.Accesses.Add(Access);
         }
-
+        public void MoveToBasketEmployee(Access access, int EditorId)
+        {
+            access.s_InBasket = true;
+            access.s_EditorId = EditorId;
+            Update(access);
+        }
         public void Update(Access access)
         {
             db.Entry(access).State = EntityState.Modified;
@@ -46,9 +51,9 @@ namespace ACS.DAL.Repositories
             return db.Accesses.Where(predicate).ToList();
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-            Access access = db.Accesses.Find(Id);
+            Access access = db.Accesses.Find(id);
             if (access != null)
                 db.Accesses.Remove(access);
         }

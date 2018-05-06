@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface IDepartmentService
+    public interface IDepartmentService : IDisposable
     {
 
         void MakeDepartment(DepartmentDTO departmentDTO, string authorEmail);
 
         void UpdateChancellery(ChancelleryDTO chancelleryDto, string authorEmail);
 
-        DepartmentDTO GetDepartment(int? Id);
+        DepartmentDTO GetDepartment(int? id);
 
-        //DepartmentDTO GetParentDepartment(int? Id);
+        //DepartmentDTO GetParentDepartment(int? id);
 
         IEnumerable<DepartmentDTO> GetDepartments();
-        void Dispose();
+
     }
 }

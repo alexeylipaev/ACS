@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 using System;
@@ -17,10 +18,12 @@ namespace ACS.WEB.App_Start
     {
         public void ConfigureAuth(IAppBuilder app)
         {
+            app.CreatePerOwinContext(CreateUserService);
             // need to add UserManager into owin, because this is used in cookie invalidation
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
-                AuthenticationType = MyAuthentication.ApplicationCookie,
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                //AuthenticationType = MyAuthentication.ApplicationCookie,
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider(),
                 CookieName = "MyCookieName",

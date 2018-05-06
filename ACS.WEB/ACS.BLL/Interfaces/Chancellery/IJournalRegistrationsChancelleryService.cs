@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface IJournalRegistrationsChancelleryService
+    public interface IJournalRegistrationsChancelleryService : IDisposable
     {
         void MakeJournalRegistrationsChancellery(JournalRegistrationsChancelleryDTO JournalRegistrationsChancelleryDto, string authorEmail);
 
         void UpdateJournalRegistrationsChancellery(JournalRegistrationsChancelleryDTO JournalRegistrationsChancelleryDto, string authorEmail);
 
-        JournalRegistrationsChancelleryDTO GetJournalRegistrationsChancellery(int? Id);
+        JournalRegistrationsChancelleryDTO GetJournalRegistrationsChancellery(int? id);
         IEnumerable<JournalRegistrationsChancelleryDTO> GetJournalsRegistrationsChancellery();
-        void Dispose();
+
     }
 }

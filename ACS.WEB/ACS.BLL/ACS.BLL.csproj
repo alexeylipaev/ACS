@@ -104,6 +104,10 @@
     <Compile Include="DTO\ASPIdentityUser\ApplicationClaimDTO.cs" />
     <Compile Include="DTO\ASPIdentityUser\ApplicationLoginDTO.cs" />
     <Compile Include="DTO\ASPIdentityUser\AppUserRoleDTO.cs" />
+    <Compile Include="Interfaces\ASPIdentityUser\IApplicationRoleService.cs" />
+    <Compile Include="Interfaces\IAccountAppUserService.cs" />
+    <Compile Include="Services\AccountAppUserService.cs" />
+    <Compile Include="Services\ApplicationRoleService.cs" />
     <Compile Include="Сonnection.cs" />
     <Compile Include="DTO\Access\AccessDTO.cs" />
     <Compile Include="DTO\Access\TypeAccessDTO.cs" />
@@ -147,8 +151,7 @@
     <Compile Include="Interfaces\OrganizationalStructure\IEmployeePassportService.cs" />
     <Compile Include="Interfaces\OrganizationalStructure\IEmployeeService.cs" />
     <Compile Include="Interfaces\OrganizationalStructure\IWorkHistoryService.cs" />
-    <Compile Include="Interfaces\Security\ISecurityService.cs" />
-    <Compile Include="Interfaces\Security\IUserService.cs" />
+    <Compile Include="Interfaces\ISecurityService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\ActiveDirectory.cs" />
     <Compile Include="Services\Accesses\AccessService.cs" />

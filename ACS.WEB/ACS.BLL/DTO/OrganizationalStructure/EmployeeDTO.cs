@@ -20,7 +20,7 @@ namespace ACS.BLL.DTO
             PostsEmployeesСode1С = new HashSet<PostEmployeeСode1СDTO>();
         }
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public string FName { get; set; }
 

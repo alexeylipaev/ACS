@@ -5,7 +5,7 @@ namespace ACS.BLL.DTO
 
     public partial class AccessDTO : SystemParametersDTO
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public Guid? GuidObject { get; set; }
 
@@ -13,7 +13,7 @@ namespace ACS.BLL.DTO
 
         public string Note { get; set; }
 
-        public int? TypeAccessId { get; set; }
+        //public int? TypeAccessId { get; set; }
 
         public virtual TypeAccessDTO TypeAccess { get; set; }
 

@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.JournalRegistrationsChancelleries;
         }
 
-        public JournalRegistrationsChancellery Get(int Id)
+        public JournalRegistrationsChancellery Get(int id)
         {
-            return db.JournalRegistrationsChancelleries.Find(Id);
+            return db.JournalRegistrationsChancelleries.Find(id);
         }
 
 
@@ -45,11 +45,16 @@ namespace ACS.DAL.Repositories
             return db.JournalRegistrationsChancelleries.Where(predicate).ToList();
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-            JournalRegistrationsChancellery Journal = db.JournalRegistrationsChancelleries.Find(Id);
+            JournalRegistrationsChancellery Journal = db.JournalRegistrationsChancelleries.Find(id);
             if (Journal != null)
                 db.JournalRegistrationsChancelleries.Remove(Journal);
+        }
+
+        public void MoveToBasketEmployee(JournalRegistrationsChancellery MoveObj, int EditorId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

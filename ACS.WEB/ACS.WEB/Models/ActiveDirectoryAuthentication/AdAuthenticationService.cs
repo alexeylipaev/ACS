@@ -1,4 +1,4 @@
-﻿using ACS.BLL;
+using ACS.BLL;
 using ACS.WEB.App_Start;
 using Microsoft.Owin.Security;
 using System;
@@ -66,21 +66,21 @@ namespace ACS.WEB.Models.ActiveDirectoryAuthentication
 
             if (!isAuthenticated || userPrincipal == null)
             {
-                return new AuthenticationResult("Username or Password is not correct");
+                return new AuthenticationResult("Неправильное имя пользователя или пароль");
             }
 
             if (userPrincipal.IsAccountLockedOut())
             {
                 // here can be a security related discussion weather it is worth 
                 // revealing this information
-                return new AuthenticationResult("Your account is locked.");
+                return new AuthenticationResult("Ваш аккаунт заблокирован.");
             }
 
             if (userPrincipal.Enabled.HasValue && userPrincipal.Enabled.Value == false)
             {
                 // here can be a security related discussion weather it is worth 
                 // revealing this information
-                return new AuthenticationResult("Your account is disabled");
+                return new AuthenticationResult("Ваша учетная запись отключена");
             }
 
             var identity = CreateIdentity(userPrincipal);

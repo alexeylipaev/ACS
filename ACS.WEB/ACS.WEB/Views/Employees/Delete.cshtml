@@ -35,7 +35,7 @@
         <dd>
             @Html.DisplayFor(model => model.LName)
         </dd>
-      
+
         <dt>
             @Html.DisplayNameFor(model => model.Birthday)
         </dt>
@@ -44,17 +44,20 @@
             @Html.DisplayFor(model => model.Birthday)
         </dd>
 
-     
+
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
             @Html.ActionLink("Вернуться к списку", "Index")
         </div>
         <div style="color:red">@ViewBag.EditResult</div>
     }
 </div>
+
+

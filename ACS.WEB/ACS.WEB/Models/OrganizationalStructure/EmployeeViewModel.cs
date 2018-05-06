@@ -12,14 +12,14 @@ namespace ACS.WEB.ViewModel
     public partial class EmployeeViewModel : SystemParametersViewModel
     {
 
-        //public UserViewModel()
-        //{
-        //    Accesses = new HashSet<AccessViewModel>();
-        //    Chancelleries = new HashSet<ChancelleryViewModel>();
-        //    PostsEmployeesСode1С = new HashSet<PostsEmployeesСode1СViewModel>();
-        //}
+        public EmployeeViewModel()
+        {
+            Accesses = new HashSet<AccessViewModel>();
+            Chancelleries = new HashSet<ChancelleryViewModel>();
+            PostsEmployeesСode1С = new HashSet<PostsEmployeeСode1СViewModel>();
+        }
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
         [Display(Name = "Имя")]
         public string FName { get; set; }
@@ -45,23 +45,26 @@ namespace ACS.WEB.ViewModel
                 return (this.LName ?? "") + " " + (this.FName ?? "") + " " + (this.MName ?? "");
             }
         }
+
         public string SID { get; set; }
 
         public Guid? Guid1C { get; set; }
 
-        ///// <summary>
-        ///// Доступы пользователя
-        ///// </summary>
-        //public virtual ICollection<AccessViewModel> Accesses { get; set; }
+        public virtual ApplicationUserViewModel ApplicationUser { get; set; }
 
-        ///// <summary>
-        ///// Канцелярские записи пользователя
-        ///// </summary>
-        //public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
+        /// <summary>
+        /// Доступы пользователя
+        /// </summary>
+        public virtual ICollection<AccessViewModel> Accesses { get; set; }
 
-        ///// <summary>
-        ///// Коды1С должностей пользователя
-        ///// </summary>
-        //public virtual ICollection<PostsEmployeesСode1СViewModel> PostsEmployeesСode1С { get; set; }
+        /// <summary>
+        /// Канцелярские записи пользователя
+        /// </summary>
+        public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
+
+        /// <summary>
+        /// Коды1С должностей пользователя
+        /// </summary>
+        public virtual ICollection<PostsEmployeeСode1СViewModel> PostsEmployeesСode1С { get; set; }
     }
 }

@@ -28,12 +28,12 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<FolderChancellery>, List<FolderChancelleryDTO>>(Database.FolderChancelleries.GetAll());
         }
 
-        public FolderChancelleryDTO GetFolderChancellery(int? Id)
+        public FolderChancelleryDTO GetFolderChancellery(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id папки ", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id папки ", "");
 
-            var Folder = Database.FolderChancelleries.Get(Id.Value);
+            var Folder = Database.FolderChancelleries.Get(id.Value);
 
             if (Folder == null)
                 throw new ValidationException("Отсутствует папка", "");

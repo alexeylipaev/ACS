@@ -2,7 +2,7 @@
 {
     public class ApplicationClaimDTO
     {
-        public int Id { get; set; }
+        public int id { get; set; }
         public string ClaimType { get; set; }
 
         public string ClaimValue { get; set; }

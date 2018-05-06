@@ -21,12 +21,12 @@ namespace ACS.BLL.Services
             Database = uow;
         }
 
-        public DepartmentDTO GetDepartment(int? Id)
+        public DepartmentDTO GetDepartment(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id подразделения", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id подразделения", "");
 
-            var department = Database.Departments.Get(Id.Value);
+            var department = Database.Departments.Get(id.Value);
             if (department == null)
                 throw new ValidationException("Подразделение не найдено", "");
 

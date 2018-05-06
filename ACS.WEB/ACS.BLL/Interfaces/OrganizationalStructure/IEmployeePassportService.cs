@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface IEmployeePassportService
+    public interface IEmployeePassportService : IDisposable
     {
-        void MakeUserPassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail);
+        void MakeEmployeePassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail);
 
-        void UpdateUserPassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail);
+        void UpdateEmployeePassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail);
 
     
-        EmployeePassportDTO GetUserPassport(int? Id);
-        EmployeeDTO GetUser(int? Id);
+        EmployeePassportDTO GetEmployeePassport(int? id);
+        EmployeeDTO GetUser(int? id);
         IEnumerable<EmployeePassportDTO> GetUsersPassport();
-        void Dispose();
+
     }
 }

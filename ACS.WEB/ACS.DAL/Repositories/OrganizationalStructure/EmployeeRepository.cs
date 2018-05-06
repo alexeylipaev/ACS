@@ -25,9 +25,9 @@ namespace ACS.DAL.Repositories
             return db.Employees;
         }
 
-        public Employee Get(int Id)
+        public Employee Get(int id)
         {
-            return db.Employees.Find(Id);
+            return db.Employees.Find(id);
         }
 
 
@@ -41,15 +41,24 @@ namespace ACS.DAL.Repositories
         {
             db.Entry(Employee).State = EntityState.Modified;
         }
+        public void MoveToBasketEmployee(Employee Employee, int EditorId)
+        {
+            Employee.s_InBasket = true;
+            Employee.s_EditorId = EditorId;
+            Update(Employee);
+        }
+
+        
+
 
         public IEnumerable<Employee> Find(Func<Employee, Boolean> predicate)
         {
             return db.Employees.Where(predicate).ToList();
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-            Employee user = db.Employees.Find(Id);
+            Employee user = db.Employees.Find(id);
             if (user != null)
                 db.Employees.Remove(user);
         }

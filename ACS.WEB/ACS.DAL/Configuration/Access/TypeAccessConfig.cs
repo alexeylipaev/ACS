@@ -14,10 +14,10 @@ namespace ACS.DAL.Configuration
     {
         public TypeAccessConfig()
         {
-            //HasKey(e => new { e.Id, e.s_Guid });
-            HasKey(e => e.Id);
+            //HasKey(e => new { e.id, e.s_Guid });
+            HasKey(e => e.id);
 
-            Property(e => e.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(e => e.id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
     
 
 

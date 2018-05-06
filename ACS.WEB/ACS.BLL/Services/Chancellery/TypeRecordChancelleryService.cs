@@ -31,12 +31,12 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll());
         }
 
-        public TypeRecordChancelleryDTO GetTypeRecordChancellery(int? Id)
+        public TypeRecordChancelleryDTO GetTypeRecordChancellery(int? id)
         {
-            if(Id == null)
-                throw new ValidationException("Не установлено Id", "");
+            if(id == null)
+                throw new ValidationException("Не установлено id", "");
 
-            var type = Database.Employees.Get(Id.Value);
+            var type = Database.Employees.Get(id.Value);
             if (type == null)
                 throw new ValidationException("Тип не найден", "");
 

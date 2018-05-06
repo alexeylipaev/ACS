@@ -13,7 +13,7 @@ namespace ACS.DAL.Configuration
     {
         public AccessConfig()
         {
-            HasKey(e => e.Id);
+            HasKey(e => e.id);
       
             Property(e => e.Note)
             .IsUnicode(true);

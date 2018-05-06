@@ -12,7 +12,7 @@ namespace ACS.DAL.Entities
     /// </summary>
     public partial class ExternalOrganizationChancellery : SystemParameters
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public string Name { get; set; }
 

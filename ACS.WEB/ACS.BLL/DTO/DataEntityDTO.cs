@@ -12,7 +12,7 @@ namespace ACS.BLL.DTO
     public partial class DataEntityDTO : SystemParametersDTO
     {
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace ACS.BLL.DTO
         public string Name { get; set; }
 
         /// <summary>
-        /// Id таблицы 
+        /// id таблицы 
         /// </summary>
    
         public int Object_id { get; set; }

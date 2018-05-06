@@ -1,4 +1,4 @@
-﻿
+
 @using ACS.WEB.ViewModel;
 
 @model IEnumerable<ACS.WEB.ViewModel.EmployeeViewModel>
@@ -8,8 +8,8 @@
 }
 
 <h2>Пользователи</h2>
-<div Id="modDialog" class="modal fade">
-    <div Id="dialogContent" class="modal-dialog"></div>
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
 </div>
 <p>
     @Html.ActionLink("Создать нового", "Create")
@@ -31,32 +31,38 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_InBasket)
+        </th>
         <th></th>
     </tr>
     @foreach (var item in Model)
     {
-        <tr>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.LName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MName)
-            </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            <td>
-                @ListHelper.CreateEmailLink(Html, item.Email)   
-            </td>
-            <td>
-                @Html.ActionLink("Редактировать", "Edit", new { Id = item.Id }) |
-                @Html.ActionLink("Подробнее", "Details", new { Id = item.Id }, new { @class = "compItem" }) |
-                @Html.ActionLink("Удалить", "Delete", new { Id = item.Id })
-            </td>
-        </tr>
+    <tr>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.LName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MName)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @ListHelper.CreateEmailLink(Html, item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_InBasket)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Подробнее", "Details", new { id = item.id }, new { @class = "compItem" }) |
+            @Html.ActionLink("Удалить", "Delete", new { id = item.id })
+        </td>
+    </tr>
     }
 </table>
 @section scripts

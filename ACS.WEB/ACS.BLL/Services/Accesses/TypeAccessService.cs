@@ -28,12 +28,12 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<TypeAccess>, List<TypeAccessDTO>>(Database.TypesAccesses.GetAll());
         }
 
-        public TypeAccessDTO GetTypeAccess(int? Id)
+        public TypeAccessDTO GetTypeAccess(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id  ", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id  ", "");
 
-            var type = Database.TypesAccesses.Get(Id.Value);
+            var type = Database.TypesAccesses.Get(id.Value);
 
             if (type == null)
                 throw new ValidationException("Отсутствует тип доступа", "");

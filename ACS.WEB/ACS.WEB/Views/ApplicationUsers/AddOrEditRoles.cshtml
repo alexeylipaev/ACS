@@ -1,0 +1,39 @@
+﻿@model ACS.WEB.ViewModel.SelectedRoleViewModel
+
+@{
+    ViewBag.Title = "AddOrEditRoles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Поиск и множественный выбор ролей</h2> 
+
+@using (Html.BeginForm())
+{
+<div class="form-horizontal">
+    @Html.HiddenFor(model=>model.Id)
+    <div class="form-group">
+        <label>Выберите роль</label>
+        @*Normal DropDown*@
+        @*@Html.DropDownListFor(model=>model.SelectedRoleIDs,new SelectList(Model.RoleCollection,"Id","Name"), new { id = "normalDropDown"})*@
+
+        @*MultiSelect DropDown*@
+        @Html.ListBoxFor(model=>model.SelectedId, new MultiSelectList(Model.RoleCollection,"Id","Name"),new { id="multiSelectDropDown",multiple="multiple"})
+        <input type="submit" name="name" value="Выбрать" />
+    </div>
+    </div>
+}
+
+@section scripts
+{
+    <script>
+        $(function () {
+            //normal dropdown
+            //$("#normalDropDown").chosen({
+            //    /*disable_serch : true */
+            //    disable_serch_threshold: 5//number items 5
+            //});
+            //multiselect dropdown
+            $("#multiSelectDropDown").chosen({ width: "100%" });
+        });
+    </script>    
+    }

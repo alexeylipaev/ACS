@@ -43,7 +43,7 @@ namespace ACS.DAL.Repositories
         private TypeRecordChancelleryRepository TypeRecordChancelleryRepository;
 
         private WorkHistoryRepository WorkHistoryRepository;
-        private EmployeePassportRepository UserPassportRepository;
+        private EmployeePassportRepository EmployeePassportRepository;
         private AccessRepository AccessRepository;
 
         private EmployeeRepository EmployeeRepository;
@@ -282,9 +282,9 @@ namespace ACS.DAL.Repositories
         {
             get
             {
-                if (UserPassportRepository == null)
-                    UserPassportRepository = new EmployeePassportRepository(db);
-                return UserPassportRepository;
+                if (EmployeePassportRepository == null)
+                    EmployeePassportRepository = new EmployeePassportRepository(db);
+                return EmployeePassportRepository;
             }
         }
 

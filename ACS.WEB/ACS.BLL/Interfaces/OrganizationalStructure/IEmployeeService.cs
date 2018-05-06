@@ -1,21 +1,20 @@
 ﻿using ACS.BLL.DTO;
+using System;
 using System.Collections.Generic;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface IEmployeeService
+    public interface IEmployeeService : IDisposable
     {
-        void CreateUser(EmployeeDTO userDto);
+        void CreateEmployee(EmployeeDTO userDto);
+        void CreateEmployee(EmployeeDTO userDto, string authorEmail);
+        void UpdateEmployee(EmployeeDTO userDto, string authorEmail);
+        void MoveToBasketEmployee(int userId, string authorEmail);
+        void DeleteEmployee(int userId, string authorEmail);
+        EmployeeDTO GetEmployee(int? id);
 
-        void CreateUser(EmployeeDTO userDto, string authorEmail);
+        IEnumerable<EmployeeDTO> GetEmployees();
 
-        void UpdateUser(EmployeeDTO userDto, string authorEmail);
-        void MoveToBasketUser(int userId, string authorEmail);
-        void DeleteUser(int userId, string authorEmail);
-        EmployeeDTO GetUser(int? Id);
 
-        IEnumerable<EmployeeDTO> GetUsers();
-
-        void Dispose();
     }
 }

@@ -10,7 +10,7 @@ namespace ACS.WEB.ViewModel
     
     public partial class FileRecordChancelleryViewModel : SystemParametersViewModel
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// Имя файла

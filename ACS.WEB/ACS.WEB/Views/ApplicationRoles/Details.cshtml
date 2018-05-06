@@ -1,0 +1,27 @@
+﻿@model ACS.WEB.ViewModel.ApplicationRoleViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Подробная информация</h2>
+
+<div>
+    <h4>Роль</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Назад к списку", "Index")
+</p>

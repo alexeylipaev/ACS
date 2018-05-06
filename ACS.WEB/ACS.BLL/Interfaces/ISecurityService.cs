@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface ISecurityService
+    public interface ISecurityService : IDisposable
     {
         //void GetRoles(AccessDTO accessDTO, string authorEmail);
 
@@ -16,9 +16,8 @@ namespace ACS.BLL.Interfaces
         bool IsUserInRole(string userEmail, string roleName);
 
 
-        //ApplicationUserDTO GetApplicationUser(int? Id);
+        //ApplicationUserDTO GetApplicationUser(int? id);
 
 
-        void Dispose();
     }
 }

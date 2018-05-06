@@ -25,16 +25,21 @@ namespace ACS.DAL.Repositories
             return db.TypeRecordChancelleries;
         }
 
-        public TypeRecordChancellery Get(int Id)
+        public TypeRecordChancellery Get(int id)
         {
-            return db.TypeRecordChancelleries.Find(Id);
+            return db.TypeRecordChancelleries.Find(id);
         }
 
         public void Create(TypeRecordChancellery type)
         {
             db.TypeRecordChancelleries.Add(type);
         }
-
+        public void MoveToBasketEmployee(TypeRecordChancellery type, int EditorId)
+        {
+            type.s_InBasket = true;
+            type.s_EditorId = EditorId;
+            Update(type);
+        }
         public void Update(TypeRecordChancellery type)
         {
             db.Entry(type).State = EntityState.Modified;
@@ -45,9 +50,9 @@ namespace ACS.DAL.Repositories
             return db.TypeRecordChancelleries.Where(predicate).ToList();
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-            TypeRecordChancellery type = db.TypeRecordChancelleries.Find(Id);
+            TypeRecordChancellery type = db.TypeRecordChancelleries.Find(id);
             if (type != null)
                 db.TypeRecordChancelleries.Remove(type);
         }

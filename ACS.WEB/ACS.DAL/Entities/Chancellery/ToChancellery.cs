@@ -17,7 +17,7 @@ namespace ACS.DAL.Entities
             Employees = new HashSet<Employee>();
         }
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public ICollection<ExternalOrganizationChancellery> ExternalOrganizations { get; set; }
         public ICollection<Employee> Employees { get; set; }

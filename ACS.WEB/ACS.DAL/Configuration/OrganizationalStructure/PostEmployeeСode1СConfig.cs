@@ -12,7 +12,7 @@ namespace ACS.DAL.Configuration
     {
         public PostEmployeeСode1СConfig()
         {
-            HasKey(e => e.Id);
+            HasKey(e => e.id);
 
             Property(e => e.CodePost1C).IsRequired();
         }

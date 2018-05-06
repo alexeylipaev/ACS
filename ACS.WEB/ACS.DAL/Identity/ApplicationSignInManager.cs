@@ -21,7 +21,6 @@ namespace ACS.DAL.Identity
             : base(userManager, authenticationManager)
         {
         }
-
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
         {
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);

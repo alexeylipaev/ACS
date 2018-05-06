@@ -24,9 +24,9 @@ namespace ACS.DAL.Repositories
             return db.PostsEmployeesСode1С;
         }
 
-        public PostEmployeeСode1С Get(int Id)
+        public PostEmployeeСode1С Get(int id)
         {
-            return db.PostsEmployeesСode1С.Find(Id);
+            return db.PostsEmployeesСode1С.Find(id);
         }
 
 
@@ -36,6 +36,12 @@ namespace ACS.DAL.Repositories
             db.PostsEmployeesСode1С.Add(PostsEmployeesСode1С);
         }
 
+        public void MoveToBasketEmployee(PostEmployeeСode1С PostsEmployeesСode1С, int EditorId)
+        {
+            PostsEmployeesСode1С.s_InBasket = true;
+            PostsEmployeesСode1С.s_EditorId = EditorId;
+            Update(PostsEmployeesСode1С);
+        }
         public void Update(PostEmployeeСode1С PostsEmployeesСode1С)
         {
             db.Entry(PostsEmployeesСode1С).State = EntityState.Modified;
@@ -46,9 +52,9 @@ namespace ACS.DAL.Repositories
             return db.PostsEmployeesСode1С.Where(predicate).ToList();
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-            PostEmployeeСode1С code = db.PostsEmployeesСode1С.Find(Id);
+            PostEmployeeСode1С code = db.PostsEmployeesСode1С.Find(id);
             if (code != null)
                 db.PostsEmployeesСode1С.Remove(code);
         }

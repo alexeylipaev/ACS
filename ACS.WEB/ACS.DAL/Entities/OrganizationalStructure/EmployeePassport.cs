@@ -11,7 +11,7 @@ namespace ACS.DAL.Entities
     public class EmployeePassport : SystemParameters
     {
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public string Series { get; set; }
 

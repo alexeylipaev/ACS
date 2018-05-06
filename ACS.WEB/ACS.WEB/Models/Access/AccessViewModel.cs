@@ -5,7 +5,7 @@ namespace ACS.WEB.ViewModel
 
     public partial class AccessViewModel : SystemParametersViewModel
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public Guid? GuidObject { get; set; }
 
@@ -13,12 +13,10 @@ namespace ACS.WEB.ViewModel
 
         public string Note { get; set; }
 
-        public int? TypeAccessId { get; set; }
+        //public int? TypeAccessId { get; set; }
 
-        //public virtual TypeAccessViewModel TypeAccess { get; set; }
+        public virtual TypeAccessViewModel TypeAccess { get; set; }
 
-        public int? EmployeeId { get; set; }
-
-        //public virtual UserViewModel Employee { get; set; }
+        public virtual int? Employee_Id { get; set; }
     }
 }

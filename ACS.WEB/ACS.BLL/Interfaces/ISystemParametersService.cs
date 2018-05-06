@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface ISystemParametersService
+    public interface ISystemParametersService : IDisposable
     {
         void MakeSystemParameters(SystemParametersDTO SystemParametersDTO);
-        SystemParametersDTO GetSystemParameters(int? Id);
+        SystemParametersDTO GetSystemParameters(int? id);
         IEnumerable<SystemParametersDTO> GetSystemParameters();
-        void Dispose();
+  
     }
 }

@@ -10,7 +10,7 @@ namespace ACS.BLL.DTO
     
     public partial class FileRecordChancelleryDTO : SystemParametersDTO
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// Имя файла

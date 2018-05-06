@@ -13,9 +13,9 @@ namespace ACS.DAL.Configuration
     {
         public TypeRecordChancelleryConfig()
         {
-            HasKey(e => e.Id);
+            HasKey(e => e.id);
 
-            Property(e => e.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(e => e.id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(e => e.Name)
                 .IsUnicode(true).IsRequired();

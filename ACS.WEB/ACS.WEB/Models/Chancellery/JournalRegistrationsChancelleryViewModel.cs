@@ -18,7 +18,7 @@ namespace ACS.WEB.ViewModel
         //    Chancelleries = new HashSet<ChancelleryViewModel>();
         //}
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
        
         public string Name { get; set; }

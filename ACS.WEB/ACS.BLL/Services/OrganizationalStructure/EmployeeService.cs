@@ -35,13 +35,13 @@ namespace ACS.BLL.Services
       , Helper.RemoveSpacesBeginnEndStr(UserData.MName), Helper.RemoveSpacesBeginnEndStr(UserData.Email));
         }
 
-        public void CreateUser(EmployeeDTO UserDTO)
+        public void CreateEmployee(EmployeeDTO UserDTO)
         {
             var resultString = UNIQEUserString(UserDTO);
             Employee user = Database.Employees.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
 
             if (user != null)
-                throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его Id : {1}", resultString, user.Id), "");
+                throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его id : {1}", resultString, user.id), "");
 
             try
             {
@@ -66,7 +66,7 @@ namespace ACS.BLL.Services
             }
         }
 
-        public void CreateUser(EmployeeDTO UserDTO, string authorEmail)
+        public void CreateEmployee(EmployeeDTO UserDTO, string authorEmail)
         {
 
             var author = GetEditor(authorEmail);
@@ -79,7 +79,7 @@ namespace ACS.BLL.Services
             Employee user = Database.Employees.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
 
             if (user != null)
-                throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его Id : {1}", resultString, user.Id), "");
+                throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его id : {1}", resultString, user.id), "");
 
             try
             {
@@ -105,10 +105,10 @@ namespace ACS.BLL.Services
             }
         }
 
-        public void UpdateUser(EmployeeDTO UserDTO, string authorEmail)
+        public void UpdateEmployee(EmployeeDTO UserDTO, string authorEmail)
         {
 
-            Employee EditableObj = Database.Employees.Get(UserDTO.Id);
+            Employee EditableObj = Database.Employees.Get(UserDTO.id);
 
             var editor = GetEditor(authorEmail);
 
@@ -116,7 +116,7 @@ namespace ACS.BLL.Services
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
 
             if (EditableObj == null)
-                throw new ValidationException("Не возможно редактировать объект с Id", UserDTO.Id.ToString());
+                throw new ValidationException("Не возможно редактировать объект с id", UserDTO.id.ToString());
 
             try
             {
@@ -145,8 +145,8 @@ namespace ACS.BLL.Services
                     Console.WriteLine("{0} : {1}", de.Key, de.Value);
             }
         }
-
-        public void MoveToBasketUser(int userId, string authorEmail)
+         
+        public void MoveToBasketEmployee(int userId, string authorEmail)
         {
             Employee EditableObj = Database.Employees.Get(userId);
 
@@ -156,14 +156,11 @@ namespace ACS.BLL.Services
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
 
             if (EditableObj == null)
-                throw new ValidationException("Не возможно редактировать объект с Id", userId.ToString());
+                throw new ValidationException("Не возможно редактировать объект с id", userId.ToString());
 
             try
             {
-                EditableObj.s_InBasket = true;
-                EditableObj.s_EditorId = editor.Id;
-
-                Database.Employees.Update(EditableObj);
+                Database.Employees.MoveToBasketEmployee(EditableObj, editor.Id);
                 Database.Save();
             }
             catch (Exception e)
@@ -181,7 +178,7 @@ namespace ACS.BLL.Services
             }
         }
 
-        public void DeleteUser(int userId, string authorEmail)
+        public void DeleteEmployee(int userId, string authorEmail)
         {
             Employee EditableObj = Database.Employees.Get(userId);
             var editor = GetEditor(authorEmail);
@@ -190,7 +187,7 @@ namespace ACS.BLL.Services
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
 
             if (EditableObj == null)
-                throw new ValidationException("Не возможно редактировать объект с Id", userId.ToString());
+                throw new ValidationException("Не возможно редактировать объект с id", userId.ToString());
 
             try
             {
@@ -219,18 +216,18 @@ namespace ACS.BLL.Services
         }
 
 
-       IMapper GetMapEmplToEmpDto()
+        IMapper GetMapEmplToEmpDto()
         {
             var mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Access, AccessDTO>().ForMember(x => x.Employee_Id,
-x => x.MapFrom(m => m.Employee.Id));
+x => x.MapFrom(m => m.Employee.id));
                 cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.ResponsibleEmployee_Id,
-x => x.MapFrom(m => m.Employee.Id));
+x => x.MapFrom(m => m.Employee.id));
                 cfg.CreateMap<ApplicationUser, ApplicationUserDTO>().ForMember(x => x.Employee_Id,
-          x => x.MapFrom(m => m.Employee.Id));
+          x => x.MapFrom(m => m.Employee.id));
                 cfg.CreateMap<PostEmployeeСode1С, PostEmployeeСode1СDTO>().ForMember(x => x.Employee_Id,
-x => x.MapFrom(m => m.Employee.Id));
+x => x.MapFrom(m => m.Employee.id));
                 cfg.CreateMap<Employee, EmployeeDTO>();
 
             }).CreateMapper();
@@ -238,22 +235,26 @@ x => x.MapFrom(m => m.Employee.Id));
             return mapper;
         }
 
-        public IEnumerable<EmployeeDTO> GetUsers()
+        public IEnumerable<EmployeeDTO> GetEmployees()
         {
 
             // применяем автомаппер для проекции одной коллекции на другую
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
             //return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
+            IEnumerable<Employee> Employees = Database.Employees.GetAll().ToList();
 
-            return GetMapEmplToEmpDto().Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
+            //if (Employees.Any(e => e != null))
+                return GetMapEmplToEmpDto().Map<IEnumerable<Employee>, List<EmployeeDTO>>(Employees);
+
+            //return new List<EmployeeDTO>();
         }
 
-        public EmployeeDTO GetUser(int? Id)
+        public EmployeeDTO GetEmployee(int? id)
         {
-            if (Id == null)
-                throw new ValidationException("Не установлено Id пользователя", "");
+            if (id == null)
+                throw new ValidationException("Не установлено id пользователя", "");
 
-            var Employee = Database.Employees.Get(Id.Value);
+            var Employee = Database.Employees.Get(id.Value);
             if (Employee == null)
                 throw new ValidationException("Пользователь не найден", "");
 

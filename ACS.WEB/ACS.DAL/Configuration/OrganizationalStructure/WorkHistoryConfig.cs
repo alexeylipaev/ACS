@@ -12,7 +12,7 @@ namespace ACS.DAL.Configuration
     {
         public WorkHistoryConfig()
         {
-            HasKey(e => e.Id);
+            HasKey(e => e.id);
 
             Property(e => e.EndDate)
                .HasColumnType("date");

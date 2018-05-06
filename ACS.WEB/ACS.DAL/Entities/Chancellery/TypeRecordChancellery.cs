@@ -18,7 +18,7 @@ namespace ACS.DAL.Entities
             Chancelleries = new HashSet<Chancellery>();
         }
  
-        public byte Id { get; set; }
+        public byte id { get; set; }
 
         public string Name { get; set; }
 

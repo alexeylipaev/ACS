@@ -12,7 +12,7 @@ namespace ACS.DAL.Configuration
     {
         public ToChancelleryConfig()
         {
-            HasKey(e => e.Id);
+            HasKey(e => e.id);
         }
     }
 }

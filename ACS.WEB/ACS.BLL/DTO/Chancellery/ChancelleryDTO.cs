@@ -18,7 +18,7 @@ namespace ACS.BLL.DTO
             ToChancelleries = new HashSet<ToChancelleryDTO>();
         }
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// Дата регистрации

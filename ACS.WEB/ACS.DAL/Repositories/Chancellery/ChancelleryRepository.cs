@@ -25,16 +25,21 @@ namespace ACS.DAL.Repositories
             return db.Chancelleries;
         }
 
-        public Chancellery Get(int Id)
+        public Chancellery Get(int id)
         {
-            return db.Chancelleries.Find(Id);
+            return db.Chancelleries.Find(id);
         }
 
         public void Create(Chancellery Chancellery)
         {
             db.Chancelleries.Add(Chancellery);
         }
-
+        public void MoveToBasketEmployee(Chancellery chancellery, int EditorId)
+        {
+            chancellery.s_InBasket = true;
+            chancellery.s_EditorId = EditorId;
+            Update(chancellery);
+        }
         public void Update(Chancellery chancellery)
         {
             db.Entry(chancellery).State = EntityState.Modified;
@@ -45,9 +50,9 @@ namespace ACS.DAL.Repositories
             return db.Chancelleries.Where(predicate).ToList();
         }
 
-        public void Delete(int Id)
+        public void Delete(int id)
         {
-            Chancellery book = db.Chancelleries.Find(Id);
+            Chancellery book = db.Chancelleries.Find(id);
             if (book != null)
                 db.Chancelleries.Remove(book);
         }

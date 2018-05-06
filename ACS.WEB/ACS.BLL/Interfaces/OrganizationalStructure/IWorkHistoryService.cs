@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface IWorkHistoryService
+    public interface IWorkHistoryService : IDisposable
     {
         void MakeWorkHistory(WorkHistoryDTO WorkHistoryDTO);
-        WorkHistoryDTO GetWorkHistory(int? Id);
+        WorkHistoryDTO GetWorkHistory(int? id);
         IEnumerable<WorkHistoryDTO> GetWorkHistory();
-        void Dispose();
+
     }
 }

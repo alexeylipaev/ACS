@@ -13,7 +13,7 @@ namespace ACS.DAL.Entities
     public partial class FileRecordChancellery : SystemParameters
     {
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// Имя файла

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface IPostNameEmployeeService
+    public interface IPostNameEmployeeService : IDisposable
     {
         void MakePostNameUser(PostNameEmployeeDTO PostNameUserDTO);
-        PostNameEmployeeDTO GetPostNameUser(int? Id);
+        PostNameEmployeeDTO GetPostNameUser(int? id);
         IEnumerable<PostNameEmployeeDTO> GetPostNameUser();
-        void Dispose();
+
     }
 }

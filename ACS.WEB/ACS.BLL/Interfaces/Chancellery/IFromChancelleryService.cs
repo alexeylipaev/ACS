@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-   public interface IFromChancelleryService
+   public interface IFromChancelleryService : IDisposable
     {
         /// <summary>
         /// Получить внешнюю организацию
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        ExternalOrganizationChancelleryDTO GetExternalOrganizationChancelleryDTO(int? Id);
+        ExternalOrganizationChancelleryDTO GetExternalOrganizationChancelleryDTO(int? id);
 
         /// <summary>
         /// Все внешнии организации
@@ -25,9 +25,9 @@ namespace ACS.BLL.Interfaces
         /// <summary>
         /// Получить пользователя
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        EmployeeDTO UserDTO(int? Id);
+        EmployeeDTO UserDTO(int? id);
 
         /// <summary>
         /// Все пользователя
@@ -36,7 +36,7 @@ namespace ACS.BLL.Interfaces
         IEnumerable<EmployeeDTO> GetAllUsers();
 
 
-        FromChancelleryDTO GetFromChancellery(int? Id);
+        FromChancelleryDTO GetFromChancellery(int? id);
 
         IEnumerable<FromChancelleryDTO> GetFromChancellery();
 
@@ -44,6 +44,6 @@ namespace ACS.BLL.Interfaces
 
         void UpdateFromChancellery(FromChancelleryDTO FromChancelleryDTO, string authorEmail);
 
-        void Dispose();
+
     }
 }

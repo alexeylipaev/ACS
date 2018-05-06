@@ -13,7 +13,7 @@ namespace ACS.BLL.DTO
     /// </summary>
     public partial class FromChancelleryDTO : SystemParametersDTO
     {
-        public int Id { get; set; }
+        public int id { get; set; }
 
         #region от пользователя
 

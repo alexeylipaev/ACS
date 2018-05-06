@@ -30,7 +30,7 @@ namespace ACS.WEB.Controllers
         }
 
         // GET: Access/Details/5
-        public ActionResult Details(int Id)
+        public ActionResult Details(int id)
         {
             return View();
         }
@@ -58,14 +58,14 @@ namespace ACS.WEB.Controllers
         }
 
         // GET: Access/Edit/5
-        public ActionResult Edit(int Id)
+        public ActionResult Edit(int id)
         {
             return View();
         }
 
         // POST: Access/Edit/5
         [HttpPost]
-        public ActionResult Edit(int Id, FormCollection collection)
+        public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
@@ -80,14 +80,14 @@ namespace ACS.WEB.Controllers
         }
 
         // GET: Access/Delete/5
-        public ActionResult Delete(int Id)
+        public ActionResult Delete(int id)
         {
             return View();
         }
 
         // POST: Access/Delete/5
         [HttpPost]
-        public ActionResult Delete(int Id, FormCollection collection)
+        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {

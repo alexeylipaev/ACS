@@ -20,7 +20,7 @@ namespace ACS.WEB.Areas.Admin.Models
         //    PostsEmployeesСode1С = new HashSet<PostsEmployeesСode1СDTO>();
         //}
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
        
         public string FName { get; set; }

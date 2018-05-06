@@ -17,7 +17,7 @@ namespace ACS.BLL.DTO
             Employees = new HashSet<EmployeeDTO>();
         }
 
-        public int Id { get; set; }
+        public int id { get; set; }
 
         public ICollection<ExternalOrganizationChancelleryDTO> ExternalOrganizations { get; set; }
         public ICollection<EmployeeDTO> Employees { get; set; }

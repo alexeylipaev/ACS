@@ -1,4 +1,4 @@
-﻿@model ACS.WEB.Models.LoginViewModel
+@model ACS.WEB.Models.LoginViewModel
 @{
     ViewBag.Title = "Авторизация"; 
 }
@@ -6,11 +6,11 @@
 <h2>@ViewBag.Title.</h2>
 <div class="row">
         <div class="col-md-8"> 
-            <section Id="loginForm">
+            <section id="loginForm">
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken() 
-                <h4>Используйте локальную учетную запись для входа в систему.</h4>
+                <h4>Используйте учетную запись для входа в систему.</h4>
                 <hr /> 
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" }) 
                 <div class="form-group">
@@ -49,7 +49,7 @@
 
         </div>
     @*<div class="col-md-4">
-            <section Id="socialLoginForm">
+            <section id="socialLoginForm">
                 @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
             </section>
         </div>*@

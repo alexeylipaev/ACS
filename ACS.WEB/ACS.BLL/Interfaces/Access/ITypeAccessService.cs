@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface ITypeAccessService
+    public interface ITypeAccessService : IDisposable
     {
 
         void MakeTypeAccess(TypeAccessDTO TypeAccessDTO, string authorEmail);
 
         void UpdateChancellery(TypeAccessDTO TypeAccessDTO, string authorEmail);
 
-        TypeAccessDTO GetTypeAccess(int? Id);
+        TypeAccessDTO GetTypeAccess(int? id);
         IEnumerable<TypeAccessDTO> GetTypesAccess();
-        void Dispose();
+
     }
 
 }
