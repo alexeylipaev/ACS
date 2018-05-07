@@ -186,7 +186,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\EmployeesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ASPIdentityUser\RolesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrganizationalStructure\EmployeesController.cs" />
     <Compile Include="Areas\Admin\Models\OrganizationalStructure\EmployeeAdminVM.cs" />
     <Compile Include="Areas\Admin\Models\SystemParametersAdminVM.cs" />
     <Compile Include="Controllers\AccessController.cs" />
@@ -263,6 +264,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Areas\Admin\Views\Employees\Edit.cshtml" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
