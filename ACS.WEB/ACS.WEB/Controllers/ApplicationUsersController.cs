@@ -33,24 +33,31 @@ namespace ACS.WEB.Controllers
             //var user = this.User;
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()).CreateMapper();
             var users = mapper.Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(usersDto);
-
-            //foreach (var userVM in users)
-            //{
-            //    for (int i = 0; i < userVM.Roles.Count; i++)
-            //    {
-            //        var roleId = userVM.Roles.ElementAt(i).RoleId;
-
-            //        var role = ApplicationUserService.FindRoleById(roleId);
-
-            //        var mapperRole = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
-
-            //        var roleVM = mapperRole.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(role);
-            //        userVM.DataRoles.Add(roleVM);
-            //    }
-
-            //}
-
+            FillDataRoles(users);
             return View(users);
+        }
+
+        private  void FillDataRoles(List<ApplicationUserViewModel> usersVW)
+        {
+            foreach (var userVW in usersVW)
+            {
+                for (int i = 0; i < userVW.Roles.Count; i++)
+                {
+                    var roleId = userVW.Roles.ElementAt(i).RoleId;
+
+                    var AppRoleDTo = ApplicationUserService.FindRoleById(roleId);
+
+                    if (!userVW.DataRoles.Any(dr => dr.Name == AppRoleDTo.Name))
+                    {
+                        var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
+
+                        var result = mapper.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(AppRoleDTo);
+
+                        userVW.DataRoles.Add(result);
+                    }
+                }
+            }
+            
         }
 
         public async Task<ActionResult> AddOrEditRoles(int id = 0)
