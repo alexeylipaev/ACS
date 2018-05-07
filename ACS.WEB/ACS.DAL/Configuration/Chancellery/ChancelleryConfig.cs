@@ -20,7 +20,7 @@ namespace ACS.DAL.Configuration
             Property(e => e.RegistrationNumber)
                .IsUnicode(true);
 
-            Property(p => p.DateRegistration).HasColumnType("date");
+            //Property(p => p.DateRegistration).HasColumnType("date");
 
             //HasMany(e => e.FileRecordChancelleries)
             //   .WithOptional(e => e.Chancellery)

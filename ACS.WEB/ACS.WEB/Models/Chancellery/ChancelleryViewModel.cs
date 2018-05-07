@@ -24,7 +24,7 @@ namespace ACS.WEB.ViewModel
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата регистрации")]
-        public DateTime? DateRegistration { get; set; }
+        public DateTime DateRegistration { get; set; }
 
         /// <summary>
         /// Регистрационный номер
@@ -53,23 +53,23 @@ namespace ACS.WEB.ViewModel
 
         #region Журнал
 
-        //public int? JournalRegistrationsId { get; set; }
+        public int? JournalRegistrationsId { get; set; }
         /// <summary>
         /// Журнал
         /// </summary>
-        public JournalRegistrationsChancelleryViewModel JournalRegistrationsChancellery { get; set; }
+        //public JournalRegistrationsChancelleryViewModel JournalRegistrationsChancellery { get; set; }
 
         #endregion
 
         #region Тип
 
 
-        //public byte? TypeRecordId { get; set; }
+        public byte? TypeRecordId { get; set; }
 
         /// <summary>
         /// Тип записи
         /// </summary>
-        public TypeRecordChancelleryViewModel TypeRecordChancellery { get; set; }
+        //public TypeRecordChancelleryViewModel TypeRecordChancellery { get; set; }
 
         #endregion
 

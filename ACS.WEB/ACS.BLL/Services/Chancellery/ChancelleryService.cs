@@ -262,6 +262,7 @@ namespace ACS.BLL.Services
 
                 foreach (DictionaryEntry de in e.Data)
                     Console.WriteLine("{0} : {1}", de.Key, de.Value);
+                throw;
             }
         }
 
