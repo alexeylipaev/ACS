@@ -63,7 +63,7 @@ namespace ACS.WEB.Controllers
                 if (ModelState.IsValid)
                 {
                     //EmployeeDTO employee = EmployeeService.GetEmployee(EmployeeId);
-                    var typeRecordDTO = ChancelleryService.GetType(chancelleryVM.TypeRecordId);
+                    var typeRecordDTO = chancelleryVM.TypeRecordChancellery;
                     string currentUserEmail = this.User.Identity.Name;
                     //string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
                     var chancelleryDTO = new ChancelleryDTO();
@@ -161,8 +161,11 @@ namespace ACS.WEB.Controllers
             {
                 cfg.CreateMap<FileRecordChancelleryViewModel, FileRecordChancelleryDTO > ();
                 cfg.CreateMap<FolderChancelleryViewModel, FolderChancelleryDTO>();
+                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
+                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();
+                /*
                 //cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
-                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>().ForMember("TypeRecordChancellery", opt => opt.MapFrom(c => ChancelleryService.GetType(c.TypeRecordId)));
+                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>().ForMember("TypeRecordChancellery", opt => opt.MapFrom(c => ChancelleryService.GetType(c.TypeRecordId)));*/
 
             }).CreateMapper();
 
