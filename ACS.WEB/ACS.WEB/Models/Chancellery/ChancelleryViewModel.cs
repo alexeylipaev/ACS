@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-
-
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,17 +21,23 @@ namespace ACS.WEB.ViewModel
         /// <summary>
         /// Дата регистрации
         /// </summary>
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Дата регистрации")]
         public DateTime? DateRegistration { get; set; }
 
         /// <summary>
         /// Регистрационный номер
         /// </summary>
+        [Display(Name = "Регистрационный номер")]
         public string RegistrationNumber { get; set; }
 
 
         /// <summary>
         /// Описание
         /// </summary>
+        [Display(Name = "Описание")]
+        [DataType(DataType.MultilineText)]
         public string Summary { get; set; }
 
         #region папка
@@ -42,7 +47,7 @@ namespace ACS.WEB.ViewModel
         /// <summary>
         /// Папка
         /// </summary>
-        public virtual FolderChancelleryViewModel FolderChancellery { get; set; }
+        public FolderChancelleryViewModel FolderChancellery { get; set; }
 
         #endregion
 
@@ -52,7 +57,7 @@ namespace ACS.WEB.ViewModel
         /// <summary>
         /// Журнал
         /// </summary>
-        public virtual JournalRegistrationsChancelleryViewModel JournalRegistrationsChancellery { get; set; }
+        public JournalRegistrationsChancelleryViewModel JournalRegistrationsChancellery { get; set; }
 
         #endregion
 
@@ -64,12 +69,12 @@ namespace ACS.WEB.ViewModel
         /// <summary>
         /// Тип записи
         /// </summary>
-        public virtual TypeRecordChancelleryViewModel TypeRecordChancellery { get; set; }
+        public TypeRecordChancelleryViewModel TypeRecordChancellery { get; set; }
 
         #endregion
 
         #region Ответственный
-
+        [Display(Name = "Ответственный")]
         public int? ResponsibleEmployee_Id { get; set; }
 
         /// <summary>
@@ -83,18 +88,19 @@ namespace ACS.WEB.ViewModel
         /// <summary>
         /// Файлы
         /// </summary>
-        public virtual ICollection<FileRecordChancelleryViewModel> FileRecordChancelleries { get; set; }
+        [DataType(DataType.Upload)]
+        public ICollection<FileRecordChancelleryViewModel> FileRecordChancelleries { get; set; }
 
 
         /// <summary>
         /// От кого"
         /// </summary>
-        public virtual ICollection<FromChancelleryViewModel> FromChancelleries { get; set; }
+        public ICollection<FromChancelleryViewModel> FromChancelleries { get; set; }
 
 
         /// <summary>
         /// Кому
         /// </summary>
-        public virtual ICollection<ToChancelleryViewModel> ToChancelleries { get; set; }
+        public ICollection<ToChancelleryViewModel> ToChancelleries { get; set; }
     }
 }

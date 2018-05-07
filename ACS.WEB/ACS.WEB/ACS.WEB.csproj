@@ -195,7 +195,7 @@
     <Compile Include="Controllers\AdminApplicationUserVMController.cs" />
     <Compile Include="Controllers\ApplicationRolesController.cs" />
     <Compile Include="Controllers\ApplicationUsersController.cs" />
-    <Compile Include="Controllers\ChancelleryController.cs" />
+    <Compile Include="Controllers\Chancellery\ChancelleryController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -275,7 +275,6 @@
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Chancellery\Create.cshtml" />
     <Content Include="Views\Chancellery\Delete.cshtml" />
     <Content Include="Views\Chancellery\Details.cshtml" />
     <Content Include="Views\Chancellery\Edit.cshtml" />
@@ -338,9 +337,12 @@
     <Content Include="Views\ApplicationRoles\Delete.cshtml" />
     <Content Include="Views\ApplicationUsers\Index.cshtml" />
     <Content Include="Views\ApplicationUsers\AddOrEditRoles.cshtml" />
+    <Content Include="Views\Chancellery\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\AdminApplicationUserVM\" />
+    <Folder Include="Views\Shared\DisplayTemplates\" />
+    <Folder Include="Views\Shared\EditTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
