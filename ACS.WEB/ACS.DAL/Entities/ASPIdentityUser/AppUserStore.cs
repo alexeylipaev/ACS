@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 namespace ACS.DAL.Entities
 {
     public class AppUserStore : UserStore<ApplicationUser, ApplicationRole, int,
-        ApplicationLogin, AppUserRole, ApplicationClaim>
+        AppUserLogin, AppUserRole, AppUserClaim>
     {
+        
         public AppUserStore(ACSContext context)
             : base(context)
         {

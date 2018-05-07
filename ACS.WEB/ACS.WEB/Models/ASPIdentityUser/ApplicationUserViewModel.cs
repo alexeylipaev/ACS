@@ -11,8 +11,8 @@ namespace ACS.WEB.ViewModel
     {
         public ApplicationUserViewModel()
         {
-            Claims = new HashSet<ApplicationClaimViewModel>();
-            Logins = new HashSet<ApplicationLoginViewModel>();
+            Claims = new HashSet<AppUserClaimViewModel>();
+            Logins = new HashSet<AppUserLoginViewModel>();
             Roles = new HashSet<AppUserRoleViewModel>();
             DataRoles = new HashSet<ApplicationRoleViewModel>();
         }
@@ -45,12 +45,12 @@ namespace ACS.WEB.ViewModel
         /// <summary>
         /// Свойство навигации для утверждений пользователя
         /// </summary>
-        public virtual ICollection<ApplicationClaimViewModel> Claims { get; set; }
+        public virtual ICollection<AppUserClaimViewModel> Claims { get; set; }
 
         /// <summary>
         /// Логины (1 пользователь имеет N логинов (google, fb...))
         /// </summary>
-        public virtual ICollection<ApplicationLoginViewModel> Logins { get; set; }
+        public virtual ICollection<AppUserLoginViewModel> Logins { get; set; }
 
         /// <summary>
         /// ID Ролей и ID Изера

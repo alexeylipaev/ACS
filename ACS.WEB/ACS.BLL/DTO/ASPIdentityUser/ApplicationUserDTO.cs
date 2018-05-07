@@ -11,8 +11,8 @@ namespace ACS.BLL.DTO
     {
         public ApplicationUserDTO()
         {
-            Claims = new HashSet<ApplicationClaimDTO>();
-            Logins = new HashSet<ApplicationLoginDTO>();
+            Claims = new HashSet<AppUserClaimDTO>();
+            Logins = new HashSet<AppUserLoginDTO>();
             Roles = new HashSet<AppUserRoleDTO>();
             //DataRoles = new HashSet<ApplicationRoleDTO>();
         }
@@ -45,12 +45,12 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Свойство навигации для утверждений пользователя
         /// </summary>
-        public virtual ICollection<ApplicationClaimDTO> Claims { get; set; }
+        public virtual ICollection<AppUserClaimDTO> Claims { get; set; }
 
         /// <summary>
         /// Логины (1 пользователь имеет N логинов (google, fb...))
         /// </summary>
-        public virtual ICollection<ApplicationLoginDTO> Logins { get; set; }
+        public virtual ICollection<AppUserLoginDTO> Logins { get; set; }
 
         /// <summary>
         /// Пользователь

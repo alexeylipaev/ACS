@@ -154,6 +154,7 @@
     <Compile Include="Configuration\Access\AccessConfig.cs" />
     <Compile Include="Configuration\Access\TypeAccessConfig.cs" />
     <Compile Include="Configuration\ASPIdentityUser\ApplicationRoleConfig.cs" />
+    <Compile Include="Configuration\ASPIdentityUser\AppUserRole.cs" />
     <Compile Include="Configuration\Chancellery\ChancelleryConfig.cs" />
     <Compile Include="Configuration\Chancellery\ExternalOrganizationChancelleryConfig.cs" />
     <Compile Include="Configuration\Chancellery\FileRecordChancelleryConfig.cs" />
@@ -178,8 +179,8 @@
     <Compile Include="Identity\ApplicationUserValidator.cs" />
     <Compile Include="Сonnection.cs" />
     <Compile Include="Entities\Access\Access.cs" />
-    <Compile Include="Entities\ASPIdentityUser\ApplicationClaim.cs" />
-    <Compile Include="Entities\ASPIdentityUser\ApplicationLogin.cs" />
+    <Compile Include="Entities\ASPIdentityUser\AppUserClaim.cs" />
+    <Compile Include="Entities\ASPIdentityUser\AppUserLogin.cs" />
     <Compile Include="Entities\ASPIdentityUser\ApplicationUser.cs" />
     <Compile Include="Entities\ASPIdentityUser\ApplicationRole.cs" />
     <Compile Include="Entities\Chancellery\Chancellery.cs" />

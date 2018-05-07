@@ -7,4 +7,5 @@ namespace ACS.DAL.Entities
     /// Промежуточная таблица хранит в себе UserId и RoleId
     /// </summary>
     public class AppUserRole : IdentityUserRole<int> { }
+
 }

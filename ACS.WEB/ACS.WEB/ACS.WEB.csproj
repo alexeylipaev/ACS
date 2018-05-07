@@ -208,9 +208,9 @@
     <Compile Include="Models\Access\TypeAccessViewModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActiveDirectoryAuthentication\AdAuthenticationService.cs" />
-    <Compile Include="Models\ASPIdentityUser\ApplicationClaimViewModel.cs" />
+    <Compile Include="Models\ASPIdentityUser\AppUserClaimViewModel.cs" />
     <Compile Include="Models\ASPIdentityUser\ApplicationUserViewModel.cs" />
-    <Compile Include="Models\ASPIdentityUser\ApplicationLoginViewModel.cs" />
+    <Compile Include="Models\ASPIdentityUser\AppUserLoginViewModel.cs" />
     <Compile Include="Models\ASPIdentityUser\ApplicationRoleViewModel.cs" />
     <Compile Include="Models\ASPIdentityUser\AppUserRoleViewModel.cs" />
     <Compile Include="Models\Chancellery\ChancelleryViewModel.cs" />

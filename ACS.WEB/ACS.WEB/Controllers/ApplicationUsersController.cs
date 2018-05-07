@@ -20,7 +20,7 @@ namespace ACS.WEB.Controllers
     {
         IApplicationUserService ApplicationUserService;
 
-
+       
         public ApplicationUsersController(IApplicationUserService serv)
         {
             ApplicationUserService = serv;
@@ -37,7 +37,7 @@ namespace ACS.WEB.Controllers
             return View(users);
         }
 
-        private  void FillDataRoles(List<ApplicationUserViewModel> usersVW)
+        private void FillDataRoles(List<ApplicationUserViewModel> usersVW)
         {
             foreach (var userVW in usersVW)
             {
@@ -57,12 +57,13 @@ namespace ACS.WEB.Controllers
                     }
                 }
             }
-            
+
         }
 
         public async Task<ActionResult> AddOrEditRoles(int id = 0)
         {
-            SelectedRoleViewModel rol = new SelectedRoleViewModel();
+             SelectedRoleViewModel rol = new SelectedRoleViewModel();
+
             var roledDto = ApplicationUserService.GetApplicationRoles();
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
             var roleCollectionVM = mapper.Map<IEnumerable<ApplicationRoleDTO>, List<ApplicationRoleViewModel>>(roledDto);
@@ -93,6 +94,11 @@ namespace ACS.WEB.Controllers
 
             bool IsChanged = false;
 
+            bool IsHaveSelected = sRole.SelectedId.Count > 0;
+
+            if (IsHaveSelected)
+                userDto.Roles.Clear();
+
             for (int i = 0; i < sRole.SelectedId.Count; i++)
             {
                 int newRoleId = sRole.SelectedId.ElementAt(i);
@@ -102,16 +108,25 @@ namespace ACS.WEB.Controllers
                 IsChanged = true;
 
                 var dataRole = ApplicationUserService.GetAppUserRoleAssignmentData(sRole.SelectedId.ElementAt(i), userId);
+
                 userDto.Roles.Add(dataRole);
             }
             if (IsChanged)
             {
-                await ApplicationUserService.UpdateAsync(userDto);
-                ViewBag.EditResult = "Данные изменены";
+                var resultUpdateRoles=  await ApplicationUserService.UpdateUserRolesAsync(userDto);
+                if (resultUpdateRoles.Succeeded)
+                {
+                    ViewBag.EditResult = "Роли обновлены";
+                 
+                }
+                else
+                {
+                    throw new Exception("Ошибка обновления ролей пользователя " + userDto.Email);
+                }
             }
-            return View(userDto);
-            //return RedirectToAction("AddOrEdit", new { id = 0 });
 
+            //return View(sRole);
+            return RedirectToAction("AddOrEditRoles", new { id = userId });
 
         }
 
@@ -211,7 +226,7 @@ namespace ACS.WEB.Controllers
                     var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserViewModel, ApplicationUserDTO>()).CreateMapper();
                     var userDto = mapper.Map<ApplicationUserViewModel, ApplicationUserDTO>(userVM);
 
-                  await  ApplicationUserService.UpdateAsync(userDto);
+                    await ApplicationUserService.UpdateAsync(userDto);
                     ViewBag.EditResult = "Данные изменены";
                     return View(userDto);
                 }
@@ -257,7 +272,7 @@ namespace ACS.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                  await  ApplicationUserService.DeleteAsync((int)id);
+                    await ApplicationUserService.DeleteAsync((int)id);
                     ViewBag.EditResult = "Данные удалены";
                     return RedirectToAction("Index");
                 }

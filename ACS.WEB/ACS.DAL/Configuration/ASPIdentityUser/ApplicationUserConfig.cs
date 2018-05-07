@@ -23,6 +23,8 @@ namespace ACS.DAL.Configuration
 
             HasOptional(o => o.Employee)
             .WithOptionalPrincipal(o => o.ApplicationUser);
+
+            //HasMany(p => p.Roles).WithRequired().HasForeignKey(p => p.UserId);
         }
     }
 }

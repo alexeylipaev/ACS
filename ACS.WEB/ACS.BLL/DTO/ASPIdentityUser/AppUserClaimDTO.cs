@@ -1,6 +1,6 @@
 ﻿namespace ACS.BLL.DTO
 {
-    public class ApplicationClaimDTO
+    public class AppUserClaimDTO
     {
         public int id { get; set; }
         public string ClaimType { get; set; }

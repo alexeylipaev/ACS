@@ -40,9 +40,7 @@
                     <table class="table">
                     @foreach (var nameRole in item.DataRoles)
                     {
-                        <tr>
-                            @Html.DisplayFor(model => nameRole.Name)   
-                        </tr>
+                        <tr>@Html.DisplayFor(model => nameRole.Name) </tr>
                     }
                    </table>
                 </td>

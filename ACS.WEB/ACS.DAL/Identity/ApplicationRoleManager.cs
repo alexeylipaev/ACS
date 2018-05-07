@@ -38,6 +38,7 @@ namespace ACS.DAL.Identity
                     where role.Name == roleName
                     select role).FirstOrDefault();
         }
+
         public static ApplicationRoleManager Create(IdentityFactoryOptions<ApplicationRoleManager> options,
                                             IOwinContext context)
         {

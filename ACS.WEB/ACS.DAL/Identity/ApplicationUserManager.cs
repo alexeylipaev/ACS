@@ -25,8 +25,9 @@ namespace ACS.DAL.Identity
             //Настройте Microsoft.AspNet.Identity, чтобы разрешить адрес электронной почты как имя пользователя
             this.UserValidator = new UserValidator<ApplicationUser,int>(this) { AllowOnlyAlphanumericUserNames = false };
         }
-     
-    public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
+
+
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
 
             var manager = new ApplicationUserManager(
@@ -117,6 +118,10 @@ namespace ACS.DAL.Identity
         {
             return string.Format("{0} {1} {2}", empl.LName, empl.FName, empl.MName);
         }
+
+
+
+       
     }
     public class EmailService : IIdentityMessageService
     {
