@@ -18,10 +18,15 @@
 
         @*MultiSelect DropDown*@
         @Html.ListBoxFor(model=>model.SelectedId, new MultiSelectList(Model.RoleCollection,"Id","Name"),new { id="multiSelectDropDown",multiple="multiple"})
-        <input type="submit" name="name" value="Выбрать" />
+        <input type="submit" name="name" value="Обновить" />
+        <div style="color:red">@ViewBag.EditResult</div>
     </div>
     </div>
 }
+
+<div>
+    @Html.ActionLink("Назад к списку", "Index")
+</div>
 
 @section scripts
 {

@@ -17,6 +17,9 @@ namespace ACS.DAL.Configuration
             Property(e => e.Name)
               .IsUnicode(true).IsRequired();
 
+
+            //HasMany(p => p.Users).WithRequired().HasForeignKey(p => p.RoleId);
+
         }
     }
 }

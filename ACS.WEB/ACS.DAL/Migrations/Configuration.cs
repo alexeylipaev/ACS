@@ -17,10 +17,10 @@ namespace ACS.DAL.Migrations
 
         protected override void Seed(ACSContext db)
         {
-            //Debug.WriteLine("GenerateApplicationUserSystem");
-            //DataLoader1C.GenerateApplicationUserSystem(db);
             //Debug.WriteLine("GenerateAppRolesRepository");
             //DataLoader1C.GenerateAppRolesRepository(db);
+            //Debug.WriteLine("GenerateApplicationUserSystem");
+            //DataLoader1C.GenerateApplicationUserSystem(db);
             //Debug.WriteLine("GenerateUserRepository");
             //DataLoader1C.GenerateUserRepository(db);
             //Debug.WriteLine("GenerateDepartmentRepository");

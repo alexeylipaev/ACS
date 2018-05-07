@@ -1,6 +1,6 @@
 ﻿namespace ACS.BLL.DTO
 {
-    public class ApplicationLoginDTO
+    public class AppUserLoginDTO
     {
         public string LoginProvider { get; set; }
 

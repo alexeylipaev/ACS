@@ -23,13 +23,33 @@ namespace ACS.WEB.Controllers
             EmployeeService = serv;
         }
 
+        IMapper GetMapEmplDTOToEmpViewModel()
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<AccessDTO, AccessViewModel>().ForMember(x => x.Employee_Id,
+x => x.MapFrom(m => m.Employee_Id));
+                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>().ForMember(x => x.ResponsibleEmployee_Id,
+x => x.MapFrom(m => m.ResponsibleEmployee_Id));
+                cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>().ForMember(x => x.Employee_Id,
+          x => x.MapFrom(m => m.Employee_Id));
+                cfg.CreateMap<PostEmployeeСode1СDTO, PostsEmployeeСode1СViewModel>().ForMember(x => x.Employee_Id,
+x => x.MapFrom(m => m.Employee_Id));
+                cfg.CreateMap<EmployeeDTO, EmployeeViewModel>();
+
+            }).CreateMapper();
+
+            return mapper;
+        }
+
+
         // GET: Employees
         public ActionResult Index()
         {
-            IEnumerable<EmployeeDTO> userDtos = EmployeeService.GetEmployees().Where(e => /*e.s_InBasket != null &&*/ !(bool)e.s_InBasket);
+            List<EmployeeDTO> userDtos = EmployeeService.GetEmployees().Where(e => /*e.s_InBasket != null &&*/ !(bool)e.s_InBasket).ToList();
             //var user = this.User;
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
-            var users = mapper.Map<IEnumerable<EmployeeDTO>, List<EmployeeViewModel>>(userDtos);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
+            var users = GetMapEmplDTOToEmpViewModel().Map<List<EmployeeDTO>, List<EmployeeViewModel>>(userDtos);
             return View(users);
         }
 
@@ -43,8 +63,8 @@ namespace ACS.WEB.Controllers
             try
             {
                 EmployeeDTO user = EmployeeService.GetEmployee(id);
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
-                var userVM = mapper.Map<EmployeeDTO, EmployeeViewModel>(user);
+                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
+                var userVM = GetMapEmplDTOToEmpViewModel().Map<EmployeeDTO, EmployeeViewModel>(user);
                 //var userVM = new UserViewModel { id = user.id };
 
                 return View(userVM);
@@ -64,8 +84,8 @@ namespace ACS.WEB.Controllers
                 if (id != null)
                 {
                     EmployeeDTO userDTO = EmployeeService.GetEmployee(id);
-                    var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
-                    userVM = mapper.Map<EmployeeDTO, EmployeeViewModel>(userDTO);
+                    //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
+                    userVM = GetMapEmplDTOToEmpViewModel().Map<EmployeeDTO, EmployeeViewModel>(userDTO);
                     //userVM.id = userDTO.id;
                 }
                 return View(userVM);
@@ -110,8 +130,8 @@ namespace ACS.WEB.Controllers
             if (id != null)
             {
                 EmployeeDTO userDTO = EmployeeService.GetEmployee(id);
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
-                userVM = mapper.Map<EmployeeDTO, EmployeeViewModel>(userDTO);
+               // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
+                userVM = GetMapEmplDTOToEmpViewModel().Map<EmployeeDTO, EmployeeViewModel>(userDTO);
                 //userVM.id = userDTO.id;
             }
 
@@ -154,8 +174,8 @@ namespace ACS.WEB.Controllers
             }
 
             EmployeeDTO userDTO = EmployeeService.GetEmployee(id);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
-            var userVM = mapper.Map<EmployeeDTO, EmployeeViewModel>(userDTO);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
+            var userVM = GetMapEmplDTOToEmpViewModel().Map<EmployeeDTO, EmployeeViewModel>(userDTO);
 
             if (userVM == null)
             {

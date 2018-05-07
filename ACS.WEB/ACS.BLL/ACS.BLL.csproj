@@ -101,8 +101,8 @@
   <ItemGroup>
     <Compile Include="BusinessModels\Helper.cs" />
     <Compile Include="DTO\ASPIdentityUser\ApplicationRoleDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\ApplicationClaimDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\ApplicationLoginDTO.cs" />
+    <Compile Include="DTO\ASPIdentityUser\AppUserClaimDTO.cs" />
+    <Compile Include="DTO\ASPIdentityUser\AppUserLoginDTO.cs" />
     <Compile Include="DTO\ASPIdentityUser\AppUserRoleDTO.cs" />
     <Compile Include="Interfaces\ASPIdentityUser\IApplicationRoleService.cs" />
     <Compile Include="Interfaces\IAccountAppUserService.cs" />

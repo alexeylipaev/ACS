@@ -241,10 +241,11 @@ x => x.MapFrom(m => m.Employee.id));
             // применяем автомаппер для проекции одной коллекции на другую
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
             //return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
-            IEnumerable<Employee> Employees = Database.Employees.GetAll().ToList();
+            List<Employee> Employees = Database.Employees.GetAll().ToList();
 
+            List<EmployeeDTO> result = GetMapEmplToEmpDto().Map<List<Employee>, List<EmployeeDTO>>(Employees);
             //if (Employees.Any(e => e != null))
-                return GetMapEmplToEmpDto().Map<IEnumerable<Employee>, List<EmployeeDTO>>(Employees);
+            return result;
 
             //return new List<EmployeeDTO>();
         }

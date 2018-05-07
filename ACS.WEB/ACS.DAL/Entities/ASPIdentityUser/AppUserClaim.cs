@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ACS.DAL.Entities
 {
-    public partial class ApplicationLogin : IdentityUserLogin<int>
+    public partial class AppUserClaim : IdentityUserClaim<int> 
     {
     }
 }

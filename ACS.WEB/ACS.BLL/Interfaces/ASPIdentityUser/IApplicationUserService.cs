@@ -44,6 +44,8 @@ namespace ACS.BLL.Interfaces
 
         Task<OperationDetails> UpdateAsync(ApplicationUserDTO applicationUserDTO);
 
+        Task<OperationDetails> UpdateUserRolesAsync(ApplicationUserDTO applicationUserDTO);
+        
         Task<OperationDetails> DeleteAsync(int id);
 
         bool IsInRole(string username, string roleName);

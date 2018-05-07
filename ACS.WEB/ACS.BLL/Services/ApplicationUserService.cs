@@ -44,12 +44,99 @@
             if (EditableObj == null)
             {
                 return new OperationDetails(false, "Не возможно редактировать объект с id", "");
-            }              Employee empl = null;              empl = UserDTO.Employee_Id != null ? empl = Database.Employees.Get((int)UserDTO.Employee_Id) : null;              try             {                 EditableObj.Email = UserDTO.Email;                 EditableObj.UserName = UserDTO.UserName;                 EditableObj.PasswordHash = UserDTO.PasswordHash;                 EditableObj.Employee = empl;                 await Database.UserManager.UpdateAsync(EditableObj);
+            }              Employee empl = null;              empl = UserDTO.Employee_Id != null ? empl = Database.Employees.Get((int)UserDTO.Employee_Id) : null;              try             {                 EditableObj.Email = UserDTO.Email;                 EditableObj.UserName = UserDTO.UserName;                 EditableObj.PasswordHash = UserDTO.PasswordHash;                 EditableObj.Employee = empl;
+
+               var resultUpdateRole = await UpdateUserRolesAsync(UserDTO);
+
+                if (!resultUpdateRole.Succeeded)
+                    return new OperationDetails(true, resultUpdateRole.Message, "");
+               
+
+                var result =  await Database.UserManager.UpdateAsync(EditableObj);
                 await Database.SaveAsync();
-                return new OperationDetails(true, "Пользователь успешно обновлен", "");             }             catch (Exception e)             {                 Debug.WriteLine("Имя члена:               {0}", e.TargetSite);                 Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);                 Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);                 Debug.WriteLine("Message:                 {0}", e.Message);                 Debug.WriteLine("Source:                  {0}", e.Source);                 Debug.WriteLine("Help Link:               {0}", e.HelpLink);                 Debug.WriteLine("Stack:                   {0}", e.StackTrace);                  foreach (DictionaryEntry de in e.Data)                     Console.WriteLine("{0} : {1}", de.Key, de.Value);
+
+                if (result.Succeeded)
+                    return new OperationDetails(true, "Данные пользователя успешно обновлены", "");
+                else
+                {
+                    return new OperationDetails(true, "Ошибка обновления пользователя", "");
+                }
+
+                            }             catch (Exception e)             {                 Debug.WriteLine("Имя члена:               {0}", e.TargetSite);                 Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);                 Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);                 Debug.WriteLine("Message:                 {0}", e.Message);                 Debug.WriteLine("Source:                  {0}", e.Source);                 Debug.WriteLine("Help Link:               {0}", e.HelpLink);                 Debug.WriteLine("Stack:                   {0}", e.StackTrace);                  foreach (DictionaryEntry de in e.Data)                     Console.WriteLine("{0} : {1}", de.Key, de.Value);
 
                 return new OperationDetails(false, e.Message, "");             }         }
-                public async Task<OperationDetails> DeleteAsync(int userId)         {             ApplicationUser EditableObj = await Database.UserManager.FindByIdAsync(userId);
+
+
+        public async Task<OperationDetails> UpdateUserRolesAsync(ApplicationUserDTO UserDTO)
+        {
+           
+              var  EditableObj = await Database.UserManager.FindByIdAsync(UserDTO.id);
+
+                if (EditableObj == null)
+                {
+                    return new OperationDetails(false, "Не возможно редактировать объект с id", "");
+                }
+         
+
+            OperationDetails result = null;
+
+            if (EditableObj.Roles.Count == 0)//если ролей нет
+                result = await AssignUserRolesAsync(UserDTO);
+            else
+            {
+                 result = await RemoveFromRoleAsync(EditableObj);
+
+                if (!result.Succeeded)
+                    return new OperationDetails(false, result.Message, "");
+
+                result = await AssignUserRolesAsync(UserDTO);
+
+                if (!result.Succeeded)
+                    return new OperationDetails(false, result.Message, "");
+            }
+
+            await Database.SaveAsync();
+
+
+            return new OperationDetails(true, result.Message, "");
+
+        }
+        private async Task<OperationDetails> RemoveFromRoleAsync(ApplicationUser EditableObj)         {
+            List<AppUserRole> RolesId = EditableObj.Roles.ToList();
+
+            foreach (var currentDataRole in RolesId)//user
+            {
+                int currentRoleId = currentDataRole.RoleId;
+               
+                    ApplicationRole currentRole = await Database.RoleManager.FindByIdAsync(currentRoleId);
+
+                    IdentityResult result = await Database.UserManager.RemoveFromRoleAsync(EditableObj.Id, currentRole.Name);
+
+                if (!result.Succeeded)
+                        return new OperationDetails(false, "Ошибка при удалении роли ", currentRole.Name.ToString());
+             
+            }
+
+             
+
+            return new OperationDetails(true,"Роли пользователя успешно удалены","");
+        }          private async Task<OperationDetails> AssignUserRolesAsync(ApplicationUserDTO UserDTO)         {
+            foreach (var dRole in UserDTO.Roles)
+            {
+                ApplicationRole role = await Database.RoleManager.FindByIdAsync(dRole.RoleId);
+                var result = await Database.UserManager.AddToRoleAsync(dRole.UserId, role.Name);
+                string StrError = string.Empty;
+                foreach (var error in result.Errors)
+                {
+                    StrError += error.ToString();
+                }
+
+                if (!result.Succeeded)
+                    return new OperationDetails(false, StrError, "");
+            }
+
+            return new OperationDetails(true, "Роли пользователя успешно обновлены", "");
+        }          public async Task<OperationDetails> DeleteAsync(int userId)         {             ApplicationUser EditableObj = await Database.UserManager.FindByIdAsync(userId);
 
             if (EditableObj == null)
             {

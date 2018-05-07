@@ -20,7 +20,7 @@ namespace ACS.DAL.EF
 
     //public class ACSContext : DbContext
     public class ACSContext : IdentityDbContext<ApplicationUser, ApplicationRole,
-    int, ApplicationLogin, AppUserRole, ApplicationClaim>
+    int, AppUserLogin, AppUserRole, AppUserClaim>
     {
         public virtual DbSet<Access> Accesses { get; set; }
         public virtual DbSet<Chancellery> Chancelleries { get; set; }
@@ -55,7 +55,7 @@ namespace ACS.DAL.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+           
 
             //var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
             //modelBuilder.Conventions.Add(convention);
@@ -63,8 +63,11 @@ namespace ACS.DAL.EF
             modelBuilder.Configurations.Add(new AccessConfig());
             modelBuilder.Configurations.Add(new TypeAccessConfig());
 
+            modelBuilder.Configurations.Add(new AppUserRoleConfig());
             modelBuilder.Configurations.Add(new ApplicationUserConfig());
             modelBuilder.Configurations.Add(new ApplicationRoleConfig());
+
+     
 
             modelBuilder.Configurations.Add(new ChancelleryConfig());
             modelBuilder.Configurations.Add(new TypeRecordChancelleryConfig());
@@ -84,6 +87,8 @@ namespace ACS.DAL.EF
             modelBuilder.Configurations.Add(new WorkHistoryConfig());
 
             modelBuilder.Configurations.Add(new DataEntityConfig());
+
+            base.OnModelCreating(modelBuilder);
         }
 
         //public ACSContext Create()
@@ -113,5 +118,7 @@ namespace ACS.DAL.EF
     //}}
 
 }
+
+
 
 
