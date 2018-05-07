@@ -14,20 +14,23 @@ namespace ACS.WEB.Controllers
 
     public class ChancelleryController : Controller
     {
-        IChancelleryService chancelleryService;
+        IChancelleryService ChancelleryService;
+        IEmployeeService EmployeeService;
 
-        public ChancelleryController(IChancelleryService serv)
+        public ChancelleryController(IChancelleryService chancelleryService, IEmployeeService employeeService)
         {
-            chancelleryService = serv;
+            ChancelleryService = chancelleryService;
+            EmployeeService = employeeService;
         }
+
 
 
         // GET: Chancellery
         public ActionResult Index()
         {
-            var chancelleryDTOs = chancelleryService.GetChancelleries();
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>()).CreateMapper();
-            var chancelleriesVMs = mapper.Map<IEnumerable<ChancelleryDTO>, List<ChancelleryViewModel>>(chancelleryDTOs);
+            var chancelleryDTOs = ChancelleryService.GetChancelleries();
+                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>()).CreateMapper();
+            var chancelleriesVMs = GetMapChancelleryDTOToChancelleryVM().Map<List<ChancelleryDTO>, List<ChancelleryViewModel>>(chancelleryDTOs.ToList());
             return View(chancelleriesVMs);
         }
 
@@ -42,44 +45,33 @@ namespace ACS.WEB.Controllers
         {
             var newChancelleryVM =new ChancelleryViewModel();
             newChancelleryVM.DateRegistration = DateTime.Today;
-            ViewBag.TypeRecords = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName=t.Name }), "TypeId", "TypeName");
+            ViewBag.TypeRecordId = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName=t.Name }), "TypeId", "TypeName");
+            ViewBag.ResponsibleEmployee_Id = new SelectList(GetEmployeeNameSelector().OrderBy(e=>e.EmployeeName), "EmployeeId", "EmployeeName");
             return View(newChancelleryVM);
         }
 
     
-        IMapper GetMapChancelleryDTOToChancelleryVM()
-        {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>();
-                cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>();
-                cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
-                cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>();
-                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
-
-            }).CreateMapper();
-
-            return mapper;
-        }
+        
 
         // POST: Chancellery/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] ChancelleryViewModel chancelleryVM, int? TypeRecords)
+        public ActionResult Create([Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] ChancelleryViewModel chancelleryVM)
         {
             try
             {
                 // TODO: Add insert logic here
                 if (ModelState.IsValid)
                 {
-                    var typeRecordDTO = chancelleryService.GetType(TypeRecords);
+                    //EmployeeDTO employee = EmployeeService.GetEmployee(EmployeeId);
+                    var typeRecordDTO = ChancelleryService.GetType(chancelleryVM.TypeRecordId);
                     string currentUserEmail = this.User.Identity.Name;
                     //string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
                     var chancelleryDTO = new ChancelleryDTO();
                     
                     // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>()).CreateMapper();
-                    chancelleryDTO = GetMapChancelleryDTOToChancelleryVM().Map<ChancelleryViewModel, ChancelleryDTO>(chancelleryVM);
-                    chancelleryDTO.TypeRecordChancellery = typeRecordDTO;
-                    chancelleryService.MakeChancellery(chancelleryDTO, currentUserEmail);
+                    chancelleryDTO = GetMapChancelleryVMToDTO().Map<ChancelleryViewModel, ChancelleryDTO>(chancelleryVM);
+                    var sd = chancelleryDTO.TypeRecordChancellery;
+                    ChancelleryService.MakeChancellery(chancelleryDTO, currentUserEmail);
                     return RedirectToAction("Index");
                 }
             }
@@ -134,12 +126,47 @@ namespace ACS.WEB.Controllers
             }
         }
 
+        private IEnumerable<EmployeeSelectItem> GetEmployeeNameSelector()
+        {
+            var employees = EmployeeService.GetEmployees().Select(e => new EmployeeSelectItem { EmployeeId = e.id, EmployeeName = e.LName + " " + e.FName + " " + e.MName });
+            return employees;
+        }
+
         private  IEnumerable<TypeRecordChancelleryViewModel> GetAllTypes()
         {
-            var typeDTOs = chancelleryService.GetAllTypes();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
-            return mapper.Map<List<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(typeDTOs.ToList());
-            //chancelleryService.MakeChancellery(chancelleryDTO, currentUserEmail);
+            var typeDTOs = ChancelleryService.GetAllTypes();
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
+            return GetMapChancelleryDTOToChancelleryVM().Map<List<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(typeDTOs.ToList());
+        }
+
+        IMapper GetMapChancelleryDTOToChancelleryVM()
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                
+                //cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
+                cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>();
+                //cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
+                cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>();
+                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
+
+            }).CreateMapper();
+
+            return mapper;
+        }
+
+        IMapper GetMapChancelleryVMToDTO()
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<FileRecordChancelleryViewModel, FileRecordChancelleryDTO > ();
+                cfg.CreateMap<FolderChancelleryViewModel, FolderChancelleryDTO>();
+                //cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
+                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>().ForMember("TypeRecordChancellery", opt => opt.MapFrom(c => ChancelleryService.GetType(c.TypeRecordId)));
+
+            }).CreateMapper();
+
+            return mapper;
         }
     }
 }

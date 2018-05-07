@@ -196,6 +196,7 @@
     <Compile Include="Controllers\ApplicationRolesController.cs" />
     <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\Chancellery\ChancelleryController.cs" />
+    <Compile Include="Controllers\Chancellery\EmployeeSelectItem.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
