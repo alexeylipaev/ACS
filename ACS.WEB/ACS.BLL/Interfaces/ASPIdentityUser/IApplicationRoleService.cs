@@ -16,17 +16,20 @@ namespace ACS.BLL.Interfaces
 
         int GetIdNewAppUser();
 
+
         AppUserRoleDTO GetAppUserRoleAssignmentData(int RoleId, int? UserId = null);
 
-        ApplicationRoleDTO FindRoleById(int roleId);
+        ApplicationRoleDTO FindById(int id);
 
         Task<OperationDetails> CreateAsync(ApplicationRoleDTO applicationRoleDTO);
 
+        Task<ApplicationRoleDTO> FindByIdAsync(int id);
+
         IEnumerable<ApplicationRoleDTO> GetApplicationRoles();
 
-        void UpdateRole(ApplicationRoleDTO applicationRoleDTO);
-     
-        void DeleteRole(int roleId);
+        Task<OperationDetails> UpdateAsync(ApplicationRoleDTO applicationRoleDTO);
+
+        Task<OperationDetails> DeleteAsync(int id);
 
     }
 }

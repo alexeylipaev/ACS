@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿//#define  notWindowsAuth
+using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
@@ -22,8 +23,11 @@ namespace ACS.WEB.App_Start
             // need to add UserManager into owin, because this is used in cookie invalidation
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
+#if  notWindowsAuth
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                //AuthenticationType = MyAuthentication.ApplicationCookie,
+#else
+                AuthenticationType = MyAuthentication.ApplicationCookie,
+#endif
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider(),
                 CookieName = "MyCookieName",

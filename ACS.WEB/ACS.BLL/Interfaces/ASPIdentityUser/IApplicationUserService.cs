@@ -24,9 +24,11 @@ namespace ACS.BLL.Interfaces
 
         ApplicationUserDTO FindByEmail(string Email);
 
+        Task<ApplicationRoleDTO> FindRoleByIdAsync(int roleId);
+
         ApplicationRoleDTO FindRoleById(int roleId);
 
-        ApplicationUserDTO FindById(int userId);
+        //ApplicationUserDTO FindById(int userId);
 
         Task<ApplicationUserDTO> FindByIdAsync(int userId);
 
@@ -40,9 +42,10 @@ namespace ACS.BLL.Interfaces
 
         IEnumerable<ApplicationRoleDTO> GetApplicationRoles();
 
-        void UpdateUser(ApplicationUserDTO applicationUserDTO);
+        Task<OperationDetails> UpdateAsync(ApplicationUserDTO applicationUserDTO);
 
-        void DeleteUser(int userId);
+        Task<OperationDetails> DeleteAsync(int id);
+
         bool IsInRole(string username, string roleName);
     }
 }

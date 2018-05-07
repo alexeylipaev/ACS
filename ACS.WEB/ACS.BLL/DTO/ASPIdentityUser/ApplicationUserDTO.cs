@@ -14,6 +14,7 @@ namespace ACS.BLL.DTO
             Claims = new HashSet<ApplicationClaimDTO>();
             Logins = new HashSet<ApplicationLoginDTO>();
             Roles = new HashSet<AppUserRoleDTO>();
+            //DataRoles = new HashSet<ApplicationRoleDTO>();
         }
 
         public int id { get; set; }
@@ -56,5 +57,6 @@ namespace ACS.BLL.DTO
         /// </summary>
         public virtual ICollection<AppUserRoleDTO> Roles { get; set; }
 
+        //public virtual ICollection<ApplicationRoleDTO> DataRoles { get; set; }
     }
 }

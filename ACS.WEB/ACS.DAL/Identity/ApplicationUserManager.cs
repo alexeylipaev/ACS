@@ -96,6 +96,7 @@ namespace ACS.DAL.Identity
                     where user.Id == userId
                     select user).FirstOrDefault();
         }
+      
 
         public ApplicationUser FindByUserName(string userName)
         {

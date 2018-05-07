@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using ACS.DAL.Repositories;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,31 @@ namespace ACS.DAL.Entities
     /// <summary>
     ///  You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     /// </summary>
-    public partial class ApplicationUser  : IdentityUser<int, ApplicationLogin, AppUserRole,
-    ApplicationClaim> 
+    public partial class ApplicationUser : IdentityUser<int, ApplicationLogin, AppUserRole,
+    ApplicationClaim>
     {
+
+        //public ApplicationUser()
+        //{
+        //    DataRoles = new HashSet<ApplicationRole>();
+
+        //}
+
+
+        //private void FillDataRoles()
+        //{
+        //    using (EFUnitOfWork context = new EFUnitOfWork(Сonnection.@string))
+        //    {
+        //        for (int i = 0; i < this.Roles.Count; i++)
+        //        {
+        //            var roleId = this.Roles.ElementAt(i).RoleId;
+
+        //            var role = context.RoleManager.FindById(roleId);
+        //            if (!DataRoles.Any(dr => dr.Name == role.Name))
+        //                this.DataRoles.Add(role);
+        //        }
+        //    }
+        //}
 
         public virtual Employee Employee { get; set; }
 
@@ -32,8 +55,19 @@ namespace ACS.DAL.Entities
             return userIdentity;
         }
 
+
+        //[NotMapped]
+        //public ICollection<ApplicationRole> DataRoles { get; set; }
+        //{
+        //    get
+        //    {
+        //        FillDataRoles();
+        //        return DataRoles;
+        //    }
+        //    private set { }
+        //}
         //public string UserName { get; set; }
+
     }
-    
 
 }

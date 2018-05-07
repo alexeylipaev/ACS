@@ -1,5 +1,5 @@
-﻿#warning Закомментить   HomeDev
-#define HomeDev
+﻿//#warning Закомментить   notWindowsAuth
+//#define notWindowsAuth
 using System;
 using System.Globalization;
 using System.Linq;
@@ -44,7 +44,7 @@ namespace ACS.WEB.Controllers
         {
             return View();
         }
-        #if HomeDev
+#if notWindowsAuth
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model)
@@ -74,7 +74,7 @@ namespace ACS.WEB.Controllers
 #else
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public /*async Task<*/ActionResult/*>*/ Login(LoginViewModel model, string returnUrl)
         {
             //await SetInitialDataAsync();
 
@@ -87,8 +87,17 @@ namespace ACS.WEB.Controllers
                 var authenticationResult = authService.SignIn(model.Email, model.Password);
                 if (authenticationResult.IsSuccess)
                 {
+                    if (User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
                     // we are in!
-                    return RedirectPermanent(returnUrl);
+                    //return RedirectPermanent(returnUrl);
                     //return RedirectToAction("Index", "Home");
                 }
 

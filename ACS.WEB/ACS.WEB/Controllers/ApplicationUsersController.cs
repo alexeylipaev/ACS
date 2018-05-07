@@ -34,26 +34,26 @@ namespace ACS.WEB.Controllers
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()).CreateMapper();
             var users = mapper.Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(usersDto);
 
-            foreach (var userVM in users)
-            {
-                for (int i = 0; i < userVM.Roles.Count; i++)
-                {
-                    var roleId = userVM.Roles.ElementAt(i).RoleId;
+            //foreach (var userVM in users)
+            //{
+            //    for (int i = 0; i < userVM.Roles.Count; i++)
+            //    {
+            //        var roleId = userVM.Roles.ElementAt(i).RoleId;
 
-                    var role =   ApplicationUserService.FindRoleById(roleId);
+            //        var role = ApplicationUserService.FindRoleById(roleId);
 
-                    var mapperRole = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
+            //        var mapperRole = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
 
-                    var roleVM = mapperRole.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(role);
-                    userVM.NamesRoles.Add(roleVM);
-                }
-               
-            }
+            //        var roleVM = mapperRole.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(role);
+            //        userVM.DataRoles.Add(roleVM);
+            //    }
+
+            //}
 
             return View(users);
         }
 
-        public ActionResult AddOrEditRoles(int id = 0)
+        public async Task<ActionResult> AddOrEditRoles(int id = 0)
         {
             SelectedRoleViewModel rol = new SelectedRoleViewModel();
             var roledDto = ApplicationUserService.GetApplicationRoles();
@@ -62,7 +62,7 @@ namespace ACS.WEB.Controllers
 
             rol.RoleCollection = roleCollectionVM;
 
-            ApplicationUserDTO userDto = ApplicationUserService.FindById(id);
+            ApplicationUserDTO userDto = await ApplicationUserService.FindByIdAsync(id);
             //var user = this.User;
             var mapperUs = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()).CreateMapper();
             var user = mapperUs.Map<ApplicationUserDTO, ApplicationUserViewModel>(userDto);
@@ -78,10 +78,10 @@ namespace ACS.WEB.Controllers
             return View(rol);
         }
         [HttpPost]
-        public ActionResult AddOrEditRoles(SelectedRoleViewModel sRole)
+        public async Task<ActionResult> AddOrEditRoles(SelectedRoleViewModel sRole)
         {
             var userId = sRole.Id;
-            ApplicationUserDTO userDto = ApplicationUserService.FindById((int)userId);
+            ApplicationUserDTO userDto = await ApplicationUserService.FindByIdAsync((int)userId);
             var userRoles = userDto.Roles;
 
             bool IsChanged = false;
@@ -90,7 +90,7 @@ namespace ACS.WEB.Controllers
             {
                 int newRoleId = sRole.SelectedId.ElementAt(i);
 
-                if (userRoles.Any(dr=>dr.RoleId == newRoleId)) continue;
+                if (userRoles.Any(dr => dr.RoleId == newRoleId)) continue;
 
                 IsChanged = true;
 
@@ -99,7 +99,7 @@ namespace ACS.WEB.Controllers
             }
             if (IsChanged)
             {
-                ApplicationUserService.UpdateUser(userDto);
+                await ApplicationUserService.UpdateAsync(userDto);
                 ViewBag.EditResult = "Данные изменены";
             }
             return View(userDto);
@@ -195,7 +195,7 @@ namespace ACS.WEB.Controllers
         // POST: ApplicationRole/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ApplicationUserViewModel userVM)
+        public async Task<ActionResult> Edit(ApplicationUserViewModel userVM)
         {
             try
             {
@@ -204,7 +204,7 @@ namespace ACS.WEB.Controllers
                     var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserViewModel, ApplicationUserDTO>()).CreateMapper();
                     var userDto = mapper.Map<ApplicationUserViewModel, ApplicationUserDTO>(userVM);
 
-                    ApplicationUserService.UpdateUser(userDto);
+                  await  ApplicationUserService.UpdateAsync(userDto);
                     ViewBag.EditResult = "Данные изменены";
                     return View(userDto);
                 }
@@ -240,7 +240,7 @@ namespace ACS.WEB.Controllers
         // POST: ApplicationRole/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteAction(int? id)
+        public async Task<ActionResult> DeleteAction(int? id)
         {
             if (id == null)
             {
@@ -250,7 +250,7 @@ namespace ACS.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    ApplicationUserService.DeleteUser((int)id);
+                  await  ApplicationUserService.DeleteAsync((int)id);
                     ViewBag.EditResult = "Данные удалены";
                     return RedirectToAction("Index");
                 }

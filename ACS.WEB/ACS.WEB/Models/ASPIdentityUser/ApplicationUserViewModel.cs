@@ -14,7 +14,7 @@ namespace ACS.WEB.ViewModel
             Claims = new HashSet<ApplicationClaimViewModel>();
             Logins = new HashSet<ApplicationLoginViewModel>();
             Roles = new HashSet<AppUserRoleViewModel>();
-            NamesRoles = new HashSet<ApplicationRoleViewModel>();
+            DataRoles = new HashSet<ApplicationRoleViewModel>();
         }
 
         public int id { get; set; }
@@ -57,7 +57,7 @@ namespace ACS.WEB.ViewModel
         /// </summary>
         public virtual ICollection<AppUserRoleViewModel> Roles { get; set; }
 
-        public virtual ICollection<ApplicationRoleViewModel> NamesRoles { get; set; }
+        public virtual ICollection<ApplicationRoleViewModel> DataRoles { get; set; }
 
     }
 }
