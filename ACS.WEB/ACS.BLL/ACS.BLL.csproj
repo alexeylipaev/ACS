@@ -104,10 +104,14 @@
     <Compile Include="DTO\ASPIdentityUser\AppUserClaimDTO.cs" />
     <Compile Include="DTO\ASPIdentityUser\AppUserLoginDTO.cs" />
     <Compile Include="DTO\ASPIdentityUser\AppUserRoleDTO.cs" />
+    <Compile Include="DTO\InputControlPurchasedProducts\InputControlPKI.cs" />
+    <Compile Include="DTO\InputControlPurchasedProducts\ReceivedDocPKI.cs" />
     <Compile Include="Interfaces\ASPIdentityUser\IApplicationRoleService.cs" />
     <Compile Include="Interfaces\IAccountAppUserService.cs" />
+    <Compile Include="Interfaces\IInputControlPKIService.cs" />
     <Compile Include="Services\AccountAppUserService.cs" />
     <Compile Include="Services\ApplicationRoleService.cs" />
+    <Compile Include="Services\InputControlPKI\InputControlPKIService.cs" />
     <Compile Include="Сonnection.cs" />
     <Compile Include="DTO\Access\AccessDTO.cs" />
     <Compile Include="DTO\Access\TypeAccessDTO.cs" />

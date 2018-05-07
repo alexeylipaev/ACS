@@ -316,8 +316,7 @@ namespace ACS.DAL.Repositories
                     userManager.Dispose();
                     roleManager.Dispose();
                     db.Dispose();
-                    //ApplicationUserRepository.Dispose();
-                }
+    }
                 this.disposed = true;
             }
         }
