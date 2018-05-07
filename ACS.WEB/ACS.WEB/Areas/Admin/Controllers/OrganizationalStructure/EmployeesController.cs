@@ -27,7 +27,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
         // GET: Admin/Employees
         public ActionResult Index()
         {
-            IEnumerable<EmployeeDTO> userDtos = EmployeeService.GetUsers();
+            IEnumerable<EmployeeDTO> userDtos = EmployeeService.GetEmployees();
             var user = this.User;
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
             var users = mapper.Map<IEnumerable<EmployeeDTO>, List<EmployeeAdminVM>>(userDtos);
@@ -43,7 +43,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
             }
             try
             {
-                EmployeeDTO user = EmployeeService.GetUser(id);
+                EmployeeDTO user = EmployeeService.GetEmployee(id);
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
                 var userVM = mapper.Map<EmployeeDTO, EmployeeAdminVM>(user);
                 //var userVM = new UserViewModel { Id = user.Id };
@@ -90,7 +90,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
                     var userDto = new EmployeeDTO();
                     var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
                     userDto = mapper.Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
-                    EmployeeService.CreateUser(userDto, currentUserEmail);
+                    EmployeeService.CreateEmployee(userDto, currentUserEmail);
                     return RedirectToAction("Index");
                 }
             }
@@ -106,7 +106,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
         {
             try
             {
-                EmployeeDTO user = EmployeeService.GetUser(id);
+                EmployeeDTO user = EmployeeService.GetEmployee(id);
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
                 var userVM = mapper.Map<EmployeeDTO, EmployeeAdminVM>(user);
                 //var userVM = new UserViewModel { Id = user.Id };
@@ -123,15 +123,15 @@ namespace ACS.WEB.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(EmployeeAdminVM employeeAdminVM)
         {
-            EmployeeDTO user = EmployeeService.GetUser(employeeAdminVM.Id);
-            if (user == null) throw new ArgumentNullException("Нет такого работника с Id=" + employeeAdminVM.Id);
+            EmployeeDTO user = EmployeeService.GetEmployee(employeeAdminVM.id);
+            if (user == null) throw new ArgumentNullException("Нет такого работника с Id=" + employeeAdminVM.id);
             try
             {
                 
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
                 user = mapper.Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
                 //var userVM = new UserViewModel { Id = user.Id };
-                EmployeeService.UpdateUser(user, this.User.Identity.Name);
+                EmployeeService.UpdateEmployee(user, this.User.Identity.Name);
                 return RedirectToAction("Index");
             }
             catch (ValidationException ex)
@@ -146,7 +146,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
         {
             try
             {
-                EmployeeDTO user = EmployeeService.GetUser(id);
+                EmployeeDTO user = EmployeeService.GetEmployee(id);
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
                 var userVM = mapper.Map<EmployeeDTO, EmployeeAdminVM>(user);
                 //var userVM = new UserViewModel { Id = user.Id };
@@ -163,14 +163,14 @@ namespace ACS.WEB.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Delete(EmployeeAdminVM employeeAdminVM)
         {
-            EmployeeDTO user = EmployeeService.GetUser(employeeAdminVM.Id);
+            EmployeeDTO user = EmployeeService.GetEmployee(employeeAdminVM.id);
             if (user == null) return RedirectToAction("Index");
             try
             {
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
                 //user = mapper.Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
                 //var userVM = new UserViewModel { Id = user.Id };
-                EmployeeService.DeleteUser(employeeAdminVM.Id, this.User.Identity.Name);
+                EmployeeService.DeleteEmployee(employeeAdminVM.id, this.User.Identity.Name);
                 return RedirectToAction("Index");
             }
             catch (ValidationException ex)
