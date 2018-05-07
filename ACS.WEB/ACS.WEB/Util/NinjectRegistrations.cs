@@ -18,6 +18,7 @@ namespace ACS.WEB.Util
             Bind<IAccountAppUserService>().To<AccountAppUserService>()/*.WithConstructorArgument(connectionString)*/;
             Bind<IApplicationUserService>().To<ApplicationUserService>()/*.WithConstructorArgument(connectionString)*/;
             Bind<IApplicationRoleService>().To<ApplicationRoleService>()/*.WithConstructorArgument(connectionString)*/;
+            Bind<IChancelleryService>().To<ChancelleryService>()/*.WithConstructorArgument(connectionString)*/;
         }
     }
 
