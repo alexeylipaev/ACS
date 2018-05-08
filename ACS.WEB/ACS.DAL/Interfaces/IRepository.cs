@@ -11,9 +11,9 @@ namespace ACS.DAL.Interfaces
         IEnumerable<T> GetAll();
         T Get(int id);
         IEnumerable<T> Find(Func<T, Boolean> predicate);
-        void MoveToBasketEmployee(T MoveObj, int EditorId);
-        void Create(T item);
-        void Update(T item);
+        void MoveToBasket(T MoveObj, int EditorId);
+        void Create(T item, int EditorId);
+        void Update(T MoveObj, int EditorId);
         void Delete(int id);
     }
 }

@@ -31,20 +31,24 @@ namespace ACS.DAL.Repositories
 
 
 
-        public void Create(PostEmployeeСode1С PostsEmployeesСode1С)
+        public void Create(PostEmployeeСode1С postsEmployeesСode1С, int authorId)
         {
-            db.PostsEmployeesСode1С.Add(PostsEmployeesСode1С);
+            postsEmployeesСode1С.s_EditorId = authorId;
+            postsEmployeesСode1С.s_EditDate = postsEmployeesСode1С.s_DateCreation;
+            postsEmployeesСode1С.s_AuthorId = authorId;
+            db.PostsEmployeesСode1С.Add(postsEmployeesСode1С);
         }
 
-        public void MoveToBasketEmployee(PostEmployeeСode1С PostsEmployeesСode1С, int EditorId)
+        public void MoveToBasket(PostEmployeeСode1С PostsEmployeesСode1С, int editorId)
         {
             PostsEmployeesСode1С.s_InBasket = true;
-            PostsEmployeesСode1С.s_EditorId = EditorId;
-            Update(PostsEmployeesСode1С);
+            Update(PostsEmployeesСode1С, editorId);
         }
-        public void Update(PostEmployeeСode1С PostsEmployeesСode1С)
+        public void Update(PostEmployeeСode1С updateObj, int editorId)
         {
-            db.Entry(PostsEmployeesСode1С).State = EntityState.Modified;
+            updateObj.s_EditorId = editorId;
+            updateObj.s_EditDate = DateTime.Now;
+            db.Entry(updateObj).State = EntityState.Modified;
         }
 
         public IEnumerable<PostEmployeeСode1С> Find(Func<PostEmployeeСode1С, Boolean> predicate)

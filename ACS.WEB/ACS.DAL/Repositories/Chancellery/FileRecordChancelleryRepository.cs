@@ -30,14 +30,19 @@ namespace ACS.DAL.Repositories
         }
 
 
-        public void Create(FileRecordChancellery FileRecordChancellery)
+        public void Create(FileRecordChancellery fileRecordChancellery, int authorId)
         {
-            db.FileRecordChancelleries.Add(FileRecordChancellery);
+            fileRecordChancellery.s_EditorId = authorId;
+            fileRecordChancellery.s_EditDate = fileRecordChancellery.s_DateCreation;
+            fileRecordChancellery.s_AuthorId = authorId;
+            db.FileRecordChancelleries.Add(fileRecordChancellery);
         }
 
-        public void Update(FileRecordChancellery FileRecordChancellery)
+        public void Update(FileRecordChancellery fileRecordChancellery, int authorId)
         {
-            db.Entry(FileRecordChancellery).State = EntityState.Modified;
+            fileRecordChancellery.s_EditorId = authorId;
+            fileRecordChancellery.s_EditDate = DateTime.Now;
+            db.Entry(fileRecordChancellery).State = EntityState.Modified;
         }
 
         public IEnumerable<FileRecordChancellery> Find(Func<FileRecordChancellery, Boolean> predicate)
@@ -52,9 +57,10 @@ namespace ACS.DAL.Repositories
                 db.FileRecordChancelleries.Remove(FileRecord);
         }
 
-        public void MoveToBasketEmployee(FileRecordChancellery MoveObj, int EditorId)
+        public void MoveToBasket(FileRecordChancellery MoveObj, int EditorId)
         {
-            throw new NotImplementedException();
+            MoveObj.s_InBasket = true;
+            Update(MoveObj, EditorId);
         }
     }
 }

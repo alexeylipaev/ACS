@@ -16,7 +16,7 @@ using System.Collections;
 namespace ACS.BLL.Services
 {
 
-    
+
     public class ChancelleryService : IChancelleryService
     {
         IUnitOfWork Database { get; set; }
@@ -85,33 +85,17 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
         }
 
-        /// <summary>
-        /// Тип канцелярской записи
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public TypeRecordChancelleryDTO GetType(int? id)
-        {
-            if (id == null)
-                throw new ValidationException("Не установлено id типа", "");
 
-            var type = Database.TypeRecordChancelleries.Get(id.Value);
-            if (type == null)
-                throw new ValidationException("Тип не найден", "");
-
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(type);
-        }
 
         /// <summary>
         /// Получить все типы канцелярии
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<TypeRecordChancelleryDTO> GetAllTypes()
+        public IEnumerable<TypeRecordChancelleryDTO> TypeRecordGetAll()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll().ToList());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
+            return GetMapTypeRecordChancelleryDBToTypeRecordChancelleryDTO().Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll().ToList());
         }
 
         /// <summary>
@@ -140,7 +124,7 @@ namespace ACS.BLL.Services
         public IEnumerable<ChancelleryDTO> GetChancelleries()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-           // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
+            // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
             return GetMapChancelleryDBToChancelleryDTO().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(Database.Chancelleries.GetAll().ToList());
         }
 
@@ -247,22 +231,13 @@ namespace ACS.BLL.Services
                 Chancellery chancellery = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDto);
 
 
-                Database.Chancelleries.Create(chancellery);
+                Database.Chancelleries.Create(chancellery, Author.id);
+                //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
                 Database.Save();
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
-                Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
-                Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);
-                Debug.WriteLine("Message:                 {0}", e.Message);
-                Debug.WriteLine("Source:                  {0}", e.Source);
-                Debug.WriteLine("Help Link:               {0}", e.HelpLink);
-                Debug.WriteLine("Stack:                   {0}", e.StackTrace);
-
-                foreach (DictionaryEntry de in e.Data)
-                    Console.WriteLine("{0} : {1}", de.Key, de.Value);
-                throw;
+                CatchError(e);
             }
         }
 
@@ -272,20 +247,120 @@ namespace ACS.BLL.Services
             throw new NotImplementedException();
         }
 
+        #region TypeRecordChancelleries
+
+        /// <summary>
+        /// Тип канцелярской записи
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public TypeRecordChancelleryDTO TypeRecordGetById(int id)
+        {
+
+            var type = Database.TypeRecordChancelleries.Get(id);
+            if (type == null)
+                throw new ValidationException("Тип не найден", "");
+
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
+            return GetMapTypeRecordChancelleryDBToTypeRecordChancelleryDTO().Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(type);
+        }
+
+        public void TypeRecordCreate(TypeRecordChancelleryDTO typeDTO, string currentUserEmail)
+        {
+            var Author = Database.Employees.Find(u => u.Email == currentUserEmail).FirstOrDefault();
+
+            if (Author == null)
+                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", currentUserEmail);
+            try
+            {
+                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
+                TypeRecordChancellery typeDB = GetMap_TypeRecordChancellery_DTO_To_DB().Map<TypeRecordChancelleryDTO, TypeRecordChancellery>(typeDTO);
+                Database.TypeRecordChancelleries.Create(typeDB, Author.id);
+                //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
+                Database.Save();
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
+        }
+        public void TypeRecordUpdate(TypeRecordChancelleryDTO typeDTO, string currentUserEmail)
+        {
+            TypeRecordChancellery typeDB = Database.TypeRecordChancelleries.Get(typeDTO.id);
+
+            var editor = this.Database.UserManager.FindByEmail(currentUserEmail);
+
+            if (editor == null)
+                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", currentUserEmail);
+
+            if (typeDB == null)
+                throw new ValidationException("Не возможно редактировать объект с id", typeDTO.id.ToString());
+
+            try
+            {
+                Database.TypeRecordChancelleries.Update(typeDB, editor.Id);
+                Database.Save();
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
+        }
+
+        public void TypeRecordMoveToBasket(TypeRecordChancelleryDTO typeDTO, string currentUserEmail)
+        {
+            TypeRecordChancellery typeDB = Database.TypeRecordChancelleries.Get(typeDTO.id);
+
+            var editor = this.Database.UserManager.FindByEmail(currentUserEmail);
+
+            if (editor == null)
+                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", currentUserEmail);
+
+            if (typeDB == null)
+                throw new ValidationException("Не возможно редактировать объект с id", typeDTO.id.ToString());
+
+            try
+            {
+                Database.TypeRecordChancelleries.MoveToBasket(typeDB, editor.Id);
+                Database.Save();
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
+        }
+
+        
+
+        public void TypeRecordDelete(int typeId)
+        {
+            try
+            {
+                Database.TypeRecordChancelleries.Delete(typeId);
+                Database.Save();
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
+        }
+        #endregion
+
+        #region mappers
         IMapper GetMapChancelleryDTOToChancelleryDB()
         {
             var mapper = new MapperConfiguration(cfg =>
             {
 
-                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>().ForMember(c=>c.id, c=>c.MapFrom(t=> t.id));
+                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
                 cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
                 cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
                 cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
                 cfg.CreateMap<FromChancelleryDTO, FromChancellery>();
                 cfg.CreateMap<ToChancelleryDTO, ToChancellery>();
-                cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.Employee, x=> x.MapFrom(c=>Database.Employees.Get((int)c.ResponsibleEmployee_Id)))
+                cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Get((int)c.ResponsibleEmployee_Id)))
                 .ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => Database.TypeRecordChancelleries.Get((int)c.TypeRecordChancellery.id)));
-                
+
 
             }).CreateMapper();
 
@@ -319,12 +394,53 @@ x => x.MapFrom(m => m.Employee.id));
 
             return mapper;
         }
+        IMapper GetMapTypeRecordChancelleryDBToTypeRecordChancelleryDTO()
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.TypeRecordChancellery,
+x => x.MapFrom(m => m.TypeRecordChancellery)); ;
+                cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();/*.ForMember(x => x.,
+x => x.MapFrom(m => m.Employee.id));*/
+
+            }).CreateMapper();
+
+            return mapper;
+        }
+
+        IMapper GetMap_TypeRecordChancellery_DTO_To_DB()
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.TypeRecordChancellery,
+x => x.MapFrom(m => m.TypeRecordChancellery)); ;
+                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>();/*.ForMember(x => x.,
+x => x.MapFrom(m => m.Employee.id));*/
+
+            }).CreateMapper();
+
+            return mapper;
+        }
+        #endregion
 
         public void Dispose()
         {
             Database.Dispose();
         }
 
+        private void CatchError(Exception e)
+        {
+            Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
+            Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
+            Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);
+            Debug.WriteLine("Message:                 {0}", e.Message);
+            Debug.WriteLine("Source:                  {0}", e.Source);
+            Debug.WriteLine("Help Link:               {0}", e.HelpLink);
+            Debug.WriteLine("Stack:                   {0}", e.StackTrace);
 
+            foreach (DictionaryEntry de in e.Data)
+                Console.WriteLine("{0} : {1}", de.Key, de.Value);
+            throw e;
+        }
     }
 }

@@ -30,14 +30,19 @@ namespace ACS.DAL.Repositories
         }
 
 
-        public void Create(FromChancellery FromChancellery)
+        public void Create(FromChancellery fromChancellery, int authorId)
         {
-            db.FromChancelleries.Add(FromChancellery);
+            fromChancellery.s_EditorId = authorId;
+            fromChancellery.s_EditDate = fromChancellery.s_DateCreation;
+            fromChancellery.s_AuthorId = authorId;
+            db.FromChancelleries.Add(fromChancellery);
         }
 
-        public void Update(FromChancellery FromChancellery)
+        public void Update(FromChancellery updateObj, int editorId)
         {
-            db.Entry(FromChancellery).State = EntityState.Modified;
+            updateObj.s_EditorId = editorId;
+            updateObj.s_EditDate = DateTime.Now;
+            db.Entry(updateObj).State = EntityState.Modified;
         }
 
         public IEnumerable<FromChancellery> Find(Func<FromChancellery, Boolean> predicate)
@@ -52,9 +57,10 @@ namespace ACS.DAL.Repositories
                 db.FromChancelleries.Remove(From);
         }
 
-        public void MoveToBasketEmployee(FromChancellery MoveObj, int EditorId)
+        public void MoveToBasket(FromChancellery MoveObj, int editorId)
         {
-            throw new NotImplementedException();
+            MoveObj.s_InBasket = true;
+            Update(MoveObj, editorId);
         }
     }
 }

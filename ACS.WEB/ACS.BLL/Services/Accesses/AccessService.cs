@@ -57,7 +57,7 @@ namespace ACS.BLL.Services
                 //    PersonnelNumber = UserDTO.PersonnelNumber,
 
                 //};
-                Database.Accesses.Create(Access);
+                Database.Accesses.Create(Access, Author.id);
                 Database.Save();
             }
             catch (Exception e)

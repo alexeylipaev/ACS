@@ -29,19 +29,23 @@ namespace ACS.DAL.Repositories
             return db.EmployeesPassports.Find(id);
         }
 
-        public void Create(EmployeePassport EmployeePassport)
+        public void Create(EmployeePassport employeePassport, int authorId)
         {
-            db.EmployeesPassports.Add(EmployeePassport);
+            employeePassport.s_EditorId = authorId;
+            employeePassport.s_EditDate = employeePassport.s_DateCreation;
+            employeePassport.s_AuthorId = authorId;
+            db.EmployeesPassports.Add(employeePassport);
         }
-        public void MoveToBasketEmployee(EmployeePassport EmployeePassport, int EditorId)
+        public void MoveToBasket(EmployeePassport EmployeePassport, int editorId)
         {
             EmployeePassport.s_InBasket = true;
-            EmployeePassport.s_EditorId = EditorId;
-            Update(EmployeePassport);
+            Update(EmployeePassport, editorId);
         }
-        public void Update(EmployeePassport EmployeePassport)
+        public void Update(EmployeePassport updateObj, int editorId)
         {
-            db.Entry(EmployeePassport).State = EntityState.Modified;
+            updateObj.s_EditorId = editorId;
+            updateObj.s_EditDate = DateTime.Now;
+            db.Entry(updateObj).State = EntityState.Modified;
         }
 
         public IEnumerable<EmployeePassport> Find(Func<EmployeePassport, Boolean> predicate)

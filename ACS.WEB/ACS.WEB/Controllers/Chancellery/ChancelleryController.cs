@@ -129,15 +129,16 @@ namespace ACS.WEB.Controllers
 
         private IEnumerable<EmployeeSelectItem> GetEmployeeNameSelector()
         {
-            var employees = EmployeeService.GetEmployees().Select(e => new EmployeeSelectItem { EmployeeId = e.id, EmployeeName = e.LName + " " + e.FName + " " + e.MName });
+            var employeesDTO = EmployeeService.GetEmployees();
+            var employees = employeesDTO.Select(e => new EmployeeSelectItem { EmployeeId = e.id, EmployeeName = e.LName + " " + e.FName + " " + e.MName });
             return employees;
         }
 
         private  IEnumerable<TypeRecordChancelleryViewModel> GetAllTypes()
         {
-            var typeDTOs = ChancelleryService.GetAllTypes();
+            var typeDTOs = ChancelleryService.TypeRecordGetAll();
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
-            return GetMapChancelleryDTOToChancelleryVM().Map<List<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(typeDTOs.ToList());
+            return GetMapTypeRecordChancelleryDTOToTypeRecordChancelleryVM().Map<List<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(typeDTOs.ToList());
         }
 
         IMapper GetMapChancelleryDTOToChancelleryVM()
@@ -166,7 +167,20 @@ namespace ACS.WEB.Controllers
                 /*cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();*/
                 
                 //cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
-                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>().ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => ChancelleryService.GetType((int)c.TypeRecordId)));
+                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>().ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => ChancelleryService.TypeRecordGetById((int)c.TypeRecordId)));
+
+            }).CreateMapper();
+
+            return mapper;
+        }
+        IMapper GetMapTypeRecordChancelleryDTOToTypeRecordChancelleryVM()
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>().ForMember(x => x.TypeRecordId,
+x => x.MapFrom(m => m.TypeRecordChancellery.id)); ;
+                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();/*.ForMember(x => x.,
+x => x.MapFrom(m => m.Employee.id));*/
 
             }).CreateMapper();
 

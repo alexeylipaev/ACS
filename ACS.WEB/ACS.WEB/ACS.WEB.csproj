@@ -187,9 +187,10 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ASPIdentityUser\RolesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\Chancellery\TypeRecordChancelleryController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrganizationalStructure\EmployeesController.cs" />
+    <Compile Include="Areas\Admin\Models\Chancellery\TypeRecordChancelleryVM.cs" />
     <Compile Include="Areas\Admin\Models\OrganizationalStructure\EmployeeAdminVM.cs" />
-    <Compile Include="Areas\Admin\Models\SystemParametersAdminVM.cs" />
     <Compile Include="Controllers\AccessController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminApplicationUserVMController.cs" />
@@ -275,6 +276,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Areas\Admin\Views\Employees\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TypeRecordChancellery\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TypeRecordChancellery\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\TypeRecordChancellery\Create.cshtml" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />

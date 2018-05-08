@@ -19,19 +19,6 @@ namespace ACS.BLL.Interfaces
         void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail);
 
         /// <summary>
-        /// Получить тип
-        /// </summary>
-        /// <param name="id"></param>
-        TypeRecordChancelleryDTO GetType(int? id);
-
-
-        /// <summary>
-        /// Получить все типы
-        /// </summary>
-        /// <param name="id"></param>
-        IEnumerable<TypeRecordChancelleryDTO> GetAllTypes();
-
-        /// <summary>
         /// Получить файл
         /// </summary>
         /// <param name="id"></param>
@@ -75,7 +62,7 @@ namespace ACS.BLL.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         JournalRegistrationsChancelleryDTO GetJournalRegistrations(int? id);
-
+       
         /// <summary>
         /// Получить все журналы регистрации 
         /// </summary>
@@ -110,6 +97,47 @@ namespace ACS.BLL.Interfaces
 
         void UpdateChancellery(ChancelleryDTO ChancelleryDTO, string authorEmail);
 
+        #region Работа с типами корреспонденции
 
+        /// <summary>
+        /// Получить все типы
+        /// </summary>
+        /// <param name="id"></param>
+        IEnumerable<TypeRecordChancelleryDTO> TypeRecordGetAll();
+
+        /// <summary>
+        /// Получить тип по id
+        /// </summary>
+        /// <param name="id"></param>
+        TypeRecordChancelleryDTO TypeRecordGetById(int id);
+
+        /// <summary>
+        /// Создать новый тип корреспонденции
+        /// </summary>
+        /// <param name="typeDTO"></param>
+        /// <param name="currentUserEmail"></param>
+        void TypeRecordCreate(TypeRecordChancelleryDTO typeDTO, string currentUserEmail);
+
+        /// <summary>
+        /// Обновить тип корреспонденции
+        /// </summary>
+        /// <param name="typeDTO"></param>
+        /// <param name="currentUserEmail"></param>
+        void TypeRecordUpdate(TypeRecordChancelleryDTO typeDTO, string currentUserEmail);
+
+        /// <summary>
+        /// Обновить тип корреспонденции
+        /// </summary>
+        /// <param name="typeDTO"></param>
+        /// <param name="currentUserEmail"></param>
+        void TypeRecordMoveToBasket(TypeRecordChancelleryDTO typeDTO, string currentUserEmail);
+
+        /// <summary>
+        /// Удалить тип корреспонденции
+        /// </summary>
+        /// <param name="typeId"></param>
+        void TypeRecordDelete(int typeId);
+
+        #endregion
     }
 }

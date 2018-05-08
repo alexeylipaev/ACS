@@ -31,18 +31,22 @@ namespace ACS.DAL.Repositories
         }
 
 
-        public void Create(TypeAccess type)
+        public void Create(TypeAccess type, int authorId)
         {
+            type.s_EditorId = authorId;
+            type.s_EditDate = type.s_DateCreation;
+            type.s_AuthorId = authorId;
             db.TypeAccesses.Add(type);
         }
-        public void MoveToBasketEmployee(TypeAccess type, int EditorId)
+        public void MoveToBasket(TypeAccess type, int EditorId)
         {
             type.s_InBasket = true;
-            type.s_EditorId = EditorId;
-            Update(type);
+            Update(type,EditorId);
         }
-        public void Update(TypeAccess type)
+        public void Update(TypeAccess type, int authorId)
         {
+            type.s_EditorId = authorId;
+            type.s_EditDate = DateTime.Now;
             db.Entry(type).State = EntityState.Modified;
         }
 

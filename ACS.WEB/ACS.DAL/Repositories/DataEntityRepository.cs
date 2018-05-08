@@ -30,19 +30,24 @@ namespace ACS.DAL.Repositories
         }
 
 
-        public void Create(DataEntity DataEntity)
+        public void Create(DataEntity dataEntity, int editorId)
         {
-            db.DataEntityis.Add(DataEntity);
+            dataEntity.s_EditDate = dataEntity.s_DateCreation;
+            dataEntity.s_AuthorId = editorId;
+            dataEntity.s_EditorId = editorId;
+            db.DataEntityis.Add(dataEntity);
         }
-        public void MoveToBasketEmployee(DataEntity DataEntity, int EditorId)
+        public void MoveToBasket(DataEntity dataEntity, int editorId)
         {
-            DataEntity.s_InBasket = true;
-            DataEntity.s_EditorId = EditorId;
-            Update(DataEntity);
+            dataEntity.s_InBasket = true;
+            
+            Update(dataEntity, editorId);
         }
-        public void Update(DataEntity DataEntity)
+        public void Update(DataEntity dataEntity, int editorId)
         {
-            db.Entry(DataEntity).State = EntityState.Modified;
+            dataEntity.s_EditorId = editorId;
+            dataEntity.s_EditDate = DateTime.Now;
+            db.Entry(dataEntity).State = EntityState.Modified;
         }
 
         public IEnumerable<DataEntity> Find(Func<DataEntity, Boolean> predicate)

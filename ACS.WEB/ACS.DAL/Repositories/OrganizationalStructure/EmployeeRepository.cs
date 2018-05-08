@@ -32,20 +32,24 @@ namespace ACS.DAL.Repositories
 
 
 
-        public void Create(Employee user)
+        public void Create(Employee user, int authorId)
         {
+            user.s_EditorId = authorId;
+            user.s_EditDate = user.s_DateCreation;
+            user.s_AuthorId = authorId;
             db.Employees.Add(user);
         }
 
-        public void Update(Employee Employee)
+        public void Update(Employee updateObj, int editorId)
         {
-            db.Entry(Employee).State = EntityState.Modified;
+            updateObj.s_EditorId = editorId;
+            updateObj.s_EditDate = DateTime.Now;
+            db.Entry(updateObj).State = EntityState.Modified;
         }
-        public void MoveToBasketEmployee(Employee Employee, int EditorId)
+        public void MoveToBasket(Employee Employee, int editorId)
         {
             Employee.s_InBasket = true;
-            Employee.s_EditorId = EditorId;
-            Update(Employee);
+            Update(Employee,editorId);
         }
 
         

@@ -28,21 +28,25 @@ namespace ACS.DAL.Repositories
         {
             return db.ToChancelleries.Find(id);
         }
-        public void MoveToBasketEmployee(ToChancellery ToChancellery, int EditorId)
+        public void MoveToBasket(ToChancellery ToChancellery, int editorId)
         {
             ToChancellery.s_InBasket = true;
-            ToChancellery.s_EditorId = EditorId;
-            Update(ToChancellery);
+            Update(ToChancellery, editorId);
         }
 
-        public void Create(ToChancellery ToChancellery)
+        public void Create(ToChancellery toChancellery, int authorId)
         {
-            db.ToChancelleries.Add(ToChancellery);
+            toChancellery.s_EditorId = authorId;
+            toChancellery.s_EditDate = toChancellery.s_DateCreation;
+            toChancellery.s_AuthorId = authorId;
+            db.ToChancelleries.Add(toChancellery);
         }
 
-        public void Update(ToChancellery ToChancellery)
+        public void Update(ToChancellery updateObj, int editorId)
         {
-            db.Entry(ToChancellery).State = EntityState.Modified;
+            updateObj.s_EditorId = editorId;
+            updateObj.s_EditDate = DateTime.Now;
+            db.Entry(updateObj).State = EntityState.Modified;
         }
 
         public IEnumerable<ToChancellery> Find(Func<ToChancellery, Boolean> predicate)

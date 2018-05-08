@@ -30,14 +30,19 @@ namespace ACS.DAL.Repositories
         }
 
 
-        public void Create(JournalRegistrationsChancellery JournalRegistrationsChancellery)
+        public void Create(JournalRegistrationsChancellery journalRegistrationsChancellery, int authorId)
         {
-            db.JournalRegistrationsChancelleries.Add(JournalRegistrationsChancellery);
+            journalRegistrationsChancellery.s_EditorId = authorId;
+            journalRegistrationsChancellery.s_EditDate = journalRegistrationsChancellery.s_DateCreation;
+            journalRegistrationsChancellery.s_AuthorId = authorId;
+            db.JournalRegistrationsChancelleries.Add(journalRegistrationsChancellery);
         }
 
-        public void Update(JournalRegistrationsChancellery JournalRegistrationsChancellery)
+        public void Update(JournalRegistrationsChancellery updateObj, int editorId)
         {
-            db.Entry(JournalRegistrationsChancellery).State = EntityState.Modified;
+            updateObj.s_EditorId = editorId;
+            updateObj.s_EditDate = DateTime.Now;
+            db.Entry(updateObj).State = EntityState.Modified;
         }
 
         public IEnumerable<JournalRegistrationsChancellery> Find(Func<JournalRegistrationsChancellery, Boolean> predicate)
@@ -52,7 +57,7 @@ namespace ACS.DAL.Repositories
                 db.JournalRegistrationsChancelleries.Remove(Journal);
         }
 
-        public void MoveToBasketEmployee(JournalRegistrationsChancellery MoveObj, int EditorId)
+        public void MoveToBasket(JournalRegistrationsChancellery MoveObj, int EditorId)
         {
             throw new NotImplementedException();
         }
