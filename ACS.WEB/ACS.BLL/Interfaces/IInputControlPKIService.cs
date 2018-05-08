@@ -1,4 +1,5 @@
-﻿using ACS.BLL.Infrastructure;
+﻿using ACS.BLL.DTO;
+using ACS.BLL.Infrastructure;
 using ACS.DAL.Entities;
 using System;
 using System.Collections.Generic;

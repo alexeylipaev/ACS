@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ACS.BLL.Infrastructure;
 using ACS.DAL.Entities;
+using ACS.BLL.DTO;
 
 namespace ACS.BLL.Services.InputControlPKI
 {
