@@ -111,7 +111,7 @@ namespace ACS.BLL.Services
         {
             // применяем автомаппер для проекции одной коллекции на другую
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
-            return GetMapChancelleryDBToChancelleryDTO().Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll());
+            return mapper.Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll().ToList());
         }
 
         /// <summary>
@@ -277,11 +277,13 @@ namespace ACS.BLL.Services
             var mapper = new MapperConfiguration(cfg =>
             {
 
-                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>();
-                cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>();
-                cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>();
-                cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>();
-                cfg.CreateMap<ChancelleryDTO, Chancellery>();
+                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>().ForMember(c=>c.id, c=>c.MapFrom(t=> t.id));
+                cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
+                cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
+                cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
+                cfg.CreateMap<FromChancelleryDTO, FromChancellery>();
+                cfg.CreateMap<ToChancelleryDTO, ToChancellery>();
+                cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.Employee, x=> x.MapFrom(c=>Database.Employees.Get((int)c.ResponsibleEmployee_Id)));
 
             }).CreateMapper();
 
@@ -312,9 +314,6 @@ namespace ACS.BLL.Services
 x => x.MapFrom(m => m.Employee.id));
 
             }).CreateMapper();
-
-            return mapper;
-
 
             return mapper;
         }

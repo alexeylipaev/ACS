@@ -15,7 +15,7 @@ namespace ACS.BLL.DTO
     {
         public TypeRecordChancelleryDTO()
         {
-            Chancelleries = new HashSet<ChancelleryDTO>();
+            //Chancelleries = new HashSet<ChancelleryDTO>();
         }
 
 
@@ -27,6 +27,6 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Канцелярские записи которые имеют this тип
         /// </summary>
-        public virtual ICollection<ChancelleryDTO> Chancelleries { get; set; }
+        //public virtual ICollection<ChancelleryDTO> Chancelleries { get; set; }
     }
 }
