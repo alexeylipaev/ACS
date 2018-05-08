@@ -16,7 +16,7 @@ using System.Collections;
 namespace ACS.BLL.Services
 {
 
-
+    
     public class ChancelleryService : IChancelleryService
     {
         IUnitOfWork Database { get; set; }
@@ -111,7 +111,7 @@ namespace ACS.BLL.Services
         {
             // применяем автомаппер для проекции одной коллекции на другую
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll());
+            return GetMapChancelleryDBToChancelleryDTO().Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll());
         }
 
         /// <summary>
@@ -129,8 +129,8 @@ namespace ACS.BLL.Services
             if (Chancellery == null)
                 throw new ValidationException("Канцелярская запись не найдена", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
-            return mapper.Map<Chancellery, ChancelleryDTO>(Chancellery);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
+            return GetMapChancelleryDBToChancelleryDTO().Map<Chancellery, ChancelleryDTO>(Chancellery);
         }
 
         /// <summary>
@@ -140,8 +140,8 @@ namespace ACS.BLL.Services
         public IEnumerable<ChancelleryDTO> GetChancelleries()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(Database.Chancelleries.GetAll());
+           // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
+            return GetMapChancelleryDBToChancelleryDTO().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(Database.Chancelleries.GetAll().ToList());
         }
 
 
@@ -230,8 +230,8 @@ namespace ACS.BLL.Services
         public IEnumerable<ToChancelleryDTO> GetToList()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToChancellery, ToChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<ToChancellery>, List<ToChancelleryDTO>>(Database.ToChancelleries.GetAll());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToChancellery, ToChancelleryDTO>()).CreateMapper();
+            return GetMapChancelleryDBToChancelleryDTO().Map<IEnumerable<ToChancellery>, List<ToChancelleryDTO>>(Database.ToChancelleries.GetAll());
         }
 
 
@@ -243,8 +243,8 @@ namespace ACS.BLL.Services
                 throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
             try
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
-                Chancellery Chancellery = mapper.Map<ChancelleryDTO, Chancellery>(chancelleryDto);
+                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
+                Chancellery Chancellery = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDto);
 
 
                 Database.Chancelleries.Create(Chancellery);
@@ -270,6 +270,53 @@ namespace ACS.BLL.Services
         public void UpdateChancellery(ChancelleryDTO ChancelleryDTO, string authorEmail)
         {
             throw new NotImplementedException();
+        }
+
+        IMapper GetMapChancelleryDTOToChancelleryDB()
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+
+                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>();
+                cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>();
+                cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>();
+                cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>();
+                cfg.CreateMap<ChancelleryDTO, Chancellery>();
+
+            }).CreateMapper();
+
+            return mapper;
+        }
+
+        IMapper GetMapChancelleryDBToChancelleryDTO()
+        {
+            //var mapper = new MapperConfiguration(cfg =>
+            //{
+
+            //    cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
+            //    cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>();
+            //    cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>();
+            //    cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>();
+            //    cfg.CreateMap<Chancellery, ChancelleryDTO>();
+
+            //}).CreateMapper();
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>();
+                cfg.CreateMap<FromChancellery, FromChancelleryDTO>().ForMember(x => x.Employee_Id,
+          x => x.MapFrom(m => m.Employee.id));
+                cfg.CreateMap<ToChancellery, ToChancelleryDTO>().ForMember(x => x.Chancellery_Id,
+          x => x.MapFrom(m => m.Chancellery.id));
+                cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
+                cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.ResponsibleEmployee_Id,
+x => x.MapFrom(m => m.Employee.id));
+
+            }).CreateMapper();
+
+            return mapper;
+
+
+            return mapper;
         }
 
         public void Dispose()

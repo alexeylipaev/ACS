@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace ACS.WEB.Controllers
 {
-
+    [Authorize]
     public class ChancelleryController : Controller
     {
         IChancelleryService ChancelleryService;
@@ -45,7 +45,7 @@ namespace ACS.WEB.Controllers
         {
             var newChancelleryVM =new ChancelleryViewModel();
             newChancelleryVM.DateRegistration = DateTime.Today;
-            ViewBag.TypeRecordId = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName=t.Name }), "TypeId", "TypeName");
+            ViewBag.TypeRecordIds = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName=t.Name }), "TypeId", "TypeName");
             ViewBag.ResponsibleEmployee_Id = new SelectList(GetEmployeeNameSelector().OrderBy(e=>e.EmployeeName), "EmployeeId", "EmployeeName");
             return View(newChancelleryVM);
         }
@@ -55,15 +55,16 @@ namespace ACS.WEB.Controllers
 
         // POST: Chancellery/Create
         [HttpPost]
-        public ActionResult Create([Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] ChancelleryViewModel chancelleryVM)
+        public ActionResult Create([Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] ChancelleryViewModel chancelleryVM, int TypeRecordIds)
         {
             try
             {
+                chancelleryVM.TypeRecordId = TypeRecordIds;
                 // TODO: Add insert logic here
                 if (ModelState.IsValid)
                 {
                     //EmployeeDTO employee = EmployeeService.GetEmployee(EmployeeId);
-                    var typeRecordDTO = chancelleryVM.TypeRecordChancellery;
+                    //var typeRecordDTO = chancelleryVM.TypeRecordChancellery;
                     string currentUserEmail = this.User.Identity.Name;
                     //string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
                     var chancelleryDTO = new ChancelleryDTO();
@@ -162,10 +163,10 @@ namespace ACS.WEB.Controllers
                 cfg.CreateMap<FileRecordChancelleryViewModel, FileRecordChancelleryDTO > ();
                 cfg.CreateMap<FolderChancelleryViewModel, FolderChancelleryDTO>();
                 cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
-                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();
-                /*
+                /*cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();*/
+                
                 //cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
-                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>().ForMember("TypeRecordChancellery", opt => opt.MapFrom(c => ChancelleryService.GetType(c.TypeRecordId)));*/
+                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>().ForMember("TypeRecordChancellery", opt => opt.MapFrom(c => ChancelleryService.GetType(c.TypeRecordId)));
 
             }).CreateMapper();
 
