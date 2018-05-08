@@ -53,11 +53,12 @@ namespace ACS.WEB.ViewModel
 
         #region Журнал
 
-        public int? JournalRegistrationsId { get; set; }
+        [Display(Name = "Журнал регистрации")]
+        //public int? JournalRegistrationsId { get; set; }
         /// <summary>
         /// Журнал
         /// </summary>
-        //public JournalRegistrationsChancelleryViewModel JournalRegistrationsChancellery { get; set; }
+        public JournalRegistrationsChancelleryViewModel JournalRegistrationsChancellery { get; set; }
 
         #endregion
 
@@ -88,7 +89,7 @@ namespace ACS.WEB.ViewModel
         /// <summary>
         /// Файлы
         /// </summary>
-        [DataType(DataType.Upload)]
+        //[DataType(DataType.Upload)]
         public ICollection<FileRecordChancelleryViewModel> FileRecordChancelleries { get; set; }
 
 

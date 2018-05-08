@@ -176,7 +176,7 @@ namespace ACS.BLL.Services
             var Journal = Database.JournalRegistrationsChancelleries.Get(id.Value);
 
             if (Journal == null)
-                throw new ValidationException("Отсутствует данные о журнале регистрации", "");
+                throw new ValidationException("Отсутствуют данные о журнале регистрации", "");
 
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>()).CreateMapper();
             return mapper.Map<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>(Journal);
@@ -201,7 +201,7 @@ namespace ACS.BLL.Services
             var from = Database.FromChancelleries.Get(id.Value);
 
             if (from == null)
-                throw new ValidationException("Отсутствует данные от кого", "");
+                throw new ValidationException("Отсутствуют данные от кого", "");
 
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FromChancellery, FromChancelleryDTO>()).CreateMapper();
             return mapper.Map<FromChancellery, FromChancelleryDTO>(from);
@@ -224,7 +224,7 @@ namespace ACS.BLL.Services
             var Author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
 
             if (Author == null)
-                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
+                throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", authorEmail);
             try
             {
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
@@ -270,7 +270,7 @@ namespace ACS.BLL.Services
             var Author = Database.Employees.Find(u => u.Email == currentUserEmail).FirstOrDefault();
 
             if (Author == null)
-                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", currentUserEmail);
+                throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", currentUserEmail);
             try
             {
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
@@ -291,10 +291,10 @@ namespace ACS.BLL.Services
             var editor = this.Database.UserManager.FindByEmail(currentUserEmail);
 
             if (editor == null)
-                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", currentUserEmail);
+                throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", currentUserEmail);
 
             if (typeDB == null)
-                throw new ValidationException("Не возможно редактировать объект с id", typeDTO.id.ToString());
+                throw new ValidationException("Невозможно редактировать объект с id", typeDTO.id.ToString());
 
             try
             {
@@ -314,10 +314,10 @@ namespace ACS.BLL.Services
             var editor = this.Database.UserManager.FindByEmail(currentUserEmail);
 
             if (editor == null)
-                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", currentUserEmail);
+                throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", currentUserEmail);
 
             if (typeDB == null)
-                throw new ValidationException("Не возможно редактировать объект с id", typeDTO.id.ToString());
+                throw new ValidationException("Невозможно редактировать объект с id", typeDTO.id.ToString());
 
             try
             {

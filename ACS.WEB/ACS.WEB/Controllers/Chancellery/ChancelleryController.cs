@@ -37,7 +37,10 @@ namespace ACS.WEB.Controllers
         // GET: Chancellery/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var chancelleryDTO = ChancelleryService.GetChancellery(id);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>()).CreateMapper();
+            var chancelleriesVM = GetMapChancelleryDTOToChancelleryVM().Map<ChancelleryDTO, ChancelleryViewModel>(chancelleryDTO);
+            return View(chancelleriesVM);
         }
 
         // GET: Chancellery/Create
