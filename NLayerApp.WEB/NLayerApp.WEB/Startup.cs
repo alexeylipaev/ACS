@@ -4,6 +4,7 @@ using Owin;
 [assembly: OwinStartupAttribute(typeof(NLayerApp.WEB.Startup))]
 namespace NLayerApp.WEB
 {
+  
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)

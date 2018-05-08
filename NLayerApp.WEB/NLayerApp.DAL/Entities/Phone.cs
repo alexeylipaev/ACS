@@ -1,4 +1,5 @@
 ﻿using NLayerApp.DAL.Entities;
+using NLayerApp.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 

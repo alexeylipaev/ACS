@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLayerApp.DAL.Interfaces;
+using System;
 namespace NLayerApp.DAL.Entities
 {
     public partial class Order: SystemParameters
