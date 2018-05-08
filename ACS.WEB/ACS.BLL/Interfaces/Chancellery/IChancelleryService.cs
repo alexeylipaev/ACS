@@ -16,7 +16,7 @@ namespace ACS.BLL.Interfaces
         /// Сделать запись
         /// </summary>
         /// <param name="chancelleryDto"></param>
-        void MakeChancellery(ChancelleryDTO chancelleryDto, string authorEmail);
+        void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail);
 
         /// <summary>
         /// Получить тип

@@ -235,7 +235,7 @@ namespace ACS.BLL.Services
         }
 
 
-        public void MakeChancellery(ChancelleryDTO chancelleryDto, string authorEmail)
+        public void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail)
         {
             var Author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
 
@@ -244,10 +244,10 @@ namespace ACS.BLL.Services
             try
             {
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
-                Chancellery Chancellery = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDto);
+                Chancellery chancellery = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDto);
 
 
-                Database.Chancelleries.Create(Chancellery);
+                Database.Chancelleries.Create(chancellery);
                 Database.Save();
             }
             catch (Exception e)
@@ -283,7 +283,9 @@ namespace ACS.BLL.Services
                 cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
                 cfg.CreateMap<FromChancelleryDTO, FromChancellery>();
                 cfg.CreateMap<ToChancelleryDTO, ToChancellery>();
-                cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.Employee, x=> x.MapFrom(c=>Database.Employees.Get((int)c.ResponsibleEmployee_Id)));
+                cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.Employee, x=> x.MapFrom(c=>Database.Employees.Get((int)c.ResponsibleEmployee_Id)))
+                .ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => Database.TypeRecordChancelleries.Get((int)c.TypeRecordChancellery.id)));
+                
 
             }).CreateMapper();
 
