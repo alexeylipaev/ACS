@@ -28,7 +28,7 @@ namespace ACS.WEB.Controllers
         // GET: Chancellery
         public ActionResult Index()
         {
-            var chancelleryDTOs = ChancelleryService.GetChancelleries();
+            var chancelleryDTOs = ChancelleryService.ChancellerieGetAll();
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>()).CreateMapper();
             var chancelleriesVMs = GetMapChancelleryDTOToChancelleryVM().Map<List<ChancelleryDTO>, List<ChancelleryViewModel>>(chancelleryDTOs.ToList());
             return View(chancelleriesVMs);
@@ -37,7 +37,7 @@ namespace ACS.WEB.Controllers
         // GET: Chancellery/Details/5
         public ActionResult Details(int id)
         {
-            var chancelleryDTO = ChancelleryService.GetChancellery(id);
+            var chancelleryDTO = ChancelleryService.ChancelleryGet(id);
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>()).CreateMapper();
             var chancelleriesVM = GetMapChancelleryDTOToChancelleryVM().Map<ChancelleryDTO, ChancelleryViewModel>(chancelleryDTO);
             return View(chancelleriesVM);
@@ -58,6 +58,7 @@ namespace ACS.WEB.Controllers
 
         // POST: Chancellery/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] ChancelleryViewModel chancelleryVM, int TypeRecordIds)
         {
             try
@@ -89,23 +90,30 @@ namespace ACS.WEB.Controllers
         // GET: Chancellery/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ChancelleryDTO chancDTO = ChancelleryService.ChancelleryGet(id);
+            var chancVM = GetMapChancelleryDTOToChancelleryVM().Map<ChancelleryDTO, ChancelleryViewModel>(chancDTO);
+            return View(chancVM);
         }
 
         // POST: Chancellery/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ChancelleryViewModel chancVM)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var chancDTO = GetMapChancelleryVMToDTO().Map<ChancelleryViewModel, ChancelleryDTO>(chancVM);
+                    ChancelleryService.ChancelleryUpdate(chancDTO, this.User.Identity.Name);
+                    return RedirectToAction("Index");
+                }
             }
-            catch
+            catch (ValidationException ex)
             {
-                return View();
+                ModelState.AddModelError(ex.Property, ex.Message);
             }
+            return View(chancVM); 
         }
 
         // GET: Chancellery/Delete/5
@@ -151,7 +159,7 @@ namespace ACS.WEB.Controllers
                 
                 //cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
                 cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>();
-                //cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
+                cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
                 cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>();
                 cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>().ForMember(c=> c.TypeRecordId, c=> c.MapFrom(t=>t.TypeRecordChancellery.id));
 
@@ -166,8 +174,8 @@ namespace ACS.WEB.Controllers
             {
                 cfg.CreateMap<FileRecordChancelleryViewModel, FileRecordChancelleryDTO > ();
                 cfg.CreateMap<FolderChancelleryViewModel, FolderChancelleryDTO>();
-                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
-                /*cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();*/
+                cfg.CreateMap<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>();
+                cfg.CreateMap<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO>();
                 
                 //cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
                 cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>().ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => ChancelleryService.TypeRecordGetById((int)c.TypeRecordId)));

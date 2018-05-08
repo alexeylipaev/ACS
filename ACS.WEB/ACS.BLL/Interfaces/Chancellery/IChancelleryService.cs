@@ -22,7 +22,7 @@ namespace ACS.BLL.Interfaces
         /// Получить файл
         /// </summary>
         /// <param name="id"></param>
-        FileRecordChancelleryDTO GetFile(int? id);
+        FileRecordChancelleryDTO GetFile(int id);
 
         /// <summary>
         /// Получить все файлы
@@ -34,7 +34,7 @@ namespace ACS.BLL.Interfaces
         /// Получить ответственного
         /// </summary>
         /// <param name="id"></param>
-        EmployeeDTO GetResponsible(int? id);
+        EmployeeDTO GetResponsible(int id);
 
         /// <summary>
         /// Получить всех пользователей 
@@ -48,7 +48,7 @@ namespace ACS.BLL.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        FolderChancelleryDTO GetFolder(int? id);
+        FolderChancelleryDTO FolderGet(int id);
 
         /// <summary>
         /// Все все папки
@@ -61,7 +61,7 @@ namespace ACS.BLL.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        JournalRegistrationsChancelleryDTO GetJournalRegistrations(int? id);
+        JournalRegistrationsChancelleryDTO GetJournalRegistrations(int id);
        
         /// <summary>
         /// Получить все журналы регистрации 
@@ -73,7 +73,7 @@ namespace ACS.BLL.Interfaces
         /// От кого
         /// </summary>
         /// <returns></returns>
-        FromChancelleryDTO GetFromWhom(int? id);
+        FromChancelleryDTO GetFromWhom(int id);
 
 
         /// <summary>
@@ -87,15 +87,15 @@ namespace ACS.BLL.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        ChancelleryDTO GetChancellery(int? id);
+        ChancelleryDTO ChancelleryGet(int id);
 
         /// <summary>
         /// Вся канцелярия
         /// </summary>
         /// <returns></returns>
-        IEnumerable<ChancelleryDTO> GetChancelleries();
+        IEnumerable<ChancelleryDTO> ChancellerieGetAll();
 
-        void UpdateChancellery(ChancelleryDTO ChancelleryDTO, string authorEmail);
+        void ChancelleryUpdate(ChancelleryDTO ChancelleryDTO, string authorEmail);
 
         #region Работа с типами корреспонденции
 

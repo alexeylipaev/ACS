@@ -30,12 +30,12 @@ namespace ACS.BLL.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public FileRecordChancelleryDTO GetFile(int? id)
+        public FileRecordChancelleryDTO GetFile(int id)
         {
-            if (id == null)
-                throw new ValidationException("Не установлено id файла ", "");
+            //if (id == null)
+            //    throw new ValidationException("Не установлено id файла ", "");
 
-            var File = Database.FileRecordChancelleries.Get(id.Value);
+            var File = Database.FileRecordChancelleries.Get(id);
 
             if (File == null)
                 throw new ValidationException("Отсутствует ссылка на файл", "");
@@ -61,12 +61,12 @@ namespace ACS.BLL.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public EmployeeDTO GetResponsible(int? id)
+        public EmployeeDTO GetResponsible(int id)
         {
-            if (id == null)
-                throw new ValidationException("Не установлено id ответственного", "");
+            //if (id == null)
+            //    throw new ValidationException("Не установлено id ответственного", "");
 
-            var Employee = Database.Employees.Get(id.Value);
+            var Employee = Database.Employees.Get(id);
             if (Employee == null)
                 throw new ValidationException("Ответственный не найден", "");
 
@@ -103,12 +103,12 @@ namespace ACS.BLL.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ChancelleryDTO GetChancellery(int? id)
+        public ChancelleryDTO ChancelleryGet(int id)
         {
-            if (id == null)
-                throw new ValidationException("Не установлено id канцелярской записи", "");
+            //if (id == null)
+            //    throw new ValidationException("Не установлено id канцелярской записи", "");
 
-            var Chancellery = Database.Chancelleries.Get(id.Value);
+            var Chancellery = Database.Chancelleries.Get(id);
 
             if (Chancellery == null)
                 throw new ValidationException("Канцелярская запись не найдена", "");
@@ -121,7 +121,7 @@ namespace ACS.BLL.Services
         /// Получить всю канцелярию
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<ChancelleryDTO> GetChancelleries()
+        public IEnumerable<ChancelleryDTO> ChancellerieGetAll()
         {
             // применяем автомаппер для проекции одной коллекции на другую
             // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
@@ -136,12 +136,12 @@ namespace ACS.BLL.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public FolderChancelleryDTO GetFolder(int? id)
+        public FolderChancelleryDTO FolderGet(int id)
         {
-            if (id == null)
-                throw new ValidationException("Не установлено id папки ", "");
+            //if (id == null)
+            //    throw new ValidationException("Не установлено id папки ", "");
 
-            var Folder = Database.FolderChancelleries.Get(id.Value);
+            var Folder = Database.FolderChancelleries.Get(id);
 
             if (Folder == null)
                 throw new ValidationException("Отсутствует папка", "");
@@ -168,12 +168,12 @@ namespace ACS.BLL.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public JournalRegistrationsChancelleryDTO GetJournalRegistrations(int? id)
+        public JournalRegistrationsChancelleryDTO GetJournalRegistrations(int id)
         {
-            if (id == null)
-                throw new ValidationException("Не установлено id  ", "");
+            //if (id == null)
+            //    throw new ValidationException("Не установлено id  ", "");
 
-            var Journal = Database.JournalRegistrationsChancelleries.Get(id.Value);
+            var Journal = Database.JournalRegistrationsChancelleries.Get(id);
 
             if (Journal == null)
                 throw new ValidationException("Отсутствуют данные о журнале регистрации", "");
@@ -193,12 +193,12 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll());
         }
 
-        public FromChancelleryDTO GetFromWhom(int? id)
+        public FromChancelleryDTO GetFromWhom(int id)
         {
-            if (id == null)
-                throw new ValidationException("Не установлено id  ", "");
+            //if (id == null)
+            //    throw new ValidationException("Не установлено id  ", "");
 
-            var from = Database.FromChancelleries.Get(id.Value);
+            var from = Database.FromChancelleries.Get(id);
 
             if (from == null)
                 throw new ValidationException("Отсутствуют данные от кого", "");
@@ -242,9 +242,28 @@ namespace ACS.BLL.Services
         }
 
 
-        public void UpdateChancellery(ChancelleryDTO ChancelleryDTO, string authorEmail)
+        public void ChancelleryUpdate(ChancelleryDTO chancelleryDTO, string editorEmail)
         {
-            throw new NotImplementedException();
+
+            Chancellery chancelleryDB = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDTO);
+
+            var editor = this.Database.UserManager.FindByEmail(editorEmail);
+
+            if (editor == null)
+                throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", editorEmail);
+
+            if (chancelleryDB == null)
+                throw new ValidationException("Невозможно редактировать объект с id", chancelleryDTO.id.ToString());
+
+            try
+            {
+                Database.Chancelleries.Update(chancelleryDB, editor.Id);
+                Database.Save();
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
         }
 
         #region TypeRecordChancelleries

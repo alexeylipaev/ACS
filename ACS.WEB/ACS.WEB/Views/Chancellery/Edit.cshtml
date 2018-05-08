@@ -1,4 +1,4 @@
-@model ACS.WEB.ViewModel.ChancelleryViewModel
+﻿@model ACS.WEB.ViewModel.ChancelleryViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -43,10 +43,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ResponsibleEmployeeId, "Ответственный",htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ResponsibleEmployee_Id, "Ответственный",htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ResponsibleEmployeeId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ResponsibleEmployeeId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.ResponsibleEmployee_Id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ResponsibleEmployee_Id, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -59,17 +59,17 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FolderId, "Папка", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FolderChancellery.Name, "Папка", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FolderId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FolderId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.FolderChancellery.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FolderChancellery.Name, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.JournalRegistrationsId, "Журнал регистрации", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.JournalRegistrationsChancellery.Name, "Журнал регистрации", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.JournalRegistrationsId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.JournalRegistrationsId, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.JournalRegistrationsChancellery.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.JournalRegistrationsChancellery.Name, "", new { @class = "text-danger" })
             </div>
         </div>
 
