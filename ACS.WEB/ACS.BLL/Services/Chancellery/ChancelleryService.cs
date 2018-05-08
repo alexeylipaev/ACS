@@ -286,7 +286,7 @@ namespace ACS.BLL.Services
         }
         public void TypeRecordUpdate(TypeRecordChancelleryDTO typeDTO, string currentUserEmail)
         {
-            TypeRecordChancellery typeDB = Database.TypeRecordChancelleries.Get(typeDTO.id);
+            TypeRecordChancellery typeDB = GetMapChancelleryDTOToChancelleryDB().Map<TypeRecordChancelleryDTO, TypeRecordChancellery>(typeDTO);
 
             var editor = this.Database.UserManager.FindByEmail(currentUserEmail);
 

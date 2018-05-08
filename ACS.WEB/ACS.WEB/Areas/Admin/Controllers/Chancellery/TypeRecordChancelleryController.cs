@@ -75,29 +75,44 @@ namespace ACS.WEB.Areas.Admin.Controllers.Chancellery
         // GET: Admin/TypeRecordChancellery/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var typeDTO = ChancelleryService.TypeRecordGetById(id);
+            var typeVM = GetMapTypeRecordChancelleryDTOToTypeRecordChancelleryAdminVM().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryAdminVM>(typeDTO);
+            return View(typeVM);
         }
 
         // POST: Admin/TypeRecordChancellery/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(TypeRecordChancelleryAdminVM typeVM)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                try
+                {
 
-                return RedirectToAction("Index");
+                    // TODO: Add insert logic here
+                    string currentUserEmail = this.User.Identity.Name;
+
+                    var typeDTO = GetMapTypeRecordChancelleryAdminVMToTypeRecordChancelleryDTO().Map<TypeRecordChancelleryAdminVM, TypeRecordChancelleryDTO>(typeVM);
+                    ChancelleryService.TypeRecordUpdate(typeDTO, currentUserEmail);
+
+                    return RedirectToAction("Index");
+                }
+
+                catch (ValidationException ex)
+                {
+                    ModelState.AddModelError(ex.Property, ex.Message);
+                }
             }
-            catch
-            {
-                return View();
-            }
+            return View(typeVM);
         }
 
         // GET: Admin/TypeRecordChancellery/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var typeDTO = ChancelleryService.TypeRecordGetById(id);
+            var typeVM = GetMapTypeRecordChancelleryDTOToTypeRecordChancelleryAdminVM().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryAdminVM>(typeDTO);
+            return View(typeVM);
         }
 
         // POST: Admin/TypeRecordChancellery/Delete/5
@@ -114,7 +129,7 @@ namespace ACS.WEB.Areas.Admin.Controllers.Chancellery
             }
             catch
             {
-                return View();
+                return View(typeVM);
             }
         }
 

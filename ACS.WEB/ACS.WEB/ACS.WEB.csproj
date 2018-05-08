@@ -279,6 +279,8 @@
     <Content Include="Areas\Admin\Views\TypeRecordChancellery\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TypeRecordChancellery\Details.cshtml" />
     <Content Include="Areas\Admin\Views\TypeRecordChancellery\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\TypeRecordChancellery\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\TypeRecordChancellery\Edit.cshtml" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
