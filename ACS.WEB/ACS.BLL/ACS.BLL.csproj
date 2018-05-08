@@ -106,6 +106,7 @@
     <Compile Include="DTO\ASPIdentityUser\AppUserRoleDTO.cs" />
     <Compile Include="DTO\InputControlPKI\InputControlPKI.cs" />
     <Compile Include="DTO\InputControlPKI\ReceivedDocPKI.cs" />
+    <Compile Include="DTO\TheProjectRegistry\ProjectRegistry.cs" />
     <Compile Include="Interfaces\ASPIdentityUser\IApplicationRoleService.cs" />
     <Compile Include="Interfaces\IAccountAppUserService.cs" />
     <Compile Include="Interfaces\IInputControlPKIService.cs" />

@@ -1,7 +1,7 @@
 ﻿using ACS.BLL.DTO;
 using System;
 
-namespace ACS.DAL.Entities
+namespace ACS.BLL.DTO
 {
     public class ReceivedDocPKIDTO : SystemParametersDTO
     {

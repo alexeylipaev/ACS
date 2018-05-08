@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACS.DAL.Entities
+namespace ACS.BLL.DTO
 {
    public class ProjectRegistry
     {
