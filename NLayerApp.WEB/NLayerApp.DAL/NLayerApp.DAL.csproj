@@ -34,13 +34,29 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework.Extensions, Version=0.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.Extensions.0.0.2\lib\net40\EntityFramework.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JetBrains.Annotations, Version=11.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.11.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Monads">
+      <HintPath>..\..\Common.DAL-master\source\Common.DAL.EF\bin\Debug\Monads.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,18 +65,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EF\DbContextFactory.cs" />
+    <Compile Include="EF\Exceptions\DalEFException.cs" />
+    <Compile Include="EF\Exceptions\ExceptionWrapper.cs" />
+    <Compile Include="EF\IDbContextProvider.cs" />
     <Compile Include="EF\MobileContext.cs" />
+    <Compile Include="Entities\QuickFilterAttribute.cs" />
+    <Compile Include="EF\Repository\Repository.cs" />
+    <Compile Include="EF\Repository\RepositoryAsync.cs" />
+    <Compile Include="EF\Repository\RepositoryBase.cs" />
+    <Compile Include="EF\SingletonDbContextProvider.cs" />
+    <Compile Include="EF\ThreadDbContextProvider.cs" />
+    <Compile Include="EF\TransientDbContextProvider.cs" />
     <Compile Include="Entities\Order.cs" />
     <Compile Include="Entities\Phone.cs" />
     <Compile Include="Entities\PhoneInfo.cs" />
     <Compile Include="Entities\SystemParameters.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\IEntity.cs" />
+    <Compile Include="Interfaces\Repository\IRepository.cs" />
+    <Compile Include="Interfaces\Repository\IRepositoryAsync.cs" />
+    <Compile Include="Interfaces\UnitOfWork\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\UnitOfWork\IUnitOfWorkAsync.cs" />
+    <Compile Include="Interfaces\UnitOfWork\IUnitOfWorkFactory.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\EFUnitOfWork.cs" />
+    <Compile Include="Repositories\UnitOfWork\EFUnitOfWork.cs" />
     <Compile Include="Repositories\OrderRepository.cs" />
     <Compile Include="Repositories\PhoneRepository.cs" />
+    <Compile Include="Repositories\UnitOfWork\UnitOfWorkAsync.cs" />
+    <Compile Include="Repositories\UnitOfWork\UnitOfWorkFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

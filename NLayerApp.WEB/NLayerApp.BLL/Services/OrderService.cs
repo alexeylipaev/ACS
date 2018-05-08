@@ -20,7 +20,7 @@ namespace NLayerApp.BLL.Services
         }
         public void MakeOrder(OrderDTO orderDto)
         {
-            Phone phone = Database.Phones.Get(orderDto.PhoneDTO.Id);
+            Phone phone = Database.Phones.Find(orderDto.PhoneDTO.Id);
 
             // валидация
             if (phone == null)
@@ -36,8 +36,8 @@ namespace NLayerApp.BLL.Services
                 Sum = sum,
                 PhoneNumber = orderDto.PhoneNumber
             };
-            Database.Orders.Create(order);
-            Database.Save();
+            Database.Orders.Add(order);
+            Database.Commit();
         }
 
         public IEnumerable<PhoneDTO> GetPhones()
@@ -51,7 +51,7 @@ namespace NLayerApp.BLL.Services
         {
             if (id == null)
                 throw new ValidationException("Не установлено id телефона", "");
-            var phone = Database.Phones.Get(id.Value);
+            var phone = Database.Phones.Find(id.Value);
             if (phone == null)
                 throw new ValidationException("Телефон не найден", "");
 

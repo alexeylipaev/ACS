@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLayerApp.DAL.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace NLayerApp.DAL.Entities
 {
-    public partial class SystemParameters
+    public partial class SystemParameters:IEntity
     {
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

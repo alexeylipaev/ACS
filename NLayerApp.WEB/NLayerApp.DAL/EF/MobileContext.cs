@@ -1,22 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Common;
 using System.Data.Entity;
-using System.Threading.Tasks;
 using NLayerApp.DAL.Entities;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.ComponentModel;
-using System.Linq;
-using System.Data.Entity.Infrastructure;
-using System;
 
 namespace NLayerApp.DAL.EF
 {
-    public class MyContextFactory : IDbContextFactory<MobileContext>
-    {
-        public MobileContext Create()
-        {
-            return new MobileContext();
-        }
-    }
 
     public class MobileContext : DbContext
     {
@@ -36,16 +25,25 @@ namespace NLayerApp.DAL.EF
             Database.SetInitializer(new System.Data.Entity.MigrateDatabaseToLatestVersion<MobileContext, NLayerApp.DAL.Migrations.Configuration>());
             //Database.SetInitializer<MobileContext>(new StoreDbInitializer());
         }
+        //public MobileContext(string connectionString = "DefaultConnection")
+        //    : base(connectionString)
+        //{
+        //}
+        public MobileContext() 
+            : base() { }
+
         public MobileContext(string connectionString = "DefaultConnection")
-            : base(connectionString)
-        {
-        }
+            : base(connectionString) { }
+
+        public MobileContext(DbConnection existingConnection, bool contextOwnsConnection = false) 
+            : base(existingConnection, contextOwnsConnection) { }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
-            modelBuilder.Conventions.Add(convention);
+            //var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
+            //modelBuilder.Conventions.Add(convention);
 
             //modelBuilder.Entity<Phone>().Property(it => it.PhoneInfo).IsOptional();
         }
