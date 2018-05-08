@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ACS.WEB.ViewModel;
+using System;
 using System.Collections.Generic;
 
 
@@ -11,11 +12,11 @@ namespace ACS.WEB.Areas.Admin.Models
     /// <summary>
     /// Тип канцелярской записи
     /// </summary>
-    public partial class TypeRecordChancelleryAdminVM : SystemParametersAdminVM
+    public partial class TypeRecordChancelleryAdminVM : SystemParametersViewModel
     {
         public TypeRecordChancelleryAdminVM()
         {
-            //Chancelleries = new HashSet<ChancelleryDTO>();
+            Chancelleries = new HashSet<ChancelleryViewModel>();
         }
 
 
@@ -27,6 +28,6 @@ namespace ACS.WEB.Areas.Admin.Models
         /// <summary>
         /// Канцелярские записи которые имеют this тип
         /// </summary>
-        //public virtual ICollection<ChancelleryDTO> Chancelleries { get; set; }
+        public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
     }
 }

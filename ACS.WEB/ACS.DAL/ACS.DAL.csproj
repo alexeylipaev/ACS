@@ -180,6 +180,7 @@
     <Compile Include="Entities\InputControlPKI\ReceivedDocPKIDTO.cs" />
     <Compile Include="Entities\TheProjectRegistry\ProjectRegistry.cs" />
     <Compile Include="Identity\ApplicationUserValidator.cs" />
+    <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Сonnection.cs" />
     <Compile Include="Entities\Access\Access.cs" />
     <Compile Include="Entities\ASPIdentityUser\AppUserClaim.cs" />

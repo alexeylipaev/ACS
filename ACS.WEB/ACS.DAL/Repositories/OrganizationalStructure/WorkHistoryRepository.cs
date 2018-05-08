@@ -30,14 +30,19 @@ namespace ACS.DAL.Repositories
         }
 
 
-        public void Create(WorkHistory WorkHistory)
+        public void Create(WorkHistory workHistory, int authorId)
         {
-            db.WorkHistories.Add(WorkHistory);
+            workHistory.s_EditorId = authorId;
+            workHistory.s_EditDate = workHistory.s_DateCreation;
+            workHistory.s_AuthorId = authorId;
+            db.WorkHistories.Add(workHistory);
         }
 
-        public void Update(WorkHistory WorkHistory)
+        public void Update(WorkHistory updateObj, int editorId)
         {
-            db.Entry(WorkHistory).State = EntityState.Modified;
+            updateObj.s_EditorId = editorId;
+            updateObj.s_EditDate = DateTime.Now;
+            db.Entry(updateObj).State = EntityState.Modified;
         }
 
         public IEnumerable<WorkHistory> Find(Func<WorkHistory, Boolean> predicate)
@@ -52,11 +57,10 @@ namespace ACS.DAL.Repositories
                 db.WorkHistories.Remove(WorkHistory);
         }
 
-        public void MoveToBasketEmployee(WorkHistory WorkHistory, int EditorId)
+        public void MoveToBasket(WorkHistory WorkHistory, int editorId)
         {
             WorkHistory.s_InBasket = true;
-            WorkHistory.s_EditorId = EditorId;
-            Update(WorkHistory);
+            Update(WorkHistory,editorId);
         }
     }
 }

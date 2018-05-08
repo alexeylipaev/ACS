@@ -136,7 +136,7 @@ namespace ACS.WEB.Controllers
 
         private  IEnumerable<TypeRecordChancelleryViewModel> GetAllTypes()
         {
-            var typeDTOs = ChancelleryService.GetAllTypes();
+            var typeDTOs = ChancelleryService.TypeRecordGetAll();
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
             return GetMapTypeRecordChancelleryDTOToTypeRecordChancelleryVM().Map<List<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(typeDTOs.ToList());
         }
@@ -167,7 +167,7 @@ namespace ACS.WEB.Controllers
                 /*cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();*/
                 
                 //cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
-                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>().ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => ChancelleryService.GetType((int)c.TypeRecordId)));
+                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>().ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => ChancelleryService.TypeRecordGetById((int)c.TypeRecordId)));
 
             }).CreateMapper();
 

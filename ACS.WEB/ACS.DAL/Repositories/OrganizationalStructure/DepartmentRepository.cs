@@ -31,19 +31,23 @@ namespace ACS.DAL.Repositories
 
 
 
-        public void Create(Department Department)
+        public void Create(Department department, int authorId)
         {
-            db.Departments.Add(Department);
+            department.s_EditorId = authorId;
+            department.s_EditDate = department.s_DateCreation;
+            department.s_AuthorId = authorId;
+            db.Departments.Add(department);
         }
-        public void MoveToBasketEmployee(Department department, int EditorId)
+        public void MoveToBasket(Department department, int editorId)
         {
             department.s_InBasket = true;
-            department.s_EditorId = EditorId;
-            Update(department);
+            Update(department, editorId);
         }
-        public void Update(Department department)
+        public void Update(Department updateObj, int editorId)
         {
-            db.Entry(department).State = EntityState.Modified;
+            updateObj.s_EditorId = editorId;
+            updateObj.s_EditDate = DateTime.Now;
+            db.Entry(updateObj).State = EntityState.Modified;
         }
 
         public IEnumerable<Department> Find(Func<Department, Boolean> predicate)

@@ -30,19 +30,23 @@ namespace ACS.DAL.Repositories
         }
 
 
-        public void Create(ExternalOrganizationChancellery ExternalOrganizationChancellery)
+        public void Create(ExternalOrganizationChancellery externalOrganizationChancellery, int authorId)
         {
-            db.ExternalOrganizationChancelleries.Add(ExternalOrganizationChancellery);
+            externalOrganizationChancellery.s_EditorId = authorId;
+            externalOrganizationChancellery.s_EditDate = externalOrganizationChancellery.s_DateCreation;
+            externalOrganizationChancellery.s_AuthorId = authorId;
+            db.ExternalOrganizationChancelleries.Add(externalOrganizationChancellery);
         }
-        public void MoveToBasketEmployee(ExternalOrganizationChancellery ExternalOrganizationChancellery, int EditorId)
+        public void MoveToBasket(ExternalOrganizationChancellery ExternalOrganizationChancellery, int EditorId)
         {
             ExternalOrganizationChancellery.s_InBasket = true;
-            ExternalOrganizationChancellery.s_EditorId = EditorId;
-            Update(ExternalOrganizationChancellery);
+            Update(ExternalOrganizationChancellery, EditorId);
         }
-        public void Update(ExternalOrganizationChancellery ExternalOrganizationChancellery)
+        public void Update(ExternalOrganizationChancellery externalOrganizationChancellery, int authorId)
         {
-            db.Entry(ExternalOrganizationChancellery).State = EntityState.Modified;
+            externalOrganizationChancellery.s_EditorId = authorId;
+            externalOrganizationChancellery.s_EditDate = DateTime.Now;
+            db.Entry(externalOrganizationChancellery).State = EntityState.Modified;
         }
 
         public IEnumerable<ExternalOrganizationChancellery> Find(Func<ExternalOrganizationChancellery, Boolean> predicate)

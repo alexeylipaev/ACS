@@ -38,17 +38,17 @@ namespace ACS.BLL.Services
         public void CreateEmployee(EmployeeDTO UserDTO)
         {
             var resultString = UNIQEUserString(UserDTO);
-            Employee user = Database.Employees.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
+            Employee author = Database.Employees.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
 
-            if (user != null)
-                throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его id : {1}", resultString, user.id), "");
+            if (author != null)
+                throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его id : {1}", resultString, author.id), "");
 
             try
             {
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, Employee>()).CreateMapper();
                 Employee Employee = mapper.Map<EmployeeDTO, Employee>(UserDTO);
 
-                Database.Employees.Create(Employee);
+                Database.Employees.Create(Employee, author.id);
                 Database.Save();
             }
             catch (Exception e)
@@ -87,7 +87,7 @@ namespace ACS.BLL.Services
                 Employee Employee = mapper.Map<EmployeeDTO, Employee>(UserDTO);
                 Employee.s_AuthorId = author.Id;
                 Employee.s_EditorId = author.Id;
-                Database.Employees.Create(Employee);
+                Database.Employees.Create(Employee, author.Id);
                 Database.Save();
             }
             catch (Exception e)
@@ -128,7 +128,7 @@ namespace ACS.BLL.Services
                 //EditableObj.s_EditDate = DateTime.Now;
                 EditableObj.s_EditorId = editor.Id;
 
-                Database.Employees.Update(EditableObj);
+                Database.Employees.Update(EditableObj, editor.Id);
                 Database.Save();
             }
             catch (Exception e)
@@ -160,7 +160,7 @@ namespace ACS.BLL.Services
 
             try
             {
-                Database.Employees.MoveToBasketEmployee(EditableObj, editor.Id);
+                Database.Employees.MoveToBasket(EditableObj, editor.Id);
                 Database.Save();
             }
             catch (Exception e)

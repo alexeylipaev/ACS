@@ -30,19 +30,23 @@ namespace ACS.DAL.Repositories
         }
 
 
-        public void Create(PostNameEmployee PostNameUser)
+        public void Create(PostNameEmployee postNameUser, int authorId)
         {
-            db.PostsEmployees.Add(PostNameUser);
+            postNameUser.s_EditorId = authorId;
+            postNameUser.s_EditDate = postNameUser.s_DateCreation;
+            postNameUser.s_AuthorId = authorId;
+            db.PostsEmployees.Add(postNameUser);
         }
-        public void MoveToBasketEmployee(PostNameEmployee name, int EditorId)
+        public void MoveToBasket(PostNameEmployee name, int editorId)
         {
             name.s_InBasket = true;
-            name.s_EditorId = EditorId;
-            Update(name);
+            Update(name,editorId);
         }
-        public void Update(PostNameEmployee name)
+        public void Update(PostNameEmployee updateObj, int editorId)
         {
-            db.Entry(name).State = EntityState.Modified;
+            updateObj.s_EditorId = editorId;
+            updateObj.s_EditDate = DateTime.Now;
+            db.Entry(updateObj).State = EntityState.Modified;
         }
 
         public IEnumerable<PostNameEmployee> Find(Func<PostNameEmployee, Boolean> predicate)

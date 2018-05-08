@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ACS.WEB.ViewModel;
+using System;
 using System.Collections.Generic;
 
 
@@ -10,7 +11,7 @@ namespace ACS.WEB.Areas.Admin.Models
     /// <summary>
     /// Пользователь
     /// </summary>
-    public partial class EmployeeAdminVM : SystemParametersAdminVM
+    public partial class EmployeeAdminVM : SystemParametersViewModel
     {
 
         //public UserDTO()

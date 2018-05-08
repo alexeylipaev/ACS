@@ -30,18 +30,22 @@ namespace ACS.DAL.Repositories
             return db.TypeRecordChancelleries.Find(id);
         }
 
-        public void Create(TypeRecordChancellery type)
+        public void Create(TypeRecordChancellery type, int editorId)
         {
+            type.s_EditDate = type.s_DateCreation;
+            type.s_AuthorId = editorId;
+            type.s_EditorId = editorId;
             db.TypeRecordChancelleries.Add(type);
         }
-        public void MoveToBasketEmployee(TypeRecordChancellery type, int EditorId)
+        public void MoveToBasket(TypeRecordChancellery type, int editorId)
         {
             type.s_InBasket = true;
-            type.s_EditorId = EditorId;
-            Update(type);
+            Update(type, editorId);
         }
-        public void Update(TypeRecordChancellery type)
+        public void Update(TypeRecordChancellery type, int editorId)
         {
+            type.s_EditDate = DateTime.Now;
+            type.s_EditorId = editorId;
             db.Entry(type).State = EntityState.Modified;
         }
 
