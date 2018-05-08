@@ -34,7 +34,7 @@ namespace ACS.BLL.Services
             if (id == null)
                 throw new ValidationException("Не установлено id файла ", "");
 
-            var File = Database.FileRecordChancelleries.Get(id.Value);
+            var File = Database.FileRecordChancelleries.Find(id.Value);
 
             if (File == null)
                 throw new ValidationException("Отсутствует ссылка на файл", "");

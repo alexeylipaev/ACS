@@ -39,6 +39,10 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework.Extended, Version=6.0.0.0, Culture=neutral, PublicKeyToken=05b7e29bdd433584, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.Extended.6.1.0.168\lib\net45\EntityFramework.Extended.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
@@ -173,6 +177,7 @@
     <Compile Include="Configuration\ASPIdentityUser\ApplicationUserConfig.cs" />
     <Compile Include="EF\MyContextFactory.cs" />
     <Compile Include="Configuration\OrganizationalStructure\EmployeePassportConfig.cs" />
+    <Compile Include="EF\QuickFilterAttribute.cs" />
     <Compile Include="Entities\ASPIdentityUser\AppRoleStore.cs" />
     <Compile Include="Entities\ASPIdentityUser\AppUserRole.cs" />
     <Compile Include="Entities\ASPIdentityUser\AppUserStore.cs" />
@@ -180,7 +185,8 @@
     <Compile Include="Entities\InputControlPKI\ReceivedDocPKIDTO.cs" />
     <Compile Include="Entities\TheProjectRegistry\ProjectRegistry.cs" />
     <Compile Include="Identity\ApplicationUserValidator.cs" />
-    <Compile Include="Repositories\BaseRepository.cs" />
+    <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Сonnection.cs" />
     <Compile Include="Entities\Access\Access.cs" />
     <Compile Include="Entities\ASPIdentityUser\AppUserClaim.cs" />
@@ -212,24 +218,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DefaultValueSqlServerMigrationSqlGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Access\AccessRepository.cs" />
-    <Compile Include="Repositories\Access\TypeAccessRepository.cs" />
-    <Compile Include="Repositories\Chancellery\ChancelleryRepository.cs" />
-    <Compile Include="Repositories\Chancellery\ExternalOrganizationChancelleryRepository.cs" />
-    <Compile Include="Repositories\Chancellery\FileRecordChancelleryRepository.cs" />
-    <Compile Include="Repositories\Chancellery\FolderChancelleryRepository.cs" />
-    <Compile Include="Repositories\Chancellery\FromChancelleryRepository.cs" />
-    <Compile Include="Repositories\Chancellery\JournalRegistrationsChancelleryRepository.cs" />
-    <Compile Include="Repositories\Chancellery\ToChancelleryRepository.cs" />
-    <Compile Include="Repositories\Chancellery\TypeRecordChancelleryRepository.cs" />
-    <Compile Include="Repositories\DataEntityRepository.cs" />
-    <Compile Include="Repositories\OrganizationalStructure\DepartmentRepository.cs" />
-    <Compile Include="Repositories\EFUnitOfWork.cs" />
-    <Compile Include="Repositories\OrganizationalStructure\PostNameEmployeeRepository.cs" />
-    <Compile Include="Repositories\OrganizationalStructure\PostUserСode1СRepository.cs" />
-    <Compile Include="Repositories\OrganizationalStructure\EmployeePassportRepository.cs" />
-    <Compile Include="Repositories\OrganizationalStructure\EmployeeRepository.cs" />
-    <Compile Include="Repositories\OrganizationalStructure\WorkHistoryRepository.cs" />
+    <Compile Include="Repositories\UnitOfWork.cs" />
     <Compile Include="XMLData\DataFromXML1C.cs" />
     <Compile Include="XMLData\DataUserInActiveDirectory.cs" />
     <Compile Include="XMLData\InitializingDBSQLiteFromXML.cs" />

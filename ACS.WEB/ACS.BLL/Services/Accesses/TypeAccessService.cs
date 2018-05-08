@@ -33,7 +33,7 @@ namespace ACS.BLL.Services
             if (id == null)
                 throw new ValidationException("Не установлено id  ", "");
 
-            var type = Database.TypesAccesses.Get(id.Value);
+            var type = Database.TypesAccesses.Find(id.Value);
 
             if (type == null)
                 throw new ValidationException("Отсутствует тип доступа", "");

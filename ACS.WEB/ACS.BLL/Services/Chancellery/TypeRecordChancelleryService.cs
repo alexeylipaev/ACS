@@ -36,7 +36,7 @@ namespace ACS.BLL.Services
             if(id == null)
                 throw new ValidationException("Не установлено id", "");
 
-            var type = Database.Employees.Get(id.Value);
+            var type = Database.Employees.Find(id.Value);
             if (type == null)
                 throw new ValidationException("Тип не найден", "");
 

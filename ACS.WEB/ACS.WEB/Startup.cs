@@ -37,10 +37,10 @@ namespace ACS.WEB.App_Start
             //});
         }
 
-        private IApplicationUserService CreateUserService()
+        private IAccountAppUserService CreateAccountUserService()
         {
             //здесь предполагается, что в файле web.config имеется строка подключения DefaultConnection, которая передается в метод 
-            return serviceCreator.CreateUserService(Сonnection.@string);
+            return serviceCreator.CreateAccountUserService(Сonnection.@string);
         }
     }
 

@@ -35,7 +35,7 @@ namespace ACS.BLL.Services
             //if (id == null)
             //    throw new ValidationException("Не установлено id файла ", "");
 
-            var File = Database.FileRecordChancelleries.Get(id);
+            var File = Database.FileRecordChancelleries.Find(id);
 
             if (File == null)
                 throw new ValidationException("Отсутствует ссылка на файл", "");
@@ -66,7 +66,7 @@ namespace ACS.BLL.Services
             //if (id == null)
             //    throw new ValidationException("Не установлено id ответственного", "");
 
-            var Employee = Database.Employees.Get(id);
+            var Employee = Database.Employees.Find(id);
             if (Employee == null)
                 throw new ValidationException("Ответственный не найден", "");
 
@@ -108,7 +108,7 @@ namespace ACS.BLL.Services
             //if (id == null)
             //    throw new ValidationException("Не установлено id канцелярской записи", "");
 
-            var Chancellery = Database.Chancelleries.Get(id);
+            var Chancellery = Database.Chancelleries.Find(id);
 
             if (Chancellery == null)
                 throw new ValidationException("Канцелярская запись не найдена", "");
@@ -141,7 +141,7 @@ namespace ACS.BLL.Services
             //if (id == null)
             //    throw new ValidationException("Не установлено id папки ", "");
 
-            var Folder = Database.FolderChancelleries.Get(id);
+            var Folder = Database.FolderChancelleries.Find(id);
 
             if (Folder == null)
                 throw new ValidationException("Отсутствует папка", "");
@@ -173,7 +173,7 @@ namespace ACS.BLL.Services
             //if (id == null)
             //    throw new ValidationException("Не установлено id  ", "");
 
-            var Journal = Database.JournalRegistrationsChancelleries.Get(id);
+            var Journal = Database.JournalRegistrationsChancelleries.Find(id);
 
             if (Journal == null)
                 throw new ValidationException("Отсутствуют данные о журнале регистрации", "");
@@ -198,7 +198,7 @@ namespace ACS.BLL.Services
             //if (id == null)
             //    throw new ValidationException("Не установлено id  ", "");
 
-            var from = Database.FromChancelleries.Get(id);
+            var from = Database.FromChancelleries.Find(id);
 
             if (from == null)
                 throw new ValidationException("Отсутствуют данные от кого", "");
@@ -231,7 +231,7 @@ namespace ACS.BLL.Services
                 Chancellery chancellery = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDto);
 
 
-                Database.Chancelleries.Create(chancellery, Author.id);
+                Database.Chancelleries.Add(chancellery, Author.id);
                 //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
                 Database.Save();
             }
@@ -276,7 +276,7 @@ namespace ACS.BLL.Services
         public TypeRecordChancelleryDTO TypeRecordGetById(int id)
         {
 
-            var type = Database.TypeRecordChancelleries.Get(id);
+            var type = Database.TypeRecordChancelleries.Find(id);
             if (type == null)
                 throw new ValidationException("Тип не найден", "");
 
@@ -294,7 +294,7 @@ namespace ACS.BLL.Services
             {
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
                 TypeRecordChancellery typeDB = GetMap_TypeRecordChancellery_DTO_To_DB().Map<TypeRecordChancelleryDTO, TypeRecordChancellery>(typeDTO);
-                Database.TypeRecordChancelleries.Create(typeDB, Author.id);
+                Database.TypeRecordChancelleries.Add(typeDB, Author.id);
                 //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
                 Database.Save();
             }
@@ -328,7 +328,7 @@ namespace ACS.BLL.Services
 
         public void TypeRecordMoveToBasket(TypeRecordChancelleryDTO typeDTO, string currentUserEmail)
         {
-            TypeRecordChancellery typeDB = Database.TypeRecordChancelleries.Get(typeDTO.id);
+            TypeRecordChancellery typeDB = Database.TypeRecordChancelleries.Find(typeDTO.id);
 
             var editor = this.Database.UserManager.FindByEmail(currentUserEmail);
 
@@ -340,7 +340,10 @@ namespace ACS.BLL.Services
 
             try
             {
-                Database.TypeRecordChancelleries.MoveToBasket(typeDB, editor.Id);
+                typeDB.s_EditorId = editor.Id;
+                typeDB.s_EditDate = DateTime.Now;
+                typeDB.s_InBasket = true;
+                Database.TypeRecordChancelleries.Update(typeDB, editor.Id);
                 Database.Save();
             }
             catch (Exception e)
@@ -377,8 +380,8 @@ namespace ACS.BLL.Services
                 cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
                 cfg.CreateMap<FromChancelleryDTO, FromChancellery>();
                 cfg.CreateMap<ToChancelleryDTO, ToChancellery>();
-                cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Get((int)c.ResponsibleEmployee_Id)))
-                .ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => Database.TypeRecordChancelleries.Get((int)c.TypeRecordChancellery.id)));
+                cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.ResponsibleEmployee_Id)))
+                .ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => Database.TypeRecordChancelleries.Find((int)c.TypeRecordChancellery.id)));
 
 
             }).CreateMapper();

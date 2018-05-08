@@ -57,7 +57,7 @@ namespace ACS.BLL.Services
                 //    PersonnelNumber = UserDTO.PersonnelNumber,
 
                 //};
-                Database.Accesses.Create(Access, Author.id);
+                Database.Accesses.Add(Access, Author.id);
                 Database.Save();
             }
             catch (Exception e)
@@ -89,7 +89,7 @@ namespace ACS.BLL.Services
             if (id == null)
                 throw new ValidationException("Не установлено id доступа", "");
 
-            var access = Database.Accesses.Get(id.Value);
+            var access = Database.Accesses.Find(id.Value);
             if (access == null)
                 throw new ValidationException("Доступ не найден", "");
 
@@ -102,7 +102,7 @@ namespace ACS.BLL.Services
             if (id == null)
                 throw new ValidationException("Не установлено id пользователя", "");
 
-            var Employee = Database.Employees.Get(id.Value);
+            var Employee = Database.Employees.Find(id.Value);
             if (Employee == null)
                 throw new ValidationException("Пользователь не найден", "");
 

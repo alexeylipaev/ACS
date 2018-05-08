@@ -33,7 +33,7 @@ namespace ACS.BLL.Services
             if (id == null)
                 throw new ValidationException("Не установлено id  ", "");
 
-            var Journal = Database.JournalRegistrationsChancelleries.Get(id.Value);
+            var Journal = Database.JournalRegistrationsChancelleries.Find(id.Value);
 
             if (Journal == null)
                 throw new ValidationException("Отсутствует данные о журнале регистрации", "");

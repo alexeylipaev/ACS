@@ -44,7 +44,7 @@
             if (EditableObj == null)
             {
                 return new OperationDetails(false, "Не возможно редактировать объект с id", "");
-            }              Employee empl = null;              empl = UserDTO.Employee_Id != null ? empl = Database.Employees.Get((int)UserDTO.Employee_Id) : null;              try             {                 EditableObj.Email = UserDTO.Email;                 EditableObj.UserName = UserDTO.UserName;                 EditableObj.PasswordHash = UserDTO.PasswordHash;                 EditableObj.Employee = empl;
+            }              Employee empl = null;              empl = UserDTO.Employee_Id != null ? empl = Database.Employees.Find((int)UserDTO.Employee_Id) : null;              try             {                 EditableObj.Email = UserDTO.Email;                 EditableObj.UserName = UserDTO.UserName;                 EditableObj.PasswordHash = UserDTO.PasswordHash;                 EditableObj.Employee = empl;
 
                var resultUpdateRole = await UpdateUserRolesAsync(UserDTO);
 

@@ -33,7 +33,7 @@ namespace ACS.BLL.Services
             if (id == null)
                 throw new ValidationException("Не установлено id папки ", "");
 
-            var Folder = Database.FolderChancelleries.Get(id.Value);
+            var Folder = Database.FolderChancelleries.Find(id.Value);
 
             if (Folder == null)
                 throw new ValidationException("Отсутствует папка", "");

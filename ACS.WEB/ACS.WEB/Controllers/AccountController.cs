@@ -28,6 +28,8 @@ namespace ACS.WEB.Controllers
         {
             get
             {
+                //Поскольку ранее мы зарегитрировали сервис пользователей через контекст OWIN,
+                //то теперь мы можем получить этот сервис с помощью метода
                 return HttpContext.GetOwinContext().GetUserManager<IAccountAppUserService>();
             }
         }
@@ -87,18 +89,18 @@ namespace ACS.WEB.Controllers
                 var authenticationResult = authService.SignIn(model.Email, model.Password);
                 if (authenticationResult.IsSuccess)
                 {
-                    if (User.IsInRole("Admin"))
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else if (User.IsInRole("User"))
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    //if (User.IsInRole("Admin"))
+                    //{
+                    //    return RedirectToAction("Index", "Home");
+                    //}
+                    //else if (User.IsInRole("User"))
+                    //{
+                    //    return RedirectToAction("Index", "Home");
+                    //}
 
                     // we are in!
                     //return RedirectPermanent(returnUrl);
-                    //return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 ModelState.AddModelError("", authenticationResult.ErrorMessage);

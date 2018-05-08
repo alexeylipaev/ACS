@@ -6,6 +6,6 @@ namespace ACS.BLL.Interfaces
     /// </summary>
     public interface IServiceCreator
     {
-        IApplicationUserService CreateUserService(string connection);
+        IAccountAppUserService CreateAccountUserService(string connection);
     }
 }

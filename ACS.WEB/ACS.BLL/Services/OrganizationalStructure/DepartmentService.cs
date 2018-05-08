@@ -26,7 +26,7 @@ namespace ACS.BLL.Services
             if (id == null)
                 throw new ValidationException("Не установлено id подразделения", "");
 
-            var department = Database.Departments.Get(id.Value);
+            var department = Database.Departments.Find(id.Value);
             if (department == null)
                 throw new ValidationException("Подразделение не найдено", "");
 

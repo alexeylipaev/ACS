@@ -10,9 +10,9 @@ namespace ACS.BLL.Services
 {
     public class ServiceCreator : IServiceCreator
     {
-        public IApplicationUserService CreateUserService(string connection)
+        public IAccountAppUserService CreateAccountUserService(string connection)
         {
-            return new ApplicationUserService(new EFUnitOfWork(connection));
+            return new AccountAppUserService(new UnitOfWork(connection));
         }
     }
 }

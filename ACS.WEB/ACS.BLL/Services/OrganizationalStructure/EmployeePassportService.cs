@@ -27,7 +27,7 @@ namespace ACS.BLL.Services
             if (id == null)
                 throw new ValidationException("Не установлено id пользователя", "");
 
-            var user = Database.Employees.Get(id.Value);
+            var user = Database.Employees.Find(id.Value);
             if (user == null)
                 throw new ValidationException("Пользователь не найден", "");
 
@@ -40,7 +40,7 @@ namespace ACS.BLL.Services
             if (id == null)
                 throw new ValidationException("Не установлено id паспорта", "");
 
-            var Passport = Database.EmployeesPassports.Get(id.Value);
+            var Passport = Database.EmployeesPassports.Find(id.Value);
             if (Passport == null)
                 throw new ValidationException("Паспорт не найден", "");
 

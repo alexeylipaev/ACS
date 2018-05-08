@@ -48,7 +48,7 @@ namespace ACS.BLL.Services
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, Employee>()).CreateMapper();
                 Employee Employee = mapper.Map<EmployeeDTO, Employee>(UserDTO);
 
-                Database.Employees.Create(Employee, author.id);
+                Database.Employees.Add(Employee, author.id);
                 Database.Save();
             }
             catch (Exception e)
@@ -87,7 +87,7 @@ namespace ACS.BLL.Services
                 Employee Employee = mapper.Map<EmployeeDTO, Employee>(UserDTO);
                 Employee.s_AuthorId = author.Id;
                 Employee.s_EditorId = author.Id;
-                Database.Employees.Create(Employee, author.Id);
+                Database.Employees.Add(Employee, author.Id);
                 Database.Save();
             }
             catch (Exception e)
@@ -108,7 +108,7 @@ namespace ACS.BLL.Services
         public void UpdateEmployee(EmployeeDTO UserDTO, string authorEmail)
         {
 
-            Employee EditableObj = Database.Employees.Get(UserDTO.id);
+            Employee EditableObj = Database.Employees.Find(UserDTO.id);
 
             var editor = GetEditor(authorEmail);
 
@@ -148,7 +148,7 @@ namespace ACS.BLL.Services
          
         public void MoveToBasketEmployee(int userId, string authorEmail)
         {
-            Employee EditableObj = Database.Employees.Get(userId);
+            Employee EditableObj = Database.Employees.Find(userId);
 
             var editor = GetEditor(authorEmail);
 
@@ -160,7 +160,8 @@ namespace ACS.BLL.Services
 
             try
             {
-                Database.Employees.MoveToBasket(EditableObj, editor.Id);
+                EditableObj.s_InBasket = true;
+                Database.Employees.Update(EditableObj, editor.Id);
                 Database.Save();
             }
             catch (Exception e)
@@ -180,7 +181,7 @@ namespace ACS.BLL.Services
 
         public void DeleteEmployee(int userId, string authorEmail)
         {
-            Employee EditableObj = Database.Employees.Get(userId);
+            Employee EditableObj = Database.Employees.Find(userId);
             var editor = GetEditor(authorEmail);
 
             if (editor == null)
@@ -257,7 +258,7 @@ x => x.MapFrom(m => m.Employee.id));
             if (id == null)
                 throw new ValidationException("Не установлено id пользователя", "");
 
-            var Employee = Database.Employees.Get(id.Value);
+            var Employee = Database.Employees.Find(id.Value);
             if (Employee == null)
                 throw new ValidationException("Пользователь не найден", "");
 
