@@ -149,7 +149,7 @@ namespace ACS.WEB.Controllers
                 cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>();
                 //cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
                 cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>();
-                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
+                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>().ForMember(c=> c.TypeRecordId, c=> c.MapFrom(t=>t.TypeRecordChancellery.id));
 
             }).CreateMapper();
 
