@@ -178,6 +178,7 @@
     <Compile Include="Entities\ASPIdentityUser\AppUserStore.cs" />
     <Compile Include="Entities\InputControlPKI\InputControlPKIDTO.cs" />
     <Compile Include="Entities\InputControlPKI\ReceivedDocPKIDTO.cs" />
+    <Compile Include="Entities\TheProjectRegistry\ProjectRegistry.cs" />
     <Compile Include="Identity\ApplicationUserValidator.cs" />
     <Compile Include="Сonnection.cs" />
     <Compile Include="Entities\Access\Access.cs" />

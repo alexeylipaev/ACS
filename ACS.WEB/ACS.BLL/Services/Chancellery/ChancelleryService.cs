@@ -103,6 +103,8 @@ namespace ACS.BLL.Services
             return mapper.Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(type);
         }
 
+
+
         /// <summary>
         /// Получить все типы канцелярии
         /// </summary>
@@ -111,7 +113,7 @@ namespace ACS.BLL.Services
         {
             // применяем автомаппер для проекции одной коллекции на другую
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll());
+            return GetMapChancelleryToChancelleryDTO().Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll());
         }
 
         /// <summary>
@@ -133,6 +135,25 @@ namespace ACS.BLL.Services
             return mapper.Map<Chancellery, ChancelleryDTO>(Chancellery);
         }
 
+        IMapper GetMapChancelleryToChancelleryDTO()
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>();
+                cfg.CreateMap<FromChancellery, FromChancelleryDTO>().ForMember(x => x.Employee_Id,
+          x => x.MapFrom(m => m.Employee.id));
+                cfg.CreateMap<ToChancellery, ToChancelleryDTO>().ForMember(x => x.Chancellery_Id,
+          x => x.MapFrom(m => m.Chancellery.id));
+                cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
+                cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.ResponsibleEmployee_Id,
+x => x.MapFrom(m => m.Employee.id));
+
+            }).CreateMapper();
+
+            return mapper;
+        }
+
+
         /// <summary>
         /// Получить всю канцелярию
         /// </summary>
@@ -140,8 +161,8 @@ namespace ACS.BLL.Services
         public IEnumerable<ChancelleryDTO> GetChancelleries()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(Database.Chancelleries.GetAll());
+           // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
+            return GetMapChancelleryToChancelleryDTO().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(Database.Chancelleries.GetAll());
         }
 
 

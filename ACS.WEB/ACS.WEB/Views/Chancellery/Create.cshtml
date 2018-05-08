@@ -66,10 +66,10 @@
         </div>*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TypeRecordId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TypeRecordChancellery.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("TypeRecordId", string.Empty)
-                @Html.ValidationMessageFor(model => model.TypeRecordId, "", new { @class = "text-danger" })
+                @Html.DropDownList("TypeRecordChancellery", string.Empty)
+                @Html.ValidationMessageFor(model => model.TypeRecordChancellery.Name, "", new { @class = "text-danger" })
             </div>
         </div>
 

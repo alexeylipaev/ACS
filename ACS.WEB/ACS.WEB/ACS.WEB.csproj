@@ -223,6 +223,8 @@
     <Compile Include="Models\Chancellery\ToChancelleryViewModel.cs" />
     <Compile Include="Models\Chancellery\TypeRecordChancelleryViewModel.cs" />
     <Compile Include="Models\DataEntityViewModel.cs" />
+    <Compile Include="Models\InputControlPKI\InputControlPKIViewModel.cs" />
+    <Compile Include="Models\InputControlPKI\ReceivedDocPKIViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrganizationalStructure\DepartmentViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\PostNameEmployeeViewModel.cs" />

@@ -18,12 +18,12 @@ namespace ACS.WEB.ViewModel
         public DateTime s_EditDate { get; set; } = DateTime.Now;
 
         [Display(Name = "Заблокирован")]
-        public bool? s_IsLocked { get; set; }
+        public bool? s_IsLocked { get; set; } = false;
         [Display(Name = "ID кем заблокирован")]
         public int? s_LockedBy_Id { get; set; }
 
         [Display(Name = "В корзине")]
-        public bool s_InBasket { get; set; } 
+        public bool s_InBasket { get; set; } = false;
 
     }
 }
