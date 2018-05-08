@@ -53,23 +53,23 @@ namespace ACS.WEB.ViewModel
 
         #region Журнал
 
-        //public int? JournalRegistrationsId { get; set; }
+        public int? JournalRegistrationsId { get; set; }
         /// <summary>
         /// Журнал
         /// </summary>
-        public JournalRegistrationsChancelleryViewModel JournalRegistrationsChancellery { get; set; }
+        //public JournalRegistrationsChancelleryViewModel JournalRegistrationsChancellery { get; set; }
 
         #endregion
 
         #region Тип
 
 
-        //public byte? TypeRecordId { get; set; }
+        public int? TypeRecordId { get; set; }
 
         /// <summary>
         /// Тип записи
         /// </summary>
-        public TypeRecordChancelleryViewModel TypeRecordChancellery { get; set; }
+        //public TypeRecordChancelleryViewModel TypeRecordChancellery { get; set; }
 
         #endregion
 
