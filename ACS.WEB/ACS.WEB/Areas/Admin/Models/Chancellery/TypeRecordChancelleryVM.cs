@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACS.BLL.DTO
+namespace ACS.WEB.Areas.Admin.Models
 {
     /// <summary>
     /// Тип канцелярской записи
     /// </summary>
-    public partial class TypeRecordChancelleryDTO : SystemParametersDTO
+    public partial class TypeRecordChancelleryAdminVM : SystemParametersAdminVM
     {
-        public TypeRecordChancelleryDTO()
+        public TypeRecordChancelleryAdminVM()
         {
-            Chancelleries = new HashSet<ChancelleryDTO>();
+            //Chancelleries = new HashSet<ChancelleryDTO>();
         }
 
 
@@ -27,6 +27,6 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Канцелярские записи которые имеют this тип
         /// </summary>
-        public virtual ICollection<ChancelleryDTO> Chancelleries { get; set; }
+        //public virtual ICollection<ChancelleryDTO> Chancelleries { get; set; }
     }
 }

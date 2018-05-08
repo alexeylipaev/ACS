@@ -99,8 +99,8 @@ namespace ACS.BLL.Services
             if (type == null)
                 throw new ValidationException("Тип не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(type);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
+            return GetMapTypeRecordChancelleryDBToTypeRecordChancelleryDTO().Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(type);
         }
 
         /// <summary>
@@ -110,8 +110,8 @@ namespace ACS.BLL.Services
         public IEnumerable<TypeRecordChancelleryDTO> GetAllTypes()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll().ToList());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
+            return GetMapTypeRecordChancelleryDBToTypeRecordChancelleryDTO().Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll().ToList());
         }
 
         /// <summary>
@@ -248,6 +248,7 @@ namespace ACS.BLL.Services
 
 
                 Database.Chancelleries.Create(chancellery);
+                //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
                 Database.Save();
             }
             catch (Exception e)
@@ -314,6 +315,19 @@ namespace ACS.BLL.Services
                 cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
                 cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.ResponsibleEmployee_Id,
 x => x.MapFrom(m => m.Employee.id));
+
+            }).CreateMapper();
+
+            return mapper;
+        }
+        IMapper GetMapTypeRecordChancelleryDBToTypeRecordChancelleryDTO()
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.TypeRecordChancellery,
+x => x.MapFrom(m => m.TypeRecordChancellery)); ;
+                cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();/*.ForMember(x => x.,
+x => x.MapFrom(m => m.Employee.id));*/
 
             }).CreateMapper();
 

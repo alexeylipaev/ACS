@@ -222,8 +222,10 @@ namespace ACS.BLL.Services
             {
                 cfg.CreateMap<Access, AccessDTO>().ForMember(x => x.Employee_Id,
 x => x.MapFrom(m => m.Employee.id));
+                cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
                 cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.ResponsibleEmployee_Id,
-x => x.MapFrom(m => m.Employee.id));
+x => x.MapFrom(m => m.Employee.id)).ForMember(x => x.TypeRecordChancellery,
+x => x.MapFrom(m => m.TypeRecordChancellery));
                 cfg.CreateMap<ApplicationUser, ApplicationUserDTO>().ForMember(x => x.Employee_Id,
           x => x.MapFrom(m => m.Employee.id));
                 cfg.CreateMap<PostEmployeeСode1С, PostEmployeeСode1СDTO>().ForMember(x => x.Employee_Id,

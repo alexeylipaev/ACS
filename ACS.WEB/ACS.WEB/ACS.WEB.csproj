@@ -188,6 +188,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ASPIdentityUser\RolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\OrganizationalStructure\EmployeesController.cs" />
+    <Compile Include="Areas\Admin\Models\Chancellery\TypeRecordChancelleryVM.cs" />
     <Compile Include="Areas\Admin\Models\OrganizationalStructure\EmployeeAdminVM.cs" />
     <Compile Include="Areas\Admin\Models\SystemParametersAdminVM.cs" />
     <Compile Include="Controllers\AccessController.cs" />
@@ -343,6 +344,7 @@
     <Content Include="Views\Chancellery\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Admin\Controllers\Chancellery\" />
     <Folder Include="Views\AdminApplicationUserVM\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
     <Folder Include="Views\Shared\EditTemplates\" />
