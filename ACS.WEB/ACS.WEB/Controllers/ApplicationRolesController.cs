@@ -40,12 +40,9 @@ namespace ACS.WEB.Controllers
         }
 
         // GET: ApplicationRole/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+           
             try
             {
                 ApplicationRoleDTO roleDto = await ApplicationRoleService.FindByIdAsync((int)id);
@@ -53,59 +50,13 @@ namespace ACS.WEB.Controllers
                 var roleVM = mapper.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(roleDto);
                 //var userVM = new UserViewModel { Id = user.Id };
 
-                return View(mapper);
+                return View(roleVM);
             }
             catch (ValidationException ex)
             {
                 return Content(ex.Message);
             }
         }
-
-
-
-        //// GET: ApplicationRole/Create
-        //public ActionResult Create(int? id)
-        //{
-        //    try
-        //    {
-        //        var roleVM = new ApplicationRoleViewModel();
-        //        if (id != null)
-        //        {
-        //            ApplicationRoleDTO roleDTO = ApplicationRoleService.FindRoleById((int)id);
-        //            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
-        //            roleVM = mapper.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(roleDTO);
-        //            //userVM.id = userDTO.id;
-        //        }
-        //        return View(roleVM);
-        //    }
-        //    catch (ValidationException ex)
-        //    {
-        //        return Content(ex.Message);
-        //    }
-        //}
-
-        //// POST: ApplicationRole/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "id,Name,Users")] ApplicationRoleViewModel roleVM)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            string currentUserEmail = this.User.Identity.Name;
-        //            //string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
-        //            var roleDto = new ApplicationRoleDTO { id = roleVM.id, Name = roleVM.Name };
-        //            ApplicationRoleService.CreateAsync(roleDto);
-        //            return RedirectToAction("Index");
-        //        }
-        //    }
-        //    catch (ValidationException ex)
-        //    {
-        //        ModelState.AddModelError(ex.Property, ex.Message);
-        //    }
-        //    return View(roleVM);
-        //}
 
 
         public ActionResult Create()
@@ -133,46 +84,6 @@ namespace ACS.WEB.Controllers
             }
             return View(model);
         }
-
-        //// GET: ApplicationRole/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    var roleVM = new ApplicationRoleViewModel();
-        //    if (id != null)
-        //    {
-        //        ApplicationRoleDTO roleDTO = ApplicationRoleService.FindRoleById((int)id);
-        //        var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
-        //        roleVM = mapper.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(roleDTO);
-        //        //userVM.id = userDTO.id;
-        //    }
-
-        //    return View(roleVM);
-        //}
-
-        //// POST: ApplicationRole/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "id,Name,Users")] ApplicationRoleViewModel roleVM)
-        //{
-        //    try
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-
-        //            //string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
-        //            var roleDto = new ApplicationRoleDTO { id = roleVM.id, Name = roleVM.Name};
-        //            ApplicationRoleService.UpdateRole(roleDto);
-        //            ViewBag.EditResult = "Данные изменены";
-        //            return View(roleDto);
-        //        }
-        //    }
-        //    catch (ValidationException ex)
-        //    {
-        //        ModelState.AddModelError(ex.Property, ex.Message);
-        //    }
-
-        //    return View(roleVM);
-        //}
 
         public async Task<ActionResult> Edit(int id)
         {
@@ -245,28 +156,6 @@ namespace ACS.WEB.Controllers
             return RedirectToAction("Index");
         }
 
-        //// GET: ApplicationRole/Delete/5
-        //public ActionResult Delete(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //        }
-
-        //        var roleDTO = ApplicationRoleService.FindRoleById((int)id);
-        //        var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
-        //        var roleVM = mapper.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(roleDTO);
-
-        //        if (roleVM == null)
-        //        {
-        //            return HttpNotFound();
-        //        }
-        //        return View(roleVM);
-        //    }
-
-        // POST: ApplicationRole/Delete/5
-
-
-
+  
     }
 }

@@ -15,7 +15,7 @@ namespace ACS.WEB.ViewModel
             FromChancelleries = new HashSet<FromChancelleryViewModel>();
             ToChancelleries = new HashSet<ToChancelleryViewModel>();
         }
-
+        [Display(Name = "ID")]
         public int id { get; set; }
 
         /// <summary>
@@ -47,6 +47,7 @@ namespace ACS.WEB.ViewModel
         /// <summary>
         /// Папка
         /// </summary>
+        [Display(Name = "Папка")]
         public FolderChancelleryViewModel FolderChancellery { get; set; }
 
         #endregion
@@ -64,24 +65,26 @@ namespace ACS.WEB.ViewModel
 
         #region Тип
 
-
-        public int? TypeRecordId { get; set; }
+        //[Display(Name = "Тип")]
+        //public int? TypeRecordId { get; set; }
 
         /// <summary>
         /// Тип записи
         /// </summary>
-        //public TypeRecordChancelleryViewModel TypeRecordChancellery { get; set; }
+        [Display(Name = "Тип записи")]
+        public TypeRecordChancelleryViewModel TypeRecordChancellery { get; set; }
 
         #endregion
 
         #region Ответственный
-        [Display(Name = "Ответственный")]
-        public int? ResponsibleEmployee_Id { get; set; }
+      
+        //public int? ResponsibleEmployee_Id { get; set; }
 
         /// <summary>
         /// Ответственный
         /// </summary>
-        //public virtual EmployeeViewModel Employee { get; set; }
+        [Display(Name = "Ответственный")]
+        public virtual EmployeeViewModel Employee { get; set; }
 
         #endregion
 
@@ -90,18 +93,21 @@ namespace ACS.WEB.ViewModel
         /// Файлы
         /// </summary>
         //[DataType(DataType.Upload)]
+        [Display(Name = "Файлы")]
         public ICollection<FileRecordChancelleryViewModel> FileRecordChancelleries { get; set; }
 
 
         /// <summary>
         /// От кого"
         /// </summary>
+        [Display(Name = "От кого")]
         public ICollection<FromChancelleryViewModel> FromChancelleries { get; set; }
 
 
         /// <summary>
         /// Кому
         /// </summary>
+        [Display(Name = "Кому")]
         public ICollection<ToChancelleryViewModel> ToChancelleries { get; set; }
     }
 }

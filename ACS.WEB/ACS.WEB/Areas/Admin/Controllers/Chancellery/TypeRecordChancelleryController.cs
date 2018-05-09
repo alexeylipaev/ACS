@@ -137,8 +137,8 @@ namespace ACS.WEB.Areas.Admin.Controllers.Chancellery
         {
             var mapper = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>().ForMember(x => x.TypeRecordId,
-x => x.MapFrom(m => m.TypeRecordChancellery.id)); ;
+                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>().ForMember(x => x.TypeRecordChancellery,
+x => x.MapFrom(m => m.TypeRecordChancellery)); ;
                 cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryAdminVM>();
 
             }).CreateMapper();
@@ -151,7 +151,7 @@ x => x.MapFrom(m => m.TypeRecordChancellery.id)); ;
             var mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>().ForMember(x => x.TypeRecordChancellery,
-x => x.MapFrom(m => ChancelleryService.TypeRecordGetById((int)m.TypeRecordId))); 
+x => x.MapFrom(m => m.TypeRecordChancellery)); 
                 cfg.CreateMap<TypeRecordChancelleryAdminVM, TypeRecordChancelleryDTO>();
 
             }).CreateMapper();

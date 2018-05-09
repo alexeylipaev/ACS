@@ -176,8 +176,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Infrastructure\jquery-3.3.1.min.map" />
-    <None Include="Infrastructure\jquery-3.3.1.slim.min.map" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
@@ -189,19 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DTO\Description.txt" />
-    <Content Include="Infrastructure\bootstrap.js" />
-    <Content Include="Infrastructure\bootstrap.min.js" />
-    <Content Include="Infrastructure\jquery-3.3.1.intellisense.js" />
-    <Content Include="Infrastructure\jquery-3.3.1.js" />
-    <Content Include="Infrastructure\jquery-3.3.1.min.js" />
-    <Content Include="Infrastructure\jquery-3.3.1.slim.js" />
-    <Content Include="Infrastructure\jquery-3.3.1.slim.min.js" />
-    <Content Include="Infrastructure\jquery.validate-vsdoc.js" />
-    <Content Include="Infrastructure\jquery.validate.js" />
-    <Content Include="Infrastructure\jquery.validate.min.js" />
-    <Content Include="Infrastructure\jquery.validate.unobtrusive.js" />
-    <Content Include="Infrastructure\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Infrastructure\modernizr-2.8.3.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

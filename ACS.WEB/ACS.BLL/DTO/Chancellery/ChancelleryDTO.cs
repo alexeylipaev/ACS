@@ -71,12 +71,12 @@ namespace ACS.BLL.DTO
 
         #region Ответственный
 
-        public int? ResponsibleEmployee_Id { get; set; }
+        //public int? ResponsibleEmployee_Id { get; set; }
 
         /// <summary>
         /// Ответственный
         /// </summary>
-        //public virtual EmployeeDTO Employee { get; set; }
+        public virtual EmployeeDTO Employee { get; set; }
 
         #endregion
 

@@ -53,7 +53,7 @@ namespace ACS.BLL.Services
 
                 //};
                 Database.Accesses.Add(Access, Author.id);
-                Database.Save();
+               
             }
             catch (Exception e)
             {

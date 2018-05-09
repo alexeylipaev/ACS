@@ -1,0 +1,44 @@
+﻿@model ACS.WEB.ViewModel.FolderChancelleryViewModel
+@using ACS.WEB.ViewModel
+@{
+    ViewBag.Title = "Информация о папке";
+    Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
+}
+
+<h2>Информация о папке</h2>
+
+<div>
+  <h4>@Html.LabelFor(model => model.Name)</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+</div>
+@*@if (Model.Chancelleries.Count > 0)
+{
+<div class="display-lable"><b>Канцелярия в папке</b></div>
+<ul>
+   @foreach (ChancelleryViewModel ch in Model.Chancelleries)
+   {
+       <li>@ch.id</li>
+   }
+</ul>
+}*@
+<p>
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Назад к списку", "Index")
+</p>
