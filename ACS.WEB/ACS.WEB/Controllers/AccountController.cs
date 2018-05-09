@@ -1,5 +1,5 @@
-﻿#warning закомментить notWindowsAuth
-#define notWindowsAuth
+﻿//#warning закомментить notWindowsAuth
+//#define notWindowsAuth
 using System;
 using System.Globalization;
 using System.Linq;
