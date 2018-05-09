@@ -10,7 +10,7 @@ namespace ACS.BLL.Interfaces
     public interface ITypeAccessService : IDisposable
     {
 
-        void MakeTypeAccess(TypeAccessDTO TypeAccessDTO, string authorEmail);
+        void CreateTypeAccess(TypeAccessDTO TypeAccessDTO, string authorEmail);
 
         void UpdateChancellery(TypeAccessDTO TypeAccessDTO, string authorEmail);
 

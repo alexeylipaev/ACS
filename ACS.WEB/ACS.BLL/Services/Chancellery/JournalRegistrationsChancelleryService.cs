@@ -12,14 +12,9 @@ using ACS.DAL.Entities;
 
 namespace ACS.BLL.Services
 {
-    public class JournalRegistrationsChancelleryService : IJournalRegistrationsChancelleryService
+    public class JournalRegistrationsChancelleryService :ServiceBase, IJournalRegistrationsChancelleryService
     {
-        IUnitOfWork Database { get; set; }
-
-        public JournalRegistrationsChancelleryService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        public JournalRegistrationsChancelleryService(IUnitOfWork uow) : base(uow) { }
 
         public IEnumerable<JournalRegistrationsChancelleryDTO> GetJournalsRegistrationsChancellery()
         {
@@ -42,7 +37,7 @@ namespace ACS.BLL.Services
             return mapper.Map<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>(Journal);
         }
 
-        public void MakeJournalRegistrationsChancellery(JournalRegistrationsChancelleryDTO JournalRegistrationsChancelleryDto, string authorEmail)
+        public void CreateJournalRegistrationsChancellery(JournalRegistrationsChancelleryDTO JournalRegistrationsChancelleryDto, string authorEmail)
         {
             throw new NotImplementedException();
         }

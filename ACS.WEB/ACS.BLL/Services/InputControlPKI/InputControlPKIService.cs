@@ -11,14 +11,9 @@ using ACS.BLL.DTO;
 
 namespace ACS.BLL.Services.InputControlPKI
 {
-    public class InputControlPKIService: IInputControlPKIService
+    public class InputControlPKIService:ServiceBase, IInputControlPKIService
     {
-        IUnitOfWork Database { get; set; }
-
-        public InputControlPKIService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        public InputControlPKIService(IUnitOfWork uow) : base(uow) { }
 
         public void Dispose()
         {

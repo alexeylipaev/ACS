@@ -9,7 +9,7 @@ namespace ACS.BLL.Interfaces
 {
     public interface IWorkHistoryService : IDisposable
     {
-        void MakeWorkHistory(WorkHistoryDTO WorkHistoryDTO);
+        void CreateWorkHistory(WorkHistoryDTO WorkHistoryDTO);
         WorkHistoryDTO GetWorkHistory(int? id);
         IEnumerable<WorkHistoryDTO> GetWorkHistory();
 

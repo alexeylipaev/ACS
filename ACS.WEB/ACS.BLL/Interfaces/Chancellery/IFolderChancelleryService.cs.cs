@@ -9,7 +9,7 @@ namespace ACS.BLL.Interfaces
 {
     public interface IFolderChancelleryService : IDisposable
     {
-        void MakeFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail);
+        void CreateFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail);
 
         void UpdateFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail);
 

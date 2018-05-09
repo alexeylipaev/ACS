@@ -1,5 +1,5 @@
-﻿//#warning Закомментить   notWindowsAuth
-//#define notWindowsAuth
+﻿#warning закомментить notWindowsAuth
+#define notWindowsAuth
 using System;
 using System.Globalization;
 using System.Linq;
@@ -169,6 +169,22 @@ namespace ACS.WEB.Controllers
 
                     //    return RedirectToAction("Index", "Home");
                     //return View("SuccessRegister");
+                  
+                    ClaimsIdentity claim = await AccountAppUserService.Authenticate(applicationUserDTO);
+                    if (claim == null)
+                    {
+                        ModelState.AddModelError("", "Ошибка авторизации");
+                    }
+                    else
+                    {
+                        AuthenticationManager.SignOut();
+                        AuthenticationManager.SignIn(new AuthenticationProperties
+                        {
+                            IsPersistent = true
+                        }, claim);
+                        return RedirectToAction("Index", "Home");
+                    }
+
                     return RedirectToAction("Login", "Account");
                 }
                 else

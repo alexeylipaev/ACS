@@ -12,14 +12,9 @@ using ACS.BLL.Infrastructure;
 
 namespace ACS.BLL.Services
 {
-    public class FolderChancelleryService : IFolderChancelleryService
+    public class FolderChancelleryService : ServiceBase,IFolderChancelleryService
     {
-        IUnitOfWork Database { get; set; }
-
-        public FolderChancelleryService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        public FolderChancelleryService(IUnitOfWork uow) : base(uow) { }
 
         public IEnumerable<FolderChancelleryDTO> GetFoldersChancellery()
         {
@@ -42,7 +37,7 @@ namespace ACS.BLL.Services
             return mapper.Map<FolderChancellery, FolderChancelleryDTO>(Folder);
         }
 
-        public void MakeFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail)
+        public void CreateFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail)
         {
             throw new NotImplementedException();
         }

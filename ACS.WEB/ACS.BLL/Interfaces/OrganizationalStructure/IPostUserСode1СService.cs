@@ -9,7 +9,7 @@ namespace ACS.BLL.Interfaces
 {
     public interface IPostsEmployeesСode1СService : IDisposable
     {
-        void MakePostsEmployeesСode1С(PostEmployeeСode1СDTO PostsEmployeesСode1СDTO);
+        void CreatePostsEmployeesСode1С(PostEmployeeСode1СDTO PostsEmployeesСode1СDTO);
         PostEmployeeСode1СDTO GetPostsEmployeesСode1С(int? id);
         IEnumerable<PostEmployeeСode1СDTO> GetPostsEmployeesСode1С();
 

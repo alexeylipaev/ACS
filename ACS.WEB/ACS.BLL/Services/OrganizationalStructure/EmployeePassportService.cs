@@ -12,15 +12,9 @@ using ACS.DAL.Entities;
 
 namespace ACS.BLL.Services
 {
-    public class EmployeePassportService : IEmployeePassportService
+    public class EmployeePassportService : ServiceBase,IEmployeePassportService
     {
-
-        IUnitOfWork Database { get; set; }
-
-        public EmployeePassportService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        public EmployeePassportService(IUnitOfWork uow) : base(uow) { }
 
         public EmployeeDTO GetUser(int? id)
         {
@@ -56,7 +50,7 @@ namespace ACS.BLL.Services
         }
 
 
-        public void MakeEmployeePassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail)
+        public void CreateEmployeePassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail)
         {
             throw new NotImplementedException();
         }

@@ -40,7 +40,7 @@ namespace ACS.BLL.Interfaces
 
         IEnumerable<FromChancelleryDTO> GetFromChancellery();
 
-        void MakeFromChancellery(FromChancelleryDTO FromChancelleryDTO, string authorEmail);
+        void CreateFromChancellery(FromChancelleryDTO FromChancelleryDTO, string authorEmail);
 
         void UpdateFromChancellery(FromChancelleryDTO FromChancelleryDTO, string authorEmail);
 

@@ -16,16 +16,11 @@ using System.Collections;
 
 namespace ACS.BLL.Services
 {
-    public class AccessService : IAccessService
+    public class AccessService : ServiceBase, IAccessService
     {
-        IUnitOfWork Database { get; set; }
+        public AccessService(IUnitOfWork uow) : base(uow) { }
 
-        public AccessService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
-
-        public void MakeAccess(AccessDTO AccessDto, string authorEmail)
+        public void CreateAccess(AccessDTO AccessDto, string authorEmail)
         {
             var Author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
 

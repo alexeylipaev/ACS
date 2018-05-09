@@ -9,7 +9,7 @@ namespace ACS.BLL.Interfaces
 {
     public interface IEmployeePassportService : IDisposable
     {
-        void MakeEmployeePassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail);
+        void CreateEmployeePassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail);
 
         void UpdateEmployeePassport(EmployeePassportDTO EmployeePassportDTO, string authorEmail);
 

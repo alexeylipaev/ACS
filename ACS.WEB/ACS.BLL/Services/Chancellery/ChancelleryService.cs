@@ -17,14 +17,9 @@ namespace ACS.BLL.Services
 {
 
 
-    public class ChancelleryService : IChancelleryService
+    public class ChancelleryService : ServiceBase, IChancelleryService
     {
-        IUnitOfWork Database { get; set; }
-
-        public ChancelleryService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        public ChancelleryService(IUnitOfWork uow) : base(uow) { }
         /// <summary>
         /// Получить данные о файле по id
         /// </summary>

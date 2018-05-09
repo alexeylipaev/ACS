@@ -13,14 +13,9 @@ using System.Linq;
 using ACS.BLL.BusinessModels;
 namespace ACS.BLL.Services
 {
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService : ServiceBase,IEmployeeService
     {
-        IUnitOfWork Database { get; set; }
-
-        public EmployeeService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        public EmployeeService(IUnitOfWork uow) : base(uow) { }
 
         string UNIQEUserString(EmployeeDTO UserData)
         {

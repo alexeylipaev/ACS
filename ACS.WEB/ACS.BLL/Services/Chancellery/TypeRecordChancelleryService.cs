@@ -12,15 +12,9 @@ using ACS.BLL.Infrastructure;
 
 namespace ACS.BLL.Services
 {
-    public class TypeRecordChancelleryService : ITypeRecordChancelleryService
+    public class TypeRecordChancelleryService : ServiceBase, ITypeRecordChancelleryService
     {
-        IUnitOfWork Database { get; set; }
-
-        public TypeRecordChancelleryService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
-
+        public TypeRecordChancelleryService(IUnitOfWork uow) : base(uow) { }
         /// <summary>
         /// Все типы
         /// </summary>
@@ -33,7 +27,7 @@ namespace ACS.BLL.Services
 
         public TypeRecordChancelleryDTO GetTypeRecordChancellery(int? id)
         {
-            if(id == null)
+            if (id == null)
                 throw new ValidationException("Не установлено id", "");
 
             var type = Database.Employees.Find(id.Value);
@@ -45,7 +39,7 @@ namespace ACS.BLL.Services
             return mapper.Map<Employee, TypeRecordChancelleryDTO>(type);
         }
 
-        public void MakeTypeRecordChancellery(TypeRecordChancelleryDTO TypeRecordChancelleryDTO, string authorEmail)
+        public void CreateTypeRecordChancellery(TypeRecordChancelleryDTO TypeRecordChancelleryDTO, string authorEmail)
         {
             throw new NotImplementedException();
         }

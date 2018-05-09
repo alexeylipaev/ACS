@@ -9,7 +9,7 @@ namespace ACS.BLL.Interfaces
 {
     public interface IAccessService:IDisposable
     {
-        void MakeAccess(AccessDTO accessDTO, string authorEmail);
+        void CreateAccess(AccessDTO accessDTO, string authorEmail);
 
         void UpdateAccess(AccessDTO accessDTO, string authorEmail);
 

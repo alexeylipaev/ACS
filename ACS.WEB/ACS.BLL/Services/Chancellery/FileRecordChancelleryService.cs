@@ -13,14 +13,9 @@ using ACS.DAL.Interfaces;
 
 namespace ACS.BLL.Services
 {
-    public class FileRecordChancelleryService : IFileRecordFileRecordChancelleryService
+    public class FileRecordChancelleryService : ServiceBase, IFileRecordFileRecordChancelleryService
     {
-        IUnitOfWork Database { get; set; }
-
-        public FileRecordChancelleryService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        public FileRecordChancelleryService(IUnitOfWork uow) : base(uow) { }
 
         public IEnumerable<FileRecordChancelleryDTO> GetFilesRecordChancellery()
         {
@@ -43,7 +38,7 @@ namespace ACS.BLL.Services
             return mapper.Map<FileRecordChancellery, FileRecordChancelleryDTO>(File);
         }
 
-        public void MakeFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDto, string authorEmail)
+        public void CreateFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDto, string authorEmail)
         {
             throw new NotImplementedException();
         }

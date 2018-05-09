@@ -9,7 +9,7 @@ namespace ACS.BLL.Interfaces
 {
     public interface IJournalRegistrationsChancelleryService : IDisposable
     {
-        void MakeJournalRegistrationsChancellery(JournalRegistrationsChancelleryDTO JournalRegistrationsChancelleryDto, string authorEmail);
+        void CreateJournalRegistrationsChancellery(JournalRegistrationsChancelleryDTO JournalRegistrationsChancelleryDto, string authorEmail);
 
         void UpdateJournalRegistrationsChancellery(JournalRegistrationsChancelleryDTO JournalRegistrationsChancelleryDto, string authorEmail);
 

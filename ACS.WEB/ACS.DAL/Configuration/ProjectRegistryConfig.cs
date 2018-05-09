@@ -1,4 +1,5 @@
-﻿using ACS.DAL.Entity;
+﻿using ACS.DAL.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
