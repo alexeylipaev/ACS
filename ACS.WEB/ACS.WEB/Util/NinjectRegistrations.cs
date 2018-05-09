@@ -16,9 +16,11 @@ namespace ACS.WEB.Util
             Bind<IEmployeeService>().To<EmployeeService>();
             Bind<IAccessService>().To<AccessService>();
             //Bind<IAccountAppUserService>().To<AccountAppUserService>()/*.WithConstructorArgument(connectionString)*/;
-            Bind<IApplicationUserService>().To<ApplicationUserService>()/*.WithConstructorArgument(connectionString)*/;
-            Bind<IApplicationRoleService>().To<ApplicationRoleService>()/*.WithConstructorArgument(connectionString)*/;
-            Bind<IChancelleryService>().To<ChancelleryService>()/*.WithConstructorArgument(connectionString)*/;
+            Bind<IApplicationUserService>().To<ApplicationUserService>();
+            Bind<IApplicationRoleService>().To<ApplicationRoleService>();
+            Bind<IChancelleryService>().To<ChancelleryService>();
+            Bind<IFolderChancelleryService>().To<FolderChancelleryService>();
+            Bind<IJournalRegistrationsChancelleryService>().To<JournalRegistrationsChancelleryService>();
         }
     }
 

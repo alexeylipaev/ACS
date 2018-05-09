@@ -9,7 +9,7 @@ namespace ACS.BLL.Interfaces
 {
     public interface IPostNameEmployeeService : IDisposable
     {
-        void MakePostNameUser(PostNameEmployeeDTO PostNameUserDTO);
+        void CreatePostNameUser(PostNameEmployeeDTO PostNameUserDTO);
         PostNameEmployeeDTO GetPostNameUser(int? id);
         IEnumerable<PostNameEmployeeDTO> GetPostNameUser();
 

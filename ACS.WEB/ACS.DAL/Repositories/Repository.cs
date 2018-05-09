@@ -13,35 +13,7 @@ using ACS.DAL.EF;
 namespace ACS.DAL.Repositories
 {
 
-    static public class LastEdit<T> where T : class
-    {
-        static public void SetData(ref T entity, int EditorId)
-        {
-            var sysparam = (entity as SystemParameters);
-            if (sysparam != null)
-            {
-                sysparam.s_EditorId = EditorId;
-                sysparam.s_EditDate = DateTime.Now;
-            }
-
-        }
-        static public void SetData(ref IEnumerable<T> entities, int EditorId)
-        {
-            foreach (var Entity in entities)
-            {
-                var entity = Entity;
-                SetData(ref entity, EditorId);
-            }
-        }
-        static public void SetData(ref T[] entities, int EditorId)
-        {
-            foreach (var Entity in entities)
-            {
-                var entity = Entity;
-                SetData(ref entity, EditorId);
-            }
-        }
-    }
+  
     /// <summary>
     /// Класс репозитория для сущности типа {T}
     /// </summary>
@@ -49,8 +21,8 @@ namespace ACS.DAL.Repositories
     public class Repository<T> : RepositoryBase, IRepository<T>
         where T : class
     {
-        public Repository(ACSContext dbContextProvider)
-            : base(dbContextProvider)
+        public Repository(ACSContext dbContext)
+            : base(dbContext)
         {
         }
 
@@ -378,5 +350,34 @@ namespace ACS.DAL.Repositories
         }
 
         #endregion
+    }
+    static public class LastEdit<T> where T : class
+    {
+        static public void SetData(ref T entity, int EditorId)
+        {
+            var sysparam = (entity as SystemParameters);
+            if (sysparam != null)
+            {
+                sysparam.s_EditorId = EditorId;
+                sysparam.s_EditDate = DateTime.Now;
+            }
+
+        }
+        static public void SetData(ref IEnumerable<T> entities, int EditorId)
+        {
+            foreach (var Entity in entities)
+            {
+                var entity = Entity;
+                SetData(ref entity, EditorId);
+            }
+        }
+        static public void SetData(ref T[] entities, int EditorId)
+        {
+            foreach (var Entity in entities)
+            {
+                var entity = Entity;
+                SetData(ref entity, EditorId);
+            }
+        }
     }
 }

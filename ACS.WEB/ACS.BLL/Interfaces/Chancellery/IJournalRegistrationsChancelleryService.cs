@@ -9,12 +9,18 @@ namespace ACS.BLL.Interfaces
 {
     public interface IJournalRegistrationsChancelleryService : IDisposable
     {
-        void MakeJournalRegistrationsChancellery(JournalRegistrationsChancelleryDTO JournalRegistrationsChancelleryDto, string authorEmail);
+        //int CreateFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail);
 
-        void UpdateJournalRegistrationsChancellery(JournalRegistrationsChancelleryDTO JournalRegistrationsChancelleryDto, string authorEmail);
+        int CreateOrUpdateJournal(JournalRegistrationsChancelleryDTO FolderChancelleryDTO, string authorEmail);
 
-        JournalRegistrationsChancelleryDTO GetJournalRegistrationsChancellery(int? id);
-        IEnumerable<JournalRegistrationsChancelleryDTO> GetJournalsRegistrationsChancellery();
+        //int UpdateFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail);
 
+        JournalRegistrationsChancelleryDTO GetJournal(int id);
+
+        IEnumerable<ChancelleryDTO> GetChancelleriesInJournal(int folderId);
+
+        IEnumerable<JournalRegistrationsChancelleryDTO> GetJournalsChancellery();
+
+        int DeleteJournal(int id);
     }
 }

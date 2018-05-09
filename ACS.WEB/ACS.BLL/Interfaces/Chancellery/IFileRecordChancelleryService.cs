@@ -9,7 +9,7 @@ namespace ACS.BLL.Interfaces
 {
     public interface IFileRecordFileRecordChancelleryService : IDisposable
     {
-        void MakeFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDto, string authorEmail);
+        void CreateFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDto, string authorEmail);
 
         void UpdateFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDto, string authorEmail);
 

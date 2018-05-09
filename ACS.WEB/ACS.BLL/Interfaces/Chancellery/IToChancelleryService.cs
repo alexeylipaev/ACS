@@ -9,7 +9,7 @@ namespace ACS.BLL.Interfaces
 {
     public interface IToChancelleryService : IDisposable
     {
-        void MakeToChancellery(ToChancelleryDTO ToChancelleryDTO, string authorEmail);
+        void CreateToChancellery(ToChancelleryDTO ToChancelleryDTO, string authorEmail);
 
         void UpdateToChancellery(ToChancelleryDTO ToChancelleryDTO, string authorEmail);
 

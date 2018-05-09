@@ -1,11 +1,11 @@
 ﻿@model ACS.WEB.ViewModel.ChancelleryViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Создание";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2>Создание</h2>
 
 @using (Html.BeginForm()) 
 {
@@ -66,10 +66,10 @@
         </div>*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.TypeRecordId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TypeRecordChancellery, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("TypeRecordIds", string.Empty)
-                @Html.ValidationMessageFor(model => model.TypeRecordId, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.TypeRecordChancellery.id, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -98,16 +98,16 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ResponsibleEmployee_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Employee, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("ResponsibleEmployee_Id", string.Empty)
-                @Html.ValidationMessageFor(model => model.ResponsibleEmployee_Id, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Employee.id, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Создать" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -143,5 +143,5 @@
         </script>
     }*@
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Назад к списку", "Index")
 </div>

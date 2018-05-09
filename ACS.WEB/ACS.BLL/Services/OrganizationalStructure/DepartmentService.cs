@@ -12,14 +12,9 @@ using ACS.BLL.Infrastructure;
 
 namespace ACS.BLL.Services
 {
-    public class DepartmentService : IDepartmentService
+    public class DepartmentService : ServiceBase,IDepartmentService
     {
-        IUnitOfWork Database { get; set; }
-
-        public DepartmentService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        public DepartmentService(IUnitOfWork uow) : base(uow) { }
 
         public DepartmentDTO GetDepartment(int? id)
         {
@@ -42,7 +37,7 @@ namespace ACS.BLL.Services
         }
 
 
-        public void MakeDepartment(DepartmentDTO departmentDTO, string authorEmail)
+        public void CreateDepartment(DepartmentDTO departmentDTO, string authorEmail)
         {
             throw new NotImplementedException();
         }

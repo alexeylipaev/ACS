@@ -81,11 +81,6 @@ namespace ACS.DAL.Repositories
             }
         }
 
-
-
-
-
-
         public IRepository<Access> Accesses
         {
             get
@@ -95,7 +90,6 @@ namespace ACS.DAL.Repositories
                 return AccessRepository;
             }
         }
-
 
         public IRepository<Chancellery> Chancelleries
         {

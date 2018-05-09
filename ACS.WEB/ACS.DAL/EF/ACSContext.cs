@@ -1,19 +1,13 @@
 ﻿using ACS.DAL.Configuration;
 using ACS.DAL.Entities;
-using ACS.XMLData;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-//using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-//using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Data.Common;
 using System.Data.Entity;
-using System.ComponentModel.DataAnnotations.Schema;
+
+
+
 
 namespace ACS.DAL.EF
 {
@@ -22,10 +16,19 @@ namespace ACS.DAL.EF
     public class ACSContext : IdentityDbContext<ApplicationUser, ApplicationRole,
     int, AppUserLogin, AppUserRole, AppUserClaim>
     {
+
+        public ACSContext(string connectionString)
+            : base(connectionString) { }
+
+        //public ACSContext(DbConnection existingConnection, bool contextOwnsConnection = false)
+        //    : base(existingConnection, contextOwnsConnection) { }
+
         public virtual DbSet<Access> Accesses { get; set; }
         public virtual DbSet<Chancellery> Chancelleries { get; set; }
         public virtual DbSet<DataEntity> DataEntityis { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<EmployeePassport> EmployeesPassports { get; set; }
         public virtual DbSet<ExternalOrganizationChancellery> ExternalOrganizationChancelleries { get; set; }
         public virtual DbSet<FileRecordChancellery> FileRecordChancelleries { get; set; }
         public virtual DbSet<FolderChancellery> FolderChancelleries { get; set; }
@@ -36,22 +39,21 @@ namespace ACS.DAL.EF
         public virtual DbSet<ToChancellery> ToChancelleries { get; set; }
         public virtual DbSet<TypeAccess> TypeAccesses { get; set; }
         public virtual DbSet<TypeRecordChancellery> TypeRecordChancelleries { get; set; }
-        public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<WorkHistory> WorkHistories { get; set; }
-        public virtual DbSet<EmployeePassport> EmployeesPassports { get; set; }
+        public virtual DbSet<ProjectRegistry> ProjectsRegistry { get; set; }
 
         static  ACSContext()
         {
             Database.SetInitializer(new System.Data.Entity.MigrateDatabaseToLatestVersion<ACSContext, ACS.DAL.Migrations.Configuration>());
         }
 
-        //ACSContextConnection
-        //DefaultConnection
-        public ACSContext(string connectionString)
-            : base(connectionString)
-        {
-            //Database.SetInitializer<ACSContext>(new StoreDbInitializer());
-        }
+        ////ACSContextConnection
+        ////DefaultConnection
+        //public ACSContext(string connectionString)
+        //    : base(connectionString)
+        //{
+        //    //Database.SetInitializer<ACSContext>(new StoreDbInitializer());
+        //}
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -66,8 +68,6 @@ namespace ACS.DAL.EF
             modelBuilder.Configurations.Add(new AppUserRoleConfig());
             modelBuilder.Configurations.Add(new ApplicationUserConfig());
             modelBuilder.Configurations.Add(new ApplicationRoleConfig());
-
-     
 
             modelBuilder.Configurations.Add(new ChancelleryConfig());
             modelBuilder.Configurations.Add(new TypeRecordChancelleryConfig());
@@ -87,6 +87,7 @@ namespace ACS.DAL.EF
             modelBuilder.Configurations.Add(new WorkHistoryConfig());
 
             modelBuilder.Configurations.Add(new DataEntityConfig());
+            modelBuilder.Configurations.Add(new ProjectRegistryConfig()); 
 
             base.OnModelCreating(modelBuilder);
         }

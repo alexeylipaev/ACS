@@ -184,6 +184,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Chancellery\FoldersChancelleryController.cs" />
+    <Compile Include="Controllers\Chancellery\JournalRegistrationsChancelleryController.cs" />
+    <Compile Include="Controllers\ProjectRegistryController.cs" />
+    <Compile Include="Models\ProjectRegistryViewModel.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ASPIdentityUser\RolesController.cs" />
@@ -240,19 +244,20 @@
     <Compile Include="Util\NinjectRegistrations.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Description.txt" />
     <Content Include="App_Start\Description.txt" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Chosen\chosen-sprite.png" />
     <Content Include="Content\Chosen\chosen.min.css" />
     <Content Include="Content\Description.txt" />
+    <Content Include="Content\Site.css" />
     <Content Include="Controllers\Description.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\Description.txt" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Models\Description.txt" />
     <Content Include="Models\.editorconfig" />
     <Content Include="packages.config" />
@@ -261,33 +266,39 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Employees\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Employees\Create.cshtml" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Chosen\chosen.jquery.min.js" />
-    <Content Include="Scripts\Description.txt" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
     <Content Include="Areas\Admin\Views\Employees\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TypeRecordChancellery\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TypeRecordChancellery\Details.cshtml" />
     <Content Include="Areas\Admin\Views\TypeRecordChancellery\Create.cshtml" />
     <Content Include="Areas\Admin\Views\TypeRecordChancellery\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\TypeRecordChancellery\Edit.cshtml" />
-    <None Include="Scripts\_references.js" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.map" />
+    <Content Include="Scripts\jquery-3.3.1.slim.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Chancellery\Delete.cshtml" />
     <Content Include="Views\Chancellery\Details.cshtml" />
     <Content Include="Views\Chancellery\Edit.cshtml" />
-    <Content Include="Views\Chancellery\Index.cshtml" />
     <Content Include="Views\Description.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -347,16 +358,27 @@
     <Content Include="Views\ApplicationUsers\Index.cshtml" />
     <Content Include="Views\ApplicationUsers\AddOrEditRoles.cshtml" />
     <Content Include="Views\Chancellery\Create.cshtml" />
+    <Content Include="Views\Chancellery\Index.cshtml" />
+    <Content Include="Views\FoldersChancellery\Details.cshtml" />
+    <Content Include="Views\FoldersChancellery\Index.cshtml" />
+    <Content Include="Views\FoldersChancellery\Create.cshtml" />
+    <Content Include="Views\FoldersChancellery\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Scripts\NScript\" />
     <Folder Include="Views\AdminApplicationUserVM\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
     <Folder Include="Views\Shared\EditTemplates\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Views\JournalRegistrationsChancellery\Index.cshtml" />
+    <Content Include="Views\JournalRegistrationsChancellery\Details.cshtml" />
+    <Content Include="Views\JournalRegistrationsChancellery\Create.cshtml" />
+    <Content Include="Views\JournalRegistrationsChancellery\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

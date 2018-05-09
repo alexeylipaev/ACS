@@ -10,7 +10,7 @@ namespace ACS.BLL.Interfaces
     public interface IDepartmentService : IDisposable
     {
 
-        void MakeDepartment(DepartmentDTO departmentDTO, string authorEmail);
+        void CreateDepartment(DepartmentDTO departmentDTO, string authorEmail);
 
         void UpdateChancellery(ChancelleryDTO chancelleryDto, string authorEmail);
 

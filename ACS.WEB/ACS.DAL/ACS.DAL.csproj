@@ -41,7 +41,6 @@
     </Reference>
     <Reference Include="EntityFramework.Extended, Version=6.0.0.0, Culture=neutral, PublicKeyToken=05b7e29bdd433584, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.Extended.6.1.0.168\lib\net45\EntityFramework.Extended.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
@@ -173,9 +172,10 @@
     <Compile Include="Configuration\OrganizationalStructure\PostNameEmployeeConfig.cs" />
     <Compile Include="Configuration\OrganizationalStructure\EmployeeConfig.cs" />
     <Compile Include="Configuration\OrganizationalStructure\WorkHistoryConfig.cs" />
+    <Compile Include="Configuration\ProjectRegistryConfig.cs" />
     <Compile Include="EF\ACSContext.cs" />
     <Compile Include="Configuration\ASPIdentityUser\ApplicationUserConfig.cs" />
-    <Compile Include="EF\MyContextFactory.cs" />
+    <Compile Include="EF\DbContextFactory.cs" />
     <Compile Include="Configuration\OrganizationalStructure\EmployeePassportConfig.cs" />
     <Compile Include="EF\QuickFilterAttribute.cs" />
     <Compile Include="Entities\ASPIdentityUser\AppRoleStore.cs" />
@@ -185,7 +185,9 @@
     <Compile Include="Entities\InputControlPKI\ReceivedDocPKIDTO.cs" />
     <Compile Include="Entities\TheProjectRegistry\ProjectRegistry.cs" />
     <Compile Include="Identity\ApplicationUserValidator.cs" />
+    <Compile Include="Interfaces\IRepositoryAsync.cs" />
     <Compile Include="Repositories\Repository.cs" />
+    <Compile Include="Repositories\RepositoryAsync.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Сonnection.cs" />
     <Compile Include="Entities\Access\Access.cs" />

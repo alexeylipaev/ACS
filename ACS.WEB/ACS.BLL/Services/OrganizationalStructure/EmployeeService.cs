@@ -13,14 +13,9 @@ using System.Linq;
 using ACS.BLL.BusinessModels;
 namespace ACS.BLL.Services
 {
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService : ServiceBase,IEmployeeService
     {
-        IUnitOfWork Database { get; set; }
-
-        public EmployeeService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        public EmployeeService(IUnitOfWork uow) : base(uow) { }
 
         string UNIQEUserString(EmployeeDTO UserData)
         {
@@ -49,7 +44,7 @@ namespace ACS.BLL.Services
                 Employee Employee = mapper.Map<EmployeeDTO, Employee>(UserDTO);
 
                 Database.Employees.Add(Employee, author.id);
-                Database.Save();
+              
             }
             catch (Exception e)
             {
@@ -88,7 +83,7 @@ namespace ACS.BLL.Services
                 Employee.s_AuthorId = author.Id;
                 Employee.s_EditorId = author.Id;
                 Database.Employees.Add(Employee, author.Id);
-                Database.Save();
+              
             }
             catch (Exception e)
             {
@@ -129,7 +124,7 @@ namespace ACS.BLL.Services
                 EditableObj.s_EditorId = editor.Id;
 
                 Database.Employees.Update(EditableObj, editor.Id);
-                Database.Save();
+              
             }
             catch (Exception e)
             {
@@ -162,7 +157,7 @@ namespace ACS.BLL.Services
             {
                 EditableObj.s_InBasket = true;
                 Database.Employees.Update(EditableObj, editor.Id);
-                Database.Save();
+              
             }
             catch (Exception e)
             {
@@ -194,7 +189,7 @@ namespace ACS.BLL.Services
             {
 
                 Database.Employees.Delete(userId);
-                Database.Save();
+             
             }
             catch (Exception e)
             {
@@ -224,8 +219,8 @@ namespace ACS.BLL.Services
                 cfg.CreateMap<Access, AccessDTO>().ForMember(x => x.Employee_Id,
 x => x.MapFrom(m => m.Employee.id));
                 cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
-                cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.ResponsibleEmployee_Id,
-x => x.MapFrom(m => m.Employee.id)).ForMember(x => x.TypeRecordChancellery,
+                cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.Employee,
+x => x.MapFrom(m => m.Employee)).ForMember(x => x.TypeRecordChancellery,
 x => x.MapFrom(m => m.TypeRecordChancellery));
                 cfg.CreateMap<ApplicationUser, ApplicationUserDTO>().ForMember(x => x.Employee_Id,
           x => x.MapFrom(m => m.Employee.id));

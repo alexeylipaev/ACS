@@ -12,14 +12,9 @@ using ACS.BLL.Infrastructure;
 
 namespace ACS.BLL.Services
 {
-    public class TypeAccessService : ITypeAccessService
+    public class TypeAccessService : ServiceBase, ITypeAccessService
     {
-        IUnitOfWork Database { get; set; }
-
-        public TypeAccessService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        public TypeAccessService(IUnitOfWork uow) : base(uow) { }
 
         public IEnumerable<TypeAccessDTO> GetTypesAccess()
         {
@@ -42,7 +37,7 @@ namespace ACS.BLL.Services
             return mapper.Map<TypeAccess, TypeAccessDTO>(type);
         }
 
-        public void MakeTypeAccess(TypeAccessDTO TypeAccessDTO, string authorEmail)
+        public void CreateTypeAccess(TypeAccessDTO TypeAccessDTO, string authorEmail)
         {
             throw new NotImplementedException();
         }

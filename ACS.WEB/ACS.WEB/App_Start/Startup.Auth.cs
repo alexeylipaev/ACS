@@ -1,4 +1,5 @@
-﻿//#define  notWindowsAuth
+﻿//#warning  закомментить notWindowsAuth и в web конфиге поменять строку подключения 
+//#define  notWindowsAuth
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;

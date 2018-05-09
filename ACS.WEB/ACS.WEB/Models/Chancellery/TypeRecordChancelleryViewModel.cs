@@ -1,7 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-
-
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +19,7 @@ namespace ACS.WEB.ViewModel
 
 
         public byte id { get; set; }
-
-      
+        [Display(Name = "Тип")]
         public string Name { get; set; }
 
      

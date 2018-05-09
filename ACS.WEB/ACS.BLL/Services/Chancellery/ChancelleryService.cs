@@ -17,14 +17,9 @@ namespace ACS.BLL.Services
 {
 
 
-    public class ChancelleryService : IChancelleryService
+    public class ChancelleryService : ServiceBase, IChancelleryService
     {
-        IUnitOfWork Database { get; set; }
-
-        public ChancelleryService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        public ChancelleryService(IUnitOfWork uow) : base(uow) { }
         /// <summary>
         /// Получить данные о файле по id
         /// </summary>
@@ -221,19 +216,21 @@ namespace ACS.BLL.Services
 
         public void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail)
         {
+#warning к обсуждению, среди кого искать автора, Учетныйх записией или работников, не увсех работников есть почта, но у всех учеток она есть
             var Author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
-
-            if (Author == null)
+            var AuthorUser= Database.UserManager.FindByEmail(authorEmail); 
+            if (Author == null && AuthorUser == null)
                 throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", authorEmail);
             try
             {
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
                 Chancellery chancellery = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDto);
 
+                int AuthorId = Author != null ? Author.id  : AuthorUser.Id;
 
-                Database.Chancelleries.Add(chancellery, Author.id);
+                Database.Chancelleries.Add(chancellery, AuthorId);
                 //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
-                Database.Save();
+               
             }
             catch (Exception e)
             {
@@ -258,7 +255,7 @@ namespace ACS.BLL.Services
             try
             {
                 Database.Chancelleries.Update(chancelleryDB, editor.Id);
-                Database.Save();
+               
             }
             catch (Exception e)
             {
@@ -296,7 +293,7 @@ namespace ACS.BLL.Services
                 TypeRecordChancellery typeDB = GetMap_TypeRecordChancellery_DTO_To_DB().Map<TypeRecordChancelleryDTO, TypeRecordChancellery>(typeDTO);
                 Database.TypeRecordChancelleries.Add(typeDB, Author.id);
                 //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
-                Database.Save();
+               
             }
             catch (Exception e)
             {
@@ -318,7 +315,7 @@ namespace ACS.BLL.Services
             try
             {
                 Database.TypeRecordChancelleries.Update(typeDB, editor.Id);
-                Database.Save();
+               
             }
             catch (Exception e)
             {
@@ -344,7 +341,7 @@ namespace ACS.BLL.Services
                 typeDB.s_EditDate = DateTime.Now;
                 typeDB.s_InBasket = true;
                 Database.TypeRecordChancelleries.Update(typeDB, editor.Id);
-                Database.Save();
+               
             }
             catch (Exception e)
             {
@@ -352,14 +349,12 @@ namespace ACS.BLL.Services
             }
         }
 
-        
-
         public void TypeRecordDelete(int typeId)
         {
             try
             {
                 Database.TypeRecordChancelleries.Delete(typeId);
-                Database.Save();
+               
             }
             catch (Exception e)
             {
@@ -380,7 +375,7 @@ namespace ACS.BLL.Services
                 cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
                 cfg.CreateMap<FromChancelleryDTO, FromChancellery>();
                 cfg.CreateMap<ToChancelleryDTO, ToChancellery>();
-                cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.ResponsibleEmployee_Id)))
+                cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.Employee, x => x.MapFrom(c => c.Employee))
                 .ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => Database.TypeRecordChancelleries.Find((int)c.TypeRecordChancellery.id)));
 
 
@@ -409,8 +404,8 @@ namespace ACS.BLL.Services
                 cfg.CreateMap<ToChancellery, ToChancelleryDTO>().ForMember(x => x.Chancellery_Id,
           x => x.MapFrom(m => m.Chancellery.id));
                 cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
-                cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.ResponsibleEmployee_Id,
-x => x.MapFrom(m => m.Employee.id));
+                cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.Employee,
+x => x.MapFrom(m => m.Employee));
 
             }).CreateMapper();
 

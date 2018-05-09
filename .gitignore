@@ -47,5 +47,9 @@ InitializingDBFromXML/obj/Debug
 /ACS.WEB.zip
 /ACSDinamikaWeb/ACSDinamikaWeb/App_Data
 /ACSDinamikaWeb
+/ACS.WEB/.vs/ACS.WEB/DesignTimeBuild
+/NLayerApp.WEB/.vs/NLayerApp.WEB/DesignTimeBuild/.dtbcache
+/Common.DAL-master/source/.vs/Common.DAL/DesignTimeBuild/.dtbcache
+/Common.DAL-master/source/.vs/Common.DAL/v15/Server/sqlite3
 /ACS.WEB/ACS.WEB.Tests/bin/Debug
 /ACS.WEB/ACS.WEB.Tests/obj/Debug

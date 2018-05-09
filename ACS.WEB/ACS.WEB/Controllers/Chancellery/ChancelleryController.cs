@@ -59,11 +59,19 @@ namespace ACS.WEB.Controllers
         // POST: Chancellery/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] ChancelleryViewModel chancelleryVM, int TypeRecordIds)
+        //[Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] 
+        public ActionResult Create(ChancelleryViewModel chancelleryVM, int TypeRecordIds, int ResponsibleEmployee_Id)
         {
             try
             {
-                chancelleryVM.TypeRecordId = TypeRecordIds;
+                var mapperType = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
+
+                chancelleryVM.TypeRecordChancellery = mapperType.Map<TypeRecordChancelleryDTO , TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordIds));
+
+                var mapperEmpl = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
+
+                chancelleryVM.Employee = mapperEmpl.Map<EmployeeDTO, EmployeeViewModel>(EmployeeService.GetEmployee((int)ResponsibleEmployee_Id));
+
                 // TODO: Add insert logic here
                 if (ModelState.IsValid)
                 {
@@ -91,7 +99,14 @@ namespace ACS.WEB.Controllers
         public ActionResult Edit(int id)
         {
             ChancelleryDTO chancDTO = ChancelleryService.ChancelleryGet(id);
+            var types = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName = t.Name }), "TypeId", "TypeName", new { TypeId = chancDTO.TypeRecordChancellery.id, TypeName = chancDTO.TypeRecordChancellery.Name});
+            ViewBag.TypeRecordIds = types;
+            ViewBag.ResponsibleEmployee_Id = new SelectList(GetEmployeeNameSelector().OrderBy(e => e.EmployeeName), "EmployeeId", "EmployeeName");
+
             var chancVM = GetMapChancelleryDTOToChancelleryVM().Map<ChancelleryDTO, ChancelleryViewModel>(chancDTO);
+
+            int selectedTypeId= chancVM.id;
+
             return View(chancVM);
         }
 
@@ -156,12 +171,12 @@ namespace ACS.WEB.Controllers
         {
             var mapper = new MapperConfiguration(cfg =>
             {
-                
-                //cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
+                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
+                cfg.CreateMap<EmployeeDTO, EmployeeViewModel> ();
                 cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>();
                 cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
                 cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>();
-                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>().ForMember(c=> c.TypeRecordId, c=> c.MapFrom(t=>t.TypeRecordChancellery.id));
+                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
 
             }).CreateMapper();
 
@@ -176,9 +191,8 @@ namespace ACS.WEB.Controllers
                 cfg.CreateMap<FolderChancelleryViewModel, FolderChancelleryDTO>();
                 cfg.CreateMap<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>();
                 cfg.CreateMap<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO>();
-                
-                //cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
-                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>().ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => ChancelleryService.TypeRecordGetById((int)c.TypeRecordId)));
+                cfg.CreateMap<EmployeeViewModel , EmployeeDTO>();
+                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();
 
             }).CreateMapper();
 
@@ -188,11 +202,8 @@ namespace ACS.WEB.Controllers
         {
             var mapper = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>().ForMember(x => x.TypeRecordId,
-x => x.MapFrom(m => m.TypeRecordChancellery.id)); ;
-                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();/*.ForMember(x => x.,
-x => x.MapFrom(m => m.Employee.id));*/
-
+                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
+                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
             }).CreateMapper();
 
             return mapper;
