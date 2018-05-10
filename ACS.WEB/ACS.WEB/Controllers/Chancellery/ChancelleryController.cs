@@ -68,9 +68,9 @@ namespace ACS.WEB.Controllers
             {
                // var mapperType = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
 
-                chancelleryVM.TypeRecordChancellery = GetMapChancelleryVMToDTO().Map<TypeRecordChancelleryDTO , TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordIds));
-                chancelleryVM.JournalRegistrationsChancellery = GetMapChancelleryVMToDTO().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(Journal_Id));
-                chancelleryVM.FolderChancellery = GetMapChancelleryVMToDTO().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(Folder_Id));
+                chancelleryVM.TypeRecordChancellery = GetMapChancelleryDTOToChancelleryVM().Map<TypeRecordChancelleryDTO , TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordIds));
+                chancelleryVM.JournalRegistrationsChancellery = GetMapChancelleryDTOToChancelleryVM().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(Journal_Id));
+                chancelleryVM.FolderChancellery = GetMapChancelleryDTOToChancelleryVM().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(Folder_Id));
                 //var mapperEmpl = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
 
                 chancelleryVM.Employee = GetMapChancelleryDTOToChancelleryVM().Map<EmployeeDTO, EmployeeViewModel>(EmployeeService.GetEmployee((int)ResponsibleEmployee_Id));
