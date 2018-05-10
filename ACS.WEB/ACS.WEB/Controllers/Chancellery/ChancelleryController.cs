@@ -66,11 +66,11 @@ namespace ACS.WEB.Controllers
         {
             try
             {
-                var mapperType = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
+               // var mapperType = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
 
-                chancelleryVM.TypeRecordChancellery = GetMapTypeRecordChancellery_DTO_To_VM().Map<TypeRecordChancelleryDTO , TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordIds));
-                chancelleryVM.JournalRegistrationsChancellery = mapperType.Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(Journal_Id));
-                chancelleryVM.FolderChancellery = mapperType.Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(Folder_Id));
+                chancelleryVM.TypeRecordChancellery = GetMapChancelleryVMToDTO().Map<TypeRecordChancelleryDTO , TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordIds));
+                chancelleryVM.JournalRegistrationsChancellery = GetMapChancelleryVMToDTO().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(Journal_Id));
+                chancelleryVM.FolderChancellery = GetMapChancelleryVMToDTO().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(Folder_Id));
                 //var mapperEmpl = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
 
                 chancelleryVM.Employee = GetMapChancelleryDTOToChancelleryVM().Map<EmployeeDTO, EmployeeViewModel>(EmployeeService.GetEmployee((int)ResponsibleEmployee_Id));
@@ -98,19 +98,25 @@ namespace ACS.WEB.Controllers
             return View(chancelleryVM);
         }
 
-        private object GetMapEmployeeDTOToEmployeeVM()
-        {
-            throw new NotImplementedException();
-        }
 
         // GET: Chancellery/Edit/5
         public ActionResult Edit(int id)
         {
             ChancelleryDTO chancDTO = ChancelleryService.ChancelleryGet(id);
-            var types = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName = t.Name }), "TypeId", "TypeName", new { TypeId = chancDTO.TypeRecordChancellery.id, TypeName = chancDTO.TypeRecordChancellery.Name});
-            ViewBag.TypeRecordIds = types;
-            ViewBag.ResponsibleEmployee_Id = new SelectList(GetEmployeeNameSelector().OrderBy(e => e.EmployeeName), "EmployeeId", "EmployeeName");
 
+            var allEmployees =GetEmployeeNameSelector().OrderBy(e => e.EmployeeName);
+            ViewBag.ResponsibleEmployee_Id = chancDTO.Employee == null? new SelectList(allEmployees, "EmployeeId", "EmployeeName") : new SelectList(allEmployees, "EmployeeId", "EmployeeName", chancDTO.Employee.id);
+
+
+            var allJournals = ChancelleryService.GetAllJournalesRegistrations().OrderBy(j => j.Name).Select(j => new { JournalId = j.id, JournalName = j.Name });
+            ViewBag.Journal_Id =  chancDTO.JournalRegistrationsChancellery== null ? new SelectList(allJournals, "JournalId", "JournalName") : new SelectList(allJournals, "JournalId", "JournalName", chancDTO.JournalRegistrationsChancellery.id);
+
+            var allFolders = ChancelleryService.GetAllFolders().OrderBy(j => j.Name).Select(j => new { FolderId = j.id, FolderName = j.Name });
+            ViewBag.Folder_Id = chancDTO.FolderChancellery == null ? new SelectList(allFolders, "FolderId", "FolderName") : new SelectList(allFolders, "FolderId", "FolderName", chancDTO.FolderChancellery.id);
+
+            var allTypes = ChancelleryService.TypeRecordGetAll().OrderBy(j => j.Name).Select(j => new { TypeId = j.id, TypeName = j.Name });
+            ViewBag.TypeRecordIds = chancDTO.FolderChancellery == null ? new SelectList(allTypes, "TypeId", "TypeName") : new SelectList(allTypes, "TypeId", "TypeName", chancDTO.TypeRecordChancellery.id);
+            
             var chancVM = GetMapChancelleryDTOToChancelleryVM().Map<ChancelleryDTO, ChancelleryViewModel>(chancDTO);
 
             int selectedTypeId= chancVM.id;
@@ -121,12 +127,16 @@ namespace ACS.WEB.Controllers
         // POST: Chancellery/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(ChancelleryViewModel chancVM)
+        public ActionResult Edit(ChancelleryViewModel chancVM, int TypeRecordIds, int ResponsibleEmployee_Id, int Journal_Id, int Folder_Id)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    chancVM.TypeRecordChancellery = GetMapChancelleryVMToDTO().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordIds));
+                    chancVM.JournalRegistrationsChancellery = GetMapChancelleryVMToDTO().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(Journal_Id));
+                    chancVM.FolderChancellery = GetMapChancelleryVMToDTO().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(Folder_Id));
+
                     var chancDTO = GetMapChancelleryVMToDTO().Map<ChancelleryViewModel, ChancelleryDTO>(chancVM);
                     ChancelleryService.ChancelleryUpdate(chancDTO, this.User.Identity.Name);
                     return RedirectToAction("Index");
@@ -140,13 +150,17 @@ namespace ACS.WEB.Controllers
         }
 
         // GET: Chancellery/Delete/5
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            return View();
+            ChancelleryDTO chancDTO = ChancelleryService.ChancelleryGet(id);
+            ChancelleryViewModel chancVM = GetMapChancelleryDTOToChancelleryVM().Map<ChancelleryDTO, ChancelleryViewModel>(chancDTO);
+            return View(chancVM);
         }
 
         // POST: Chancellery/Delete/5
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try
@@ -172,7 +186,7 @@ namespace ACS.WEB.Controllers
         {
             var typeDTOs = ChancelleryService.TypeRecordGetAll();
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
-            return GetMapTypeRecordChancellery_DTO_To_VM().Map<List<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(typeDTOs.ToList());
+            return GetMapChancelleryDTOToChancelleryVM().Map<List<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(typeDTOs.ToList());
         }
 
         IMapper GetMapChancelleryDTOToChancelleryVM()
@@ -206,7 +220,7 @@ namespace ACS.WEB.Controllers
 
             return mapper;
         }
-        IMapper GetMapTypeRecordChancellery_DTO_To_VM()
+       /* IMapper GetMapTypeRecordChancellery_DTO_To_VM()
         {
             var mapper = new MapperConfiguration(cfg =>
             {
@@ -215,6 +229,7 @@ namespace ACS.WEB.Controllers
             }).CreateMapper();
 
             return mapper;
-        }
+        }*/
+
     }
 }
