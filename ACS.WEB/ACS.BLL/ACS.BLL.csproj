@@ -113,6 +113,7 @@
     <Compile Include="Interfaces\IProjectRegistryService.cs" />
     <Compile Include="Services\AccountAppUserService.cs" />
     <Compile Include="Services\ApplicationRoleService.cs" />
+    <Compile Include="Services\Chancellery\ExternalOrganizationChancelleryService.cs" />
     <Compile Include="Services\InputControlPKI\InputControlPKIService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Сonnection.cs" />

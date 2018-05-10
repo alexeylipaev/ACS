@@ -184,8 +184,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Chancellery\ExternalOrganizationsChancelleryController.cs" />
     <Compile Include="Controllers\Chancellery\FoldersChancelleryController.cs" />
     <Compile Include="Controllers\Chancellery\JournalRegistrationsChancelleryController.cs" />
+    <Compile Include="Controllers\Chancellery\TypesRecordsChancelleryController.cs" />
     <Compile Include="Controllers\ProjectRegistryController.cs" />
     <Compile Include="Models\ProjectRegistryViewModel.cs" />
     <Compile Include="Startup.cs" />
@@ -373,6 +375,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
+    <None Include="Properties\PublishProfiles\ACS.pubxml" />
     <None Include="Properties\PublishProfiles\acs pub.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -380,6 +383,14 @@
     <Content Include="Views\JournalRegistrationsChancellery\Details.cshtml" />
     <Content Include="Views\JournalRegistrationsChancellery\Create.cshtml" />
     <Content Include="Views\JournalRegistrationsChancellery\Edit.cshtml" />
+    <Content Include="Views\ExternalOrganizationsChancellery\Index.cshtml" />
+    <Content Include="Views\ExternalOrganizationsChancellery\Details.cshtml" />
+    <Content Include="Views\ExternalOrganizationsChancellery\Create.cshtml" />
+    <Content Include="Views\ExternalOrganizationsChancellery\Edit.cshtml" />
+    <Content Include="Views\TypesRecordsChancellery\Index.cshtml" />
+    <Content Include="Views\TypesRecordsChancellery\Details.cshtml" />
+    <Content Include="Views\TypesRecordsChancellery\Create.cshtml" />
+    <Content Include="Views\TypesRecordsChancellery\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

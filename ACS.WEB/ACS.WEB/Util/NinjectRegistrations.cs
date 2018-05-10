@@ -21,6 +21,8 @@ namespace ACS.WEB.Util
             Bind<IChancelleryService>().To<ChancelleryService>();
             Bind<IFolderChancelleryService>().To<FolderChancelleryService>();
             Bind<IJournalRegistrationsChancelleryService>().To<JournalRegistrationsChancelleryService>();
+            Bind<ITypeRecordChancelleryService>().To<TypeRecordChancelleryService>();
+            Bind<IExternalOrganizationChancelleryService>().To<ExternalOrganizationChancelleryService>();
         }
     }
 

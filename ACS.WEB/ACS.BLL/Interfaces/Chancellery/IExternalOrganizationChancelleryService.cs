@@ -9,12 +9,17 @@ namespace ACS.BLL.Interfaces
 {
     public interface IExternalOrganizationChancelleryService : IDisposable
     {
-        void CreateExternalOrganizationChancellery(ExternalOrganizationChancelleryDTO ExternalOrganizationChancelleryDTO, string authorEmail);
+        //int CreateFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail);
 
-        void UpdateExternalOrganizationChancellery(ExternalOrganizationChancelleryDTO ExternalOrganizationChancelleryDTO, string authorEmail);
+        int CreateOrUpdateExternalOrganization(ExternalOrganizationChancelleryDTO ExternalOrganizationChancelleryDTO, string authorEmail);
 
-        ExternalOrganizationChancelleryDTO GetExternalOrganizationChancellery(int? id);
-        IEnumerable<ExternalOrganizationChancelleryDTO> GetExternalOrganizationChancellery();
+        //int UpdateFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail);
+
+        ExternalOrganizationChancelleryDTO GetExternalOrganization(int id);
+
+        IEnumerable<ExternalOrganizationChancelleryDTO> GetExternalOrganizationsChancellery();
+
+        int DeleteExternalOrganization(int id);
 
     }
 }
