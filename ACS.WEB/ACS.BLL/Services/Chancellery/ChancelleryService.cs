@@ -366,16 +366,21 @@ namespace ACS.BLL.Services
         #region mappers
         IMapper GetMapChancelleryDTOToChancelleryDB()
         {
+
+#warning таким образом были убраны баги с созданием копий
             var mapper = new MapperConfiguration(cfg =>
             {
 
-                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
-                cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
-                cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
-                cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>().ForMember(c => c.id, c => c.MapFrom(t => t.id));
+                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>();
+                cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>();
+                cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>();
+                cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>();
                 cfg.CreateMap<FromChancelleryDTO, FromChancellery>();
                 cfg.CreateMap<ToChancelleryDTO, ToChancellery>();
-                cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.Employee, x => x.MapFrom(c => c.Employee))
+                cfg.CreateMap<ChancelleryDTO, Chancellery>()
+                .ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))
+                .ForMember(x => x.FolderChancellery, x => x.MapFrom(c => Database.FolderChancelleries.Find((int)c.FolderChancellery.id)))
+                .ForMember(x => x.JournalRegistrationsChancellery, x => x.MapFrom(c => Database.JournalRegistrationsChancelleries.Find((int)c.JournalRegistrationsChancellery.id)))
                 .ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => Database.TypeRecordChancelleries.Find((int)c.TypeRecordChancellery.id)));
 
 
@@ -399,14 +404,10 @@ namespace ACS.BLL.Services
             var mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>();
-                cfg.CreateMap<FromChancellery, FromChancelleryDTO>().ForMember(x => x.Employee_Id,
-          x => x.MapFrom(m => m.Employee.id));
-                cfg.CreateMap<ToChancellery, ToChancelleryDTO>().ForMember(x => x.Chancellery_Id,
-          x => x.MapFrom(m => m.Chancellery.id));
+                cfg.CreateMap<FromChancellery, FromChancelleryDTO>();
+                cfg.CreateMap<ToChancellery, ToChancelleryDTO>();
                 cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
-                cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.Employee,
-x => x.MapFrom(m => m.Employee));
-
+                cfg.CreateMap<Chancellery, ChancelleryDTO>();
             }).CreateMapper();
 
             return mapper;
@@ -415,10 +416,8 @@ x => x.MapFrom(m => m.Employee));
         {
             var mapper = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.TypeRecordChancellery,
-x => x.MapFrom(m => m.TypeRecordChancellery)); ;
-                cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();/*.ForMember(x => x.,
-x => x.MapFrom(m => m.Employee.id));*/
+                cfg.CreateMap<Chancellery, ChancelleryDTO>();
+                cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
 
             }).CreateMapper();
 
@@ -431,9 +430,7 @@ x => x.MapFrom(m => m.Employee.id));*/
             {
                 cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.TypeRecordChancellery,
 x => x.MapFrom(m => m.TypeRecordChancellery)); ;
-                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>();/*.ForMember(x => x.,
-x => x.MapFrom(m => m.Employee.id));*/
-
+                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>();
             }).CreateMapper();
 
             return mapper;
