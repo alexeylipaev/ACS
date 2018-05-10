@@ -30,6 +30,8 @@ namespace ACS.BLL.Interfaces
         /// <param name="id"></param>
         IEnumerable<FileRecordChancelleryDTO> GetAllFiles();
 
+        int DeleteChancellery(int chancelleryId);
+
         /// <summary>
         /// Получить ответственного
         /// </summary>

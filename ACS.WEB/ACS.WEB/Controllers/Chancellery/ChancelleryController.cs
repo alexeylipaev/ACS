@@ -142,23 +142,33 @@ namespace ACS.WEB.Controllers
         // GET: Chancellery/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            ActionResult action = this.DeleteConfirmed(id);
+            return action;
         }
 
         // POST: Chancellery/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
+            int result = 0;
             try
             {
-                // TODO: Add delete logic here
+                if (ModelState.IsValid)
+                {
 
-                return RedirectToAction("Index");
+                    result = ChancelleryService.DeleteChancellery(id);
+                    if (result > 0)
+                        ViewBag.EditResult = "Данные успешно удалены";
+ 
+
+                }
             }
-            catch
+            catch (ValidationException ex)
             {
-                return View();
+                ModelState.AddModelError(ex.Property, ex.Message);
             }
+            return RedirectToAction("Index");
         }
 
         private IEnumerable<EmployeeSelectItem> GetEmployeeNameSelector()

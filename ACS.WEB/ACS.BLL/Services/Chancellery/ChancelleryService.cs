@@ -39,6 +39,10 @@ namespace ACS.BLL.Services
             return mapper.Map<FileRecordChancellery, FileRecordChancelleryDTO>(File);
         }
 
+        public int DeleteChancellery(int chancelleryId)
+        {
+            return Database.Chancelleries.Delete(chancelleryId);
+        }
 
         /// <summary>
         /// Получить все файлы
