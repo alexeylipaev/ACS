@@ -68,10 +68,10 @@ namespace ACS.WEB.Controllers
             {
                 var mapperType = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
 
-                chancelleryVM.TypeRecordChancellery = mapperType.Map<TypeRecordChancelleryDTO , TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordIds));
+                chancelleryVM.TypeRecordChancellery = GetMapTypeRecordChancellery_DTO_To_VM().Map<TypeRecordChancelleryDTO , TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordIds));
                 chancelleryVM.JournalRegistrationsChancellery = mapperType.Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(Journal_Id));
                 chancelleryVM.FolderChancellery = mapperType.Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(Folder_Id));
-                var mapperEmpl = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
+                //var mapperEmpl = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
 
                 chancelleryVM.Employee = GetMapChancelleryDTOToChancelleryVM().Map<EmployeeDTO, EmployeeViewModel>(EmployeeService.GetEmployee((int)ResponsibleEmployee_Id));
 
@@ -172,7 +172,7 @@ namespace ACS.WEB.Controllers
         {
             var typeDTOs = ChancelleryService.TypeRecordGetAll();
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
-            return GetMapTypeRecordChancelleryDTOToTypeRecordChancelleryVM().Map<List<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(typeDTOs.ToList());
+            return GetMapTypeRecordChancellery_DTO_To_VM().Map<List<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(typeDTOs.ToList());
         }
 
         IMapper GetMapChancelleryDTOToChancelleryVM()
@@ -206,7 +206,7 @@ namespace ACS.WEB.Controllers
 
             return mapper;
         }
-        IMapper GetMapTypeRecordChancelleryDTOToTypeRecordChancelleryVM()
+        IMapper GetMapTypeRecordChancellery_DTO_To_VM()
         {
             var mapper = new MapperConfiguration(cfg =>
             {
