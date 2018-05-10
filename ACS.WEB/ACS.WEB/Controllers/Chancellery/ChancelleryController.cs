@@ -50,6 +50,8 @@ namespace ACS.WEB.Controllers
             newChancelleryVM.DateRegistration = DateTime.Today;
             ViewBag.TypeRecordIds = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName=t.Name }), "TypeId", "TypeName");
             ViewBag.ResponsibleEmployee_Id = new SelectList(GetEmployeeNameSelector().OrderBy(e=>e.EmployeeName), "EmployeeId", "EmployeeName");
+            ViewBag.Journal_Id = new SelectList(ChancelleryService.GetAllJournalesRegistrations().OrderBy(j => j.Name).Select(j => new { JournalId = j.id, JournalName = j.Name }), "JournalId", "JournalName");
+            ViewBag.Folder_Id = new SelectList(ChancelleryService.GetAllFolders().OrderBy(j => j.Name).Select(j => new { FolderId = j.id, FolderName = j.Name }), "FolderId", "FolderName");
             return View(newChancelleryVM);
         }
 
@@ -60,17 +62,18 @@ namespace ACS.WEB.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] 
-        public ActionResult Create(ChancelleryViewModel chancelleryVM, int TypeRecordIds, int ResponsibleEmployee_Id)
+        public ActionResult Create(ChancelleryViewModel chancelleryVM, int TypeRecordIds, int ResponsibleEmployee_Id, int Journal_Id, int Folder_Id)
         {
             try
             {
                 var mapperType = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
 
                 chancelleryVM.TypeRecordChancellery = mapperType.Map<TypeRecordChancelleryDTO , TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordIds));
-
+                chancelleryVM.JournalRegistrationsChancellery = mapperType.Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(Journal_Id));
+                chancelleryVM.FolderChancellery = mapperType.Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(Folder_Id));
                 var mapperEmpl = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
 
-                chancelleryVM.Employee = mapperEmpl.Map<EmployeeDTO, EmployeeViewModel>(EmployeeService.GetEmployee((int)ResponsibleEmployee_Id));
+                chancelleryVM.Employee = GetMapChancelleryDTOToChancelleryVM().Map<EmployeeDTO, EmployeeViewModel>(EmployeeService.GetEmployee((int)ResponsibleEmployee_Id));
 
                 // TODO: Add insert logic here
                 if (ModelState.IsValid)
@@ -83,7 +86,7 @@ namespace ACS.WEB.Controllers
                     
                     // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>()).CreateMapper();
                    var chancelleryDTO = GetMapChancelleryVMToDTO().Map<ChancelleryViewModel, ChancelleryDTO>(chancelleryVM);
-                    var typeDTO = chancelleryDTO.TypeRecordChancellery;
+                    //var typeDTO = chancelleryDTO.TypeRecordChancellery;
                     ChancelleryService.CreateChancellery(chancelleryDTO, currentUserEmail);
                     return RedirectToAction("Index");
                 }
@@ -93,6 +96,11 @@ namespace ACS.WEB.Controllers
                 ModelState.AddModelError(ex.Property, ex.Message);
             }
             return View(chancelleryVM);
+        }
+
+        private object GetMapEmployeeDTOToEmployeeVM()
+        {
+            throw new NotImplementedException();
         }
 
         // GET: Chancellery/Edit/5

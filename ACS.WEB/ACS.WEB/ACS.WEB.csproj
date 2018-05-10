@@ -373,6 +373,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Project_Readme.html" />
+    <None Include="Properties\PublishProfiles\acs pub.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Views\JournalRegistrationsChancellery\Index.cshtml" />

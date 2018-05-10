@@ -99,8 +99,10 @@ namespace ACS.WEB.Controllers
                     //}
 
                     // we are in!
-                    //return RedirectPermanent(returnUrl);
-                    return RedirectToAction("Index", "Home");
+                    if (string.IsNullOrWhiteSpace(returnUrl))
+
+                        return RedirectToAction("Index", "Home");
+                    return RedirectPermanent(returnUrl);
                 }
 
                 ModelState.AddModelError("", authenticationResult.ErrorMessage);
@@ -169,7 +171,7 @@ namespace ACS.WEB.Controllers
 
                     //    return RedirectToAction("Index", "Home");
                     //return View("SuccessRegister");
-                  
+
                     ClaimsIdentity claim = await AccountAppUserService.Authenticate(applicationUserDTO);
                     if (claim == null)
                     {

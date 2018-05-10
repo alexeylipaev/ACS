@@ -53,3 +53,6 @@ InitializingDBFromXML/obj/Debug
 /Common.DAL-master/source/.vs/Common.DAL/v15/Server/sqlite3
 /ACS.WEB/ACS.WEB.Tests/bin/Debug
 /ACS.WEB/ACS.WEB.Tests/obj/Debug
+/ACS.WEB/ACS.BLL/bin/Release
+/ACS.WEB/ACS.WEB.Tests/bin/Release
+/ACS.WEB/ACS.WEB.Tests/obj/Release
