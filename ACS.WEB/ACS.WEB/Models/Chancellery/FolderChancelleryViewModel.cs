@@ -17,13 +17,14 @@ namespace ACS.WEB.ViewModel
         {
             Chancelleries = new HashSet<ChancelleryViewModel>();
         }
-
+        [Display(Name = "ID")]
         public int id { get; set; }
 
 
         [Display(Name = "Папка")]
         public string Name { get; set; }
 
+        [Display(Name = " Канцелярские записи в папке")]
         /// <summary>
         /// Канцелярские записи в папке
         /// </summary>

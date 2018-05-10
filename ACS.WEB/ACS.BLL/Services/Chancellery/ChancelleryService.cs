@@ -445,19 +445,6 @@ x => x.MapFrom(m => m.Employee.id));*/
             Database.Dispose();
         }
 
-        private void CatchError(Exception e)
-        {
-            Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
-            Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
-            Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);
-            Debug.WriteLine("Message:                 {0}", e.Message);
-            Debug.WriteLine("Source:                  {0}", e.Source);
-            Debug.WriteLine("Help Link:               {0}", e.HelpLink);
-            Debug.WriteLine("Stack:                   {0}", e.StackTrace);
-
-            foreach (DictionaryEntry de in e.Data)
-                Console.WriteLine("{0} : {1}", de.Key, de.Value);
-            throw e;
-        }
+     
     }
 }

@@ -9,49 +9,108 @@ using ACS.DAL.Interfaces;
 using AutoMapper;
 using ACS.DAL.Entities;
 using ACS.BLL.Infrastructure;
+using System.Diagnostics;
+using System.Collections;
 
 namespace ACS.BLL.Services
 {
     public class TypeRecordChancelleryService : ServiceBase, ITypeRecordChancelleryService
     {
         public TypeRecordChancelleryService(IUnitOfWork uow) : base(uow) { }
-        /// <summary>
-        /// Все типы
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<TypeRecordChancelleryDTO> GetTypesRecordChancellery()
-        {    // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll());
+
+        public int CreateOrUpdateTypeRecordChancellery(TypeRecordChancelleryDTO TypeRecordChancelleryDTO, string authorEmail)
+        {
+            int AuthorID = 0;
+            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+            catch (Exception ex) { throw ex; }
+
+            try
+            {
+                var typeRecord = MappTypeRecordDTOToTypeRecord(TypeRecordChancelleryDTO);
+
+                var TypeRecord = Database.TypeRecordChancelleries.Find(TypeRecordChancelleryDTO.id);
+
+                if (TypeRecord != null && TypeRecord.Name != typeRecord.Name)
+                {
+                    TypeRecord.Name = typeRecord.Name;
+                    return Database.TypeRecordChancelleries.Update(TypeRecord, AuthorID);
+                }
+
+                else if (TypeRecord == null)
+                {
+                    return Database.TypeRecordChancelleries.Add(typeRecord, AuthorID);
+                }
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
+
+            return 0;
         }
 
-        public TypeRecordChancelleryDTO GetTypeRecordChancellery(int? id)
+       
+
+        public int DeleteTypeRecordChancellery(int id)
         {
-            if (id == null)
-                throw new ValidationException("Не установлено id", "");
-
-            var type = Database.Employees.Find(id.Value);
-            if (type == null)
-                throw new ValidationException("Тип не найден", "");
-
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancellery>()).CreateMapper();
-
-            return mapper.Map<Employee, TypeRecordChancelleryDTO>(type);
-        }
-
-        public void CreateTypeRecordChancellery(TypeRecordChancelleryDTO TypeRecordChancelleryDTO, string authorEmail)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateTypeRecordChancellery(TypeRecordChancelleryDTO TypeRecordChancelleryDTO, string authorEmail)
-        {
-            throw new NotImplementedException();
+            return Database.TypeRecordChancelleries.Delete(id);
         }
 
         public void Dispose()
         {
             Database.Dispose();
         }
+
+        public IEnumerable<ChancelleryDTO> GetChancelleriesByType(int TypeRecordChancelleryId)
+        {
+            var chancy = Database.Chancelleries.Query(filter: ch => ch.TypeRecordChancellery.id == TypeRecordChancelleryId).ToList();
+
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(chancy);
+        }
+
+        public IEnumerable<TypeRecordChancelleryDTO> GetTypesRecordChancellery()
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Chancellery, ChancelleryDTO >();
+                cfg.CreateMap<TypeRecordChancellery,TypeRecordChancelleryDTO>();
+            }).CreateMapper();
+
+            return mapper.Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll());
+        }
+
+        public TypeRecordChancelleryDTO GetTypeRecordChancellery(int id)
+        {
+            var type = Database.TypeRecordChancelleries.Find(id);
+
+            if (type == null)
+                throw new ValidationException("Отсутствует тип", "");
+
+            return MappTypeRecordToTypeRecordDTO(type);
+        }
+
+
+        TypeRecordChancelleryDTO MappTypeRecordToTypeRecordDTO(TypeRecordChancellery TypeRecord)
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Chancellery, ChancelleryDTO>();
+                cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
+            }).CreateMapper();
+
+
+           var dto = mapper.Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(TypeRecord);
+            return dto;
+        }
+
+
+        TypeRecordChancellery MappTypeRecordDTOToTypeRecord(TypeRecordChancelleryDTO TypeRecordDto)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>()).CreateMapper();
+            return mapper.Map<TypeRecordChancelleryDTO, TypeRecordChancellery>(TypeRecordDto);
+        }
+
+       
     }
 }
