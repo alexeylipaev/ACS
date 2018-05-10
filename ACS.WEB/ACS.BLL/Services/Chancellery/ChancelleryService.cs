@@ -152,8 +152,8 @@ namespace ACS.BLL.Services
         public IEnumerable<FolderChancelleryDTO> GetAllFolders()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<FolderChancellery>, List<FolderChancelleryDTO>>(Database.FolderChancelleries.GetAll());
+           // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>()).CreateMapper();
+            return GetMapChancelleryDBToChancelleryDTO().Map<IEnumerable<FolderChancellery>, List<FolderChancelleryDTO>>(Database.FolderChancelleries.GetAll());
         }
 
 
@@ -184,8 +184,8 @@ namespace ACS.BLL.Services
         public IEnumerable<JournalRegistrationsChancelleryDTO> GetAllJournalesRegistrations()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>()).CreateMapper();
+            return GetMapChancelleryDBToChancelleryDTO().Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll());
         }
 
         public FromChancelleryDTO GetFromWhom(int id)
@@ -217,16 +217,16 @@ namespace ACS.BLL.Services
         public void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail)
         {
 #warning к обсуждению, среди кого искать автора, Учетныйх записией или работников, не увсех работников есть почта, но у всех учеток она есть
-            var Author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
+            //var Author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
             var AuthorUser= Database.UserManager.FindByEmail(authorEmail); 
-            if (Author == null && AuthorUser == null)
+            if (/*Author == null && */AuthorUser == null)
                 throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", authorEmail);
             try
             {
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
                 Chancellery chancellery = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDto);
 
-                int AuthorId = Author != null ? Author.id  : AuthorUser.Id;
+                int AuthorId = /*Author != null ? Author.id  : */AuthorUser.Id;
 
                 Database.Chancelleries.Add(chancellery, AuthorId);
                 //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
