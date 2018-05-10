@@ -153,26 +153,33 @@ namespace ACS.WEB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            ChancelleryDTO chancDTO = ChancelleryService.ChancelleryGet(id);
-            ChancelleryViewModel chancVM = GetMapChancelleryDTOToChancelleryVM().Map<ChancelleryDTO, ChancelleryViewModel>(chancDTO);
-            return View(chancVM);
+            ActionResult action = this.DeleteConfirmed(id);
+            return action;
         }
 
         // POST: Chancellery/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult DeleteConfirmed(int id)
         {
+            int result = 0;
             try
             {
-                // TODO: Add delete logic here
+                if (ModelState.IsValid)
+                {
 
-                return RedirectToAction("Index");
+                    result = ChancelleryService.DeleteChancellery(id);
+                    if (result > 0)
+                        ViewBag.EditResult = "Данные успешно удалены";
+ 
+
+                }
             }
-            catch
+            catch (ValidationException ex)
             {
-                return View();
+                ModelState.AddModelError(ex.Property, ex.Message);
             }
+            return RedirectToAction("Index");
         }
 
         private IEnumerable<EmployeeSelectItem> GetEmployeeNameSelector()
