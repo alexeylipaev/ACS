@@ -75,22 +75,36 @@ namespace ACS.BLL.Services
 
         public IEnumerable<JournalRegistrationsChancelleryDTO> GetJournalsChancellery()
         {
-            // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll());
+            return mapTemplournalToJournalDTO().Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll());
+        }
+
+        IMapper mapTemplournalToJournalDTO()
+        {
+           return new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Chancellery, ChancelleryDTO>();
+                cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>();
+
+            }).CreateMapper();
         }
 
 
         JournalRegistrationsChancelleryDTO MappJournalToJournalDTO(JournalRegistrationsChancellery Journal)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>()).CreateMapper();
-            return mapper.Map<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>(Journal);
+            return mapTemplournalToJournalDTO().Map<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>(Journal);
         }
 
 
         JournalRegistrationsChancellery MappJournalDTOToJournal(JournalRegistrationsChancelleryDTO JournalDto)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>()).CreateMapper();
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ChancelleryDTO , Chancellery>();
+                cfg.CreateMap<JournalRegistrationsChancelleryDTO , JournalRegistrationsChancellery>();
+
+            }).CreateMapper();
+
+           // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>()).CreateMapper();
             return mapper.Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>(JournalDto);
         }
 

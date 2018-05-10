@@ -21,8 +21,7 @@ namespace ACS.WEB.Controllers.Chancellery
         // GET: JournalRegistrationsChancellery
         public ActionResult Index()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>()).CreateMapper();
-            var journaldVM = mapper.Map<IEnumerable<JournalRegistrationsChancelleryDTO>, List<JournalRegistrationsChancelleryViewModel>>(JournalRegistrationsChancelleryService.GetJournalsChancellery());
+            var journaldVM = mapTempJournalDTOToJournalVM().Map<IEnumerable<JournalRegistrationsChancelleryDTO>, List<JournalRegistrationsChancelleryViewModel>>(JournalRegistrationsChancelleryService.GetJournalsChancellery());
             return View(journaldVM);
         }
 
@@ -129,16 +128,31 @@ namespace ACS.WEB.Controllers.Chancellery
             return MappJournalDTOToJournalVM(journalDTO);
         }
 
+        IMapper mapTempJournalDTOToJournalVM()
+        {
+            return new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
+                cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
+
+            }).CreateMapper();
+        }
+
+
         JournalRegistrationsChancelleryViewModel MappJournalDTOToJournalVM(JournalRegistrationsChancelleryDTO JournalDTO)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>()).CreateMapper();
-            return mapper.Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(JournalDTO);
+            return mapTempJournalDTOToJournalVM().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(JournalDTO);
         }
 
 
         JournalRegistrationsChancelleryDTO MappJournalVMToJournalDTO(JournalRegistrationsChancelleryViewModel JournalVM)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO>()).CreateMapper();
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO  > ();
+                cfg.CreateMap<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO  > ();
+
+            }).CreateMapper();
             return mapper.Map<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO>(JournalVM);
         }
         protected override void Dispose(bool disposing)

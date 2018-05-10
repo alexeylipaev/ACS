@@ -20,21 +20,41 @@ namespace ACS.BLL.Services
 
         FolderChancelleryDTO MappFolderToFolderDTO(FolderChancellery Folder)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>()).CreateMapper();
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Chancellery, ChancelleryDTO  > ();
+                cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>();
+
+            }).CreateMapper();
+
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>()).CreateMapper();
             return mapper.Map<FolderChancellery, FolderChancelleryDTO>(Folder);
         }
 
 
         FolderChancellery MappFolderDTOToFolder(FolderChancelleryDTO FolderDto)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>()).CreateMapper();
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ChancelleryDTO, Chancellery>();
+                cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>();
+
+            }).CreateMapper();
+           // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>()).CreateMapper();
             return mapper.Map<FolderChancelleryDTO, FolderChancellery>(FolderDto);
         }
 
         public IEnumerable<FolderChancelleryDTO> GetFoldersChancellery()
         {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Chancellery, ChancelleryDTO  > ();
+                cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>();
+
+            }).CreateMapper();
+
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>()).CreateMapper();
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<FolderChancellery>, List<FolderChancelleryDTO>>(Database.FolderChancelleries.GetAll());
         }
 

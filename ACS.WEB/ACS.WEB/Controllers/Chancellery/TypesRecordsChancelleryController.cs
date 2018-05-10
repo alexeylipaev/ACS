@@ -137,14 +137,26 @@ namespace ACS.WEB.Controllers.Chancellery
 
         TypeRecordChancelleryViewModel MappTypeRecordDTOToTypeRecordVM(TypeRecordChancelleryDTO TypeRecordDTO)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
+                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
+
+            }).CreateMapper();
+           // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
             return mapper.Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(TypeRecordDTO);
         }
 
 
         TypeRecordChancelleryDTO MappTypeRecordVMToTypeRecordDTO(TypeRecordChancelleryViewModel TypeRecordVM)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>()).CreateMapper();
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ChancelleryViewModel,ChancelleryDTO>();
+                cfg.CreateMap<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>();
+
+            }).CreateMapper();
+           // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>()).CreateMapper();
             return mapper.Map<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>(TypeRecordVM);
         }
         protected override void Dispose(bool disposing)
