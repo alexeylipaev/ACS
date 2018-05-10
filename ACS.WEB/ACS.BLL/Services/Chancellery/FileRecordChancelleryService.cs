@@ -13,9 +13,60 @@ using ACS.DAL.Interfaces;
 
 namespace ACS.BLL.Services
 {
-    public class FileRecordChancelleryService : ServiceBase, IFileRecordFileRecordChancelleryService
+    public class FileRecordChancelleryService : ServiceBase, IFileRecordChancelleryService
     {
         public FileRecordChancelleryService(IUnitOfWork uow) : base(uow) { }
+
+        public int CreateOrUpdateFileRecord(FileRecordChancelleryDTO FileRecordChancelleryDTO, string authorEmail)
+        {
+            int AuthorID = 0;
+            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+            catch (Exception ex) { throw ex; }
+
+            try
+            {
+                var fileRecord = MappFileRecordDTOToFileRecord(FileRecordChancelleryDTO);
+
+                var FileRecord = Database.FileRecordChancelleries.Find(FileRecordChancelleryDTO.id);
+
+                if (FileRecord != null)
+                {
+                    FileRecord.Name = fileRecord.Name;
+                    FileRecord.Format = fileRecord.Format;
+                    FileRecord.Path = FileRecord.Path;
+
+                    return Database.FileRecordChancelleries.Update(FileRecord, AuthorID);
+                }
+
+                else if (FileRecord == null)
+                {
+                    return Database.FileRecordChancelleries.Add(fileRecord, AuthorID);
+                }
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
+
+            return 0;
+        }
+
+        public int DeleteFileRecord(int id)
+        {
+            return Database.FileRecordChancelleries.Delete(id);
+        }
+
+
+        public FileRecordChancelleryDTO GetFileRecord(int id)
+        {
+            var FileRecord = Database.FileRecordChancelleries.Find(id);
+
+            if (FileRecord == null)
+                throw new ValidationException("Файл отсутствует", "");
+
+            return MappFileRecordToFileRecordDTO(FileRecord);
+
+        }
 
         public IEnumerable<FileRecordChancelleryDTO> GetFilesRecordChancellery()
         {
@@ -24,33 +75,35 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<FileRecordChancellery>, List<FileRecordChancelleryDTO>>(Database.FileRecordChancelleries.GetAll());
         }
 
-        public FileRecordChancelleryDTO GetFileRecordChancellery(int? id)
+
+        FileRecordChancelleryDTO MappFileRecordToFileRecordDTO(FileRecordChancellery FileRecord)
         {
-            if (id == null)
-                throw new ValidationException("Не установлено id файла ", "");
-
-            var File = Database.FileRecordChancelleries.Find(id.Value);
-
-            if (File == null)
-                throw new ValidationException("Отсутствует ссылка на файл", "");
-
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<FileRecordChancellery, FileRecordChancelleryDTO>(File);
+            return mapper.Map<FileRecordChancellery, FileRecordChancelleryDTO>(FileRecord);
         }
 
-        public void CreateFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDto, string authorEmail)
+
+        FileRecordChancellery MappFileRecordDTOToFileRecord(FileRecordChancelleryDTO FileRecordDto)
         {
-            throw new NotImplementedException();
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>()).CreateMapper();
+            return mapper.Map<FileRecordChancelleryDTO, FileRecordChancellery>(FileRecordDto);
         }
 
-        public void UpdateFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDto, string authorEmail)
-        {
-            throw new NotImplementedException();
-        }
 
         public void Dispose()
         {
             Database.Dispose();
         }
+
+
+        //public FileRecordChancelleryDTO DownloadFile(int id)
+        //{
+          
+        //}
+
+        //public FileRecordChancelleryDTO OpenFileNewTab(int id)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

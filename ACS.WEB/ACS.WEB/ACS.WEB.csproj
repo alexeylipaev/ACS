@@ -185,6 +185,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Chancellery\ExternalOrganizationsChancelleryController.cs" />
+    <Compile Include="Controllers\Chancellery\FileRecordChancelleryController.cs" />
     <Compile Include="Controllers\Chancellery\FoldersChancelleryController.cs" />
     <Compile Include="Controllers\Chancellery\JournalRegistrationsChancelleryController.cs" />
     <Compile Include="Controllers\Chancellery\TypesRecordsChancelleryController.cs" />
@@ -291,6 +292,7 @@
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
+    <Content Include="Scripts\jquery.filedrop.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -390,6 +392,9 @@
     <Content Include="Views\TypesRecordsChancellery\Details.cshtml" />
     <Content Include="Views\TypesRecordsChancellery\Create.cshtml" />
     <Content Include="Views\TypesRecordsChancellery\Edit.cshtml" />
+    <Content Include="Views\FileRecordChancellery\Index.cshtml" />
+    <Content Include="Views\FileRecordChancellery\Edit.cshtml" />
+    <Content Include="Views\Chancellery\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

@@ -143,6 +143,11 @@ namespace ACS.WEB.Tests.Controllers.TetServices
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
+        public int DeleteChancellery(int chancelleryId)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

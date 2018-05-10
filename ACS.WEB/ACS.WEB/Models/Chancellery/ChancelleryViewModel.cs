@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ACS.WEB.ViewModel
 {
@@ -95,7 +96,7 @@ namespace ACS.WEB.ViewModel
         //[DataType(DataType.Upload)]
         [Display(Name = "Файлы")]
         public ICollection<FileRecordChancelleryViewModel> FileRecordChancelleries { get; set; }
-
+        public IEnumerable<HttpPostedFileBase> Files { get; set; }
 
         /// <summary>
         /// От кого"

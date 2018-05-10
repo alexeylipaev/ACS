@@ -20,81 +20,61 @@ namespace ACS.BLL.Services
     public class ChancelleryService : ServiceBase, IChancelleryService
     {
         public ChancelleryService(IUnitOfWork uow) : base(uow) { }
-        /// <summary>
-        /// Получить данные о файле по id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public FileRecordChancelleryDTO GetFile(int id)
+
+
+
+        public void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail)
         {
-            //if (id == null)
-            //    throw new ValidationException("Не установлено id файла ", "");
+#warning к обсуждению, среди кого искать автора, Учетныйх записией или работников, не увсех работников есть почта, но у всех учеток она есть
+            //var Author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
+            var AuthorUser = Database.UserManager.FindByEmail(authorEmail);
+            if (/*Author == null && */AuthorUser == null)
+                throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", authorEmail);
+            try
+            {
+                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
+                Chancellery chancellery = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDto);
 
-            var File = Database.FileRecordChancelleries.Find(id);
+                int AuthorId = /*Author != null ? Author.id  : */AuthorUser.Id;
 
-            if (File == null)
-                throw new ValidationException("Отсутствует ссылка на файл", "");
+                Database.Chancelleries.Add(chancellery, AuthorId);
+                //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<FileRecordChancellery, FileRecordChancelleryDTO>(File);
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
+        }
+
+
+        public void ChancelleryUpdate(ChancelleryDTO chancelleryDTO, string editorEmail)
+        {
+
+            Chancellery chancelleryDB = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDTO);
+
+            var editor = this.Database.UserManager.FindByEmail(editorEmail);
+
+            if (editor == null)
+                throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", editorEmail);
+
+            if (chancelleryDB == null)
+                throw new ValidationException("Невозможно редактировать объект с id", chancelleryDTO.id.ToString());
+
+            try
+            {
+                Database.Chancelleries.Update(chancelleryDB, editor.Id);
+
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
         }
 
         public int DeleteChancellery(int chancelleryId)
         {
             return Database.Chancelleries.Delete(chancelleryId);
-        }
-
-        /// <summary>
-        /// Получить все файлы
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<FileRecordChancelleryDTO> GetAllFiles()
-        {
-            // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<FileRecordChancellery>, List<FileRecordChancelleryDTO>>(Database.FileRecordChancelleries.GetAll());
-        }
-
-        /// <summary>
-        /// Получить ответственного
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public EmployeeDTO GetResponsible(int id)
-        {
-            //if (id == null)
-            //    throw new ValidationException("Не установлено id ответственного", "");
-
-            var Employee = Database.Employees.Find(id);
-            if (Employee == null)
-                throw new ValidationException("Ответственный не найден", "");
-
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
-            return mapper.Map<Employee, EmployeeDTO>(Employee);
-        }
-
-        /// <summary>
-        /// Получить всех пользователей
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<EmployeeDTO> GetAllUser()
-        {
-            // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
-        }
-
-
-
-        /// <summary>
-        /// Получить все типы канцелярии
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<TypeRecordChancelleryDTO> TypeRecordGetAll()
-        {
-            // применяем автомаппер для проекции одной коллекции на другую
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
-            return GetMapTypeRecordChancelleryDBToTypeRecordChancelleryDTO().Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll().ToList());
         }
 
         /// <summary>
@@ -128,7 +108,112 @@ namespace ACS.BLL.Services
         }
 
 
+        #region обращения к работникам
 
+        /// <summary>
+        /// Получить ответственного
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public EmployeeDTO GetResponsible(int id)
+        {
+            //if (id == null)
+            //    throw new ValidationException("Не установлено id ответственного", "");
+
+            var Employee = Database.Employees.Find(id);
+            if (Employee == null)
+                throw new ValidationException("Ответственный не найден", "");
+
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return mapper.Map<Employee, EmployeeDTO>(Employee);
+        }
+
+        /// <summary>
+        /// Получить всех пользователей
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<EmployeeDTO> GetAllUser()
+        {
+            // применяем автомаппер для проекции одной коллекции на другую
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
+        }
+
+        #endregion
+
+        #region работа с файлами 
+
+        /// <summary>
+        /// Получить данные о файле по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public FileRecordChancelleryDTO GetFile(int id)
+        {
+            //if (id == null)
+            //    throw new ValidationException("Не установлено id файла ", "");
+
+            var File = Database.FileRecordChancelleries.Find(id);
+
+            if (File == null)
+                throw new ValidationException("Отсутствует ссылка на файл", "");
+
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
+            return mapper.Map<FileRecordChancellery, FileRecordChancelleryDTO>(File);
+        }
+
+        /// <summary>
+        /// Получить все файлы
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<FileRecordChancelleryDTO> GetAllFiles()
+        {
+            // применяем автомаппер для проекции одной коллекции на другую
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<FileRecordChancellery>, List<FileRecordChancelleryDTO>>(Database.FileRecordChancelleries.GetAll());
+        }
+
+        public int AttachmentFile(FileRecordChancelleryDTO file, int EditorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AttachmentFiles(IEnumerable<FileRecordChancelleryDTO> files, int EditorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DetachFile(FileRecordChancelleryDTO fileRecordChancelleryDTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DetachFiles(IEnumerable<FileRecordChancelleryDTO> files)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeletedFile(FileRecordChancelleryDTO fileRecordChancelleryDTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeletedFiles(IEnumerable<FileRecordChancelleryDTO> files)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<FileRecordChancelleryDTO> GetAllFiles(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        #endregion
+
+
+
+        #region работа с папками
 
         /// <summary>
         /// Получить папку по ее ID
@@ -161,7 +246,9 @@ namespace ACS.BLL.Services
         }
 
 
+        #endregion
 
+        #region работа с журналами регистраций
         /// <summary>
         /// Получить журнал канцелярии
         /// </summary>
@@ -191,6 +278,10 @@ namespace ACS.BLL.Services
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>()).CreateMapper();
             return GetMapChancelleryDBToChancelleryDTO().Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll());
         }
+        #endregion
+
+
+        #region от кого/кому
 
         public FromChancelleryDTO GetFromWhom(int id)
         {
@@ -217,57 +308,24 @@ namespace ACS.BLL.Services
             return GetMapChancelleryDBToChancelleryDTO().Map<IEnumerable<ToChancellery>, List<ToChancelleryDTO>>(Database.ToChancelleries.GetAll());
         }
 
-
-        public void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail)
-        {
-#warning к обсуждению, среди кого искать автора, Учетныйх записией или работников, не увсех работников есть почта, но у всех учеток она есть
-            //var Author = Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
-            var AuthorUser= Database.UserManager.FindByEmail(authorEmail); 
-            if (/*Author == null && */AuthorUser == null)
-                throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", authorEmail);
-            try
-            {
-                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
-                Chancellery chancellery = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDto);
-
-                int AuthorId = /*Author != null ? Author.id  : */AuthorUser.Id;
-
-                Database.Chancelleries.Add(chancellery, AuthorId);
-                //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
-               
-            }
-            catch (Exception e)
-            {
-                CatchError(e);
-            }
-        }
+        #endregion
 
 
-        public void ChancelleryUpdate(ChancelleryDTO chancelleryDTO, string editorEmail)
-        {
-
-            Chancellery chancelleryDB = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDTO);
-
-            var editor = this.Database.UserManager.FindByEmail(editorEmail);
-
-            if (editor == null)
-                throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", editorEmail);
-
-            if (chancelleryDB == null)
-                throw new ValidationException("Невозможно редактировать объект с id", chancelleryDTO.id.ToString());
-
-            try
-            {
-                Database.Chancelleries.Update(chancelleryDB, editor.Id);
-               
-            }
-            catch (Exception e)
-            {
-                CatchError(e);
-            }
-        }
 
         #region TypeRecordChancelleries
+
+        /// <summary>
+        /// Получить все типы канцелярии
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<TypeRecordChancelleryDTO> TypeRecordGetAll()
+        {
+            // применяем автомаппер для проекции одной коллекции на другую
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
+            return GetMapTypeRecordChancelleryDBToTypeRecordChancelleryDTO().Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll().ToList());
+        }
+
+
 
         /// <summary>
         /// Тип канцелярской записи
@@ -446,6 +504,6 @@ x => x.MapFrom(m => m.TypeRecordChancellery)); ;
             Database.Dispose();
         }
 
-     
+
     }
 }

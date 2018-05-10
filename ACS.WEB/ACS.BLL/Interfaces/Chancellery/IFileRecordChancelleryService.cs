@@ -7,14 +7,26 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Interfaces
 {
-    public interface IFileRecordFileRecordChancelleryService : IDisposable
+    public interface IFileRecordChancelleryService : IDisposable
     {
-        void CreateFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDto, string authorEmail);
+        //int CreateFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail);
 
-        void UpdateFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDto, string authorEmail);
+        int CreateOrUpdateFileRecord(FileRecordChancelleryDTO FileRecordChancelleryDTO, string authorEmail);
 
-        FileRecordChancelleryDTO GetFileRecordChancellery(int? id);
+
+
+
+        //int UpdateFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail);
+
+        FileRecordChancelleryDTO GetFileRecord(int id);
+
+        //FileRecordChancelleryDTO DownloadFile(int id);
+
+        //FileRecordChancelleryDTO OpenFileNewTab(int id);
+
         IEnumerable<FileRecordChancelleryDTO> GetFilesRecordChancellery();
-   
+
+        int DeleteFileRecord(int id);
+
     }
 }

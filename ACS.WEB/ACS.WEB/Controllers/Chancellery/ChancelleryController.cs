@@ -5,6 +5,7 @@ using ACS.WEB.ViewModel;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,14 +23,73 @@ namespace ACS.WEB.Controllers
             ChancelleryService = chancelleryService;
             EmployeeService = employeeService;
         }
+        #region работа с файлами
+
+        public FilePathResult DownloadFile(int id)
+        {
+            var fileDTO = ChancelleryService.GetFile(id);
+            string path = Server.MapPath(fileDTO.Path);
+            string type = "application/octet-stream";
+            string name = fileDTO.Name;
+            return File(path, type, name);
+        }
 
 
+        public ActionResult Upload(int ChancelleryId)
+        {
+            ViewBag.ChancelleryId = ChancelleryId;
+            return View();
+        }
+
+
+
+
+        [HttpPost]
+        public ActionResult AddFiles(IEnumerable<HttpPostedFileBase> files, int ChancelleryId)
+        {
+            foreach (var file in files)
+            {
+                if (file != null)
+                {
+                    var fileDTO = ChancelleryService.GetFile(ChancelleryId);
+
+                    string pathForSave = @"X:\Подразделения\СВиССА\Файлы канцелярии\";
+
+                    //Возвращает имя файла указанной строки пути без расширения.
+                    string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                    //fileVM.Name = fileName;
+
+                    //Возвращает расширение указанной строки пути.
+                    string extension = Path.GetExtension(file.FileName);
+
+
+                    //fileVM.Format = extension;
+
+                    //fileVM.Path = @"X:/Подразделения/СВиССА/Файлы канцелярии/" + fileName;
+                    fileName = Path.Combine(pathForSave, fileName + extension);
+
+                    if (fileDTO == null || fileDTO.Name + fileDTO.Format != fileName + extension)
+                    {
+                      var ChancelleryDTO = ChancelleryService.ChancelleryGet(ChancelleryId);
+                        
+                    }
+
+                    file.SaveAs(fileName);
+                }
+            }
+
+            return RedirectToAction("Index");
+
+
+        }
+
+        #endregion
 
         // GET: Chancellery
         public ActionResult Index()
         {
             var chancelleryDTOs = ChancelleryService.ChancellerieGetAll();
-                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>()).CreateMapper();
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>()).CreateMapper();
             var chancelleriesVMs = GetMapChancelleryDTOToChancelleryVM().Map<List<ChancelleryDTO>, List<ChancelleryViewModel>>(chancelleryDTOs.ToList());
             return View(chancelleriesVMs);
         }
@@ -46,17 +106,17 @@ namespace ACS.WEB.Controllers
         // GET: Chancellery/Create
         public ActionResult Create()
         {
-            var newChancelleryVM =new ChancelleryViewModel();
+            var newChancelleryVM = new ChancelleryViewModel();
             newChancelleryVM.DateRegistration = DateTime.Today;
-            ViewBag.TypeRecordIds = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName=t.Name }), "TypeId", "TypeName");
-            ViewBag.ResponsibleEmployee_Id = new SelectList(GetEmployeeNameSelector().OrderBy(e=>e.EmployeeName), "EmployeeId", "EmployeeName");
+            ViewBag.TypeRecordIds = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName = t.Name }), "TypeId", "TypeName");
+            ViewBag.ResponsibleEmployee_Id = new SelectList(GetEmployeeNameSelector().OrderBy(e => e.EmployeeName), "EmployeeId", "EmployeeName");
             ViewBag.Journal_Id = new SelectList(ChancelleryService.GetAllJournalesRegistrations().OrderBy(j => j.Name).Select(j => new { JournalId = j.id, JournalName = j.Name }), "JournalId", "JournalName");
             ViewBag.Folder_Id = new SelectList(ChancelleryService.GetAllFolders().OrderBy(j => j.Name).Select(j => new { FolderId = j.id, FolderName = j.Name }), "FolderId", "FolderName");
             return View(newChancelleryVM);
         }
 
-    
-        
+
+
 
         // POST: Chancellery/Create
         [HttpPost]
@@ -68,7 +128,7 @@ namespace ACS.WEB.Controllers
             {
                 var mapperType = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
 
-                chancelleryVM.TypeRecordChancellery = GetMapTypeRecordChancellery_DTO_To_VM().Map<TypeRecordChancelleryDTO , TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordIds));
+                chancelleryVM.TypeRecordChancellery = GetMapTypeRecordChancellery_DTO_To_VM().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordIds));
                 chancelleryVM.JournalRegistrationsChancellery = mapperType.Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(Journal_Id));
                 chancelleryVM.FolderChancellery = mapperType.Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(Folder_Id));
                 //var mapperEmpl = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
@@ -83,9 +143,9 @@ namespace ACS.WEB.Controllers
                     string currentUserEmail = this.User.Identity.Name;
                     //string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
                     //var chancelleryDTO = new ChancelleryDTO();
-                    
+
                     // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>()).CreateMapper();
-                   var chancelleryDTO = GetMapChancelleryVMToDTO().Map<ChancelleryViewModel, ChancelleryDTO>(chancelleryVM);
+                    var chancelleryDTO = GetMapChancelleryVMToDTO().Map<ChancelleryViewModel, ChancelleryDTO>(chancelleryVM);
                     //var typeDTO = chancelleryDTO.TypeRecordChancellery;
                     ChancelleryService.CreateChancellery(chancelleryDTO, currentUserEmail);
                     return RedirectToAction("Index");
@@ -107,13 +167,13 @@ namespace ACS.WEB.Controllers
         public ActionResult Edit(int id)
         {
             ChancelleryDTO chancDTO = ChancelleryService.ChancelleryGet(id);
-            var types = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName = t.Name }), "TypeId", "TypeName", new { TypeId = chancDTO.TypeRecordChancellery.id, TypeName = chancDTO.TypeRecordChancellery.Name});
+            var types = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName = t.Name }), "TypeId", "TypeName", new { TypeId = chancDTO.TypeRecordChancellery.id, TypeName = chancDTO.TypeRecordChancellery.Name });
             ViewBag.TypeRecordIds = types;
             ViewBag.ResponsibleEmployee_Id = new SelectList(GetEmployeeNameSelector().OrderBy(e => e.EmployeeName), "EmployeeId", "EmployeeName");
 
             var chancVM = GetMapChancelleryDTOToChancelleryVM().Map<ChancelleryDTO, ChancelleryViewModel>(chancDTO);
 
-            int selectedTypeId= chancVM.id;
+            int selectedTypeId = chancVM.id;
 
             return View(chancVM);
         }
@@ -136,7 +196,7 @@ namespace ACS.WEB.Controllers
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
             }
-            return View(chancVM); 
+            return View(chancVM);
         }
 
         // GET: Chancellery/Delete/5
@@ -160,7 +220,7 @@ namespace ACS.WEB.Controllers
                     result = ChancelleryService.DeleteChancellery(id);
                     if (result > 0)
                         ViewBag.EditResult = "Данные успешно удалены";
- 
+
 
                 }
             }
@@ -178,7 +238,7 @@ namespace ACS.WEB.Controllers
             return employees;
         }
 
-        private  IEnumerable<TypeRecordChancelleryViewModel> GetAllTypes()
+        private IEnumerable<TypeRecordChancelleryViewModel> GetAllTypes()
         {
             var typeDTOs = ChancelleryService.TypeRecordGetAll();
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
@@ -190,7 +250,7 @@ namespace ACS.WEB.Controllers
             var mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
-                cfg.CreateMap<EmployeeDTO, EmployeeViewModel> ();
+                cfg.CreateMap<EmployeeDTO, EmployeeViewModel>();
                 cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>();
                 cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
                 cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>();
@@ -205,11 +265,11 @@ namespace ACS.WEB.Controllers
         {
             var mapper = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<FileRecordChancelleryViewModel, FileRecordChancelleryDTO > ();
+                cfg.CreateMap<FileRecordChancelleryViewModel, FileRecordChancelleryDTO>();
                 cfg.CreateMap<FolderChancelleryViewModel, FolderChancelleryDTO>();
                 cfg.CreateMap<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>();
                 cfg.CreateMap<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO>();
-                cfg.CreateMap<EmployeeViewModel , EmployeeDTO>();
+                cfg.CreateMap<EmployeeViewModel, EmployeeDTO>();
                 cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();
 
             }).CreateMapper();

@@ -9,14 +9,51 @@ using System.Threading.Tasks;
 namespace ACS.BLL.Interfaces
 {
 
-    public interface IChancelleryService : IDisposable
+    public interface IChancelleryService : IDisposable 
     {
 
+        #region работа с файлами 
+
         /// <summary>
-        /// Сделать запись
+        /// Добавить файл
         /// </summary>
-        /// <param name="chancelleryDto"></param>
-        void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail);
+        /// <param name="files"></param>
+        /// <param name="EditorId"></param>
+        /// <returns></returns>
+        int AttachmentFile(FileRecordChancelleryDTO file, int EditorId);
+
+        /// <summary>
+        /// Добавить файлы
+        /// </summary>
+        /// <param name="id"></param>
+        int AttachmentFiles(IEnumerable<FileRecordChancelleryDTO> files, int EditorId);
+
+
+        /// <summary>
+        /// Открепить файл
+        /// </summary>
+        /// <param name="id"></param>
+        int DetachFile(FileRecordChancelleryDTO fileRecordChancelleryDTO);
+
+
+        /// <summary>
+        /// Открепить файлы
+        /// </summary>
+        /// <param name="id"></param>
+        int DetachFiles(IEnumerable<FileRecordChancelleryDTO> files);
+
+        /// <summary>
+        /// Удалить файл
+        /// </summary>
+        /// <param name="id"></param>
+        int DeletedFile(FileRecordChancelleryDTO fileRecordChancelleryDTO);
+
+
+        /// <summary>
+        /// Удалить файл
+        /// </summary>
+        /// <param name="id"></param>
+        int DeletedFiles(IEnumerable<FileRecordChancelleryDTO> files);
 
         /// <summary>
         /// Получить файл
@@ -28,7 +65,22 @@ namespace ACS.BLL.Interfaces
         /// Получить все файлы
         /// </summary>
         /// <param name="id"></param>
+        IEnumerable<FileRecordChancelleryDTO> GetAllFiles(int id);
+
+        /// <summary>
+        /// Получить все файлы
+        /// </summary>
         IEnumerable<FileRecordChancelleryDTO> GetAllFiles();
+
+        #endregion
+
+        /// <summary>
+        /// Сделать запись
+        /// </summary>
+        /// <param name="chancelleryDto"></param>
+        void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail);
+
+
 
         int DeleteChancellery(int chancelleryId);
 

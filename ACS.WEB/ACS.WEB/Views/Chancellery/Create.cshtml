@@ -122,6 +122,13 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.FileRecordChancelleries, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+               <input type="file" name="FileRecordChancelleries" id="FileRecordChancelleries" multiple /><br />
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Создать" class="btn btn-default" />
             </div>

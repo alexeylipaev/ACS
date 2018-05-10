@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ACS.WEB.ViewModel
 {
@@ -25,12 +26,14 @@ namespace ACS.WEB.ViewModel
         /// </summary>
         public string Format { get; set; }
 
-        [Display(Name = "Путь к файлу")]
+        [Display(Name = "Загрузить файл")]
         /// <summary>
         /// Путь к файлу
         /// </summary>
 
         public string Path { get; set; }
+
+        public HttpPostedFileBase File { get; set; }
    
     }
 }
