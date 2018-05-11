@@ -166,6 +166,12 @@ namespace ACS.BLL.Interfaces
         TypeRecordChancelleryDTO TypeRecordGetById(int id);
 
         /// <summary>
+        /// Получить тип по id
+        /// </summary>
+        /// <param name="id"></param>
+        TypeRecordChancelleryDTO TypeRecordGetByName(string typeName);
+
+        /// <summary>
         /// Создать новый тип корреспонденции
         /// </summary>
         /// <param name="typeDTO"></param>

@@ -83,7 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ACS.BLL\ACS.BLL.csproj">
-      <Project>{386A2A76-6372-4066-8E2C-E39FDEA3373A}</Project>
+      <Project>{386a2a76-6372-4066-8e2c-e39fdea3373a}</Project>
       <Name>ACS.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\ACS.WEB\ACS.WEB.csproj">
