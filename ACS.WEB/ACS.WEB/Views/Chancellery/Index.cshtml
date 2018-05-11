@@ -78,16 +78,13 @@
             </td>
             <td style="font-size:12px;">
                 
-                    @for (int i = 0; i < item.FileRecordChancelleries.Where(f=>f.s_InBasket == false).Count(); i++)
+                @foreach (var file in item.FileRecordChancelleries.Where(f => f.s_InBasket == false))
                 {
-                        
-                            @Html.ActionLink(@item.FileRecordChancelleries.ElementAt(i).Name + item.FileRecordChancelleries.ElementAt(i).Format, "DownloadFile", new { id = item.FileRecordChancelleries.ElementAt(i).id }, new { target = "_blank" })@Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id , FileId =item.FileRecordChancelleries.ElementAt(i).id }, new { @class = "close" })
-                        <br/>
-                    }
-              
-           
-            
-           
+                    <p>@Html.ActionLink(@file.Name + file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank" })
+                    @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })</p>
+                 
+                }
+               
             </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.id }) |
