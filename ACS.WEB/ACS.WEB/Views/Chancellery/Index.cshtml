@@ -77,15 +77,14 @@
                 @Html.DisplayFor(modelItem => item.Employee.FullName)
             </td>
             <td style="font-size:12px;">
-                
+                <div style="display:inline-flex; line-height:25px">
                 @foreach (var file in item.FileRecordChancelleries.Where(f => f.s_InBasket == false))
                 {
-                    <p>@Html.ActionLink(@file.Name + file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank" })
-                    @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })</p>
-                 
+                    @Html.ActionLink(@file.Name + file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank" })
+                    @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })
                 }
-               
-            </td>
+                    </div>
+</td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.id }) |
                 @Html.ActionLink("Подробнее", "Details", new { id = item.id }) |
