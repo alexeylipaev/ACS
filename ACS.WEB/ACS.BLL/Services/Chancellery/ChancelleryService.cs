@@ -327,7 +327,7 @@ namespace ACS.BLL.Services
                 throw new ValidationException("Отсутствуют данные о журнале регистрации", "");
 
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>()).CreateMapper();
-            return mapper.Map<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>(Journal);
+            return GetMapChancelleryDBToChancelleryDTO().Map<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>(Journal);
         }
 
         /// <summary>
@@ -534,6 +534,8 @@ namespace ACS.BLL.Services
             var mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>();
+                cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>();
+                cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>();
                 cfg.CreateMap<FromChancellery, FromChancelleryDTO>();
                 cfg.CreateMap<ToChancellery, ToChancelleryDTO>();
                 cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
