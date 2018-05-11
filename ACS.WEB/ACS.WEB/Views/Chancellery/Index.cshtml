@@ -82,13 +82,11 @@
             <td>
                 @foreach (var toItem in item.ToChancelleries)
                 {
-                    @Html.Label(toItem.Employee.FullName);
+                    @Html.Label(toItem.id.ToString());
                 }
             </td>
             <td>
-                @if (item.FileRecordChancelleries.Count > 0)
-            <td style="font-size:12px;">
-                
+
                 @foreach (var file in item.FileRecordChancelleries.Where(f => f.s_InBasket == false))
                 {
                     <p>@Html.ActionLink(@file.Name + file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank" })

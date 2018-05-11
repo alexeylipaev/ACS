@@ -336,8 +336,8 @@ namespace ACS.BLL.Services
             if (Folder == null)
                 throw new ValidationException("Отсутствует папка", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>()).CreateMapper();
-            return mapper.Map<FolderChancellery, FolderChancelleryDTO>(Folder);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>()).CreateMapper();
+            return GetMapChancelleryDBToChancelleryDTO().Map<FolderChancellery, FolderChancelleryDTO>(Folder);
         }
 
         /// <summary>
@@ -550,7 +550,9 @@ namespace ACS.BLL.Services
                 cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>();
                 cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>();
                 cfg.CreateMap<FromChancelleryDTO, FromChancellery>();
-                cfg.CreateMap<ToChancelleryDTO, ToChancellery>();
+                cfg.CreateMap<ToChancelleryDTO, ToChancellery>()
+                .ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))
+                .ForMember(x => x.ExternalOrganization, x => x.MapFrom(c => Database.ExternalOrganizationChancelleries.Find((int)c.ExternalOrganization.id)));
                 cfg.CreateMap<ChancelleryDTO, Chancellery>()
                 .ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))
                 .ForMember(x => x.FolderChancellery, x => x.MapFrom(c => Database.FolderChancelleries.Find((int)c.FolderChancellery.id)))
