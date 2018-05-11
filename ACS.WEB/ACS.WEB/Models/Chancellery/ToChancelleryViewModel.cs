@@ -22,6 +22,6 @@ namespace ACS.WEB.ViewModel
         public ExternalOrganizationChancelleryViewModel ExternalOrganization { get; set; }
         public EmployeeViewModel Employee { get; set; }
 
-        public virtual int? Chancellery_Id { get; set; }
+        public ChancelleryViewModel Chancellery { get; set; }
     }
 }

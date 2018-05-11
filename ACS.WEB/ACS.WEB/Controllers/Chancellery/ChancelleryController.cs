@@ -1,6 +1,7 @@
 ﻿using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
+using ACS.WEB.Models;
 using ACS.WEB.ViewModel;
 using AutoMapper;
 using System;
@@ -122,7 +123,7 @@ namespace ACS.WEB.Controllers
             ViewBag.ResponsibleEmployee_Id = new SelectList(GetEmployeeNameSelector().OrderBy(e => e.EmployeeName), "EmployeeId", "EmployeeName");
             ViewBag.Journal_Id = new SelectList(ChancelleryService.GetAllJournalesRegistrations().OrderBy(j => j.Name).Select(j => new { JournalId = j.id, JournalName = j.Name }), "JournalId", "JournalName");
             ViewBag.Folder_Id = new SelectList(ChancelleryService.GetAllFolders().OrderBy(j => j.Name).Select(j => new { FolderId = j.id, FolderName = j.Name }), "FolderId", "FolderName");
-            ViewBag.ToRecipients = ChancelleryService.GetToList().Select(t => new { ToName = t.Employees }); 
+            ViewBag.ToRecipients = ChancelleryService.GetAllUser().Select(t => new ToSelectItem { Id = t.id, Name = t.LName + " " + t.FName +"" + t.MName }); 
             return View(newChancelleryVM);
         }
 
@@ -133,11 +134,20 @@ namespace ACS.WEB.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] 
-        public ActionResult Create(ChancelleryViewModel chancelleryVM, int TypeRecordId, int ResponsibleEmployee_Id, int Journal_Id, int Folder_Id)
+        public ActionResult Create(EmployeeMultiSelector EmployeeMultiSelector,ChancelleryViewModel chancelleryVM, int TypeRecordId, int ResponsibleEmployee_Id, int Journal_Id, int Folder_Id)
         {
             try
             {
-               // var mapperType = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
+                for (int i = 0; i < EmployeeMultiSelector.SelectedId.Count; i++)
+                {
+                    int newRoleId = EmployeeMultiSelector.SelectedId.ElementAt(i);
+
+                    var employeeDTO = EmployeeService.GetEmployee(EmployeeMultiSelector.SelectedId.ElementAt(i));
+                    var employeeVM = GetMapChancelleryDTOToChancelleryVM().Map<EmployeeDTO, EmployeeViewModel>(employeeDTO);
+                    chancelleryVM.ToChancelleries.Add(new ToChancelleryViewModel {Employee = employeeVM , Chancellery = chancelleryVM});
+                }
+
+                // var mapperType = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
 
                 chancelleryVM.TypeRecordChancellery = GetMapChancelleryDTOToChancelleryVM().Map<TypeRecordChancelleryDTO , TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordId));
                 chancelleryVM.JournalRegistrationsChancellery = GetMapChancelleryDTOToChancelleryVM().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(Journal_Id));

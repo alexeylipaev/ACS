@@ -22,6 +22,6 @@ namespace ACS.BLL.DTO
         public ExternalOrganizationChancelleryDTO ExternalOrganization { get; set; }
         public EmployeeDTO Employee { get; set; }
 
-        public virtual int? Chancellery_Id { get; set; }
+        public ChancelleryDTO Chancellery { get; set; }
     }
 }

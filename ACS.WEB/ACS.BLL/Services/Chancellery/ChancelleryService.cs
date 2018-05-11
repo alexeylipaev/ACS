@@ -125,8 +125,8 @@ namespace ACS.BLL.Services
             if (Employee == null)
                 throw new ValidationException("Ответственный не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
-            return mapper.Map<Employee, EmployeeDTO>(Employee);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return GetMapChancelleryDBToChancelleryDTO().Map<Employee, EmployeeDTO>(Employee);
         }
 
         /// <summary>
@@ -136,8 +136,8 @@ namespace ACS.BLL.Services
         public IEnumerable<EmployeeDTO> GetAllUser()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return GetMapChancelleryDBToChancelleryDTO().Map<List<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll().ToList());
         }
 
         #endregion
@@ -581,13 +581,31 @@ namespace ACS.BLL.Services
                 cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>();
                 cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>();
                 cfg.CreateMap<FromChancellery, FromChancelleryDTO>();
+                cfg.CreateMap<Employee, EmployeeDTO>();
                 cfg.CreateMap<ToChancellery, ToChancelleryDTO>();
                 cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
+                cfg.CreateMap<ApplicationUser, ApplicationUserDTO>();
+                
                 cfg.CreateMap<Chancellery, ChancelleryDTO>();
             }).CreateMapper();
 
             return mapper;
         }
+
+        //IMapper GetMapEmployeeDBToDTO()
+        //{
+        //    var mapper = new MapperConfiguration(cfg =>
+        //    {
+        //        cfg.CreateMap<ApplicationUser, ApplicationUserDTO>();
+        //        cfg.CreateMap<Chancellery, ChancelleryDTO>();
+        //        cfg.CreateMap<Employee, EmployeeDTO>();
+                
+
+        //    }).CreateMapper();
+
+        //    return mapper;
+        //}
+
         IMapper GetMapTypeRecordChancelleryDBToTypeRecordChancelleryDTO()
         {
             var mapper = new MapperConfiguration(cfg =>

@@ -45,6 +45,9 @@
             @Html.DisplayNameFor(model => model.Employee)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.ToChancelleries)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.FileRecordChancelleries)
         </th>
         <th></th>
@@ -75,6 +78,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Employee.FullName)
+            </td>
+            <td>
+                @foreach (var toItem in item.ToChancelleries)
+                {
+                    @Html.Label(toItem.Employee.FullName);
+                }
             </td>
             <td>
                 @if (item.FileRecordChancelleries.Count > 0)

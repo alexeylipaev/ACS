@@ -1,3 +1,4 @@
+using ACS.WEB.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +16,7 @@ namespace ACS.WEB.ViewModel
             FileRecordChancelleries = new HashSet<FileRecordChancelleryViewModel>();
             FromChancelleries = new HashSet<FromChancelleryViewModel>();
             ToChancelleries = new HashSet<ToChancelleryViewModel>();
+            EmployeeMultiSelector = new Models.EmployeeMultiSelector();
         }
         [Display(Name = "ID")]
         public int id { get; set; }
@@ -110,5 +112,25 @@ namespace ACS.WEB.ViewModel
         /// </summary>
         [Display(Name = "Кому")]
         public ICollection<ToChancelleryViewModel> ToChancelleries { get; set; }
+
+        ICollection<ToSelectItem> _ToSelectItems;
+        public ICollection<ToSelectItem> ToSelectItems
+        { get
+            {
+                if (_ToSelectItems == null && ToChancelleries != null)
+                {
+                    _ToSelectItems = ToChancelleries.Select(t=> new ToSelectItem { Id=t.id, Name=t.Employee.FullName}).ToList();
+
+                }
+                return _ToSelectItems;
+            } }
+
+        public EmployeeMultiSelector EmployeeMultiSelector
+        { get; set; }
+    }
+    public class ToSelectItem
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }
