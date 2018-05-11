@@ -77,21 +77,17 @@
                 @Html.DisplayFor(modelItem => item.Employee.FullName)
             </td>
             <td>
-                @if (item.FileRecordChancelleries.Count > 0)
-                {
                     <table>
                         @foreach (var file in item.FileRecordChancelleries)
-                    {
+                            {
                             <tr>
-                                @Html.ActionLink(@file.Name+@file.Format, "DownloadFile", new { id = file.id }) |
+                                @Html.ActionLink(@file.Name + @file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank" })
                             </tr>
-                        }
+                            }
+                        <tr>
+                            @Html.ActionLink("Загрузить файлы", "Upload", new { ChancelleryId = item.id })
+                        </tr>
                     </table>
-                }
-                else
-                {
-                    @Html.ActionLink("Загрузить файлы", "Upload", new { ChancelleryId = item.id })
-                }
             </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.id }) |

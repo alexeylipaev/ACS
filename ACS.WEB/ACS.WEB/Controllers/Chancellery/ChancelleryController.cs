@@ -31,7 +31,7 @@ namespace ACS.WEB.Controllers
             string path = (fileDTO.Path);
             string type = fileDTO.Format;
             string name = fileDTO.Name;
-            return File(path, type, name);
+            return File(path, type, null);
         }
 
 
@@ -122,7 +122,7 @@ namespace ACS.WEB.Controllers
             ViewBag.ResponsibleEmployee_Id = new SelectList(GetEmployeeNameSelector().OrderBy(e => e.EmployeeName), "EmployeeId", "EmployeeName");
             ViewBag.Journal_Id = new SelectList(ChancelleryService.GetAllJournalesRegistrations().OrderBy(j => j.Name).Select(j => new { JournalId = j.id, JournalName = j.Name }), "JournalId", "JournalName");
             ViewBag.Folder_Id = new SelectList(ChancelleryService.GetAllFolders().OrderBy(j => j.Name).Select(j => new { FolderId = j.id, FolderName = j.Name }), "FolderId", "FolderName");
-            ViewBag.ToRecipients = ChancelleryService.GetToList().Select(t => new { ToName = t.Employees }); 
+            ViewBag.ToRecipients = ChancelleryService.GetToList().Select(t => new { ToName = t.Employee }); 
             return View(newChancelleryVM);
         }
 

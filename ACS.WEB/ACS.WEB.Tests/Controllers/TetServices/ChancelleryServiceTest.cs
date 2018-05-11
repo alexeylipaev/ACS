@@ -188,6 +188,31 @@ namespace ACS.WEB.Tests.Controllers.TetServices
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
+
+        public int AttachOrDetachFile(FileRecordChancelleryDTO fileDTO, string authorEmail, int ChancelleryId, bool attach)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AttachOrDetachFiles(IEnumerable<FileRecordChancelleryDTO> files, string authorEmail, int ChancelleryId, bool attach)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FileRecordChancelleryDTO GetFileChancellerByPath(string Path, int ChancelleryId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FileRecordChancelleryDTO GetFileChanceller(int FileId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<FileRecordChancelleryDTO> GetAllFilesChancellery(ChancelleryDTO Chancellery)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
     }
