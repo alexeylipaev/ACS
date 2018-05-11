@@ -28,8 +28,8 @@ namespace ACS.WEB.Controllers
         public FilePathResult DownloadFile(int id)
         {
             var fileDTO = ChancelleryService.GetFile(id);
-            string path = Server.MapPath(fileDTO.Path);
-            string type = "application/octet-stream";
+            string path = (fileDTO.Path);
+            string type = fileDTO.Format;
             string name = fileDTO.Name;
             return File(path, type, name);
         }
@@ -51,8 +51,7 @@ namespace ACS.WEB.Controllers
             {
                 if (file != null)
                 {
-                    var fileDTO = ChancelleryService.GetFile(ChancelleryId);
-
+             
                     string pathForSave = @"X:\Подразделения\СВиССА\Файлы канцелярии\";
 
                     //Возвращает имя файла указанной строки пути без расширения.
@@ -65,15 +64,20 @@ namespace ACS.WEB.Controllers
                     //fileVM.Format = extension;
 
                     //fileVM.Path = @"X:/Подразделения/СВиССА/Файлы канцелярии/" + fileName;
-                    fileName = Path.Combine(pathForSave, fileName + extension);
+                  string path  = Path.Combine(pathForSave, fileName + extension);
 
-                    if (fileDTO == null || fileDTO.Name + fileDTO.Format != fileName + extension)
+                   FileRecordChancelleryDTO fileDTO = ChancelleryService.GetFileChancellerByPath(fileName, ChancelleryId);
+
+                    if (fileDTO == null)
                     {
-                      var ChancelleryDTO = ChancelleryService.ChancelleryGet(ChancelleryId);
-                        
+                        fileDTO = new FileRecordChancelleryDTO();
+                        fileDTO.Name = fileName;
+                        fileDTO.Path = path;
+                        fileDTO.Format = extension;
+                        ChancelleryService.AttachOrDetachFile(fileDTO, this.User.Identity.Name, ChancelleryId,true);
                     }
 
-                    file.SaveAs(fileName);
+                    file.SaveAs(path);
                 }
             }
 

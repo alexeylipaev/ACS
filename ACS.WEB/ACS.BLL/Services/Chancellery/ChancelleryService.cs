@@ -149,7 +149,7 @@ namespace ACS.BLL.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public FileRecordChancelleryDTO GetFile(int FileId)
+        public FileRecordChancelleryDTO GetFileChanceller(int FileId)
         {
             //if (id == null)
             //    throw new ValidationException("Не установлено id файла ", "");
@@ -169,6 +169,24 @@ namespace ACS.BLL.Services
         }
 
         /// <summary>
+        /// Получить данные о файле по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public FileRecordChancelleryDTO GetFile(int FileId)
+        {
+            FileRecordChancellery File = null;
+
+            File = Database.FileRecordChancelleries.Find(FileId);
+
+            if (File == null)
+                throw new ValidationException("Файл с ID отсутствует", FileId.ToString());
+
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
+            return mapper.Map<FileRecordChancellery, FileRecordChancelleryDTO>(File);
+        }
+
+        /// <summary>
         /// Получить все файлы
         /// </summary>
         /// <returns></returns>
@@ -179,10 +197,38 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<FileRecordChancellery>, List<FileRecordChancelleryDTO>>(Database.FileRecordChancelleries.GetAll());
         }
 
+
+        /// <summary>
+        /// Получить связанный с канцелярией файл по его пути
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <param name="ChancelleryId"></param>
+        /// <returns></returns>
+        public FileRecordChancelleryDTO GetFileChancellerByPath(string Path, int ChancelleryId)
+        {
+            FileRecordChancelleryDTO result = null;
+            var files = Database.FileRecordChancelleries.Query(filter: f => f.Path == Path);
+
+            foreach (var file in files)
+            {
+                var chancellery = (from ch in Database.Chancelleries.ToList()
+                                   from f in ch.FileRecordChancelleries.ToList()
+                                   where f.id == file.id
+                                   select ch).FirstOrDefault();
+
+                if (chancellery != null)
+                {
+                    result = MappFileRecordChancelleryToFileRecordChancelleryDTO(file);
+                }
+            }
+            return result;
+        }
+
+
         public IEnumerable<FileRecordChancelleryDTO> GetAllFilesChancellery(ChancelleryDTO Chancellery)
         {
             var Files = (from file in Chancellery.FileRecordChancelleries
-                     select file);
+                         select file);
 
             if (Files == null)
                 throw new ValidationException("Запись не содержит файлов", "");
@@ -190,36 +236,34 @@ namespace ACS.BLL.Services
         }
 
 
-
-        public int AttachOrDetachFile(FileRecordChancelleryDTO fileDTO, string authorEmail, bool attach)
+        public int AttachOrDetachFile(FileRecordChancelleryDTO fileDTO, string authorEmail, int ChancelleryId, bool attach)
         {
             int AuthorID = 0;
             try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
             catch (Exception ex) { throw ex; }
 
-
             FileRecordChancellery file = Database.FileRecordChancelleries.Find(fileDTO.id);
 
-            if (file == null)
+            if (file == null)//файла нет, создать нужно
             {
-                FileRecordChancellery newFile = new FileRecordChancellery()
-                {
-                    Format = file.Format,
-                    Name = file.Name,
-                    Path = file.Path
-                };
+                FileRecordChancellery newFile = MappFileRecordChancelleryDTOTFileRecordChancellery(fileDTO);
 
-                Database.FileRecordChancelleries.Add(newFile, AuthorID);
+                var Chanc = Database.Chancelleries.Find(ChancelleryId);
+
+                Chanc.FileRecordChancelleries.Add(newFile);
+
+                Database.Chancelleries.Update(Chanc, AuthorID);
+
             }
-            else
+            else // файл есть
             {
                 try
                 {
                     file.Format = file.Format; file.Name = file.Name; file.Path = file.Path;
 
-                    if (attach)
+                    if (attach) // прикрепить
                         file.s_InBasket = false;
-                    else file.s_InBasket = true;
+                    else file.s_InBasket = true;// открепить
 
                     return Database.FileRecordChancelleries.Update(file, AuthorID);
 
@@ -233,12 +277,12 @@ namespace ACS.BLL.Services
             return 0;
         }
 
-        public int AttachOrDetachFiles(IEnumerable<FileRecordChancelleryDTO> filesDTO, string authorEmail, bool attach)
+        public int AttachOrDetachFiles(IEnumerable<FileRecordChancelleryDTO> filesDTO, string authorEmail, int ChancelleryId, bool attach)
         {
             int result = 0;
             foreach (var fileDTO in filesDTO)
             {
-                result += AttachOrDetachFile(fileDTO, authorEmail, attach);
+                result += AttachOrDetachFile(fileDTO, authorEmail, ChancelleryId, attach);
             }
             return result;
         }
@@ -407,7 +451,7 @@ namespace ACS.BLL.Services
 
         public TypeRecordChancelleryDTO TypeRecordGetByName(string typeName)
         {
-            var type = Database.TypeRecordChancelleries.Find(t=> t.Name == typeName).FirstOrDefault();
+            var type = Database.TypeRecordChancelleries.Find(t => t.Name == typeName).FirstOrDefault();
             if (type == null)
                 throw new ValidationException("Тип не найден", "");
 
@@ -567,6 +611,25 @@ x => x.MapFrom(m => m.TypeRecordChancellery)); ;
 
             return mapper;
         }
+
+
+        #region маппер для файлов
+
+        FileRecordChancelleryDTO MappFileRecordChancelleryToFileRecordChancelleryDTO(FileRecordChancellery FileRecordChancellery)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
+            return mapper.Map<FileRecordChancellery, FileRecordChancelleryDTO>(FileRecordChancellery);
+        }
+
+
+        FileRecordChancellery MappFileRecordChancelleryDTOTFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDTO)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>()).CreateMapper();
+            return mapper.Map<FileRecordChancelleryDTO, FileRecordChancellery>(FileRecordChancelleryDTO);
+        }
+
+        #endregion
+
         #endregion
 
         public void Dispose()
@@ -574,6 +637,6 @@ x => x.MapFrom(m => m.TypeRecordChancellery)); ;
             Database.Dispose();
         }
 
-        
+
     }
 }
