@@ -83,7 +83,7 @@
                         @foreach (var file in item.FileRecordChancelleries)
                     {
                             <tr>
-                                @Html.ActionLink("@file.Name", "DownloadFile", new { id = file.id }) |
+                                @Html.ActionLink(@file.Name+@file.Format, "DownloadFile", new { id = file.id }) |
                             </tr>
                         }
                     </table>

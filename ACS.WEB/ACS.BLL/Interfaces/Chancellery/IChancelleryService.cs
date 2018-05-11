@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ACS.BLL.Interfaces
 {
 
-    public interface IChancelleryService : IDisposable 
+    public interface IChancelleryService : IDisposable
     {
 
         #region работа с файлами 
@@ -20,13 +20,13 @@ namespace ACS.BLL.Interfaces
         /// <param name="files"></param>
         /// <param name="EditorId"></param>
         /// <returns></returns>
-        int AttachOrDetachFile(FileRecordChancelleryDTO fileDTO, string authorEmail, bool attach);
+        int AttachOrDetachFile(FileRecordChancelleryDTO fileDTO, string authorEmail, int ChancelleryId,bool attach);
 
         /// <summary>
         /// Прикрепить/Открепить файлы
         /// </summary>
         /// <param name="id"></param>
-        int AttachOrDetachFiles(IEnumerable<FileRecordChancelleryDTO> files, string authorEmail, bool attach);
+        int AttachOrDetachFiles(IEnumerable<FileRecordChancelleryDTO> files, string authorEmail, int ChancelleryId, bool attach);
 
 
         /// <summary>
@@ -42,16 +42,31 @@ namespace ACS.BLL.Interfaces
         int DeletedFiles(IEnumerable<FileRecordChancelleryDTO> files);
 
         /// <summary>
-        /// Получить файл
+        /// Получить связанный с канцелярией файл по его пути
         /// </summary>
-        /// <param name="id"></param>
-        FileRecordChancelleryDTO GetFile(int id);
+        /// <param name="Path"></param>
+        /// <param name="ChancelleryId"></param>
+        /// <returns></returns>
+        FileRecordChancelleryDTO GetFileChancellerByPath(string Path, int ChancelleryId);
 
         /// <summary>
-        /// Получить все файлы
+        /// Получить связанный с канцелярской записью файл по его id
+        /// </summary>
+        /// <param name="id"></param>
+        FileRecordChancelleryDTO GetFileChanceller(int FileId);
+
+        /// <summary>
+        /// Получить все файлы канцелярской записи
         /// </summary>
         /// <param name="id"></param>
         IEnumerable<FileRecordChancelleryDTO> GetAllFilesChancellery(ChancelleryDTO Chancellery);
+
+        /// <summary>
+        /// Получить файл по его ID
+        /// </summary>
+        /// <param name="FileId"></param>
+        /// <returns></returns>
+        FileRecordChancelleryDTO GetFile(int FileId);
 
         /// <summary>
         /// Получить все файлы
@@ -102,7 +117,7 @@ namespace ACS.BLL.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         JournalRegistrationsChancelleryDTO GetJournalRegistrations(int id);
-       
+
         /// <summary>
         /// Получить все журналы регистрации 
         /// </summary>
