@@ -23,12 +23,22 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Папки хранения", "Index", "FoldersChancellery")</li>
-                    <li>@Html.ActionLink("Журналы регистрации", "Index", "JournalRegistrationsChancellery")</li>
-                    <li>@Html.ActionLink("Внешние организации", "Index", "ExternalOrganizationsChancellery")</li>
-                    <li>@Html.ActionLink("Типы записей", "Index", "TypesRecordsChancellery")</li>
-                    <li>@Html.ActionLink("Файлы", "Index", "FileRecordChancellery")</li>
+                    <li>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                Дополнительно <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>@Html.ActionLink("Папки хранения", "Index", "FoldersChancellery")</li>
+                                <li>@Html.ActionLink("Журналы регистрации", "Index", "JournalRegistrationsChancellery")</li>
+                                <li>@Html.ActionLink("Внешние организации", "Index", "ExternalOrganizationsChancellery")</li>
+                                <li>@Html.ActionLink("Типы записей", "Index", "TypesRecordsChancellery")</li>
+                                <li>@Html.ActionLink("Файлы", "Index", "FileRecordChancellery")</li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
+                @*<div>*@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
