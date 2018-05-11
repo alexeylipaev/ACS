@@ -11,11 +11,11 @@ namespace ACS.BLL.DTO
     /// </summary>
     public partial class ToChancelleryDTO : SystemParametersDTO
     {
-        public ToChancelleryDTO()
-        {
-            //ExternalOrganizations = new HashSet<ExternalOrganizationChancelleryDTO>();
-            //Employees = new HashSet<EmployeeDTO>();
-        }
+        //public ToChancelleryDTO()
+        //{
+        //    ExternalOrganizations = new HashSet<ExternalOrganizationChancelleryDTO>();
+        //    Employees = new HashSet<EmployeeDTO>();
+        //}
 
         public int id { get; set; }
 

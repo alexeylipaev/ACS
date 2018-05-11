@@ -33,6 +33,7 @@ namespace ACS.DAL.Configuration
 
             HasMany(e => e.ToChancelleries)
             .WithOptional(e => e.Chancellery)
+       
             //.HasForeignKey(e => e.ChancelleryId)
             .WillCascadeOnDelete(false);
         }

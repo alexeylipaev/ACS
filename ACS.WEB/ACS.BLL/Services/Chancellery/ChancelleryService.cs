@@ -565,6 +565,7 @@ namespace ACS.BLL.Services
             return mapper;
         }
 
+
         IMapper GetMapChancelleryDBToChancelleryDTO()
         {
             //var mapper = new MapperConfiguration(cfg =>
@@ -583,11 +584,11 @@ namespace ACS.BLL.Services
                 cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>();
                 cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>();
                 cfg.CreateMap<FromChancellery, FromChancelleryDTO>();
-                cfg.CreateMap<Employee, EmployeeDTO>();
                 cfg.CreateMap<ToChancellery, ToChancelleryDTO>();
+                cfg.CreateMap<Employee, EmployeeDTO>();
+                cfg.CreateMap<ExternalOrganizationChancellery, ExternalOrganizationChancelleryDTO>();
                 cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
                 cfg.CreateMap<ApplicationUser, ApplicationUserDTO>();
-                
                 cfg.CreateMap<Chancellery, ChancelleryDTO>();
             }).CreateMapper();
 

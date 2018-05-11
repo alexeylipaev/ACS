@@ -85,15 +85,16 @@
                     @Html.Label(toItem.id.ToString());
                 }
             </td>
-            <td>
-
-                @foreach (var file in item.FileRecordChancelleries.Where(f => f.s_InBasket == false))
-                {
-                    <p>@Html.ActionLink(@file.Name + file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank" })
-                    @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })</p>
-                 
-                }
+            <td style="font-size:12px;">
                
+                    @foreach (var file in item.FileRecordChancelleries.Where(f => f.s_InBasket == false))
+                {
+                        <div style="display:list-item; line-height:25px">
+                            @Html.ActionLink(@file.Name + file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank" })
+                            @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })
+                        </div>
+                    }
+                   
             </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.id }) |
