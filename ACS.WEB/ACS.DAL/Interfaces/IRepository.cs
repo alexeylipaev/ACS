@@ -10,6 +10,10 @@ namespace ACS.DAL.Interfaces
 {
     public interface IRepository<T> where T : class
     {
+
+         List<T> ToList();
+
+    
         /// <summary>
         /// Тип сущности, с которой работает данный репозиторий
         /// </summary>

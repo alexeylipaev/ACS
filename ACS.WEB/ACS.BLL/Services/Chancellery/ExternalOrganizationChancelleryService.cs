@@ -24,23 +24,22 @@ namespace ACS.BLL.Services
 
             try
             {
-                var externalOrganization = MappExternalOrganizationDTOToExternalOrganization(ExternalOrganizationChancelleryDTO);
-
                 var ExternalOrganization = Database.ExternalOrganizationChancelleries.Find(ExternalOrganizationChancelleryDTO.id);
 
                 if (ExternalOrganization != null )
                 {
-                    ExternalOrganization.Name = externalOrganization.Name;
-                    ExternalOrganization.Address = externalOrganization.Address;
-                    ExternalOrganization.City = externalOrganization.City;
-                    ExternalOrganization.Email = externalOrganization.Email;
-                    ExternalOrganization.Phone = externalOrganization.Phone;
+                    ExternalOrganization.Name = ExternalOrganizationChancelleryDTO.Name;
+                    ExternalOrganization.Address = ExternalOrganizationChancelleryDTO.Address;
+                    ExternalOrganization.City = ExternalOrganizationChancelleryDTO.City;
+                    ExternalOrganization.Email = ExternalOrganizationChancelleryDTO.Email;
+                    ExternalOrganization.Phone = ExternalOrganizationChancelleryDTO.Phone;
          
                     return Database.ExternalOrganizationChancelleries.Update(ExternalOrganization, AuthorID);
                 }
 
                 else if (ExternalOrganization == null)
                 {
+                    var externalOrganization = MappExternalOrganizationDTOToExternalOrganization(ExternalOrganizationChancelleryDTO);
                     return Database.ExternalOrganizationChancelleries.Add(externalOrganization, AuthorID);
                 }
             }
@@ -56,8 +55,6 @@ namespace ACS.BLL.Services
         {
             return Database.ExternalOrganizationChancelleries.Delete(id);
         }
-
-
 
         public ExternalOrganizationChancelleryDTO GetExternalOrganization(int id)
         {

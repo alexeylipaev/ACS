@@ -12,6 +12,7 @@ using ACS.BLL.Infrastructure;
 using ACS.BLL.BusinessModels;
 using System.Diagnostics;
 using System.Collections;
+using System.IO;
 
 namespace ACS.BLL.Services
 {
@@ -20,7 +21,6 @@ namespace ACS.BLL.Services
     public class ChancelleryService : ServiceBase, IChancelleryService
     {
         public ChancelleryService(IUnitOfWork uow) : base(uow) { }
-
 
 
         public void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail)
@@ -71,6 +71,7 @@ namespace ACS.BLL.Services
                 CatchError(e);
             }
         }
+
 
         public int DeleteChancellery(int chancelleryId)
         {
@@ -148,15 +149,20 @@ namespace ACS.BLL.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public FileRecordChancelleryDTO GetFile(int id)
+        public FileRecordChancelleryDTO GetFile(int FileId)
         {
             //if (id == null)
             //    throw new ValidationException("Не установлено id файла ", "");
+            FileRecordChancellery File = null;
 
-            var File = Database.FileRecordChancelleries.Find(id);
+            File = (from ch in Database.Chancelleries.ToList()
+                    where ch.FileRecordChancelleries.Any(f => f.id == FileId)
+                    from file in ch.FileRecordChancelleries
+                    select file).FirstOrDefault();
+
 
             if (File == null)
-                throw new ValidationException("Отсутствует ссылка на файл", "");
+                throw new ValidationException("Запись не содержит файла с таким ID", "");
 
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
             return mapper.Map<FileRecordChancellery, FileRecordChancelleryDTO>(File);
@@ -173,39 +179,95 @@ namespace ACS.BLL.Services
             return mapper.Map<IEnumerable<FileRecordChancellery>, List<FileRecordChancelleryDTO>>(Database.FileRecordChancelleries.GetAll());
         }
 
-        public int AttachmentFile(FileRecordChancelleryDTO file, int EditorId)
+        public IEnumerable<FileRecordChancelleryDTO> GetAllFilesChancellery(ChancelleryDTO Chancellery)
         {
-            throw new NotImplementedException();
+            var Files = (from file in Chancellery.FileRecordChancelleries
+                     select file);
+
+            if (Files == null)
+                throw new ValidationException("Запись не содержит файлов", "");
+            return Files;
         }
 
-        public int AttachmentFiles(IEnumerable<FileRecordChancelleryDTO> files, int EditorId)
+
+
+        public int AttachOrDetachFile(FileRecordChancelleryDTO fileDTO, string authorEmail, bool attach)
         {
-            throw new NotImplementedException();
+            int AuthorID = 0;
+            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+            catch (Exception ex) { throw ex; }
+
+
+            FileRecordChancellery file = Database.FileRecordChancelleries.Find(fileDTO.id);
+
+            if (file == null)
+            {
+                FileRecordChancellery newFile = new FileRecordChancellery()
+                {
+                    Format = file.Format,
+                    Name = file.Name,
+                    Path = file.Path
+                };
+
+                Database.FileRecordChancelleries.Add(newFile, AuthorID);
+            }
+            else
+            {
+                try
+                {
+                    file.Format = file.Format; file.Name = file.Name; file.Path = file.Path;
+
+                    if (attach)
+                        file.s_InBasket = false;
+                    else file.s_InBasket = true;
+
+                    return Database.FileRecordChancelleries.Update(file, AuthorID);
+
+                }
+                catch (Exception e)
+                {
+                    CatchError(e);
+                }
+            }
+
+            return 0;
         }
 
-        public int DetachFile(FileRecordChancelleryDTO fileRecordChancelleryDTO)
+        public int AttachOrDetachFiles(IEnumerable<FileRecordChancelleryDTO> filesDTO, string authorEmail, bool attach)
         {
-            throw new NotImplementedException();
-        }
-
-        public int DetachFiles(IEnumerable<FileRecordChancelleryDTO> files)
-        {
-            throw new NotImplementedException();
+            int result = 0;
+            foreach (var fileDTO in filesDTO)
+            {
+                result += AttachOrDetachFile(fileDTO, authorEmail, attach);
+            }
+            return result;
         }
 
         public int DeletedFile(FileRecordChancelleryDTO fileRecordChancelleryDTO)
         {
-            throw new NotImplementedException();
+            int result = 0;
+            try
+            {
+                File.Delete(fileRecordChancelleryDTO.Path);
+                result++;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return result;
         }
 
         public int DeletedFiles(IEnumerable<FileRecordChancelleryDTO> files)
         {
-            throw new NotImplementedException();
-        }
+            int result = 0;
+            foreach (var file in files)
+            {
+                result += DeletedFile(file);
+            }
 
-        public IEnumerable<FileRecordChancelleryDTO> GetAllFiles(int id)
-        {
-            throw new NotImplementedException();
+            return result;
         }
 
 
@@ -241,7 +303,7 @@ namespace ACS.BLL.Services
         public IEnumerable<FolderChancelleryDTO> GetAllFolders()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-           // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>()).CreateMapper();
+            // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>()).CreateMapper();
             return GetMapChancelleryDBToChancelleryDTO().Map<IEnumerable<FolderChancellery>, List<FolderChancelleryDTO>>(Database.FolderChancelleries.GetAll());
         }
 
@@ -355,29 +417,28 @@ namespace ACS.BLL.Services
                 TypeRecordChancellery typeDB = GetMap_TypeRecordChancellery_DTO_To_DB().Map<TypeRecordChancelleryDTO, TypeRecordChancellery>(typeDTO);
                 Database.TypeRecordChancelleries.Add(typeDB, Author.id);
                 //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
-               
+
             }
             catch (Exception e)
             {
                 CatchError(e);
             }
         }
-        public void TypeRecordUpdate(TypeRecordChancelleryDTO typeDTO, string currentUserEmail)
+        public void TypeRecordUpdate(TypeRecordChancelleryDTO typeDTO, string authorEmail)
         {
+            int AuthorID = 0;
+            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+            catch (Exception ex) { throw ex; }
+
             TypeRecordChancellery typeDB = GetMapChancelleryDTOToChancelleryDB().Map<TypeRecordChancelleryDTO, TypeRecordChancellery>(typeDTO);
 
-            var editor = this.Database.UserManager.FindByEmail(currentUserEmail);
-
-            if (editor == null)
-                throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", currentUserEmail);
-
             if (typeDB == null)
                 throw new ValidationException("Невозможно редактировать объект с id", typeDTO.id.ToString());
 
             try
             {
-                Database.TypeRecordChancelleries.Update(typeDB, editor.Id);
-               
+                Database.TypeRecordChancelleries.Update(typeDB, AuthorID);
+
             }
             catch (Exception e)
             {
@@ -385,25 +446,22 @@ namespace ACS.BLL.Services
             }
         }
 
-        public void TypeRecordMoveToBasket(TypeRecordChancelleryDTO typeDTO, string currentUserEmail)
+        public void TypeRecordMoveToBasket(TypeRecordChancelleryDTO typeDTO, string authorEmail)
         {
+            int AuthorID = 0;
+            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+            catch (Exception ex) { throw ex; }
+
             TypeRecordChancellery typeDB = Database.TypeRecordChancelleries.Find(typeDTO.id);
-
-            var editor = this.Database.UserManager.FindByEmail(currentUserEmail);
-
-            if (editor == null)
-                throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", currentUserEmail);
 
             if (typeDB == null)
                 throw new ValidationException("Невозможно редактировать объект с id", typeDTO.id.ToString());
 
             try
             {
-                typeDB.s_EditorId = editor.Id;
-                typeDB.s_EditDate = DateTime.Now;
                 typeDB.s_InBasket = true;
-                Database.TypeRecordChancelleries.Update(typeDB, editor.Id);
-               
+                Database.TypeRecordChancelleries.Update(typeDB, AuthorID);
+
             }
             catch (Exception e)
             {
@@ -416,7 +474,7 @@ namespace ACS.BLL.Services
             try
             {
                 Database.TypeRecordChancelleries.Delete(typeId);
-               
+
             }
             catch (Exception e)
             {

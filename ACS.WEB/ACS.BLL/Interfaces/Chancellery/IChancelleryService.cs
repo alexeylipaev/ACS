@@ -15,39 +15,25 @@ namespace ACS.BLL.Interfaces
         #region работа с файлами 
 
         /// <summary>
-        /// Добавить файл
+        /// Прикрепить/Открепить файл
         /// </summary>
         /// <param name="files"></param>
         /// <param name="EditorId"></param>
         /// <returns></returns>
-        int AttachmentFile(FileRecordChancelleryDTO file, int EditorId);
+        int AttachOrDetachFile(FileRecordChancelleryDTO fileDTO, string authorEmail, bool attach);
 
         /// <summary>
-        /// Добавить файлы
+        /// Прикрепить/Открепить файлы
         /// </summary>
         /// <param name="id"></param>
-        int AttachmentFiles(IEnumerable<FileRecordChancelleryDTO> files, int EditorId);
+        int AttachOrDetachFiles(IEnumerable<FileRecordChancelleryDTO> files, string authorEmail, bool attach);
 
-
-        /// <summary>
-        /// Открепить файл
-        /// </summary>
-        /// <param name="id"></param>
-        int DetachFile(FileRecordChancelleryDTO fileRecordChancelleryDTO);
-
-
-        /// <summary>
-        /// Открепить файлы
-        /// </summary>
-        /// <param name="id"></param>
-        int DetachFiles(IEnumerable<FileRecordChancelleryDTO> files);
 
         /// <summary>
         /// Удалить файл
         /// </summary>
         /// <param name="id"></param>
         int DeletedFile(FileRecordChancelleryDTO fileRecordChancelleryDTO);
-
 
         /// <summary>
         /// Удалить файл
@@ -65,7 +51,7 @@ namespace ACS.BLL.Interfaces
         /// Получить все файлы
         /// </summary>
         /// <param name="id"></param>
-        IEnumerable<FileRecordChancelleryDTO> GetAllFiles(int id);
+        IEnumerable<FileRecordChancelleryDTO> GetAllFilesChancellery(ChancelleryDTO Chancellery);
 
         /// <summary>
         /// Получить все файлы
