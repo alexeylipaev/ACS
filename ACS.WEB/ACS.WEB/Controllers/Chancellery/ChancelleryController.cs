@@ -89,7 +89,7 @@ namespace ACS.WEB.Controllers
         public ActionResult Index()
         {
             var chancelleryDTOs = ChancelleryService.ChancellerieGetAll();
-            ViewBag.TypeNames = GetAllTypes().Select(t => t.Name).ToArray();
+            ViewBag.Types = GetAllTypes();
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>()).CreateMapper();
             var chancelleriesVMs = GetMapChancelleryDTOToChancelleryVM().Map<List<ChancelleryDTO>, List<ChancelleryViewModel>>(chancelleryDTOs.ToList());
             return View(chancelleriesVMs);
@@ -105,10 +105,11 @@ namespace ACS.WEB.Controllers
         }
 
         // GET: Chancellery/Create
-        public ActionResult Create(string TypeRecordName)
+        public ActionResult Create(int TypeRecordId)
         {
-            ViewBag.ActionName = TypeRecordName + " корреспонденция";
-            var typeDTO = ChancelleryService.TypeRecordGetByName(TypeRecordName);
+            
+            var typeDTO = ChancelleryService.TypeRecordGetById(TypeRecordId);
+            ViewBag.ActionName = typeDTO.Name + " корреспонденция";
             var typeVM = GetMapChancelleryDTOToChancelleryVM().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(typeDTO);
             ViewBag.Title = typeVM.Name;
             var newChancelleryVM = new ChancelleryViewModel();
