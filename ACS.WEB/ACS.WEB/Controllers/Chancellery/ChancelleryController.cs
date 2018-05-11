@@ -62,7 +62,6 @@ namespace ACS.WEB.Controllers
                     //Возвращает расширение указанной строки пути.
                     string extension = Path.GetExtension(file.FileName);
 
-
                     //fileVM.Format = extension;
 
                     //fileVM.Path = @"X:/Подразделения/СВиССА/Файлы канцелярии/" + fileName;

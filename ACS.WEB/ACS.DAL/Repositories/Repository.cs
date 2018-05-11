@@ -31,6 +31,11 @@ namespace ACS.DAL.Repositories
             get { return DbContext.Set<T>(); }
         }
 
+
+        public List<T> ToList()
+        {
+          return  DbSet.ToList<T>();
+        }
         #region IRepository<T> Members
 
         public Type ObjectType

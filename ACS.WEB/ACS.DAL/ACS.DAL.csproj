@@ -143,6 +143,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -198,7 +199,7 @@
     <Compile Include="Entities\Chancellery\Chancellery.cs" />
     <Compile Include="Entities\Chancellery\ExternalOrganizationChancellery.cs" />
     <Compile Include="Entities\DataEntity.cs" />
-    <Compile Include="Entities\Chancellery\FileRecordChancellery.cs" />
+    <Compile Include="Entities\Chancellery\FileChancellery.cs" />
     <Compile Include="Entities\Chancellery\FolderChancellery.cs" />
     <Compile Include="Entities\Chancellery\FromChancellery.cs" />
     <Compile Include="Entities\Chancellery\JournalRegistrationsChancellery.cs" />
