@@ -23,5 +23,12 @@ namespace ACS.WEB.ViewModel
         public EmployeeViewModel Employee { get; set; }
 
         public ChancelleryViewModel Chancellery { get; set; }
+        public override string ToString()
+        {
+            string result = "";
+            if (ExternalOrganization != null) result += ExternalOrganization.Name;
+            if (Employee != null) result += Employee.FullName;
+            return result;
+        }
     }
 }
