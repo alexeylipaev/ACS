@@ -32,17 +32,23 @@ namespace ACS.WEB.Controllers
             string path = (fileDTO.Path);
             string type = fileDTO.Format;
             string name = fileDTO.Name;
-            return File(path, type, name);
+            return File(path, type, null);
         }
 
 
-        public ActionResult Upload(int ChancelleryId)
+        public ActionResult AttachFiles(int ChancelleryId)
         {
             ViewBag.ChancelleryId = ChancelleryId;
             return View();
         }
 
-
+        public ActionResult DettachFile(int ChancelleryId, int FileId)
+        {
+            //ViewBag.ChancelleryId = ChancelleryId;
+            FileRecordChancelleryDTO fileDTO = ChancelleryService.GetFile(FileId);
+            ChancelleryService.AttachOrDetachFile(fileDTO, this.User.Identity.Name, ChancelleryId,false);
+            return RedirectToAction("Index");
+        }
 
 
         [HttpPost]
@@ -67,7 +73,7 @@ namespace ACS.WEB.Controllers
                     //fileVM.Path = @"X:/Подразделения/СВиССА/Файлы канцелярии/" + fileName;
                   string path  = Path.Combine(pathForSave, fileName + extension);
 
-                   FileRecordChancelleryDTO fileDTO = ChancelleryService.GetFileChancellerByPath(fileName, ChancelleryId);
+                   FileRecordChancelleryDTO fileDTO = ChancelleryService.GetFileChancellerByPath(path, ChancelleryId);
 
                     if (fileDTO == null)
                     {
@@ -75,9 +81,9 @@ namespace ACS.WEB.Controllers
                         fileDTO.Name = fileName;
                         fileDTO.Path = path;
                         fileDTO.Format = extension;
-                        ChancelleryService.AttachOrDetachFile(fileDTO, this.User.Identity.Name, ChancelleryId,true);
+                       
                     }
-
+                    ChancelleryService.AttachOrDetachFile(fileDTO, this.User.Identity.Name, ChancelleryId, true);
                     file.SaveAs(path);
                 }
             }

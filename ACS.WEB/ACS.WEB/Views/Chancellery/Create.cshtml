@@ -66,6 +66,14 @@
                 @Html.ListBoxFor(model => model.EmployeeMultiSelector.SelectedId, new MultiSelectList(ViewBag.ToRecipients, "Id", "Name"), new { id = "multiSelectDropDown2", multiple = "multiple" })
             </div>
         </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.FileRecordChancelleries, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="files" id="files" multiple /><br />
+            </div>
+        </div>*@
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Создать" class="btn btn-default" />

@@ -87,25 +87,21 @@
             </td>
             <td>
                 @if (item.FileRecordChancelleries.Count > 0)
+            <td style="font-size:12px;">
+                
+                @foreach (var file in item.FileRecordChancelleries.Where(f => f.s_InBasket == false))
                 {
-                    <table>
-                        @foreach (var file in item.FileRecordChancelleries)
-                    {
-                            <tr>
-                                @Html.ActionLink(@file.Name+@file.Format, "DownloadFile", new { id = file.id }) |
-                            </tr>
-                        }
-                    </table>
+                    <p>@Html.ActionLink(@file.Name + file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank" })
+                    @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })</p>
+                 
                 }
-                else
-                {
-                    @Html.ActionLink("Загрузить файлы", "Upload", new { ChancelleryId = item.id })
-                }
+               
             </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.id }) |
                 @Html.ActionLink("Подробнее", "Details", new { id = item.id }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.id })
+                @Html.ActionLink("Удалить", "Delete", new { id = item.id })|
+                @Html.ActionLink("Прикрепить файлы", "AttachFiles", new { ChancelleryId = item.id })
             </td>
         </tr>
     }
