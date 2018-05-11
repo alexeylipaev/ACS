@@ -289,8 +289,9 @@ namespace ACS.WEB.Controllers
             {
                 cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
                 cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>();
-                
+                cfg.CreateMap<ToChancelleryDTO, ToChancelleryViewModel>();
                 cfg.CreateMap<EmployeeDTO, EmployeeViewModel>();
+                cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>();
                 cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>();
                 cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
                 cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>();

@@ -11,11 +11,11 @@ namespace ACS.WEB.ViewModel
     /// </summary>
     public partial class ToChancelleryViewModel : SystemParametersViewModel
     {
-        public ToChancelleryViewModel()
-        {
-            //ExternalOrganizations = new HashSet<ExternalOrganizationChancelleryViewModel>();
-            //Employees = new HashSet<EmployeeViewModel>();
-        }
+        //public ToChancelleryViewModel()
+        //{
+        //    ExternalOrganizations = new HashSet<ExternalOrganizationChancelleryViewModel>();
+        //    Employees = new HashSet<EmployeeViewModel>();
+        //}
 
         public int id { get; set; }
 
