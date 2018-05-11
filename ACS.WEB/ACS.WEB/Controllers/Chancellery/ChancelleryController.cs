@@ -92,7 +92,7 @@ namespace ACS.WEB.Controllers
         public ActionResult Index()
         {
             var chancelleryDTOs = ChancelleryService.ChancellerieGetAll();
-            ViewBag.TypeNames = GetAllTypes().Select(t => t.Name).ToArray();
+            ViewBag.Types = GetAllTypes();
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>()).CreateMapper();
             var chancelleriesVMs = GetMapChancelleryDTOToChancelleryVM().Map<List<ChancelleryDTO>, List<ChancelleryViewModel>>(chancelleryDTOs.ToList());
             return View(chancelleriesVMs);
@@ -108,16 +108,17 @@ namespace ACS.WEB.Controllers
         }
 
         // GET: Chancellery/Create
-        public ActionResult Create(string TypeRecordName)
+        public ActionResult Create(int TypeRecordId)
         {
-            ViewBag.ActionName = TypeRecordName + " корреспонденция";
-            var typeDTO = ChancelleryService.TypeRecordGetByName(TypeRecordName);
+            
+            var typeDTO = ChancelleryService.TypeRecordGetById(TypeRecordId);
+            ViewBag.ActionName = typeDTO.Name + " корреспонденция";
             var typeVM = GetMapChancelleryDTOToChancelleryVM().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(typeDTO);
             ViewBag.Title = typeVM.Name;
             var newChancelleryVM = new ChancelleryViewModel();
             newChancelleryVM.TypeRecordChancellery = typeVM;
             newChancelleryVM.DateRegistration = DateTime.Today;
-            //ViewBag.TypeRecordIds = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName = t.Name }), "TypeId", "TypeName");
+            ViewBag.TypeRecordId = TypeRecordId;
             ViewBag.ResponsibleEmployee_Id = new SelectList(GetEmployeeNameSelector().OrderBy(e => e.EmployeeName), "EmployeeId", "EmployeeName");
             ViewBag.Journal_Id = new SelectList(ChancelleryService.GetAllJournalesRegistrations().OrderBy(j => j.Name).Select(j => new { JournalId = j.id, JournalName = j.Name }), "JournalId", "JournalName");
             ViewBag.Folder_Id = new SelectList(ChancelleryService.GetAllFolders().OrderBy(j => j.Name).Select(j => new { FolderId = j.id, FolderName = j.Name }), "FolderId", "FolderName");
@@ -132,13 +133,13 @@ namespace ACS.WEB.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] 
-        public ActionResult Create(ChancelleryViewModel chancelleryVM, int TypeRecordIds, int ResponsibleEmployee_Id, int Journal_Id, int Folder_Id)
+        public ActionResult Create(ChancelleryViewModel chancelleryVM, int TypeRecordId, int ResponsibleEmployee_Id, int Journal_Id, int Folder_Id)
         {
             try
             {
                // var mapperType = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
 
-                chancelleryVM.TypeRecordChancellery = GetMapChancelleryDTOToChancelleryVM().Map<TypeRecordChancelleryDTO , TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordIds));
+                chancelleryVM.TypeRecordChancellery = GetMapChancelleryDTOToChancelleryVM().Map<TypeRecordChancelleryDTO , TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordId));
                 chancelleryVM.JournalRegistrationsChancellery = GetMapChancelleryDTOToChancelleryVM().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(Journal_Id));
                 chancelleryVM.FolderChancellery = GetMapChancelleryDTOToChancelleryVM().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(Folder_Id));
                 //var mapperEmpl = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeViewModel>()).CreateMapper();
@@ -271,6 +272,8 @@ namespace ACS.WEB.Controllers
             var mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
+                cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>();
+                
                 cfg.CreateMap<EmployeeDTO, EmployeeViewModel>();
                 cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>();
                 cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();

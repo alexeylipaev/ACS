@@ -5,14 +5,14 @@
 }
 <h2>Канцелярия</h2>
 <p>
-    @foreach (var item in ViewBag.TypeNames)
+    @foreach (var item in ViewBag.Types)
     {
         using (Html.BeginForm("Create", "Chancellery", FormMethod.Get))
         {
             <div class="form-group">
                 <div style="float:left; margin:10px">
-                    <input type="hidden" value="@item" name="TypeRecordName" />
-                    <input type="submit" value="Создать @item" class="btn btn-default" />
+                    <input type="hidden" value=@item.id name="TypeRecordId" />
+                    <input type="submit" value="Создать @item.Name" class="btn btn-default" />
                 </div>
             </div>
         }
