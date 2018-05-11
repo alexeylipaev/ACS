@@ -88,6 +88,7 @@ namespace ACS.WEB.Controllers
         public ActionResult Index()
         {
             var chancelleryDTOs = ChancelleryService.ChancellerieGetAll();
+            ViewBag.TypeNames = GetAllTypes().Select(t => t.Name).ToArray();
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>()).CreateMapper();
             var chancelleriesVMs = GetMapChancelleryDTOToChancelleryVM().Map<List<ChancelleryDTO>, List<ChancelleryViewModel>>(chancelleryDTOs.ToList());
             return View(chancelleriesVMs);
@@ -103,14 +104,20 @@ namespace ACS.WEB.Controllers
         }
 
         // GET: Chancellery/Create
-        public ActionResult Create()
+        public ActionResult Create(string TypeRecordName)
         {
+            ViewBag.ActionName = TypeRecordName + " корреспонденция";
+            var typeDTO = ChancelleryService.TypeRecordGetByName(TypeRecordName);
+            var typeVM = GetMapChancelleryDTOToChancelleryVM().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(typeDTO);
+            ViewBag.Title = typeVM.Name;
             var newChancelleryVM = new ChancelleryViewModel();
+            newChancelleryVM.TypeRecordChancellery = typeVM;
             newChancelleryVM.DateRegistration = DateTime.Today;
-            ViewBag.TypeRecordIds = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName = t.Name }), "TypeId", "TypeName");
+            //ViewBag.TypeRecordIds = new SelectList(GetAllTypes().Select(t => new { TypeId = t.id, TypeName = t.Name }), "TypeId", "TypeName");
             ViewBag.ResponsibleEmployee_Id = new SelectList(GetEmployeeNameSelector().OrderBy(e => e.EmployeeName), "EmployeeId", "EmployeeName");
             ViewBag.Journal_Id = new SelectList(ChancelleryService.GetAllJournalesRegistrations().OrderBy(j => j.Name).Select(j => new { JournalId = j.id, JournalName = j.Name }), "JournalId", "JournalName");
             ViewBag.Folder_Id = new SelectList(ChancelleryService.GetAllFolders().OrderBy(j => j.Name).Select(j => new { FolderId = j.id, FolderName = j.Name }), "FolderId", "FolderName");
+            ViewBag.ToRecipients = ChancelleryService.GetToList().Select(t => new { ToName = t.Employees }); 
             return View(newChancelleryVM);
         }
 

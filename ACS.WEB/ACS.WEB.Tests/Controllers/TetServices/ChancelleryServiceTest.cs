@@ -10,6 +10,16 @@ namespace ACS.WEB.Tests.Controllers.TetServices
 {
     class ChancelleryServiceTest : IChancelleryService
     {
+        public int AttachmentFile(FileRecordChancelleryDTO file, int EditorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int AttachmentFiles(IEnumerable<FileRecordChancelleryDTO> files, int EditorId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<ChancelleryDTO> ChancellerieGetAll()
         {
             throw new NotImplementedException();
@@ -30,12 +40,42 @@ namespace ACS.WEB.Tests.Controllers.TetServices
             throw new NotImplementedException();
         }
 
+        public int DeleteChancellery(int chancelleryId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeletedFile(FileRecordChancelleryDTO fileRecordChancelleryDTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DeletedFiles(IEnumerable<FileRecordChancelleryDTO> files)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DetachFile(FileRecordChancelleryDTO fileRecordChancelleryDTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int DetachFiles(IEnumerable<FileRecordChancelleryDTO> files)
+        {
+            throw new NotImplementedException();
+        }
+
         public FolderChancelleryDTO FolderGet(int id)
         {
             throw new NotImplementedException();
         }
 
         public IEnumerable<FileRecordChancelleryDTO> GetAllFiles()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<FileRecordChancelleryDTO> GetAllFiles(int id)
         {
             throw new NotImplementedException();
         }
@@ -100,6 +140,11 @@ namespace ACS.WEB.Tests.Controllers.TetServices
             throw new NotImplementedException();
         }
 
+        public TypeRecordChancelleryDTO TypeRecordGetByName(string typeName)
+        {
+            throw new NotImplementedException();
+        }
+
         public void TypeRecordMoveToBasket(TypeRecordChancelleryDTO typeDTO, string currentUserEmail)
         {
             throw new NotImplementedException();
@@ -143,11 +188,7 @@ namespace ACS.WEB.Tests.Controllers.TetServices
             // TODO: uncomment the following line if the finalizer is overridden above.
             // GC.SuppressFinalize(this);
         }
-
-        public int DeleteChancellery(int chancelleryId)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
+
     }
 }

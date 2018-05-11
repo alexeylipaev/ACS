@@ -405,6 +405,16 @@ namespace ACS.BLL.Services
             return GetMapTypeRecordChancelleryDBToTypeRecordChancelleryDTO().Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(type);
         }
 
+        public TypeRecordChancelleryDTO TypeRecordGetByName(string typeName)
+        {
+            var type = Database.TypeRecordChancelleries.Find(t=> t.Name == typeName).FirstOrDefault();
+            if (type == null)
+                throw new ValidationException("Тип не найден", "");
+
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>()).CreateMapper();
+            return GetMapTypeRecordChancelleryDBToTypeRecordChancelleryDTO().Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(type);
+        }
+
         public void TypeRecordCreate(TypeRecordChancelleryDTO typeDTO, string currentUserEmail)
         {
             var Author = Database.Employees.Find(u => u.Email == currentUserEmail).FirstOrDefault();
@@ -562,6 +572,6 @@ x => x.MapFrom(m => m.TypeRecordChancellery)); ;
             Database.Dispose();
         }
 
-
+        
     }
 }

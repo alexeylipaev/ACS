@@ -1,16 +1,24 @@
 ﻿@model IEnumerable<ACS.WEB.ViewModel.ChancelleryViewModel>
-
 @{
     ViewBag.Title = "Канцелярия";
     Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
 }
-
 <h2>Канцелярия</h2>
-
 <p>
-    @Html.ActionLink("Создать", "Create")
+    @foreach (var item in ViewBag.TypeNames)
+    {
+        using (Html.BeginForm("Create", "Chancellery", FormMethod.Get))
+        {
+            <div class="form-group">
+                <div style="float:left; margin:10px">
+                    <input type="hidden" value="@item" name="TypeRecordName" />
+                    <input type="submit" value="Создать @item" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    }
 </p>
-<table class="table">
+<table style="margin-top: 65px;" class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.id)
@@ -41,7 +49,6 @@
         </th>
         <th></th>
     </tr>
-
     @foreach (var item in Model)
     {
         <tr>
@@ -94,5 +101,3 @@
         </tr>
     }
 </table>
-
-
