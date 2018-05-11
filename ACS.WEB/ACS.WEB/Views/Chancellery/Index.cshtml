@@ -76,23 +76,24 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Employee.FullName)
             </td>
-            <td>
-                    <table>
-                        @foreach (var file in item.FileRecordChancelleries)
-                            {
-                            <tr>
-                                @Html.ActionLink(@file.Name + @file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank" })
-                            </tr>
-                            }
-                        <tr>
-                            @Html.ActionLink("Загрузить файлы", "Upload", new { ChancelleryId = item.id })
-                        </tr>
-                    </table>
+            <td style="font-size:12px;">
+                
+                    @for (int i = 0; i < item.FileRecordChancelleries.Where(f=>f.s_InBasket == false).Count(); i++)
+                {
+                        
+                            @Html.ActionLink(@item.FileRecordChancelleries.ElementAt(i).Name + item.FileRecordChancelleries.ElementAt(i).Format, "DownloadFile", new { id = item.FileRecordChancelleries.ElementAt(i).id }, new { target = "_blank" })@Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id , FileId =item.FileRecordChancelleries.ElementAt(i).id }, new { @class = "close" })
+                        <br/>
+                    }
+              
+           
+            
+           
             </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.id }) |
                 @Html.ActionLink("Подробнее", "Details", new { id = item.id }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.id })
+                @Html.ActionLink("Удалить", "Delete", new { id = item.id })|
+                @Html.ActionLink("Прикрепить файлы", "AttachFiles", new { ChancelleryId = item.id })
             </td>
         </tr>
     }

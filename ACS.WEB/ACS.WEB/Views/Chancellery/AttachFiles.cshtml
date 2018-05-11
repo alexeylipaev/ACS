@@ -1,11 +1,11 @@
 ﻿@model ACS.WEB.ViewModel.FileRecordChancelleryViewModel
 
 @{
-    ViewBag.Title = "Добавить файл";
+    ViewBag.Title = "Прикрепить файлы";
     Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
 }
 
-<h2>Добавить файл</h2>
+<h2>Прикрепить файлы</h2>
 
 
 @using (Html.BeginForm("AddFiles", "Chancellery", new { ChancelleryId = @ViewBag.ChancelleryId }, FormMethod.Post, new { enctype = "multipart/form-data"}))
@@ -28,7 +28,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Добавить файлы" class="btn btn-default" />
+                <input type="submit" value="Прикрепить файлы" class="btn btn-default" />
             </div>
         </div>
     </div>

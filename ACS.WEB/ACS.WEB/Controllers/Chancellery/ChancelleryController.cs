@@ -35,13 +35,19 @@ namespace ACS.WEB.Controllers
         }
 
 
-        public ActionResult Upload(int ChancelleryId)
+        public ActionResult AttachFiles(int ChancelleryId)
         {
             ViewBag.ChancelleryId = ChancelleryId;
             return View();
         }
 
-
+        public ActionResult DettachFile(int ChancelleryId, int FileId)
+        {
+            //ViewBag.ChancelleryId = ChancelleryId;
+            FileRecordChancelleryDTO fileDTO = ChancelleryService.GetFile(FileId);
+            ChancelleryService.AttachOrDetachFile(fileDTO, this.User.Identity.Name, ChancelleryId,false);
+            return RedirectToAction("Index");
+        }
 
 
         [HttpPost]
@@ -66,7 +72,7 @@ namespace ACS.WEB.Controllers
                     //fileVM.Path = @"X:/Подразделения/СВиССА/Файлы канцелярии/" + fileName;
                   string path  = Path.Combine(pathForSave, fileName + extension);
 
-                   FileRecordChancelleryDTO fileDTO = ChancelleryService.GetFileChancellerByPath(fileName, ChancelleryId);
+                   FileRecordChancelleryDTO fileDTO = ChancelleryService.GetFileChancellerByPath(path, ChancelleryId);
 
                     if (fileDTO == null)
                     {
@@ -74,9 +80,9 @@ namespace ACS.WEB.Controllers
                         fileDTO.Name = fileName;
                         fileDTO.Path = path;
                         fileDTO.Format = extension;
-                        ChancelleryService.AttachOrDetachFile(fileDTO, this.User.Identity.Name, ChancelleryId,true);
+                       
                     }
-
+                    ChancelleryService.AttachOrDetachFile(fileDTO, this.User.Identity.Name, ChancelleryId, true);
                     file.SaveAs(path);
                 }
             }
@@ -133,7 +139,7 @@ namespace ACS.WEB.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] 
-        public ActionResult Create(ChancelleryViewModel chancelleryVM, int TypeRecordId, int ResponsibleEmployee_Id, int Journal_Id, int Folder_Id)
+        public ActionResult Create(ChancelleryViewModel chancelleryVM, int TypeRecordId, int ResponsibleEmployee_Id, int Journal_Id, int Folder_Id, IEnumerable<HttpPostedFileBase> files)
         {
             try
             {
@@ -159,7 +165,9 @@ namespace ACS.WEB.Controllers
                     var chancelleryDTO = GetMapChancelleryVMToDTO().Map<ChancelleryViewModel, ChancelleryDTO>(chancelleryVM);
                     //var typeDTO = chancelleryDTO.TypeRecordChancellery;
                     ChancelleryService.CreateChancellery(chancelleryDTO, currentUserEmail);
-                    return RedirectToAction("Index");
+
+
+                    return this.AddFiles(files, ChancelleryService.ChancellerieGetAll().LastOrDefault().id);
                 }
             }
             catch (ValidationException ex)
