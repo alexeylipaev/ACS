@@ -13,14 +13,14 @@ namespace ACS.WEB.ViewModel
     {
         public ToChancelleryViewModel()
         {
-            ExternalOrganizations = new HashSet<ExternalOrganizationChancelleryViewModel>();
-            Employees = new HashSet<EmployeeViewModel>();
+            //ExternalOrganizations = new HashSet<ExternalOrganizationChancelleryViewModel>();
+            //Employees = new HashSet<EmployeeViewModel>();
         }
 
         public int id { get; set; }
 
-        public ICollection<ExternalOrganizationChancelleryViewModel> ExternalOrganizations { get; set; }
-        public ICollection<EmployeeViewModel> Employees { get; set; }
+        public ExternalOrganizationChancelleryViewModel ExternalOrganization { get; set; }
+        public EmployeeViewModel Employee { get; set; }
 
         public virtual int? Chancellery_Id { get; set; }
     }

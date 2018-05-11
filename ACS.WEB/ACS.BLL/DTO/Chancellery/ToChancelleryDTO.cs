@@ -13,14 +13,14 @@ namespace ACS.BLL.DTO
     {
         public ToChancelleryDTO()
         {
-            ExternalOrganizations = new HashSet<ExternalOrganizationChancelleryDTO>();
-            Employees = new HashSet<EmployeeDTO>();
+            //ExternalOrganizations = new HashSet<ExternalOrganizationChancelleryDTO>();
+            //Employees = new HashSet<EmployeeDTO>();
         }
 
         public int id { get; set; }
 
-        public ICollection<ExternalOrganizationChancelleryDTO> ExternalOrganizations { get; set; }
-        public ICollection<EmployeeDTO> Employees { get; set; }
+        public ExternalOrganizationChancelleryDTO ExternalOrganization { get; set; }
+        public EmployeeDTO Employee { get; set; }
 
         public virtual int? Chancellery_Id { get; set; }
     }
