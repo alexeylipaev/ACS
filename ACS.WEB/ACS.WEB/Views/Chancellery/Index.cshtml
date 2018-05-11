@@ -89,7 +89,7 @@
                
                     @foreach (var file in item.FileRecordChancelleries.Where(f => f.s_InBasket == false))
                 {
-                        <div style="display:list-item; line-height:25px">
+                        <div style="display:inline-flex; line-height:25px">
                             @Html.ActionLink(@file.Name + file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank" })
                             @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })
                         </div>

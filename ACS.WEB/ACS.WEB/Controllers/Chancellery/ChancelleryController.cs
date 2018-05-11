@@ -129,7 +129,7 @@ namespace ACS.WEB.Controllers
             ViewBag.ResponsibleEmployee_Id = new SelectList(GetEmployeeNameSelector().OrderBy(e => e.EmployeeName), "EmployeeId", "EmployeeName");
             ViewBag.Journal_Id = new SelectList(ChancelleryService.GetAllJournalesRegistrations().OrderBy(j => j.Name).Select(j => new { JournalId = j.id, JournalName = j.Name }), "JournalId", "JournalName");
             ViewBag.Folder_Id = new SelectList(ChancelleryService.GetAllFolders().OrderBy(j => j.Name).Select(j => new { FolderId = j.id, FolderName = j.Name }), "FolderId", "FolderName");
-            ViewBag.ToRecipients = ChancelleryService.GetAllUser().Select(t => new ToSelectItem { Id = t.id, Name = t.LName + " " + t.FName +"" + t.MName }); 
+            ViewBag.ToRecipients = ChancelleryService.GetAllUser().Select(t => new ToSelectItem { Id = t.id, Name = t.LName + " " + t.FName +" " + t.MName }); 
             return View(newChancelleryVM);
         }
 
