@@ -190,6 +190,7 @@
     <Compile Include="Controllers\Chancellery\JournalRegistrationsChancelleryController.cs" />
     <Compile Include="Controllers\Chancellery\TypesRecordsChancelleryController.cs" />
     <Compile Include="Controllers\ProjectRegistryController.cs" />
+    <Compile Include="Models\Chancellery\EmployeeMultiSelector.cs" />
     <Compile Include="Models\ProjectRegistryViewModel.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />

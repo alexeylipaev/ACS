@@ -1,27 +1,23 @@
 ﻿@model ACS.WEB.ViewModel.ChancelleryViewModel
-
 @{
     ViewBag.Title = "Создание";
     Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
 }
-
 <h2>@ViewBag.ActionName</h2>
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
         @*<div class="form-group">
-            @Html.LabelFor(model => model.TypeRecordChancellery, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DisplayFor(model => model.TypeRecordChancellery.Name)
+                @Html.LabelFor(model => model.TypeRecordChancellery, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayFor(model => model.TypeRecordChancellery.Name)
+                </div>
             </div>
-        </div>
-        <hr />*@
+            <hr />*@
         <div class="form-group">
             @Html.LabelFor(model => model.DateRegistration, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -29,7 +25,6 @@
                 @Html.ValidationMessageFor(model => model.DateRegistration, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.RegistrationNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -37,7 +32,6 @@
                 @Html.ValidationMessageFor(model => model.RegistrationNumber, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Summary, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -45,7 +39,6 @@
                 @Html.ValidationMessageFor(model => model.Summary, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Employee, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -53,7 +46,6 @@
                 @Html.ValidationMessageFor(model => model.Employee.id, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.JournalRegistrationsChancellery, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -61,12 +53,17 @@
                 @Html.ValidationMessageFor(model => model.TypeRecordChancellery.id, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.FolderChancellery, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("Folder_Id", string.Empty)
                 @Html.ValidationMessageFor(model => model.TypeRecordChancellery.id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ToChancelleries, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.ListBoxFor(model => model.EmployeeMultiSelector.SelectedId, new MultiSelectList(ViewBag.ToRecipients, "Id", "Name"), new { id = "multiSelectDropDown2", multiple = "multiple" })
             </div>
         </div>
 
@@ -83,6 +80,20 @@
             </div>
         </div>
     </div>
+}
+@section scripts
+{
+    <script>
+        $(function () {
+            //normal dropdown
+            //$("#normalDropDown").chosen({
+            //    /*disable_serch : true */
+            //    disable_serch_threshold: 5//number items 5
+            //});
+            //multiselect dropdown
+            $("#multiSelectDropDown2").chosen();
+        });
+    </script>
 }
 @*@section Scripts {
         @Scripts.Render("~/bundles/jqueryval")

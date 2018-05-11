@@ -19,7 +19,7 @@ namespace ACS.DAL.Entities
 
         public int id { get; set; }
 
-        public ExternalOrganizationChancellery ExternalOrganizations { get; set; }
+        public ExternalOrganizationChancellery ExternalOrganization { get; set; }
         public Employee Employee { get; set; }
 
         public Chancellery Chancellery { get; set; }

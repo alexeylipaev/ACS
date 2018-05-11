@@ -45,6 +45,9 @@
             @Html.DisplayNameFor(model => model.Employee)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.ToChancelleries)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.FileRecordChancelleries)
         </th>
         <th></th>
@@ -76,15 +79,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Employee.FullName)
             </td>
-            <td style="font-size:12px;">
-                <div style="display:inline-flex; line-height:25px">
+            <td>
+                @foreach (var toItem in item.ToChancelleries)
+                {
+                    @Html.Label(toItem.id.ToString());
+                }
+            </td>
+            <td>
+
                 @foreach (var file in item.FileRecordChancelleries.Where(f => f.s_InBasket == false))
                 {
-                    @Html.ActionLink(@file.Name + file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank" })
-                    @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })
+                    <p>@Html.ActionLink(@file.Name + file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank" })
+                    @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })</p>
+                 
                 }
-                    </div>
-</td>
+               
+            </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.id }) |
                 @Html.ActionLink("Подробнее", "Details", new { id = item.id }) |
