@@ -18,7 +18,7 @@ namespace ACS.WEB.ViewModel
 
         //public int? EmployeeId { get; set; }
 
-        public virtual int? Employee_Id { get; set; }
+        public EmployeeViewModel Employee { get; set; }
 
         #endregion
 
@@ -30,8 +30,14 @@ namespace ACS.WEB.ViewModel
 
         #endregion
 
-        //public int? ChancelleryId { get; set; }
+        public ChancelleryViewModel Chancellery { get; set; }
 
-        public virtual int? Chancellery_Id { get; set; }
+        public override string ToString()
+        {
+            string result = "";
+            if (ExternalOrganization != null) result += ExternalOrganization.Name;
+            if (Employee != null) result += Employee.FullName;
+            return result;
+        }
     }
 }

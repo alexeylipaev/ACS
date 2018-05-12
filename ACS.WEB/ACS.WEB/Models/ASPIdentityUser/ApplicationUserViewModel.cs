@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
-
-
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -16,7 +15,7 @@ namespace ACS.WEB.ViewModel
             Roles = new HashSet<AppUserRoleViewModel>();
             DataRoles = new HashSet<ApplicationRoleViewModel>();
         }
-
+        [Display(Name = "ID")]
         public int id { get; set; }
 
         public string Email { get; set; }
@@ -40,7 +39,7 @@ namespace ACS.WEB.ViewModel
         /// <summary>
         /// id пользователя
         /// </summary>
-        public virtual int? Employee_Id { get; set; }
+        public EmployeeViewModel Employee { get; set; }
 
         /// <summary>
         /// Свойство навигации для утверждений пользователя

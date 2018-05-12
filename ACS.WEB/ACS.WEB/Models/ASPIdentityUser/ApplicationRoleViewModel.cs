@@ -12,7 +12,7 @@ namespace ACS.WEB.ViewModel
     /// </summary>
     public partial class ApplicationRoleViewModel 
     {
-
+        [Display(Name = "ID")]
         public int id { get; set; }
       
         [Display(Name = "Наименование")]

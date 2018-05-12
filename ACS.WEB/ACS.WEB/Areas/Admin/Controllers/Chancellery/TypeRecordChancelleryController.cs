@@ -57,7 +57,7 @@ namespace ACS.WEB.Areas.Admin.Controllers.Chancellery
                     string currentUserEmail = this.User.Identity.Name;
 
                     var typeDTO = GetMapTypeRecordChancelleryAdminVMToTypeRecordChancelleryDTO().Map<TypeRecordChancelleryAdminVM, TypeRecordChancelleryDTO>(typeVM);
-                    ChancelleryService.TypeRecordCreate(typeDTO, currentUserEmail);
+                    ChancelleryService.TypeRecordCreateOrUpdate(typeDTO, currentUserEmail);
 
                     return RedirectToAction("Index");
                 }
@@ -94,7 +94,7 @@ namespace ACS.WEB.Areas.Admin.Controllers.Chancellery
                     string currentUserEmail = this.User.Identity.Name;
 
                     var typeDTO = GetMapTypeRecordChancelleryAdminVMToTypeRecordChancelleryDTO().Map<TypeRecordChancelleryAdminVM, TypeRecordChancelleryDTO>(typeVM);
-                    ChancelleryService.TypeRecordUpdate(typeDTO, currentUserEmail);
+                    ChancelleryService.TypeRecordCreateOrUpdate(typeDTO, currentUserEmail);
 
                     return RedirectToAction("Index");
                 }

@@ -36,7 +36,7 @@ namespace ACS.WEB.Controllers
             //var user = this.User;
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
             var roles = mapper.Map<IEnumerable<ApplicationRoleDTO>, List<ApplicationRoleViewModel>>(rolesDto);
-            return View(roles);
+            return View(roles.OrderBy(r=>r.id));
         }
 
         // GET: ApplicationRole/Details/5

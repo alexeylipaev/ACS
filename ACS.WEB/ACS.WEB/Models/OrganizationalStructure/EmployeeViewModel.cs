@@ -18,7 +18,7 @@ namespace ACS.WEB.ViewModel
             Chancelleries = new HashSet<ChancelleryViewModel>();
             PostsEmployeesСode1С = new HashSet<PostsEmployeeСode1СViewModel>();
         }
-
+        [Display(Name = "ID")]
         public int id { get; set; }
 
         [Display(Name = "Имя")]
@@ -29,7 +29,6 @@ namespace ACS.WEB.ViewModel
         public string MName { get; set; }
 
         public string Email { get; set; }
-
 
 
         [DataType(DataType.Date)]

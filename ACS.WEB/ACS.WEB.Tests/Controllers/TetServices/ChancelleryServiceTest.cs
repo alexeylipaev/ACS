@@ -213,6 +213,31 @@ namespace ACS.WEB.Tests.Controllers.TetServices
         {
             throw new NotImplementedException();
         }
+
+        public ExternalOrganizationChancelleryDTO GetExternalOrganization(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<ExternalOrganizationChancelleryDTO> GetAllExternalOrganizations()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TypeRecordCreateOrUpdate(TypeRecordChancelleryDTO typeDTO, string currentUserEmail)
+        {
+            throw new NotImplementedException();
+        }
+
+        public EmployeeDTO GetEmployee(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<EmployeeDTO> GetEmployees()
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
     }

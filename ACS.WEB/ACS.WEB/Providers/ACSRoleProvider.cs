@@ -2,7 +2,7 @@ using ACS.BLL;
 using ACS.BLL.DTO;
 using ACS.BLL.Interfaces;
 using ACS.BLL.Services;
-
+using ACS.BLL.Infrastructure;
 
 using System;
 using System.Collections.Generic;
@@ -43,8 +43,8 @@ namespace ACS.WEB.Providers
 
         }
 
-       
-       
+
+
         public override string ApplicationName
         {
             get
@@ -92,15 +92,27 @@ namespace ACS.WEB.Providers
         {
             //string Email = ActiveDirectory.IdentityUserEmailFromActiveDirectory(domainUsername);
             //находим пользователя по его Email
-            var applicationUserDTO = ApplicationUserService.FindByEmail(loginEmail);//SecurityService.GetIdentityUser(Email);
+
+            ApplicationUserDTO applicationUserDTO = null;
+            try
+            {
+                applicationUserDTO = ApplicationUserService.FindByEmail(loginEmail);//SecurityService.GetIdentityUser(Email);
+            }
+            catch (ValidationException )
+            {
+                throw new ValidationException("Учетная запись отсутствует, обратитесь в отдел автоматизации", "");
+            }
+
 
             List<string> result = new List<string>();
-            foreach (var AppUserRole in applicationUserDTO.Roles)
-            {
-                var role = ApplicationUserService.FindRoleById(AppUserRole.RoleId);
-                if (role != null)
-                    result.Add(role.Name.ToString());
-            }
+            if (applicationUserDTO != null)
+                foreach (var AppUserRole in applicationUserDTO.Roles)
+                {
+                    var role = ApplicationUserService.FindRoleById(AppUserRole.RoleId);
+                    if (role != null)
+                        result.Add(role.Name.ToString());
+                }
+
             return result.ToArray();
         }
 

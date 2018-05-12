@@ -1,6 +1,8 @@
 ﻿using ACS.DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
@@ -14,7 +16,11 @@ namespace ACS.DAL.Configuration
         {
             HasKey(e => e.id);
 
-            Property(e => e.CodePost1C).IsRequired();
+            Property(e => e.CodePost1C)
+                .IsRequired()
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName,
+                new IndexAnnotation(
+                new IndexAttribute("IX_CodePost1C") { IsUnique = true }));
         }
     }
 }

@@ -31,8 +31,8 @@ namespace ACS.WEB.Controllers
 x => x.MapFrom(m => m.Employee_Id));
                 cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>().ForMember(x => x.Employee,
 x => x.MapFrom(m => m.Employee));
-                cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>().ForMember(x => x.Employee_Id,
-          x => x.MapFrom(m => m.Employee_Id));
+                cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>().ForMember(x => x.Employee,
+          x => x.MapFrom(m => m.Employee));
                 cfg.CreateMap<PostEmployeeСode1СDTO, PostsEmployeeСode1СViewModel>().ForMember(x => x.Employee_Id,
 x => x.MapFrom(m => m.Employee_Id));
                 cfg.CreateMap<EmployeeDTO, EmployeeViewModel>();

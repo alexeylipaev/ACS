@@ -34,15 +34,15 @@ namespace ACS.BLL.Interfaces
 
         Task<OperationDetails> AddLoginAsync(int userId, UserLoginInfo login);
 
-        Task<OperationDetails> CreateAsync(ApplicationUserDTO applicationUserDTO);
-
+        Task<OperationDetails> CreateOrUpdateAsync(ApplicationUserDTO applicationUserDTO);
+        //Task<OperationDetails> CreateAsync(ApplicationUserDTO applicationUserDTO);
         Task<OperationDetails> AssignRolesAsync(int userId);
 
         IEnumerable<ApplicationUserDTO> GetApplicationUsers();
 
         IEnumerable<ApplicationRoleDTO> GetApplicationRoles();
 
-        Task<OperationDetails> UpdateAsync(ApplicationUserDTO applicationUserDTO);
+        //Task<OperationDetails> UpdateAsync(ApplicationUserDTO applicationUserDTO);
 
         Task<OperationDetails> UpdateUserRolesAsync(ApplicationUserDTO applicationUserDTO);
         

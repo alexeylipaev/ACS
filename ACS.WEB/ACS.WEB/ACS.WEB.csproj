@@ -191,6 +191,7 @@
     <Compile Include="Controllers\Chancellery\TypesRecordsChancelleryController.cs" />
     <Compile Include="Controllers\ProjectRegistryController.cs" />
     <Compile Include="Models\Chancellery\EmployeeMultiSelector.cs" />
+    <Compile Include="Models\Chancellery\SelectedExternalOrgViewModel.cs" />
     <Compile Include="Models\ProjectRegistryViewModel.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -205,7 +206,7 @@
     <Compile Include="Controllers\ApplicationRolesController.cs" />
     <Compile Include="Controllers\ApplicationUsersController.cs" />
     <Compile Include="Controllers\Chancellery\ChancelleryController.cs" />
-    <Compile Include="Controllers\Chancellery\EmployeeSelectItem.cs" />
+    <Compile Include="Models\Chancellery\EmployeeSelectItem.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -241,7 +242,7 @@
     <Compile Include="Models\OrganizationalStructure\EmployeeViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\EmployeePassportViewModel.cs" />
     <Compile Include="Models\OrganizationalStructure\WorkHistoryViewModel.cs" />
-    <Compile Include="Models\SelectedRoleViewModel.cs" />
+    <Compile Include="Models\ASPIdentityUser\SelectedRoleViewModel.cs" />
     <Compile Include="Models\SystemParametersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ACSRoleProvider.cs" />
@@ -249,8 +250,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Start\Description.txt" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Chosen\chosen-sprite.png" />
@@ -270,6 +269,8 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Employees\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Employees\Create.cshtml" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Chosen\chosen.jquery.min.js" />
     <Content Include="Areas\Admin\Views\Employees\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\TypeRecordChancellery\Index.cshtml" />
@@ -277,28 +278,22 @@
     <Content Include="Areas\Admin\Views\TypeRecordChancellery\Create.cshtml" />
     <Content Include="Areas\Admin\Views\TypeRecordChancellery\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\TypeRecordChancellery\Edit.cshtml" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery.filedrop.js" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Chancellery\Details.cshtml" />
@@ -370,7 +365,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\NScript\" />
     <Folder Include="Views\AdminApplicationUserVM\" />
     <Folder Include="Views\Shared\DisplayTemplates\" />
     <Folder Include="Views\Shared\EditTemplates\" />
@@ -379,8 +373,6 @@
     <None Include="Project_Readme.html" />
     <None Include="Properties\PublishProfiles\ACS.pubxml" />
     <None Include="Properties\PublishProfiles\acs pub.pubxml" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Views\JournalRegistrationsChancellery\Index.cshtml" />
     <Content Include="Views\JournalRegistrationsChancellery\Details.cshtml" />
     <Content Include="Views\JournalRegistrationsChancellery\Create.cshtml" />
@@ -396,6 +388,7 @@
     <Content Include="Views\FileRecordChancellery\Index.cshtml" />
     <Content Include="Views\FileRecordChancellery\Edit.cshtml" />
     <Content Include="Views\Chancellery\AttachFiles.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

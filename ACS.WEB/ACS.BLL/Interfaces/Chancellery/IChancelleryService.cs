@@ -12,6 +12,104 @@ namespace ACS.BLL.Interfaces
     public interface IChancelleryService : IDisposable
     {
 
+        #region Канцелярия
+
+        /// <summary>
+        /// Получить канцелярскую запись по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ChancelleryDTO ChancelleryGet(int id);
+
+        /// <summary>
+        /// Сделать запись
+        /// </summary>
+        /// <param name="chancelleryDto"></param>
+        void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail);
+
+        int DeleteChancellery(int chancelleryId);
+
+        /// <summary>
+        /// Вся канцелярия
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<ChancelleryDTO> ChancellerieGetAll();
+
+        void ChancelleryUpdate(ChancelleryDTO ChancelleryDTO, string authorEmail);
+
+        #region Folder
+
+        /// <summary>
+        /// Получить папку
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        FolderChancelleryDTO FolderGet(int id);
+
+        /// <summary>
+        /// Все все папки
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<FolderChancelleryDTO> GetAllFolders();
+        #endregion
+
+        #region Журнал регистраций
+
+        /// <summary>
+        /// Получить журнал регистрации по id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        JournalRegistrationsChancelleryDTO GetJournalRegistrations(int id);
+
+        /// <summary>
+        /// Получить все журналы регистрации 
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<JournalRegistrationsChancelleryDTO> GetAllJournalesRegistrations();
+
+        #endregion
+
+
+        #region Внешнии организации
+
+        /// <summary>
+        /// Получить внешнюю организацию
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ExternalOrganizationChancelleryDTO GetExternalOrganization(int id);
+
+        /// <summary>
+        /// Получить все внешнии организации
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<ExternalOrganizationChancelleryDTO> GetAllExternalOrganizations();
+
+        #endregion
+
+        #region От кого
+
+        /// <summary>
+        /// От кого
+        /// </summary>
+        /// <returns></returns>
+        FromChancelleryDTO GetFromWhom(int id);
+
+        #endregion
+
+        #region Кому
+
+        /// <summary>
+        /// Кому (список)
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<ToChancelleryDTO> GetToList();
+
+        #endregion
+
+        #endregion
+
         #region работа с файлами 
 
         /// <summary>
@@ -20,7 +118,7 @@ namespace ACS.BLL.Interfaces
         /// <param name="files"></param>
         /// <param name="EditorId"></param>
         /// <returns></returns>
-        int AttachOrDetachFile(FileRecordChancelleryDTO fileDTO, string authorEmail, int ChancelleryId,bool attach);
+        int AttachOrDetachFile(FileRecordChancelleryDTO fileDTO, string authorEmail, int ChancelleryId, bool attach);
 
         /// <summary>
         /// Прикрепить/Открепить файлы
@@ -75,82 +173,21 @@ namespace ACS.BLL.Interfaces
 
         #endregion
 
-        /// <summary>
-        /// Сделать запись
-        /// </summary>
-        /// <param name="chancelleryDto"></param>
-        void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail);
-
-
-
-        int DeleteChancellery(int chancelleryId);
-
+        #region Employee
         /// <summary>
         /// Получить ответственного
         /// </summary>
         /// <param name="id"></param>
-        EmployeeDTO GetResponsible(int id);
+        EmployeeDTO GetEmployee(int id);
 
         /// <summary>
         /// Получить всех пользователей 
         /// </summary>
         /// <param name="id"></param>
-        IEnumerable<EmployeeDTO> GetAllUser();
+        IEnumerable<EmployeeDTO> GetEmployees();
 
+        #endregion
 
-        /// <summary>
-        /// Получить папку
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        FolderChancelleryDTO FolderGet(int id);
-
-        /// <summary>
-        /// Все все папки
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<FolderChancelleryDTO> GetAllFolders();
-
-        /// <summary>
-        /// Получить журнал регистрации по id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        JournalRegistrationsChancelleryDTO GetJournalRegistrations(int id);
-
-        /// <summary>
-        /// Получить все журналы регистрации 
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<JournalRegistrationsChancelleryDTO> GetAllJournalesRegistrations();
-
-        /// <summary>
-        /// От кого
-        /// </summary>
-        /// <returns></returns>
-        FromChancelleryDTO GetFromWhom(int id);
-
-
-        /// <summary>
-        /// Кому (список)
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<ToChancelleryDTO> GetToList();
-
-        /// <summary>
-        /// Получить канцелярскую запись по id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        ChancelleryDTO ChancelleryGet(int id);
-
-        /// <summary>
-        /// Вся канцелярия
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<ChancelleryDTO> ChancellerieGetAll();
-
-        void ChancelleryUpdate(ChancelleryDTO ChancelleryDTO, string authorEmail);
 
         #region Работа с типами корреспонденции
 
@@ -177,14 +214,8 @@ namespace ACS.BLL.Interfaces
         /// </summary>
         /// <param name="typeDTO"></param>
         /// <param name="currentUserEmail"></param>
-        void TypeRecordCreate(TypeRecordChancelleryDTO typeDTO, string currentUserEmail);
+        void TypeRecordCreateOrUpdate(TypeRecordChancelleryDTO typeDTO, string currentUserEmail);
 
-        /// <summary>
-        /// Обновить тип корреспонденции
-        /// </summary>
-        /// <param name="typeDTO"></param>
-        /// <param name="currentUserEmail"></param>
-        void TypeRecordUpdate(TypeRecordChancelleryDTO typeDTO, string currentUserEmail);
 
         /// <summary>
         /// Обновить тип корреспонденции

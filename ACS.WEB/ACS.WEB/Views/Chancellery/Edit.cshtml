@@ -13,7 +13,7 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>Запись</h4>
+    <h4>@string.Format(Model.id + " " + Model.TypeRecordChancellery.Name + " корреспонденция")</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.id)
@@ -73,9 +73,42 @@
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(model => model.FileRecordChancelleries, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.ToChancelleries, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            <input type="file" name="FileRecordChancelleries" id="FileRecordChancelleries" multiple /><br />
+            @*исходящая*@
+            @if (Model.TypeRecordChancellery.id.ToString() == "2")
+            {
+                <div class="col-md-10">
+                    @Html.ListBoxFor(model => model.SelectedExternalOrgViewModel.SelectedId, new MultiSelectList(ViewBag.ToRecipients, "Id", "Name"), new { @class = "multiSelectDropDown", multiple = "multiple" })
+                </div>
+            }
+            else
+            {
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.EmployeeMultiSelector.SelectedId, new SelectList(ViewBag.ToRecipients, "Id", "Name"), new { @class = "normalDropDown" })
+                    @*@Html.ListBoxFor(model => model.EmployeeMultiSelector.SelectedId, new MultiSelectList(ViewBag.ToRecipients, "Id", "Name"), new { @class = "multiSelectDropDown", multiple = "multiple" })*@
+                </div>
+            }
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.FromChancelleries, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @*Входящая*@
+            @if (Model.TypeRecordChancellery.id.ToString() == "1")
+            {
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.SelectedExternalOrgViewModel.SelectedId, new SelectList(ViewBag.FromRecipients, "Id", "Name"), new { @class = "normalDropDown" })
+                    @*@Html.ListBoxFor(model => model.SelectedExternalOrgViewModel.SelectedId, new MultiSelectList(ViewBag.FromRecipients, "Id", "Name"), new { @class = "multiSelectDropDown", multiple = "multiple" })*@
+                </div>
+            }
+            else
+            {
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.EmployeeMultiSelector.SelectedId, new SelectList(ViewBag.FromRecipients, "Id", "Name"), new { @class = "normalDropDown" })
+                    @*@Html.ListBoxFor(model => model.EmployeeMultiSelector.SelectedId, new MultiSelectList(ViewBag.FromRecipients, "Id", "Name"), new { @class = "multiSelectDropDown", multiple = "multiple" })*@
+                </div>
+            }
         </div>
     </div>
     @*<div class="form-group">
@@ -161,4 +194,20 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+        $(function () {
+            //normal dropdown
+            $(".normalDropDown").chosen({
+                /*disable_serch : true */
+                width:"30%",
+                disable_serch_threshold: 5//number items 5
+
+            });
+
+        });
+        $(function () {
+            //multiselect dropdown
+            $(".multiSelectDropDown").chosen({ width: "30%" });
+        });
+</script>
 }

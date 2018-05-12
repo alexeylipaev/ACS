@@ -36,6 +36,11 @@ namespace ACS.BLL.DTO
         /// </summary>
         public string Summary { get; set; }
 
+        /// <summary>
+        /// Примечание
+        /// </summary>
+        public string Notice { get; set; }
+
         #region папка
 
         //public int? FolderId { get; set; }

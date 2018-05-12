@@ -111,6 +111,10 @@ namespace ACS.BLL.Services
             return mapper.Map<TypeRecordChancelleryDTO, TypeRecordChancellery>(TypeRecordDto);
         }
 
-       
+        public TypeRecordChancelleryDTO GetTypeRecordByName(string nameType)
+        {
+            TypeRecordChancellery result = Database.TypeRecordChancelleries.Query(filter: t => t.Name == nameType).FirstOrDefault();
+            return MappTypeRecordToTypeRecordDTO(result);
+        }
     }
 }

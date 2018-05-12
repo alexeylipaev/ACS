@@ -9,6 +9,16 @@ using System.Web;
 
 namespace ACS.WEB.ViewModel
 {
+    //public enum TypesChancellery : byte
+    //{
+    //    [Display(Name = "Входящая")]
+    //    Входящая = 1,
+    //    [Display(Name = "Исходящая")]
+    //    Исходящая,
+    //    [Display(Name = "Внутреняя")]
+    //    Внутреняя
+    //}
+
     public partial class ChancelleryViewModel : SystemParametersViewModel
     {
         public ChancelleryViewModel()
@@ -17,6 +27,7 @@ namespace ACS.WEB.ViewModel
             FromChancelleries = new HashSet<FromChancelleryViewModel>();
             ToChancelleries = new HashSet<ToChancelleryViewModel>();
             EmployeeMultiSelector = new Models.EmployeeMultiSelector();
+            SelectedExternalOrgViewModel = new SelectedExternalOrgViewModel();
         }
         [Display(Name = "ID")]
         public int id { get; set; }
@@ -42,6 +53,13 @@ namespace ACS.WEB.ViewModel
         [Display(Name = "Описание")]
         [DataType(DataType.MultilineText)]
         public string Summary { get; set; }
+
+        /// <summary>
+        /// Примечание
+        /// </summary>
+        [Display(Name = "Примечание")]
+        [DataType(DataType.MultilineText)]
+        public string Notice { get; set; }
 
         #region папка
 
@@ -71,16 +89,48 @@ namespace ACS.WEB.ViewModel
         //[Display(Name = "Тип")]
         //public int? TypeRecordId { get; set; }
 
+        private TypeRecordChancelleryViewModel _typeRecordChancellery;
+
         /// <summary>
         /// Тип записи
         /// </summary>
         [Display(Name = "Тип записи")]
-        public TypeRecordChancelleryViewModel TypeRecordChancellery { get; set; }
+        public TypeRecordChancelleryViewModel TypeRecordChancellery {
+            get { return _typeRecordChancellery; }
+            set
+            {
 
+                _typeRecordChancellery = value;
+                //switch (_typeRecordChancellery.id)
+                //{
+                //    case 1:
+                //        {
+                //            TypeChancellery = TypesChancellery.Входящая;
+                //            break;
+                //        }
+                //    case 2:
+                //        {
+                //            TypeChancellery = TypesChancellery.Исходящая;
+                //            break;
+                //        }
+                //    case 3:
+                //        {
+                //            TypeChancellery = TypesChancellery.Внутреняя;
+                //            break;
+                //        }
+                //    default:
+                //        break;
+                //}
+
+             
+            }
+        }
+        //public TypesChancellery TypeChancellery { get; set; }
+        
         #endregion
 
         #region Ответственный
-      
+
         //public int? ResponsibleEmployee_Id { get; set; }
 
         /// <summary>
@@ -113,24 +163,47 @@ namespace ACS.WEB.ViewModel
         [Display(Name = "Кому")]
         public ICollection<ToChancelleryViewModel> ToChancelleries { get; set; }
 
-        ICollection<ToSelectItem> _ToSelectItems;
-        public ICollection<ToSelectItem> ToSelectItems
-        { get
-            {
-                if (_ToSelectItems == null && ToChancelleries != null)
-                {
-                    _ToSelectItems = ToChancelleries.Select(t=> new ToSelectItem { Id=t.id, Name=t.Employee.FullName}).ToList();
+        //ICollection<ToSelectItem> _ToSelectItemsEmpl;
+        //public ICollection<ToSelectItem> ToSelectItemsEmpl
+        //{
+        //    get
+        //    {
+        //        if (_ToSelectItemsEmpl == null && ToChancelleries != null)
+        //        {
+        //            _ToSelectItemsEmpl = ToChancelleries.Select(t => new ToSelectItem { Id = t.id, Name = t.Employee.FullName }).ToList();
 
-                }
-                return _ToSelectItems;
-            } }
+        //        }
+        //        return _ToSelectItemsEmpl;
+        //    }
+        //}
+
+        //ICollection<ToSelectItem> _ToSelectItemsExternalOrg;
+        //public ICollection<ToSelectItem> ToSelectItemsExternalOrg
+        //{
+        //    get
+        //    {
+        //        if (_ToSelectItemsExternalOrg == null && ToChancelleries != null)
+        //        {
+        //            _ToSelectItemsExternalOrg = ToChancelleries.Select(t => new ToSelectItem { Id = t.id, Name = t.Employee.FullName }).ToList();
+
+        //        }
+        //        return _ToSelectItemsExternalOrg;
+        //    }
+        //}
+
 
         public EmployeeMultiSelector EmployeeMultiSelector
         { get; set; }
-    }
-    public class ToSelectItem
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
+
+        public SelectedExternalOrgViewModel SelectedExternalOrgViewModel
+        { get; set; }
     }
 }
+
+public class ToSelectItem
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
+
+

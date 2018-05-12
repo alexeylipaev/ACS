@@ -8,10 +8,11 @@ namespace ACS.WEB.Models
         public EmployeeMultiSelector()
         {
             SelectedId = new HashSet<int>();
+            EmplCollection = new HashSet<EmployeeViewModel>();
         }
         public int Id { get; set; }
 
-        public ICollection<EmployeeViewModel> RoleCollection { get; set; }
+        public ICollection<EmployeeViewModel> EmplCollection { get; set; }
 
         public ICollection<int> SelectedId { get; set; }
     }

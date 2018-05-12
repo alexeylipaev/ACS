@@ -26,18 +26,19 @@ namespace ACS.BLL.Services
 
             try
             {
-                var journal = MappJournalDTOToJournal(JournalRegistrationsChancelleryDTO);
+              
 
                 var Journal = Database.JournalRegistrationsChancelleries.Find(JournalRegistrationsChancelleryDTO.id);
 
-                if (Journal != null && Journal.Name != journal.Name)
+                if (Journal != null && Journal.Name != JournalRegistrationsChancelleryDTO.Name)
                 {
-                    Journal.Name = journal.Name;
+                    Journal.Name = JournalRegistrationsChancelleryDTO.Name;
                     return Database.JournalRegistrationsChancelleries.Update(Journal, AuthorID);
                 }
 
                 else if (Journal == null)
                 {
+                    var journal = MappJournalDTOToJournal(JournalRegistrationsChancelleryDTO);
                     return Database.JournalRegistrationsChancelleries.Add(journal, AuthorID);
                 }
             }
@@ -88,12 +89,10 @@ namespace ACS.BLL.Services
             }).CreateMapper();
         }
 
-
         JournalRegistrationsChancelleryDTO MappJournalToJournalDTO(JournalRegistrationsChancellery Journal)
         {
             return mapTemplournalToJournalDTO().Map<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>(Journal);
         }
-
 
         JournalRegistrationsChancellery MappJournalDTOToJournal(JournalRegistrationsChancelleryDTO JournalDto)
         {

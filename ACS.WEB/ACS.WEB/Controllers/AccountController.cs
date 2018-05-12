@@ -16,8 +16,8 @@ using ACS.BLL.Interfaces;
 using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
 using ACS.WEB.Models.ActiveDirectoryAuthentication;
-
-
+using System.Security.Principal;
+using ACS.BLL;
 
 namespace ACS.WEB.Controllers
 {
@@ -42,8 +42,23 @@ namespace ACS.WEB.Controllers
             }
         }
 
-        public ActionResult Login()
+        [AllowAnonymous]
+        public async Task<ActionResult> Login(string returnUrl)
         {
+            string currentUserEmail = this.User.Identity.Name;
+
+            var Users = AccountAppUserService.GetUsers().ToList();
+             var appUser = (from user in Users                            where user.Email == currentUserEmail                            select user).FirstOrDefault();              if (appUser == null)
+            {
+                ViewBag.ReturnUrl = returnUrl;
+
+                RegisterViewModel regVM = new RegisterViewModel() { Email = currentUserEmail, UserName = currentUserEmail };
+
+                if (!string.IsNullOrEmpty(currentUserEmail) && !string.IsNullOrEmpty(regVM.Password))
+                    return await this.Register(regVM);
+
+            }
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 #if notWindowsAuth
@@ -76,7 +91,7 @@ namespace ACS.WEB.Controllers
 #else
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public /*async Task<*/ActionResult/*>*/ Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             //await SetInitialDataAsync();
 
@@ -100,8 +115,8 @@ namespace ACS.WEB.Controllers
 
                     // we are in!
                     if (string.IsNullOrWhiteSpace(returnUrl))
-
                         return RedirectToAction("Index", "Home");
+
                     return RedirectPermanent(returnUrl);
                 }
 
@@ -127,6 +142,8 @@ namespace ACS.WEB.Controllers
             }
             return View(model);
         }
+
+
 #endif
         public ActionResult Logout()
         {
@@ -135,6 +152,7 @@ namespace ACS.WEB.Controllers
         }
 
 
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View();

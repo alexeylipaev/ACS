@@ -15,7 +15,13 @@ namespace ACS.BLL.Interfaces
         //int UpdateTypeRecordChancellery(TypeRecordChancelleryDTO TypeRecordChancelleryDTO, string authorEmail);
 
         TypeRecordChancelleryDTO GetTypeRecordChancellery(int id);
-
+        /// <summary>
+        /// Получить тип по имени
+        /// </summary>
+        /// <param name="nameType"></param>
+        /// <returns></returns>
+        TypeRecordChancelleryDTO GetTypeRecordByName(string nameType);
+        
         IEnumerable<ChancelleryDTO> GetChancelleriesByType(int TypeRecordChancelleryId);
 
         IEnumerable<TypeRecordChancelleryDTO> GetTypesRecordChancellery();

@@ -30,14 +30,14 @@ namespace ACS.WEB.Controllers
         public ActionResult Index()
         {
             IEnumerable<ApplicationUserDTO> usersDto = ApplicationUserService.GetApplicationUsers();
-            //var user = this.User;
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()).CreateMapper();
-            var users = mapper.Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(usersDto);
+   
+  
+            var users = MappListAppUserDTOToListAppUserVM(usersDto);
             FillDataRoles(users);
             return View(users);
         }
 
-        private void FillDataRoles(List<ApplicationUserViewModel> usersVW)
+        private void FillDataRoles(IEnumerable<ApplicationUserViewModel> usersVW)
         {
             foreach (var userVW in usersVW)
             {
@@ -72,8 +72,8 @@ namespace ACS.WEB.Controllers
 
             ApplicationUserDTO userDto = await ApplicationUserService.FindByIdAsync(id);
             //var user = this.User;
-            var mapperUs = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()).CreateMapper();
-            var user = mapperUs.Map<ApplicationUserDTO, ApplicationUserViewModel>(userDto);
+
+            var user = MappAppUserDTOToAppUserVM(userDto);
 
             var userRoles = user.Roles;
 
@@ -140,8 +140,8 @@ namespace ACS.WEB.Controllers
             try
             {
                 ApplicationUserDTO userDto = await ApplicationUserService.FindByIdAsync((int)id);
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()).CreateMapper();
-                var userVM = mapper.Map<ApplicationUserDTO, ApplicationUserViewModel>(userDto);
+
+                var userVM = MappAppUserDTOToAppUserVM(userDto);
                 //var userVM = new UserViewModel { Id = user.Id };
 
                 return View(userVM);
@@ -153,25 +153,9 @@ namespace ACS.WEB.Controllers
         }
 
         // GET: ApplicationRole/Create
-        public async Task<ActionResult> Create(int? id)
+        public  ActionResult Create()
         {
-
-            try
-            {
-                var userVM = new ApplicationUserViewModel();
-                if (id != null)
-                {
-                    ApplicationUserDTO userDTO = await ApplicationUserService.FindByIdAsync((int)id);
-                    var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()).CreateMapper();
-                    userVM = mapper.Map<ApplicationUserDTO, ApplicationUserViewModel>(userDTO);
-                    //userVM.id = userDTO.id;
-                }
-                return View(userVM);
-            }
-            catch (ValidationException ex)
-            {
-                return Content(ex.Message);
-            }
+            return View();
         }
 
         // POST: ApplicationRole/Create
@@ -179,112 +163,125 @@ namespace ACS.WEB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ApplicationUserViewModel userVM)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserViewModel, ApplicationUserDTO>()).CreateMapper();
-                    var userDto = mapper.Map<ApplicationUserViewModel, ApplicationUserDTO>(userVM);
-
-                    await ApplicationUserService.CreateAsync(userDto);
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (ValidationException ex)
-            {
-                ModelState.AddModelError(ex.Property, ex.Message);
-            }
-            return View(userVM);
+            return await CreateOrUpdateOrDel(userVM);
         }
 
         // GET: ApplicationRole/Edit/5
         [HttpGet]
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int id)
         {
-            var roleVM = new ApplicationUserViewModel();
-            if (id != null)
-            {
-                ApplicationUserDTO userDTO = await ApplicationUserService.FindByIdAsync((int)id);
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()).CreateMapper();
-                roleVM = mapper.Map<ApplicationUserDTO, ApplicationUserViewModel>(userDTO);
-                //userVM.id = userDTO.id;
-            }
-
-            return View(roleVM);
+            var VM = await GetAppUserVM(id);
+            return View(VM);
         }
 
+        async Task<ApplicationUserViewModel> GetAppUserVM(int id)
+        {
+            var appuserDTO = await ApplicationUserService.FindByIdAsync(id);
+            if (appuserDTO == null) { throw new Exception("Пользователь не найден"); }
+            return MappAppUserDTOToAppUserVM(appuserDTO);
+        }
 
         // POST: ApplicationRole/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(ApplicationUserViewModel userVM)
         {
+            return await CreateOrUpdateOrDel(userVM);
+        }
+
+      async Task<ActionResult> CreateOrUpdateOrDel(/*[Bind(Include = "Id,Name")]*/ ApplicationUserViewModel applicationUserViewModel, bool del = false)
+        {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserViewModel, ApplicationUserDTO>()).CreateMapper();
-                    var userDto = mapper.Map<ApplicationUserViewModel, ApplicationUserDTO>(userVM);
+                    string currentUserEmail = this.User.Identity.Name;
+                    var applicationUserDTO = MappAppUserVMToAppUserDTO(applicationUserViewModel);
 
-                    await ApplicationUserService.UpdateAsync(userDto);
-                    ViewBag.EditResult = "Данные изменены";
-                    return View(userDto);
+                    OperationDetails result = null;
+
+                    if (del)
+                    {
+                        result =  await ApplicationUserService.DeleteAsync(applicationUserDTO.id);
+                        if (result.Succeeded)
+                            ViewBag.EditResult = "Данные успешно удалены";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        result = await ApplicationUserService.CreateOrUpdateAsync(applicationUserDTO);
+                        if (result.Succeeded)
+                            ViewBag.EditResult = "Данные успешно обновлены";
+                        return View(applicationUserViewModel);
+                    }
+
                 }
             }
             catch (ValidationException ex)
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
             }
-
-            return View(userVM);
+            return View(applicationUserViewModel);
         }
+
 
         // GET: ApplicationRole/Delete/5
         [HttpGet]
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var userDTO = await ApplicationUserService.FindByIdAsync((int)id);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()).CreateMapper();
-            var roleVM = mapper.Map<ApplicationUserDTO, ApplicationUserViewModel>(userDTO);
-
-            if (roleVM == null)
-            {
-                return HttpNotFound();
-            }
-            return View(roleVM);
+            var vm = await GetAppUserVM(id);
+            ActionResult action = await this.DeleteConfirmed(id);
+            return action;
         }
 
         // POST: ApplicationRole/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteAction(int? id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            if (id == null)
+            var appUserDTO = await ApplicationUserService.FindByIdAsync(id);
+            var appUserVM = MappAppUserDTOToAppUserVM(appUserDTO);
+            return await CreateOrUpdateOrDel(appUserVM, true);
+        }
+        #region mapper
+        IMapper MapperUserVMToUserDTO()
+        {
+            return new MapperConfiguration(cfg =>
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    await ApplicationUserService.DeleteAsync((int)id);
-                    ViewBag.EditResult = "Данные удалены";
-                    return RedirectToAction("Index");
-                }
-            }
-            catch (ValidationException ex)
-            {
-                ModelState.AddModelError(ex.Property, ex.Message);
-            }
-            return RedirectToAction("Index");
+                cfg.CreateMap<EmployeeViewModel, EmployeeDTO>();
+                cfg.CreateMap<AppUserClaimViewModel, AppUserClaimDTO>();
+                cfg.CreateMap<AppUserLoginViewModel, AppUserClaimDTO>();
+                cfg.CreateMap<AppUserRoleViewModel, AppUserRoleDTO>();
+                cfg.CreateMap<ApplicationUserViewModel, ApplicationUserDTO>();
+
+            }).CreateMapper();
         }
 
+        IMapper MapperUserDTOToUserVM()
+        {
+            return new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<EmployeeDTO, EmployeeViewModel>();
+                cfg.CreateMap<AppUserClaimDTO, AppUserClaimViewModel>();
+                cfg.CreateMap<AppUserLoginDTO, AppUserLoginViewModel>();
+                cfg.CreateMap<AppUserRoleDTO, AppUserRoleViewModel>();
+                cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>();
 
+            }).CreateMapper();
+        }
+        ApplicationUserDTO MappAppUserVMToAppUserDTO(ApplicationUserViewModel ApplicationUserVM)
+        {
+            return MapperUserVMToUserDTO().Map<ApplicationUserViewModel, ApplicationUserDTO>(ApplicationUserVM);
+        }
+        ApplicationUserViewModel MappAppUserDTOToAppUserVM(ApplicationUserDTO ApplicationUserDTO)
+        {
+            return MapperUserDTOToUserVM().Map<ApplicationUserDTO, ApplicationUserViewModel>(ApplicationUserDTO);
+        }
+        IEnumerable<ApplicationUserViewModel> MappListAppUserDTOToListAppUserVM(IEnumerable<ApplicationUserDTO> ApplicationUserDTO)
+        {
+            return MapperUserDTOToUserVM().Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(ApplicationUserDTO);
+        }
+        #endregion
     }
 
 

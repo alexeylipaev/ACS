@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ACS.WEB.ViewModel.ChancelleryViewModel>
+﻿@using ACS.WEB.ViewModel;
+@model IEnumerable<ACS.WEB.ViewModel.ChancelleryViewModel>
 @{
     ViewBag.Title = "Канцелярия";
     Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
@@ -16,6 +17,17 @@
                 </div>
             </div>
         }
+        @*using (Html.BeginForm())
+            {
+                <div class="form-group">
+                    <div style="float:left; margin:10px">
+                       @if (@item as TypeRecordChancelleryViewModel != null)
+                       {
+                        @Html.ActionLink(string.Format("Создать {0}", (@item as TypeRecordChancelleryViewModel).Name), string.Format("Create{0}", (@item as TypeAccessViewModel).id), new { TypeRecordId = item.id }, new { @class = "btn btn-default" })
+                       }
+                    </div>
+                </div>
+            }*@
     }
 </p>
 <table style="margin-top: 65px;" class="table">
@@ -24,19 +36,22 @@
             @Html.DisplayNameFor(model => model.id)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FolderChancellery.Name)
+            @Html.DisplayNameFor(model => model.RegistrationNumber)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.JournalRegistrationsChancellery.Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateRegistration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RegistrationNumber)
+            @Html.DisplayNameFor(model => model.FolderChancellery.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Summary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateRegistration)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TypeRecordChancellery.Name)
@@ -46,6 +61,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ToChancelleries)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FromChancelleries)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.FileRecordChancelleries)
@@ -59,19 +77,22 @@
                 @Html.DisplayFor(modelItem => item.id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FolderChancellery.Name)
+                @Html.DisplayFor(modelItem => item.RegistrationNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.JournalRegistrationsChancellery.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateRegistration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                @Html.DisplayFor(modelItem => item.FolderChancellery.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Summary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateRegistration)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TypeRecordChancellery.Name)
@@ -81,6 +102,12 @@
             </td>
             <td>
                 @foreach (var toItem in item.ToChancelleries)
+                {
+                    @Html.Label(toItem.ToString());
+                }
+            </td>
+            <td>
+                @foreach (var toItem in item.FromChancelleries)
                 {
                     @Html.Label(toItem.ToString());
                 }

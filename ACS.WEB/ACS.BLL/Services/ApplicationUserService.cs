@@ -1,11 +1,7 @@
 ﻿using ACS.BLL.DTO; using ACS.BLL.Infrastructure; using ACS.DAL.Entities; using System.Threading.Tasks; using Microsoft.AspNet.Identity; using System.Security.Claims; using ACS.BLL.Interfaces; using ACS.DAL.Interfaces; using System.Collections.Generic; using System.Linq; using System; using ACS.BLL.BusinessModels; using AutoMapper; using System.Diagnostics; using System.Collections;  namespace ACS.BLL.Services {     public class ApplicationUserService :ServiceBase, IApplicationUserService     {         public ApplicationUserService(IUnitOfWork uow) : base(uow) { }
         /// <summary>         /// Получить ID нового объекта         /// </summary>         /// <returns></returns>         public int GetIdNewAppUser()         {             return  Database.UserManager.Users.ToList().Max(appUser => appUser.Id) + 1;         }          /// <summary>         /// Назначить роль         /// </summary>         /// <param name="RoleId"></param>         /// <param name="UserId">Null если нужно создать роль для нового пользователя, not null если пользователь уже есть в БД, поместить его ID</param>         /// <returns></returns>         public AppUserRoleDTO GetAppUserRoleAssignmentData(int RoleId, int? UserId = null)         {             AppUserRoleDTO result = null;             try             {                  UserId = UserId ?? GetIdNewAppUser();                  result = new AppUserRoleDTO() { RoleId = RoleId, UserId = (int)UserId };             }             catch (Exception e)             {
 
-                CatchError(e);                }               return result;         }          public async Task<OperationDetails> CreateAsync(ApplicationUserDTO applicationUserDTO)         {              ApplicationUser appUser = await Database.UserManager.FindByEmailAsync(applicationUserDTO.Email);              if (appUser == null)             {                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO ,ApplicationUser>()).CreateMapper();                  appUser = mapper.Map<ApplicationUserDTO , ApplicationUser>(applicationUserDTO);                  var result = await Database.UserManager.CreateAsync(appUser, applicationUserDTO.PasswordHash);                  //// создаем профиль клиента                 //Employee empl = new Employee {id = appUser.id, Email = appUser.Email};                  //appUser.Employee = empl;                  if (result.Errors.Count() > 0)                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");                  if (applicationUserDTO.Roles != null && applicationUserDTO.Roles.Any(r=>r != null) )                 {                     foreach (var role in applicationUserDTO.Roles)                     {                         var r = await Database.RoleManager.FindByIdAsync(role.RoleId);                         if(r != null)                         await Database.UserManager.AddToRolesAsync(appUser.Id, r.Name);                     }                 }                 else                 {                     var r = await Database.RoleManager.FindByIdAsync(1);                     await Database.UserManager.AddToRoleAsync(appUser.Id, r.Name);                 }                  await Database.SaveAsync();                  return new OperationDetails(true, "Пользователь успешно создан", "");             }             else             {                 return new OperationDetails(false, "Пользователь с таким логином уже существует", "Email");             }         }          public  IEnumerable<ApplicationUserDTO> GetApplicationUsers()         {             var users = Database.UserManager.Users;             // применяем автомаппер для проекции одной коллекции на другую             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, ApplicationUserDTO>()).CreateMapper();             var usersDto = mapper.Map<IEnumerable<ApplicationUser>, List<ApplicationUserDTO>>(users.ToList());  
-            //foreach (var userDto in usersDto)
-            //{
-            //     FillDataRoles(userDto);
-            //}              return usersDto;         }                   public  IEnumerable<ApplicationRoleDTO> GetApplicationRoles()         {             var roles = Database.RoleManager.Roles;             // применяем автомаппер для проекции одной коллекции на другую             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRole, ApplicationRoleDTO>()).CreateMapper();             var rolesDto =  mapper.Map<IEnumerable<ApplicationRole>, List<ApplicationRoleDTO>>(roles.ToList());              return rolesDto;         }
+                CatchError(e);                }               return result;         }          public async Task<OperationDetails> CreateAsync(ApplicationUserDTO applicationUserDTO)         {              ApplicationUser appUser = await Database.UserManager.FindByEmailAsync(applicationUserDTO.Email);              if (appUser == null)             {                                 appUser = MappAppUserDTOToAppUser(applicationUserDTO);                   var result = await Database.UserManager.CreateAsync(appUser, applicationUserDTO.PasswordHash);                  //// создаем профиль клиента                 //Employee empl = new Employee {id = appUser.id, Email = appUser.Email};                  //appUser.Employee = empl;                  if (result.Errors.Count() > 0)                     return new OperationDetails(false, result.Errors.FirstOrDefault(), "");                  if (applicationUserDTO.Roles != null && applicationUserDTO.Roles.Any(r=>r != null) )                 {                     foreach (var role in applicationUserDTO.Roles)                     {                         var r = await Database.RoleManager.FindByIdAsync(role.RoleId);                         if(r != null)                         await Database.UserManager.AddToRolesAsync(appUser.Id, r.Name);                     }                 }                 else                 {                     var r = await Database.RoleManager.FindByIdAsync(1);                     await Database.UserManager.AddToRoleAsync(appUser.Id, r.Name);                 }                  await Database.SaveAsync();                  return new OperationDetails(true, "Пользователь успешно создан", "");             }             else             {                 return new OperationDetails(false, "Пользователь с таким логином уже существует", "Email");             }         }          public  IEnumerable<ApplicationUserDTO> GetApplicationUsers()         {             var users = Database.UserManager.Users;             return MappListAppUserToListAppUserDTO(users.ToList()); ;         }           public  IEnumerable<ApplicationRoleDTO> GetApplicationRoles()         {             var roles = Database.RoleManager.Roles;             // применяем автомаппер для проекции одной коллекции на другую             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRole, ApplicationRoleDTO>()).CreateMapper();             var rolesDto =  mapper.Map<IEnumerable<ApplicationRole>, List<ApplicationRoleDTO>>(roles.ToList());              return rolesDto;         }
 
         public async Task<ApplicationRoleDTO> FindRoleByIdAsync(int roleId)         {             if (roleId == default(int))                 throw new ValidationException("Роль  не установлена", "");              var AppRole = await Database.RoleManager.FindByIdAsync(roleId);
 
@@ -36,38 +32,75 @@
         //        }
            
         //    }
-        //}          public bool IsInRole(string userName, string role)         {             bool result = false;             var applicationUser = Database.UserManager.FindByName(userName);              if (applicationUser != null)             {                 var AppRole = Database.RoleManager.FindByName(role);                 if (AppRole != null)                     return AppRole.Users.Any(u => u.UserId == applicationUser.Id);             }             return result;         }          public async Task<ApplicationUserDTO> FindByNameAsync(string userName)         {             if (string.IsNullOrEmpty(userName))                 throw new ValidationException("Имя пользователя не установлено", "");              var appUser = await Database.UserManager.FindByNameAsync(userName);             if (appUser == null)                 throw new ValidationException("Пользователь не найден", "");              var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, ApplicationUserDTO>()).CreateMapper();              var result = mapper.Map<ApplicationUser, ApplicationUserDTO>(appUser);             return result;         }          public async Task<ApplicationUserDTO> FindByEmailAsync(string Email)         {             if (string.IsNullOrEmpty(Email))                 throw new ValidationException("Почта пользователя не установлена", "");              var appUser = await Database.UserManager.FindByEmailAsync(Email);             if (appUser == null)                 throw new ValidationException("Пользователь не найден", "");              var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, ApplicationUserDTO>()).CreateMapper();              var result = mapper.Map<ApplicationUser, ApplicationUserDTO>(appUser);             return result;         }          public ApplicationUserDTO FindByEmail(string Email)         {             if (string.IsNullOrEmpty(Email))                 throw new ValidationException("Почта пользователя не установлена", "");              var appUser = (from user in Database.UserManager.Users                            where user.Email == Email                            select user).FirstOrDefault();              if (appUser == null)                 throw new ValidationException("Пользователь не найден", "");              var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, ApplicationUserDTO>()).CreateMapper();              var result = mapper.Map<ApplicationUser, ApplicationUserDTO>(appUser);             return result;         }
+        //}          public bool IsInRole(string userName, string role)         {             bool result = false;             var applicationUser = Database.UserManager.FindByName(userName);              if (applicationUser != null)             {                 var AppRole = Database.RoleManager.FindByName(role);                 if (AppRole != null)                     return AppRole.Users.Any(u => u.UserId == applicationUser.Id);             }             return result;         }          public async Task<ApplicationUserDTO> FindByNameAsync(string userName)         {             if (string.IsNullOrEmpty(userName))                 throw new ValidationException("Имя пользователя не установлено", "");              var appUser = await Database.UserManager.FindByNameAsync(userName);             if (appUser == null)                 throw new ValidationException("Пользователь не найден", ""); 
+            var result = MappAppUserToAppUserDTO(appUser);             return result;         }          public async Task<ApplicationUserDTO> FindByEmailAsync(string Email)         {             if (string.IsNullOrEmpty(Email))                 throw new ValidationException("Почта пользователя не установлена", "");              var appUser = await Database.UserManager.FindByEmailAsync(Email);             if (appUser == null)                 throw new ValidationException("Пользователь не найден", "");               var result = MappAppUserToAppUserDTO(appUser);             return result;         }          public ApplicationUserDTO FindByEmail(string Email)         {             if (string.IsNullOrEmpty(Email))                 throw new ValidationException("Почта пользователя не установлена", "");              var Users = Database.UserManager.Users.ToList();              ApplicationUser appUser = (from user in Users                            where user.Email == Email                            select user).FirstOrDefault();              if (appUser == null)                 throw new ValidationException("Пользователь не найден", "");              var result = MappAppUserToAppUserDTO(appUser);             return result;         }
 
-          public async Task<OperationDetails> AddLoginAsync(int userId, UserLoginInfo login)         {             var result = await Database.UserManager.AddLoginAsync(userId, login);              if (result.Errors.Count() > 0)                 return new OperationDetails(false, result.Errors.FirstOrDefault(), "");              return new OperationDetails(true, result.Errors.FirstOrDefault(), "");         }        
+          public async Task<OperationDetails> AddLoginAsync(int userId, UserLoginInfo login)         {             var result = await Database.UserManager.AddLoginAsync(userId, login);              if (result.Errors.Count() > 0)                 return new OperationDetails(false, result.Errors.FirstOrDefault(), "");              return new OperationDetails(true, result.Errors.FirstOrDefault(), "");         }
 
-        //Task<OperationDetails> UpdateAsync(ApplicationUserDTO applicationUserDTO);
 
-              public async Task<OperationDetails> UpdateAsync(ApplicationUserDTO UserDTO)         {             ApplicationUser EditableObj = await Database.UserManager.FindByIdAsync(UserDTO.id);
 
-            if (EditableObj == null)
+
+        public async Task<OperationDetails> CreateOrUpdateAsync(ApplicationUserDTO UserDTO)         {             ApplicationUser EditableObj = await Database.UserManager.FindByIdAsync(UserDTO.id);
+            var UpdateAppUser = MappAppUserDTOToAppUser(UserDTO);
+
+            try
             {
-                return new OperationDetails(false, "Не возможно редактировать объект с id", "");
-            }              Employee empl = null;              empl = UserDTO.Employee_Id != null ? empl = Database.Employees.Find((int)UserDTO.Employee_Id) : null;              try             {                 EditableObj.Email = UserDTO.Email;                 EditableObj.UserName = UserDTO.UserName;                 EditableObj.PasswordHash = UserDTO.PasswordHash;                 EditableObj.Employee = empl;
 
-               var resultUpdateRole = await UpdateUserRolesAsync(UserDTO);
+                if (EditableObj == null)
+                {
+                    var result = await Database.UserManager.CreateAsync(UpdateAppUser);
 
-                if (!resultUpdateRole.Succeeded)
-                    return new OperationDetails(true, resultUpdateRole.Message, "");
-               
-
-                var result =  await Database.UserManager.UpdateAsync(EditableObj);
-                await Database.SaveAsync();
-
-                if (result.Succeeded)
-                    return new OperationDetails(true, "Данные пользователя успешно обновлены", "");
+                    if (result.Succeeded)
+                        return new OperationDetails(true, "Пользователь успешно создан", "");
+                    else
+                    {
+                        return new OperationDetails(false, "Ошибка создания пользователя", "");
+                    }
+                }
                 else
                 {
-                    return new OperationDetails(true, "Ошибка обновления пользователя", "");
+                    var UserApp = Database.UserManager.FindById(UserDTO.id);
+
+                    if (UserApp != null)
+                    {
+                        UserApp.Email = UpdateAppUser.Email;
+                        UserApp.UserName = UpdateAppUser.UserName;
+                        if (!string.IsNullOrEmpty(UpdateAppUser.PasswordHash))
+                            UserApp.PasswordHash = UpdateAppUser.PasswordHash;
+                        UserApp.PhoneNumber = UpdateAppUser.PhoneNumber;
+                        UserApp.SecurityStamp = UpdateAppUser.SecurityStamp;
+                        UserApp.TwoFactorEnabled = UpdateAppUser.TwoFactorEnabled;
+
+                        UserApp.Employee = UpdateAppUser.Employee;
+
+
+                        var resultUpdateRole = await UpdateUserRolesAsync(UserDTO);
+
+                        if (!resultUpdateRole.Succeeded)
+                            return new OperationDetails(true, resultUpdateRole.Message, "");
+
+
+                        var result = await Database.UserManager.UpdateAsync(EditableObj);
+                        await Database.SaveAsync();
+
+                        if (result.Succeeded)
+                            return new OperationDetails(true, "Данные пользователя успешно обновлены", "");
+                        else
+                        {
+                            return new OperationDetails(false, "Ошибка обновления пользователя", "");
+                        }
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                return new OperationDetails(false, ex.Message, "");
+            }
 
-                            }             catch (Exception e)             {
-                CatchError(e);                 return new OperationDetails(false, e.Message, "");             }         }
+            return new OperationDetails(true, "", "");
+        }
 
+     
 
         public async Task<OperationDetails> UpdateUserRolesAsync(ApplicationUserDTO UserDTO)
         {
@@ -164,20 +197,53 @@
         public async Task<ApplicationUserDTO> FindByIdAsync(int id)
         {
             var appUser = await Database.UserManager.FindByIdAsync(id);
-
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, ApplicationUserDTO>()).CreateMapper();              var result = mapper.Map<ApplicationUser, ApplicationUserDTO>(appUser);
+             var result = MappAppUserToAppUserDTO(appUser);
 
             ApplicationUser user = await Database.UserManager.FindByIdAsync(id);
 
-            var mapperUserDto = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUser, ApplicationUserDTO>()).CreateMapper();
-
-            var userDto = mapperUserDto.Map<ApplicationUser, ApplicationUserDTO>(user);
+            var userDto = MappAppUserToAppUserDTO(user);
 
             //FillDataRoles(userDto);
 
             return result;
         }
+        IMapper MapperUserDtoToUser()
+        {
+           return new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<EmployeeDTO, Employee>();
+                cfg.CreateMap<AppUserClaimDTO, AppUserClaim>();
+                cfg.CreateMap<AppUserLoginDTO, AppUserLogin>();
+                cfg.CreateMap<AppUserRoleDTO, AppUserRole>();
+                cfg.CreateMap<ApplicationUserDTO, ApplicationUser>();
+
+            }).CreateMapper();
+        }
+
+        IMapper MapperUserToUserDto()
+        {
+            return new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Employee , EmployeeDTO>();
+                cfg.CreateMap<AppUserClaim , AppUserClaimDTO>();
+                cfg.CreateMap<AppUserLogin , AppUserLoginDTO>();
+                cfg.CreateMap<AppUserRole , AppUserRoleDTO>();
+                cfg.CreateMap<ApplicationUser , ApplicationUserDTO>();
+
+            }).CreateMapper();
+        }
+        ApplicationUser MappAppUserDTOToAppUser(ApplicationUserDTO ApplicationUserDTO)
+        {
+            return MapperUserDtoToUser().Map<ApplicationUserDTO, ApplicationUser>(ApplicationUserDTO);
+        }
+       ApplicationUserDTO MappAppUserToAppUserDTO(ApplicationUser ApplicationUser)
+        {
+            return MapperUserToUserDto().Map<ApplicationUser, ApplicationUserDTO>(ApplicationUser);
+        }
+        IEnumerable<ApplicationUserDTO> MappListAppUserToListAppUserDTO(IEnumerable<ApplicationUser> ApplicationUser)
+        {  
+            return MapperUserToUserDto().Map<IEnumerable<ApplicationUser>, List<ApplicationUserDTO>>(ApplicationUser);
+        }
+
         public void Dispose()         {             Database.Dispose();         }
-
-
     } }

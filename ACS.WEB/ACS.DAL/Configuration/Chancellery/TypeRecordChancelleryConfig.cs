@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Infrastructure.Annotations;
 using System.Data.Entity.ModelConfiguration;
 using System.Linq;
 using System.Text;
@@ -18,7 +19,11 @@ namespace ACS.DAL.Configuration
             Property(e => e.id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(e => e.Name)
-                .IsUnicode(true).IsRequired();
+                .IsUnicode(true).IsRequired()
+                .HasMaxLength(50)
+                .HasColumnAnnotation(IndexAnnotation.AnnotationName,
+                new IndexAnnotation(
+                new IndexAttribute("IX_Name") { IsUnique = true }));
 
             HasMany(e => e.Chancelleries)//имеет связанные обекты
     .WithRequired(e => e.TypeRecordChancellery)//Type  в сущности Chancellery не может быть null

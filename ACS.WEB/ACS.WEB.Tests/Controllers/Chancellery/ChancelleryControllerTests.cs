@@ -18,8 +18,8 @@ namespace ACS.WEB.Tests
         public ChancelleryControllerTests()
         {
             ChancelleryServiceTest cst = new ChancelleryServiceTest();
-            EmployeeServiceTest est = new EmployeeServiceTest();
-            ChancelleryController = new ChancelleryController(cst, est);
+            //EmployeeServiceTest est = new EmployeeServiceTest();
+            ChancelleryController = new ChancelleryController(cst);
         }
 
         public ChancelleryController ChancelleryController { get; set; }

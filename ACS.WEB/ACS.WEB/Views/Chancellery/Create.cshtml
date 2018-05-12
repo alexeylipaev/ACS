@@ -19,17 +19,17 @@
             </div>
             <hr />*@
         <div class="form-group">
-            @Html.LabelFor(model => model.DateRegistration, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateRegistration, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateRegistration, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
             @Html.LabelFor(model => model.RegistrationNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.RegistrationNumber, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.RegistrationNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DateRegistration, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DateRegistration, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateRegistration, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -39,6 +39,21 @@
                 @Html.ValidationMessageFor(model => model.Summary, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Notice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Notice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Notice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Employee, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ResponsibleEmployee_Id", string.Empty)
+                @Html.ValidationMessageFor(model => model.Employee.id, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
         <div class="form-group">
             @Html.LabelFor(model => model.Employee, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -62,9 +77,38 @@
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.ToChancelleries, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*исходящая*@
+            @if (@ViewBag.TypeRecordId.ToString() == "2")
+            {
+                        <div class="col-md-10">
+                            @Html.ListBoxFor(model => model.SelectedExternalOrgViewModel.SelectedId, new MultiSelectList(ViewBag.ToRecipients, "Id", "Name"), new { @class = "multiSelectDropDown", multiple = "multiple" })
+                        </div>
+            }
+            else
+            {
             <div class="col-md-10">
-                @Html.ListBoxFor(model => model.EmployeeMultiSelector.SelectedId, new MultiSelectList(ViewBag.ToRecipients, "Id", "Name"), new { id = "multiSelectDropDown2", multiple = "multiple" })
+                @Html.DropDownListFor(model => model.EmployeeMultiSelector.SelectedId, new SelectList(ViewBag.ToRecipients, "Id", "Name"), new { @class = "normalDropDown" })
+                @*@Html.ListBoxFor(model => model.EmployeeMultiSelector.SelectedId, new MultiSelectList(ViewBag.ToRecipients, "Id", "Name"), new { @class = "multiSelectDropDown", multiple = "multiple" })*@
             </div>
+            }
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.FromChancelleries, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*Входящая*@
+            @if (@ViewBag.TypeRecordId.ToString() == "1")
+            {
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.SelectedExternalOrgViewModel.SelectedId, new SelectList(ViewBag.FromRecipients, "Id", "Name"), new { @class = "normalDropDown" })
+                    @*@Html.ListBoxFor(model => model.SelectedExternalOrgViewModel.SelectedId, new MultiSelectList(ViewBag.FromRecipients, "Id", "Name"), new { @class = "multiSelectDropDown", multiple = "multiple" })*@
+                </div>
+            }
+            else
+            {
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.EmployeeMultiSelector.SelectedId, new SelectList(ViewBag.FromRecipients, "Id", "Name"), new { @class = "normalDropDown" })
+                    @*@Html.ListBoxFor(model => model.EmployeeMultiSelector.SelectedId, new MultiSelectList(ViewBag.FromRecipients, "Id", "Name"), new { @class = "multiSelectDropDown", multiple = "multiple" })*@
+                </div>
+            }
         </div>
 
         @*<div class="form-group">
@@ -86,14 +130,22 @@
     <script>
         $(function () {
             //normal dropdown
-            //$("#normalDropDown").chosen({
-            //    /*disable_serch : true */
-            //    disable_serch_threshold: 5//number items 5
-            //});
+            $(".normalDropDown").chosen({
+                /*disable_serch : true */
+                width:"30%",
+                disable_serch_threshold: 5//number items 5
+                
+            });
+
+        });
+        $(function () {
             //multiselect dropdown
-            $("#multiSelectDropDown2").chosen();
+            $(".multiSelectDropDown").chosen({ width: "30%" });
         });
     </script>
+
+
+
 }
 @*@section Scripts {
         @Scripts.Render("~/bundles/jqueryval")

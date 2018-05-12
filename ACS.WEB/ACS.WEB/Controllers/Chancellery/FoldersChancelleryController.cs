@@ -35,34 +35,6 @@ namespace ACS.WEB.Controllers
         //    return null;
         //}
 
-        IMapper mapTemplFolderDTOToFolderVM()
-        {
-            return new MapperConfiguration(cfg =>
-              {
-                  cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
-                  cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>();
-
-              }).CreateMapper();
-        }
-
-        FolderChancelleryViewModel MappFolderDTOToFolderVM(FolderChancelleryDTO FolderDTO)
-        {
-            // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>()).CreateMapper();
-            return mapTemplFolderDTOToFolderVM().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(FolderDTO);
-        }
-
-
-        FolderChancelleryDTO MappFolderVMToFolderDTO(FolderChancelleryViewModel FolderVM)
-        {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();
-                cfg.CreateMap<FolderChancelleryViewModel, FolderChancelleryDTO>();
-
-            }).CreateMapper();
-            // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancelleryViewModel,FolderChancelleryDTO>()).CreateMapper();
-            return mapper.Map<FolderChancelleryViewModel, FolderChancelleryDTO>(FolderVM);
-        }
 
         // GET: FoldersChancellery
         public ActionResult Index()
@@ -187,5 +159,36 @@ namespace ACS.WEB.Controllers
             }
             base.Dispose(disposing);
         }
+
+        #region mapper
+        IMapper mapTemplFolderDTOToFolderVM()
+        {
+            return new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
+                cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>();
+
+            }).CreateMapper();
+        }
+        FolderChancelleryViewModel MappFolderDTOToFolderVM(FolderChancelleryDTO FolderDTO)
+        {
+            // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>()).CreateMapper();
+            return mapTemplFolderDTOToFolderVM().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(FolderDTO);
+        }
+
+
+        FolderChancelleryDTO MappFolderVMToFolderDTO(FolderChancelleryViewModel FolderVM)
+        {
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();
+                cfg.CreateMap<FolderChancelleryViewModel, FolderChancelleryDTO>();
+
+            }).CreateMapper();
+            // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancelleryViewModel,FolderChancelleryDTO>()).CreateMapper();
+            return mapper.Map<FolderChancelleryViewModel, FolderChancelleryDTO>(FolderVM);
+        }
+
+        #endregion
     }
 }

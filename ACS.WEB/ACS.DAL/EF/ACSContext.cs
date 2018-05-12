@@ -57,17 +57,20 @@ namespace ACS.DAL.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-           
+
 
             //var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
             //modelBuilder.Conventions.Add(convention);
+            modelBuilder.Configurations.Add(new AppUserRoleConfig());
+            modelBuilder.Configurations.Add(new ApplicationUserConfig());
+            modelBuilder.Configurations.Add(new ApplicationRoleConfig());
+
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Configurations.Add(new AccessConfig());
             modelBuilder.Configurations.Add(new TypeAccessConfig());
 
-            modelBuilder.Configurations.Add(new AppUserRoleConfig());
-            modelBuilder.Configurations.Add(new ApplicationUserConfig());
-            modelBuilder.Configurations.Add(new ApplicationRoleConfig());
+           
 
             modelBuilder.Configurations.Add(new ChancelleryConfig());
             modelBuilder.Configurations.Add(new TypeRecordChancelleryConfig());
@@ -89,7 +92,7 @@ namespace ACS.DAL.EF
             modelBuilder.Configurations.Add(new DataEntityConfig());
             modelBuilder.Configurations.Add(new ProjectRegistryConfig()); 
 
-            base.OnModelCreating(modelBuilder);
+    
         }
 
 

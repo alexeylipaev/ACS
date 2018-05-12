@@ -8,18 +8,30 @@ using System.Web.Mvc;
 
 namespace ACS.WEB.Controllers
 {
+
     public class HomeController : Controller
     {
-        private IApplicationUserService UserService
+        private IAccountAppUserService AccountAppUserService
         {
             get
             {
-                return HttpContext.GetOwinContext().GetUserManager<IApplicationUserService>();
+                //Поскольку ранее мы зарегитрировали сервис пользователей через контекст OWIN,
+                //то теперь мы можем получить этот сервис с помощью метода
+                return HttpContext.GetOwinContext().GetUserManager<IAccountAppUserService>();
             }
         }
 
+
         public ActionResult Index()
         {
+            //string currentUserEmail = this.User.Identity.Name;
+
+            //var Users = AccountAppUserService.GetUsers().ToList();
+             //var appUser = (from user in Users             //               where user.Email == currentUserEmail             //               select user).FirstOrDefault();
+
+            //if (appUser == null)
+            //    return RedirectToAction("Login", "Account", "");
+
             return View();
         }
         [Authorize(Roles = "admin")]

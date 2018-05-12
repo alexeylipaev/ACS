@@ -38,9 +38,9 @@ namespace ACS.BLL.DTO
         public string SID { get; set; }
 
         /// <summary>
-        /// id пользователя
+        /// Работник 
         /// </summary>
-        public virtual int? Employee_Id { get; set; }
+        public EmployeeDTO Employee{ get; set; }
 
         /// <summary>
         /// Свойство навигации для утверждений пользователя

@@ -15,7 +15,8 @@ namespace ACS.BLL.Interfaces
         //ApplicationUserDTO GetApplicationUser(int? id);
         //IEnumerable<ApplicationUserDTO> GetApplicationUser();
         int GetIdNewAppUser();
-
+        
+        IEnumerable<ApplicationUserDTO> GetUsers();
         AppUserRoleDTO GetAppUserRoleAssignmentData(int RoleId, int? UserId = null);
 
         Task<OperationDetails> ResetPasswordAsync(int userId, string token, string newPassword);

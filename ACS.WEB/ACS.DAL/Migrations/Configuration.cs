@@ -17,6 +17,8 @@ namespace ACS.DAL.Migrations
 
         protected override void Seed(ACSContext db)
         {
+            base.Seed(db);
+
 #warning раскомментить для разового заполнения БД
             //Debug.WriteLine("GenerateAppRolesRepository");
             //DataLoader1C.GenerateAppRolesRepository(db);

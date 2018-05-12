@@ -26,6 +26,8 @@ namespace ACS.DAL.Entities
 
         public string Summary { get; set; }
 
+        public string Notice { get; set; }
+
         #region папка
 
         public virtual FolderChancellery FolderChancellery { get; set; }

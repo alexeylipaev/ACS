@@ -222,8 +222,8 @@ x => x.MapFrom(m => m.Employee.id));
                 cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.Employee,
 x => x.MapFrom(m => m.Employee)).ForMember(x => x.TypeRecordChancellery,
 x => x.MapFrom(m => m.TypeRecordChancellery));
-                cfg.CreateMap<ApplicationUser, ApplicationUserDTO>().ForMember(x => x.Employee_Id,
-          x => x.MapFrom(m => m.Employee.id));
+                cfg.CreateMap<ApplicationUser, ApplicationUserDTO>().ForMember(x => x.Employee,
+          x => x.MapFrom(m => m.Employee));
                 cfg.CreateMap<PostEmployeeСode1С, PostEmployeeСode1СDTO>().ForMember(x => x.Employee_Id,
 x => x.MapFrom(m => m.Employee.id));
                 cfg.CreateMap<Employee, EmployeeDTO>();
