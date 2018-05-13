@@ -34,6 +34,7 @@ namespace ACS.WEB
         protected void Application_Start()
         {
             //Database.SetInitializer(new System.Data.Entity.MigrateDatabaseToLatestVersion<ACSContext, ACS.DAL.Migrations.Configuration>());
+            AutoMapperConfig.Initialize();
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

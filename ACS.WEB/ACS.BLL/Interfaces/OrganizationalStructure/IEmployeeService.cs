@@ -10,7 +10,7 @@ namespace ACS.BLL.Interfaces
         void CreateEmployee(EmployeeDTO userDto, string authorEmail);
         void UpdateEmployee(EmployeeDTO userDto, string authorEmail);
         void MoveToBasketEmployee(int userId, string authorEmail);
-        void DeleteEmployee(int userId, string authorEmail);
+        void DeleteEmployee(int userId );
         EmployeeDTO GetEmployee(int? id);
 
         IEnumerable<EmployeeDTO> GetEmployees();

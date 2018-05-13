@@ -1,4 +1,5 @@
 using ACS.WEB.Models;
+using ACS.WEB.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,9 +27,8 @@ namespace ACS.WEB.ViewModel
             FileRecordChancelleries = new HashSet<FileRecordChancelleryViewModel>();
             FromChancelleries = new HashSet<FromChancelleryViewModel>();
             ToChancelleries = new HashSet<ToChancelleryViewModel>();
-            EmployeeMultiSelector = new Models.EmployeeMultiSelector();
-            SelectedExternalOrgViewModel = new SelectedExternalOrgViewModel();
         }
+
         [Display(Name = "ID")]
         public int id { get; set; }
 
@@ -70,7 +70,7 @@ namespace ACS.WEB.ViewModel
         /// </summary>
         [Display(Name = "Папка")]
         public FolderChancelleryViewModel FolderChancellery { get; set; }
-
+        public SelectedFolderChancellery SelectedFolder { get; set; }
         #endregion
 
         #region Журнал
@@ -81,7 +81,7 @@ namespace ACS.WEB.ViewModel
         /// Журнал
         /// </summary>
         public JournalRegistrationsChancelleryViewModel JournalRegistrationsChancellery { get; set; }
-
+        public SelectedJournalRegChancellery SelectedJournalsReg { get; set; }
         #endregion
 
         #region Тип
@@ -95,12 +95,14 @@ namespace ACS.WEB.ViewModel
         /// Тип записи
         /// </summary>
         [Display(Name = "Тип записи")]
-        public TypeRecordChancelleryViewModel TypeRecordChancellery {
+        public TypeRecordChancelleryViewModel TypeRecordChancellery
+        {
             get { return _typeRecordChancellery; }
             set
             {
 
                 _typeRecordChancellery = value;
+
                 //switch (_typeRecordChancellery.id)
                 //{
                 //    case 1:
@@ -122,11 +124,11 @@ namespace ACS.WEB.ViewModel
                 //        break;
                 //}
 
-             
+
             }
         }
         //public TypesChancellery TypeChancellery { get; set; }
-        
+
         #endregion
 
         #region Ответственный
@@ -163,47 +165,14 @@ namespace ACS.WEB.ViewModel
         [Display(Name = "Кому")]
         public ICollection<ToChancelleryViewModel> ToChancelleries { get; set; }
 
-        //ICollection<ToSelectItem> _ToSelectItemsEmpl;
-        //public ICollection<ToSelectItem> ToSelectItemsEmpl
-        //{
-        //    get
-        //    {
-        //        if (_ToSelectItemsEmpl == null && ToChancelleries != null)
-        //        {
-        //            _ToSelectItemsEmpl = ToChancelleries.Select(t => new ToSelectItem { Id = t.id, Name = t.Employee.FullName }).ToList();
 
-        //        }
-        //        return _ToSelectItemsEmpl;
-        //    }
-        //}
-
-        //ICollection<ToSelectItem> _ToSelectItemsExternalOrg;
-        //public ICollection<ToSelectItem> ToSelectItemsExternalOrg
-        //{
-        //    get
-        //    {
-        //        if (_ToSelectItemsExternalOrg == null && ToChancelleries != null)
-        //        {
-        //            _ToSelectItemsExternalOrg = ToChancelleries.Select(t => new ToSelectItem { Id = t.id, Name = t.Employee.FullName }).ToList();
-
-        //        }
-        //        return _ToSelectItemsExternalOrg;
-        //    }
-        //}
-
-
-        public EmployeeMultiSelector EmployeeMultiSelector
-        { get; set; }
-
-        public SelectedExternalOrgViewModel SelectedExternalOrgViewModel
-        { get; set; }
+        public SelectedEmployeeViewModel SelectedResponsible { get; set; }
+        public SelectedExternalOrgViewModel Selected_ExtOrg { get; set; }
+        public SelectedEmployeeViewModel Selected_From_Empl { get; set; }
+        public SelectedEmployeeViewModel Selected_To_Empl { get; set; }
     }
 }
 
-public class ToSelectItem
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-}
+
 
 

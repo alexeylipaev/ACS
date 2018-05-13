@@ -66,7 +66,7 @@ namespace ACS.BLL.Services
             var chancy = Database.Chancelleries.Query(filter: ch => ch.TypeRecordChancellery.id == TypeRecordChancelleryId).ToList();
 
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(chancy);
+            return MappService.GetMapp().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(chancy);
         }
 
         public IEnumerable<TypeRecordChancelleryDTO> GetTypesRecordChancellery()
@@ -74,10 +74,16 @@ namespace ACS.BLL.Services
             var mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Chancellery, ChancelleryDTO >();
+                cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>();
+                cfg.CreateMap<FromChancellery, FromChancelleryDTO>();
+                cfg.CreateMap<Employee, EmployeeDTO>();
+                cfg.CreateMap<ApplicationUser, ApplicationUserDTO>();
+                cfg.CreateMap<ExternalOrganizationChancellery, ExternalOrganizationChancelleryDTO>();
+                cfg.CreateMap<ToChancelleryDTO, ToChancelleryDTO>();
                 cfg.CreateMap<TypeRecordChancellery,TypeRecordChancelleryDTO>();
             }).CreateMapper();
 
-            return mapper.Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll());
+            return MappService.GetMapp().Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll());
         }
 
         public TypeRecordChancelleryDTO GetTypeRecordChancellery(int id)
@@ -100,7 +106,7 @@ namespace ACS.BLL.Services
             }).CreateMapper();
 
 
-           var dto = mapper.Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(TypeRecord);
+           var dto = MappService.GetMapp().Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(TypeRecord);
             return dto;
         }
 
@@ -108,7 +114,7 @@ namespace ACS.BLL.Services
         TypeRecordChancellery MappTypeRecordDTOToTypeRecord(TypeRecordChancelleryDTO TypeRecordDto)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>()).CreateMapper();
-            return mapper.Map<TypeRecordChancelleryDTO, TypeRecordChancellery>(TypeRecordDto);
+            return MappService.GetMapp().Map<TypeRecordChancelleryDTO, TypeRecordChancellery>(TypeRecordDto);
         }
 
         public TypeRecordChancelleryDTO GetTypeRecordByName(string nameType)

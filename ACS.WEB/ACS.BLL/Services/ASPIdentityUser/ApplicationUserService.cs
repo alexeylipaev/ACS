@@ -207,43 +207,44 @@
 
             return result;
         }
-        IMapper MapperUserDtoToUser()
-        {
-           return new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<EmployeeDTO, Employee>();
-                cfg.CreateMap<AppUserClaimDTO, AppUserClaim>();
-                cfg.CreateMap<AppUserLoginDTO, AppUserLogin>();
-                cfg.CreateMap<AppUserRoleDTO, AppUserRole>();
-                cfg.CreateMap<ApplicationUserDTO, ApplicationUser>();
+        #region mapper
+        //IMapper MapperUserDtoToUser()
+        //{
+        //   return new MapperConfiguration(cfg =>
+        //    {
+        //        cfg.CreateMap<EmployeeDTO, Employee>();
+        //        cfg.CreateMap<AppUserClaimDTO, AppUserClaim>();
+        //        cfg.CreateMap<AppUserLoginDTO, AppUserLogin>();
+        //        cfg.CreateMap<AppUserRoleDTO, AppUserRole>();
+        //        cfg.CreateMap<ApplicationUserDTO, ApplicationUser>();
 
-            }).CreateMapper();
-        }
+        //    }).CreateMapper();
+        //}
 
-        IMapper MapperUserToUserDto()
-        {
-            return new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Employee , EmployeeDTO>();
-                cfg.CreateMap<AppUserClaim , AppUserClaimDTO>();
-                cfg.CreateMap<AppUserLogin , AppUserLoginDTO>();
-                cfg.CreateMap<AppUserRole , AppUserRoleDTO>();
-                cfg.CreateMap<ApplicationUser , ApplicationUserDTO>();
+        //IMapper MapperUserToUserDto()
+        //{
+        //    return new MapperConfiguration(cfg =>
+        //    {
+        //        cfg.CreateMap<Employee , EmployeeDTO>();
+        //        cfg.CreateMap<AppUserClaim , AppUserClaimDTO>();
+        //        cfg.CreateMap<AppUserLogin , AppUserLoginDTO>();
+        //        cfg.CreateMap<AppUserRole , AppUserRoleDTO>();
+        //        cfg.CreateMap<ApplicationUser , ApplicationUserDTO>();
 
-            }).CreateMapper();
-        }
+        //    }).CreateMapper();
+        //}
         ApplicationUser MappAppUserDTOToAppUser(ApplicationUserDTO ApplicationUserDTO)
         {
-            return MapperUserDtoToUser().Map<ApplicationUserDTO, ApplicationUser>(ApplicationUserDTO);
+            return MappService.GetMapp().Map<ApplicationUserDTO, ApplicationUser>(ApplicationUserDTO);
         }
        ApplicationUserDTO MappAppUserToAppUserDTO(ApplicationUser ApplicationUser)
         {
-            return MapperUserToUserDto().Map<ApplicationUser, ApplicationUserDTO>(ApplicationUser);
+            return MappService.GetMapp().Map<ApplicationUser, ApplicationUserDTO>(ApplicationUser);
         }
         IEnumerable<ApplicationUserDTO> MappListAppUserToListAppUserDTO(IEnumerable<ApplicationUser> ApplicationUser)
         {  
-            return MapperUserToUserDto().Map<IEnumerable<ApplicationUser>, List<ApplicationUserDTO>>(ApplicationUser);
+            return MappService.GetMapp().Map<IEnumerable<ApplicationUser>, List<ApplicationUserDTO>>(ApplicationUser);
         }
-
+        #endregion
         public void Dispose()         {             Database.Dispose();         }
     } }

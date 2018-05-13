@@ -24,8 +24,8 @@ namespace ACS.WEB.Controllers
         public ActionResult Index()
         {
             IEnumerable<ApplicationUserDTO> userDtos = ApplicationUserService.GetApplicationUsers();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()).CreateMapper();
-            var users = mapper.Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(userDtos);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()).CreateMapper();
+            var users = Mapper.Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(userDtos);
             return View(users);
         }
 

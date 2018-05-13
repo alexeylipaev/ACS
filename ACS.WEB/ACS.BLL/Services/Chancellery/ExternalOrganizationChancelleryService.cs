@@ -89,10 +89,25 @@ namespace ACS.BLL.Services
         }
 
 
-        public void Dispose()
+
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
         {
-            Database.Dispose();
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    Database.Dispose();
+                }
+                this.disposed = true;
+            }
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
     }
 }

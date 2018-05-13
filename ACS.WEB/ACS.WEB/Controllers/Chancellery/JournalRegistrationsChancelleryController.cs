@@ -155,6 +155,9 @@ namespace ACS.WEB.Controllers.Chancellery
             }).CreateMapper();
             return mapper.Map<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO>(JournalVM);
         }
+
+        //private bool disposed = false;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

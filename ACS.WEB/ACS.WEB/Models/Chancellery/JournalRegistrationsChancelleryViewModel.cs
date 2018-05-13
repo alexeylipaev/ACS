@@ -27,4 +27,12 @@ namespace ACS.WEB.ViewModel
         public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
 
     }
+
+    public class SelectedJournalRegChancellery
+    {
+        public int Id { get; set; }
+
+        public int SelectedId { get; set; }
+    }
+
 }

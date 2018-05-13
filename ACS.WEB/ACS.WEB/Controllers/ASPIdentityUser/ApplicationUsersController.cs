@@ -49,9 +49,9 @@ namespace ACS.WEB.Controllers
 
                     if (!userVW.DataRoles.Any(dr => dr.Name == AppRoleDTo.Name))
                     {
-                        var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
+                        //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
 
-                        var result = mapper.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(AppRoleDTo);
+                        var result = Mapper.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(AppRoleDTo);
 
                         userVW.DataRoles.Add(result);
                     }
@@ -65,10 +65,10 @@ namespace ACS.WEB.Controllers
              SelectedRoleViewModel rol = new SelectedRoleViewModel();
 
             var roledDto = ApplicationUserService.GetApplicationRoles();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
-            var roleCollectionVM = mapper.Map<IEnumerable<ApplicationRoleDTO>, List<ApplicationRoleViewModel>>(roledDto);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
 
-            rol.RoleCollection = roleCollectionVM;
+
+            rol.RoleCollection = Mapper.Map<IEnumerable<ApplicationRoleDTO>, List<ApplicationRoleViewModel>>(roledDto); 
 
             ApplicationUserDTO userDto = await ApplicationUserService.FindByIdAsync(id);
             //var user = this.User;
@@ -244,42 +244,42 @@ namespace ACS.WEB.Controllers
             return await CreateOrUpdateOrDel(appUserVM, true);
         }
         #region mapper
-        IMapper MapperUserVMToUserDTO()
-        {
-            return new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<EmployeeViewModel, EmployeeDTO>();
-                cfg.CreateMap<AppUserClaimViewModel, AppUserClaimDTO>();
-                cfg.CreateMap<AppUserLoginViewModel, AppUserClaimDTO>();
-                cfg.CreateMap<AppUserRoleViewModel, AppUserRoleDTO>();
-                cfg.CreateMap<ApplicationUserViewModel, ApplicationUserDTO>();
+        //IMapper MapperUserVMToUserDTO()
+        //{
+        //    return new MapperConfiguration(cfg =>
+        //    {
+        //        cfg.CreateMap<EmployeeViewModel, EmployeeDTO>();
+        //        cfg.CreateMap<AppUserClaimViewModel, AppUserClaimDTO>();
+        //        cfg.CreateMap<AppUserLoginViewModel, AppUserClaimDTO>();
+        //        cfg.CreateMap<AppUserRoleViewModel, AppUserRoleDTO>();
+        //        cfg.CreateMap<ApplicationUserViewModel, ApplicationUserDTO>();
 
-            }).CreateMapper();
-        }
+        //    }).CreateMapper();
+        //}
 
-        IMapper MapperUserDTOToUserVM()
-        {
-            return new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<EmployeeDTO, EmployeeViewModel>();
-                cfg.CreateMap<AppUserClaimDTO, AppUserClaimViewModel>();
-                cfg.CreateMap<AppUserLoginDTO, AppUserLoginViewModel>();
-                cfg.CreateMap<AppUserRoleDTO, AppUserRoleViewModel>();
-                cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>();
+        //IMapper MapperUserDTOToUserVM()
+        //{
+        //    return new MapperConfiguration(cfg =>
+        //    {
+        //        cfg.CreateMap<EmployeeDTO, EmployeeViewModel>();
+        //        cfg.CreateMap<AppUserClaimDTO, AppUserClaimViewModel>();
+        //        cfg.CreateMap<AppUserLoginDTO, AppUserLoginViewModel>();
+        //        cfg.CreateMap<AppUserRoleDTO, AppUserRoleViewModel>();
+        //        cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>();
 
-            }).CreateMapper();
-        }
+        //    }).CreateMapper();
+        //}
         ApplicationUserDTO MappAppUserVMToAppUserDTO(ApplicationUserViewModel ApplicationUserVM)
         {
-            return MapperUserVMToUserDTO().Map<ApplicationUserViewModel, ApplicationUserDTO>(ApplicationUserVM);
+            return Mapper.Map<ApplicationUserViewModel, ApplicationUserDTO>(ApplicationUserVM);
         }
         ApplicationUserViewModel MappAppUserDTOToAppUserVM(ApplicationUserDTO ApplicationUserDTO)
         {
-            return MapperUserDTOToUserVM().Map<ApplicationUserDTO, ApplicationUserViewModel>(ApplicationUserDTO);
+            return Mapper.Map<ApplicationUserDTO, ApplicationUserViewModel>(ApplicationUserDTO);
         }
         IEnumerable<ApplicationUserViewModel> MappListAppUserDTOToListAppUserVM(IEnumerable<ApplicationUserDTO> ApplicationUserDTO)
         {
-            return MapperUserDTOToUserVM().Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(ApplicationUserDTO);
+            return Mapper.Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(ApplicationUserDTO);
         }
         #endregion
     }

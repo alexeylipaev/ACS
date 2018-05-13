@@ -151,14 +151,6 @@ namespace ACS.WEB.Controllers
             return CreateOrUpdateOrDel(folderVM, true);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                FolderChancelleryService.Dispose();
-            }
-            base.Dispose(disposing);
-        }
 
         #region mapper
         IMapper mapTemplFolderDTOToFolderVM()
@@ -190,5 +182,14 @@ namespace ACS.WEB.Controllers
         }
 
         #endregion
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                FolderChancelleryService.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
     }
 }

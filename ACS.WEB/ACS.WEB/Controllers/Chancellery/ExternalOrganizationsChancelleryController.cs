@@ -22,7 +22,7 @@ namespace ACS.WEB.Controllers.Chancellery
         public ActionResult Index()
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>()).CreateMapper();
-            var externalOrganizationdVM = mapper.Map<IEnumerable<ExternalOrganizationChancelleryDTO>, List<ExternalOrganizationChancelleryViewModel>>(ExternalOrganizationsChancelleryService.GetExternalOrganizationsChancellery());
+            var externalOrganizationdVM = Mapper.Map<IEnumerable<ExternalOrganizationChancelleryDTO>, List<ExternalOrganizationChancelleryViewModel>>(ExternalOrganizationsChancelleryService.GetExternalOrganizationsChancellery());
             return View(externalOrganizationdVM);
         }
 
@@ -132,22 +132,29 @@ namespace ACS.WEB.Controllers.Chancellery
         ExternalOrganizationChancelleryViewModel MappExternalOrganizationDTOToExternalOrganizationVM(ExternalOrganizationChancelleryDTO ExternalOrganizationDTO)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>()).CreateMapper();
-            return mapper.Map<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>(ExternalOrganizationDTO);
+            return Mapper.Map<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>(ExternalOrganizationDTO);
         }
 
 
         ExternalOrganizationChancelleryDTO MappExternalOrganizationVMToExternalOrganizationDTO(ExternalOrganizationChancelleryViewModel ExternalOrganizationVM)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryViewModel, ExternalOrganizationChancelleryDTO>()).CreateMapper();
-            return mapper.Map<ExternalOrganizationChancelleryViewModel, ExternalOrganizationChancelleryDTO>(ExternalOrganizationVM);
+            return Mapper.Map<ExternalOrganizationChancelleryViewModel, ExternalOrganizationChancelleryDTO>(ExternalOrganizationVM);
         }
+
+
+
+        private bool disposed = false;
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            if (!this.disposed)
             {
-                ExternalOrganizationsChancelleryService.Dispose();
+                if (disposing)
+                {
+                    ExternalOrganizationsChancelleryService.Dispose();
+                }
+                this.disposed = true;
             }
-            base.Dispose(disposing);
         }
     }
 }

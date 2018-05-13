@@ -59,8 +59,8 @@ namespace ACS.BLL.Services
         {
             var chancy = Database.Chancelleries.Query(filter: ch => ch.JournalRegistrationsChancellery.id == journalId).ToList();
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(chancy);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
+            return MappService.GetMapp().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(chancy);
         }
 
         public JournalRegistrationsChancelleryDTO GetJournal(int id)
@@ -76,22 +76,22 @@ namespace ACS.BLL.Services
 
         public IEnumerable<JournalRegistrationsChancelleryDTO> GetJournalsChancellery()
         {
-            return mapTemplournalToJournalDTO().Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll());
+            return MappService.GetMapp().Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll());
         }
 
-        IMapper mapTemplournalToJournalDTO()
-        {
-           return new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Chancellery, ChancelleryDTO>();
-                cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>();
+        //IMapper mapTemplournalToJournalDTO()
+        //{
+        //   return new MapperConfiguration(cfg =>
+        //    {
+        //        cfg.CreateMap<Chancellery, ChancelleryDTO>();
+        //        cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>();
 
-            }).CreateMapper();
-        }
+        //    }).CreateMapper();
+        //}
 
         JournalRegistrationsChancelleryDTO MappJournalToJournalDTO(JournalRegistrationsChancellery Journal)
         {
-            return mapTemplournalToJournalDTO().Map<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>(Journal);
+            return MappService.GetMapp().Map<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>(Journal);
         }
 
         JournalRegistrationsChancellery MappJournalDTOToJournal(JournalRegistrationsChancelleryDTO JournalDto)
@@ -104,7 +104,7 @@ namespace ACS.BLL.Services
             }).CreateMapper();
 
            // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>()).CreateMapper();
-            return mapper.Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>(JournalDto);
+            return MappService.GetMapp().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>(JournalDto);
         }
 
         

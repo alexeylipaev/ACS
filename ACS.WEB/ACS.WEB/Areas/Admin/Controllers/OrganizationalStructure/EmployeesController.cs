@@ -29,8 +29,8 @@ namespace ACS.WEB.Areas.Admin.Controllers
         {
             IEnumerable<EmployeeDTO> userDtos = EmployeeService.GetEmployees();
             var user = this.User;
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
-            var users = mapper.Map<IEnumerable<EmployeeDTO>, List<EmployeeAdminVM>>(userDtos);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
+            var users = Mapper.Map<IEnumerable<EmployeeDTO>, List<EmployeeAdminVM>>(userDtos);
             return View(users);
         }
 
@@ -44,8 +44,8 @@ namespace ACS.WEB.Areas.Admin.Controllers
             try
             {
                 EmployeeDTO user = EmployeeService.GetEmployee(id);
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
-                var userVM = mapper.Map<EmployeeDTO, EmployeeAdminVM>(user);
+                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
+                var userVM = Mapper.Map<EmployeeDTO, EmployeeAdminVM>(user);
                 //var userVM = new UserViewModel { Id = user.Id };
 
                 return View(userVM);
@@ -88,8 +88,8 @@ namespace ACS.WEB.Areas.Admin.Controllers
                     string currentUserEmail = this.User.Identity.Name;
                     //string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
                     var userDto = new EmployeeDTO();
-                    var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
-                    userDto = mapper.Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
+                    //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
+                    userDto = Mapper.Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
                     EmployeeService.CreateEmployee(userDto, currentUserEmail);
                     return RedirectToAction("Index");
                 }
@@ -107,8 +107,8 @@ namespace ACS.WEB.Areas.Admin.Controllers
             try
             {
                 EmployeeDTO user = EmployeeService.GetEmployee(id);
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
-                var userVM = mapper.Map<EmployeeDTO, EmployeeAdminVM>(user);
+                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
+                var userVM = Mapper.Map<EmployeeDTO, EmployeeAdminVM>(user);
                 //var userVM = new UserViewModel { Id = user.Id };
 
                 return View(userVM);
@@ -128,8 +128,8 @@ namespace ACS.WEB.Areas.Admin.Controllers
             try
             {
                 
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
-                user = mapper.Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
+                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
+                user = Mapper.Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
                 //var userVM = new UserViewModel { Id = user.Id };
                 EmployeeService.UpdateEmployee(user, this.User.Identity.Name);
                 return RedirectToAction("Index");
@@ -147,8 +147,8 @@ namespace ACS.WEB.Areas.Admin.Controllers
             try
             {
                 EmployeeDTO user = EmployeeService.GetEmployee(id);
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
-                var userVM = mapper.Map<EmployeeDTO, EmployeeAdminVM>(user);
+                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
+                var userVM = Mapper.Map<EmployeeDTO, EmployeeAdminVM>(user);
                 //var userVM = new UserViewModel { Id = user.Id };
 
                 return View(userVM);
@@ -170,7 +170,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
                 //user = mapper.Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
                 //var userVM = new UserViewModel { Id = user.Id };
-                EmployeeService.DeleteEmployee(employeeAdminVM.id, this.User.Identity.Name);
+                EmployeeService.DeleteEmployee(employeeAdminVM.id);
                 return RedirectToAction("Index");
             }
             catch (ValidationException ex)

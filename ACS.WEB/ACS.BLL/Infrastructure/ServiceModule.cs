@@ -25,7 +25,7 @@ namespace ACS.BLL.Infrastructure
         public override void Load()
         {
             Bind<IUnitOfWork>().To<UnitOfWork>().WithConstructorArgument(connectionString);
-
+            //Bind<IMapper_DB_DTO_EmplService>().To<Mapper_DB_DTO_EmplService>();
         }
     }
 }

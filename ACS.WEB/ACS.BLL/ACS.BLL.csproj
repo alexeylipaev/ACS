@@ -110,11 +110,14 @@
     <Compile Include="Interfaces\ASPIdentityUser\IApplicationRoleService.cs" />
     <Compile Include="Interfaces\IAccountAppUserService.cs" />
     <Compile Include="Interfaces\IInputControlPKIService.cs" />
+    <Compile Include="Interfaces\IMapper_DB_DTO_EmplService.cs" />
     <Compile Include="Interfaces\IProjectRegistryService.cs" />
     <Compile Include="Services\AccountAppUserService.cs" />
-    <Compile Include="Services\ApplicationRoleService.cs" />
+    <Compile Include="Services\ASPIdentityUser\ApplicationRoleService.cs" />
     <Compile Include="Services\Chancellery\ExternalOrganizationChancelleryService.cs" />
+    <Compile Include="Services\MappService.cs" />
     <Compile Include="Services\InputControlPKI\InputControlPKIService.cs" />
+    <Compile Include="Services\Mapper\Mapper_DB_DTO_EmplService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Сonnection.cs" />
     <Compile Include="DTO\Access\AccessDTO.cs" />
@@ -172,7 +175,7 @@
     <Compile Include="Services\OrganizationalStructure\DepartmentService.cs" />
     <Compile Include="Services\OrganizationalStructure\EmployeePassportService.cs" />
     <Compile Include="Services\OrganizationalStructure\EmployeeService.cs" />
-    <Compile Include="Services\ApplicationUserService.cs" />
+    <Compile Include="Services\ASPIdentityUser\ApplicationUserService.cs" />
     <Compile Include="Services\ServiceCreator.cs" />
   </ItemGroup>
   <ItemGroup>

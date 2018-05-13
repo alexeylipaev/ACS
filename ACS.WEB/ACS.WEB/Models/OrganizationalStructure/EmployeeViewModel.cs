@@ -66,4 +66,17 @@ namespace ACS.WEB.ViewModel
         /// </summary>
         public virtual ICollection<PostsEmployeeСode1СViewModel> PostsEmployeesСode1С { get; set; }
     }
+    public class SelectedEmployeeViewModel
+    {
+
+        public SelectedEmployeeViewModel()
+        {
+            SelectedId = new HashSet<int>();
+        }
+        public int Id { get; set; }
+
+
+        public ICollection<int> SelectedId { get; set; }
+    }
+  
 }

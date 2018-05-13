@@ -171,14 +171,18 @@ namespace ACS.WEB.Controllers.Chancellery
             // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancelleryViewModel, FileRecordChancelleryDTO>()).CreateMapper();
             return mapper.Map<FileRecordChancelleryViewModel, FileRecordChancelleryDTO>(FileRecordVM);
         }
+
+        private bool disposed = false;
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            if (!this.disposed)
             {
-                FileRecordChancelleryService.Dispose();
+                if (disposing)
+                {
+                    FileRecordChancelleryService.Dispose();
+                }
+                this.disposed = true;
             }
-            base.Dispose(disposing);
         }
-
     }
 }

@@ -13,9 +13,11 @@ using System.Linq;
 using ACS.BLL.BusinessModels;
 namespace ACS.BLL.Services
 {
-    public class EmployeeService : ServiceBase,IEmployeeService
+    public class EmployeeService : ServiceBase, IEmployeeService
     {
-        public EmployeeService(IUnitOfWork uow) : base(uow) { }
+        Mapper_DB_DTO_EmplService Mapper_DB_DTO_EmplService;
+
+        public EmployeeService(IUnitOfWork uow) : base(uow) { Mapper_DB_DTO_EmplService = Mapper_DB_DTO_EmplService.getMapper(); }
 
         string UNIQEUserString(EmployeeDTO UserData)
         {
@@ -30,9 +32,9 @@ namespace ACS.BLL.Services
       , Helper.RemoveSpacesBeginnEndStr(UserData.MName), Helper.RemoveSpacesBeginnEndStr(UserData.Email));
         }
 
-        public void CreateEmployee(EmployeeDTO UserDTO)
+        public void CreateEmployee(EmployeeDTO EmplDTO)
         {
-            var resultString = UNIQEUserString(UserDTO);
+            var resultString = UNIQEUserString(EmplDTO);
             Employee author = Database.Employees.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
 
             if (author != null)
@@ -40,37 +42,26 @@ namespace ACS.BLL.Services
 
             try
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, Employee>()).CreateMapper();
-                Employee Employee = mapper.Map<EmployeeDTO, Employee>(UserDTO);
+               
+                Employee Employee = Mapper_DB_DTO_EmplService.Map_EmployeeDTO_to_Employee(EmplDTO);
 
                 Database.Employees.Add(Employee, author.id);
               
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
-                Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
-                Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);
-                Debug.WriteLine("Message:                 {0}", e.Message);
-                Debug.WriteLine("Source:                  {0}", e.Source);
-                Debug.WriteLine("Help Link:               {0}", e.HelpLink);
-                Debug.WriteLine("Stack:                   {0}", e.StackTrace);
-
-                foreach (DictionaryEntry de in e.Data)
-                    Console.WriteLine("{0} : {1}", de.Key, de.Value);
+                CatchError(e);
             }
         }
 
-        public void CreateEmployee(EmployeeDTO UserDTO, string authorEmail)
+        public void CreateEmployee(EmployeeDTO EmplDTO, string authorEmail)
         {
 
-            var author = GetEditor(authorEmail);
+            int AuthorID = 0;
+            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+            catch (Exception ex) { throw ex; }
 
-            if (author == null)
-                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
-
-
-            var resultString = UNIQEUserString(UserDTO);
+            var resultString = UNIQEUserString(EmplDTO);
             Employee user = Database.Employees.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
 
             if (user != null)
@@ -78,77 +69,54 @@ namespace ACS.BLL.Services
 
             try
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, Employee>()).CreateMapper();
-                Employee Employee = mapper.Map<EmployeeDTO, Employee>(UserDTO);
-                Employee.s_AuthorId = author.Id;
-                Employee.s_EditorId = author.Id;
-                Database.Employees.Add(Employee, author.Id);
+                Employee Employee = Mapper_DB_DTO_EmplService.Map_EmployeeDTO_to_Employee(EmplDTO);
+      
+                Database.Employees.Add(Employee, AuthorID);
               
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
-                Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
-                Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);
-                Debug.WriteLine("Message:                 {0}", e.Message);
-                Debug.WriteLine("Source:                  {0}", e.Source);
-                Debug.WriteLine("Help Link:               {0}", e.HelpLink);
-                Debug.WriteLine("Stack:                   {0}", e.StackTrace);
-
-                foreach (DictionaryEntry de in e.Data)
-                    Console.WriteLine("{0} : {1}", de.Key, de.Value);
+                CatchError(e);
             }
         }
 
-        public void UpdateEmployee(EmployeeDTO UserDTO, string authorEmail)
+        public void UpdateEmployee(EmployeeDTO EmplDTO, string authorEmail)
         {
+            int AuthorID = 0;
+            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+            catch (Exception ex) { throw ex; }
 
-            Employee EditableObj = Database.Employees.Find(UserDTO.id);
-
-            var editor = GetEditor(authorEmail);
-
-            if (editor == null)
-                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
+            Employee EditableObj = Database.Employees.Find(EmplDTO.id);
 
             if (EditableObj == null)
-                throw new ValidationException("Не возможно редактировать объект с id", UserDTO.id.ToString());
+                throw new ValidationException("Не возможно редактировать объект с id", EmplDTO.id.ToString());
 
             try
             {
-                EditableObj.LName = UserDTO.LName;
-                EditableObj.FName = UserDTO.FName;
-                EditableObj.MName = UserDTO.MName;
-                //EditableObj.Email = UserDTO.Email;
+                EditableObj.LName = EmplDTO.LName;
+                EditableObj.FName = EmplDTO.FName;
+                EditableObj.MName = EmplDTO.MName;
+                //EditableObj.Email = EmplDTO.Email;
 
                 //EditableObj.s_EditDate = DateTime.Now;
-                EditableObj.s_EditorId = editor.Id;
+        
 
-                Database.Employees.Update(EditableObj, editor.Id);
+                Database.Employees.Update(EditableObj, AuthorID);
               
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
-                Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
-                Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);
-                Debug.WriteLine("Message:                 {0}", e.Message);
-                Debug.WriteLine("Source:                  {0}", e.Source);
-                Debug.WriteLine("Help Link:               {0}", e.HelpLink);
-                Debug.WriteLine("Stack:                   {0}", e.StackTrace);
-
-                foreach (DictionaryEntry de in e.Data)
-                    Console.WriteLine("{0} : {1}", de.Key, de.Value);
+                CatchError(e);
             }
         }
          
         public void MoveToBasketEmployee(int userId, string authorEmail)
         {
+            int AuthorID = 0;
+            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+            catch (Exception ex) { throw ex; }
+
             Employee EditableObj = Database.Employees.Find(userId);
-
-            var editor = GetEditor(authorEmail);
-
-            if (editor == null)
-                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
 
             if (EditableObj == null)
                 throw new ValidationException("Не возможно редактировать объект с id", userId.ToString());
@@ -156,31 +124,18 @@ namespace ACS.BLL.Services
             try
             {
                 EditableObj.s_InBasket = true;
-                Database.Employees.Update(EditableObj, editor.Id);
+                Database.Employees.Update(EditableObj, AuthorID);
               
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
-                Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
-                Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);
-                Debug.WriteLine("Message:                 {0}", e.Message);
-                Debug.WriteLine("Source:                  {0}", e.Source);
-                Debug.WriteLine("Help Link:               {0}", e.HelpLink);
-                Debug.WriteLine("Stack:                   {0}", e.StackTrace);
-
-                foreach (DictionaryEntry de in e.Data)
-                    Console.WriteLine("{0} : {1}", de.Key, de.Value);
+                CatchError(e);
             }
         }
 
-        public void DeleteEmployee(int userId, string authorEmail)
+        public void DeleteEmployee(int userId)
         {
             Employee EditableObj = Database.Employees.Find(userId);
-            var editor = GetEditor(authorEmail);
-
-            if (editor == null)
-                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
 
             if (EditableObj == null)
                 throw new ValidationException("Не возможно редактировать объект с id", userId.ToString());
@@ -193,16 +148,7 @@ namespace ACS.BLL.Services
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Имя члена:               {0}", e.TargetSite);
-                Debug.WriteLine("Класс определяющий член: {0}", e.TargetSite.DeclaringType);
-                Debug.WriteLine("Тип члена:               {0}", e.TargetSite.MemberType);
-                Debug.WriteLine("Message:                 {0}", e.Message);
-                Debug.WriteLine("Source:                  {0}", e.Source);
-                Debug.WriteLine("Help Link:               {0}", e.HelpLink);
-                Debug.WriteLine("Stack:                   {0}", e.StackTrace);
-
-                foreach (DictionaryEntry de in e.Data)
-                    Console.WriteLine("{0} : {1}", de.Key, de.Value);
+                CatchError(e);
             }
         }
 
@@ -212,26 +158,26 @@ namespace ACS.BLL.Services
         }
 
 
-        IMapper GetMapEmplToEmpDto()
-        {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Access, AccessDTO>().ForMember(x => x.Employee_Id,
-x => x.MapFrom(m => m.Employee.id));
-                cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
-                cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.Employee,
-x => x.MapFrom(m => m.Employee)).ForMember(x => x.TypeRecordChancellery,
-x => x.MapFrom(m => m.TypeRecordChancellery));
-                cfg.CreateMap<ApplicationUser, ApplicationUserDTO>().ForMember(x => x.Employee,
-          x => x.MapFrom(m => m.Employee));
-                cfg.CreateMap<PostEmployeeСode1С, PostEmployeeСode1СDTO>().ForMember(x => x.Employee_Id,
-x => x.MapFrom(m => m.Employee.id));
-                cfg.CreateMap<Employee, EmployeeDTO>();
+//        IMapper GetMapEmplToEmpDto()
+//        {
+//            var mapper = new MapperConfiguration(cfg =>
+//            {
+//                cfg.CreateMap<Access, AccessDTO>().ForMember(x => x.Employee_Id,
+//x => x.MapFrom(m => m.Employee.id));
+//                cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
+//                cfg.CreateMap<Chancellery, ChancelleryDTO>().ForMember(x => x.Employee,
+//x => x.MapFrom(m => m.Employee)).ForMember(x => x.TypeRecordChancellery,
+//x => x.MapFrom(m => m.TypeRecordChancellery));
+//                cfg.CreateMap<ApplicationUser, ApplicationEmplDTO>().ForMember(x => x.Employee,
+//          x => x.MapFrom(m => m.Employee));
+//                cfg.CreateMap<PostEmployeeСode1С, PostEmployeeСode1СDTO>().ForMember(x => x.Employee_Id,
+//x => x.MapFrom(m => m.Employee.id));
+//                cfg.CreateMap<Employee, EmployeeDTO>();
 
-            }).CreateMapper();
+//            }).CreateMapper();
 
-            return mapper;
-        }
+//            return mapper;
+//        }
 
         public IEnumerable<EmployeeDTO> GetEmployees()
         {
@@ -239,9 +185,9 @@ x => x.MapFrom(m => m.Employee.id));
             // применяем автомаппер для проекции одной коллекции на другую
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
             //return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
-            List<Employee> Employees = Database.Employees.GetAll().ToList();
+            IEnumerable<Employee> Employees = Database.Employees.GetAll().ToList();
 
-            List<EmployeeDTO> result = GetMapEmplToEmpDto().Map<List<Employee>, List<EmployeeDTO>>(Employees);
+            IEnumerable<EmployeeDTO> result = Mapper_DB_DTO_EmplService.MappListEmplsToListEmplsDTO(Employees);
             //if (Employees.Any(e => e != null))
             return result;
 
@@ -258,13 +204,14 @@ x => x.MapFrom(m => m.Employee.id));
                 throw new ValidationException("Пользователь не найден", "");
 
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
-            return GetMapEmplToEmpDto().Map<Employee, EmployeeDTO>(Employee);
+            return Mapper_DB_DTO_EmplService.Map_Employee_to_EmployeeDTO(Employee);
 
         }
 
         public void Dispose()
         {
             Database.Dispose();
+
         }
     }
 }

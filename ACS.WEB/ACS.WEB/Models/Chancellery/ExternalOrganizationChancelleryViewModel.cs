@@ -29,4 +29,15 @@ namespace ACS.WEB.ViewModel
 
 
     }
+    public class SelectedExternalOrgViewModel
+    {
+        public SelectedExternalOrgViewModel()
+        {
+            SelectedId = new HashSet<int>();
+
+        }
+        public int Id { get; set; }
+
+        public ICollection<int> SelectedId { get; set; }
+    }
 }

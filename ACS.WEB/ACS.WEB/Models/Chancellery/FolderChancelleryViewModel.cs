@@ -30,4 +30,10 @@ namespace ACS.WEB.ViewModel
         /// </summary>
         public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
     }
+    public class SelectedFolderChancellery
+    {
+        public int Id { get; set; }
+        public int SelectedId { get; set; }
+    }
+
 }

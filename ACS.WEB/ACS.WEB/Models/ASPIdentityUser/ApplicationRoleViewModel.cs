@@ -19,4 +19,21 @@ namespace ACS.WEB.ViewModel
         public string Name { get; set; }
 
     }
+    public class SelectedRoleViewModel
+    {
+        public SelectedRoleViewModel()
+        {
+            SelectedId = new HashSet<int>();
+            RoleCollection = new HashSet<ApplicationRoleViewModel>();
+        }
+        public int Id { get; set; }
+
+
+        /// <summary>
+        /// Хранит в коллекцию, чтобы осуществлять по ней выбор
+        /// </summary>
+        public ICollection<ApplicationRoleViewModel> RoleCollection { get; set; }
+
+        public ICollection<int> SelectedId { get; set; }
+    }
 }

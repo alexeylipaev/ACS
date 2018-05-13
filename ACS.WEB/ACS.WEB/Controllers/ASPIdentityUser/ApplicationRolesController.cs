@@ -35,7 +35,7 @@ namespace ACS.WEB.Controllers
             IEnumerable<ApplicationRoleDTO> rolesDto = ApplicationRoleService.GetApplicationRoles();
             //var user = this.User;
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
-            var roles = mapper.Map<IEnumerable<ApplicationRoleDTO>, List<ApplicationRoleViewModel>>(rolesDto);
+            var roles = Mapper.Map<IEnumerable<ApplicationRoleDTO>, List<ApplicationRoleViewModel>>(rolesDto);
             return View(roles.OrderBy(r=>r.id));
         }
 
@@ -47,7 +47,7 @@ namespace ACS.WEB.Controllers
             {
                 ApplicationRoleDTO roleDto = await ApplicationRoleService.FindByIdAsync((int)id);
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
-                var roleVM = mapper.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(roleDto);
+                var roleVM = Mapper.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(roleDto);
                 //var userVM = new UserViewModel { Id = user.Id };
 
                 return View(roleVM);
