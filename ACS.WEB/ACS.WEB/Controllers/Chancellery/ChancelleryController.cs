@@ -115,7 +115,7 @@ namespace ACS.WEB.Controllers
         {
             try
             {
-                newChancelleryVM.TypeRecordChancellery = Map_TypeChancellery.Map_DTOto_VM(ChancelleryService.TypeRecordGetById((int)newChancelleryVM.TypeRecordId));
+                newChancelleryVM.TypeRecordChancellery = MapBLLRrsr.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById((int)newChancelleryVM.TypeRecordId));
 
                 var idResponsible = (int)newChancelleryVM.ResponsibleEmployee_Id;//.SelectedResponsible.SelectedId.FirstOrDefault();
 
