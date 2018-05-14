@@ -124,10 +124,20 @@
                    
             </td>
             <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Подробнее", "Details", new { id = item.id }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.id })|
-                @Html.ActionLink("Прикрепить файлы", "AttachFiles", new { ChancelleryId = item.id })
+                <div style="display: inline-flex; font-size:1.8em">
+                    <a style="padding-right:5px" href="@Url.Action("Edit", "Chancellery", new { id = item.id })" title = "Редактировать" @*class="btn btn-primary"*@>
+                        <i class="fa fa-pencil-square-o"></i>
+                    </a>
+                    <a  title = "Подробнее" style="padding-right:5px" href="@Url.Action("Details", "Chancellery", new { id = item.id })" @*class="btn btn-primary"*@>
+                        <i class="fa fa-info"></i>
+                    </a>
+                    <a  title = "Переместить в корзину" style="padding-right:5px" href="@Url.Action("Delete", "Chancellery", new { id = item.id })" @*class="btn btn-primary"*@>
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                    <a title = "Прикрепить файлы" href="@Url.Action("AttachFiles", "Chancellery", new { id = item.id })" @*class="btn btn-primary"*@>
+                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                    </a>
+                </div>
             </td>
         </tr>
     }
