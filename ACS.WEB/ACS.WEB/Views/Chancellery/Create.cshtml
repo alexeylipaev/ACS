@@ -7,7 +7,7 @@
 @using (Html.BeginForm("Create", "Chancellery", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(m => m.TypeRecordId)
+    @Html.HiddenFor(m => m.TypeRecordChancelleryId)
     <div class="form-horizontal">
         <h4>@ViewBag.ActionName</h4>
         <hr />
@@ -43,8 +43,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Employee, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ResponsibleEmployee_Id, new SelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { @class = "chosen", data_placeholder = "Выберите ответственного" })
-                @Html.ValidationMessageFor(model => model.ResponsibleEmployee_Id, "", new { @class = "text-danger"})
+                @Html.DropDownListFor(model => model.EmployeeId, new SelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { @class = "chosen", data_placeholder = "Выберите ответственного" })
+                @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger"})
 
             </div>
         </div>
@@ -61,8 +61,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FolderChancellery, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.FolderId, new SelectList(ACS.WEB.ViewModel.SelectedFolderChancellery.Collection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите папку" })
-                @Html.ValidationMessageFor(model => model.FolderId, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.FolderChancelleryId, new SelectList(ACS.WEB.ViewModel.SelectedFolderChancellery.Collection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите папку" })
+                @Html.ValidationMessageFor(model => model.FolderChancelleryId, "", new { @class = "text-danger" })
             </div>
         </div>
         @switch (Model.TypeRecordChancellery.id)
