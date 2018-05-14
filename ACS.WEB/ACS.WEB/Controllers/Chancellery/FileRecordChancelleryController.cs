@@ -1,6 +1,7 @@
 ﻿using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
+using ACS.WEB.Util;
 using ACS.WEB.ViewModel;
 using AutoMapper;
 using System;
@@ -35,15 +36,15 @@ namespace ACS.WEB.Controllers.Chancellery
         // GET: TypesRecordsChancellery
         public ActionResult Index()
         {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                //cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
-                cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>();
+            //var mapper = new MapperConfiguration(cfg =>
+            //{
+            //    //cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
+            //    cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>();
 
-            }).CreateMapper();
+            //}).CreateMapper();
 
 
-            var FileRecorddVM = mapper.Map<IEnumerable<FileRecordChancelleryDTO>, List<FileRecordChancelleryViewModel>>(FileRecordChancelleryService.GetFilesRecordChancellery());
+            var FileRecorddVM = MapBLLRrsr.GetMap().Map<IEnumerable<FileRecordChancelleryDTO>, List<FileRecordChancelleryViewModel>>(FileRecordChancelleryService.GetFilesRecordChancellery());
             return View(FileRecorddVM);
         }
 
@@ -149,27 +150,27 @@ namespace ACS.WEB.Controllers.Chancellery
 
         FileRecordChancelleryViewModel MappFileRecordDTOToFileRecordVM(FileRecordChancelleryDTO FileRecordDTO)
         {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                //cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
-                cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>();
+            //var mapper = new MapperConfiguration(cfg =>
+            //{
+            //    //cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
+            //    cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>();
 
-            }).CreateMapper();
+            //}).CreateMapper();
             // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>()).CreateMapper();
-            return mapper.Map<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>(FileRecordDTO);
+            return MapBLLRrsr.GetMap().Map<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>(FileRecordDTO);
         }
 
 
         FileRecordChancelleryDTO MappFileRecordVMToFileRecordDTO(FileRecordChancelleryViewModel FileRecordVM)
         {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                //cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();
-                cfg.CreateMap<FileRecordChancelleryViewModel, FileRecordChancelleryDTO>();
+            //var mapper = new MapperConfiguration(cfg =>
+            //{
+            //    //cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();
+            //    cfg.CreateMap<FileRecordChancelleryViewModel, FileRecordChancelleryDTO>();
 
-            }).CreateMapper();
+            //}).CreateMapper();
             // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancelleryViewModel, FileRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<FileRecordChancelleryViewModel, FileRecordChancelleryDTO>(FileRecordVM);
+            return MapBLLRrsr.GetMap().Map<FileRecordChancelleryViewModel, FileRecordChancelleryDTO>(FileRecordVM);
         }
 
         private bool disposed = false;

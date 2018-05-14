@@ -28,7 +28,7 @@ namespace ACS.BLL.Services
             //}).CreateMapper();
 
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>()).CreateMapper();
-            return MappService.GetMapp().Map<FolderChancellery, FolderChancelleryDTO>(Folder);
+            return MapDALBLL.GetMapp().Map<FolderChancellery, FolderChancelleryDTO>(Folder);
         }
 
 
@@ -41,14 +41,14 @@ namespace ACS.BLL.Services
 
             //}).CreateMapper();
            // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>()).CreateMapper();
-            return MappService.GetMapp().Map<FolderChancelleryDTO, FolderChancellery>(FolderDto);
+            return MapDALBLL.GetMapp().Map<FolderChancelleryDTO, FolderChancellery>(FolderDto);
         }
 
         public IEnumerable<FolderChancelleryDTO> GetFoldersChancellery()
         {
             // применяем автомаппер для проекции одной коллекции на другую
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>()).CreateMapper();
-            return MappService.GetMapp().Map<IEnumerable<FolderChancellery>, List<FolderChancelleryDTO>>(Database.FolderChancelleries.GetAll());
+            return MapDALBLL.GetMapp().Map<IEnumerable<FolderChancellery>, List<FolderChancelleryDTO>>(Database.FolderChancelleries.GetAll());
         }
 
         public FolderChancelleryDTO GetFolderChancellery(int id)
@@ -105,8 +105,8 @@ namespace ACS.BLL.Services
         {
             var chancy = Database.Chancelleries.Query(filter: ch => ch.FolderChancellery.id == folderId).ToList();
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(chancy);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(chancy);
         }
 
 

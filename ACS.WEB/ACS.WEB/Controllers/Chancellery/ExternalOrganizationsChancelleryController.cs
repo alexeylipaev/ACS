@@ -1,6 +1,7 @@
 ﻿using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
+using ACS.WEB.Util;
 using ACS.WEB.ViewModel;
 using AutoMapper;
 using System;
@@ -21,8 +22,8 @@ namespace ACS.WEB.Controllers.Chancellery
         // GET: ExternalOrganizationsChancellery
         public ActionResult Index()
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>()).CreateMapper();
-            var externalOrganizationdVM = Mapper.Map<IEnumerable<ExternalOrganizationChancelleryDTO>, List<ExternalOrganizationChancelleryViewModel>>(ExternalOrganizationsChancelleryService.GetExternalOrganizationsChancellery());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>()).CreateMapper();
+            var externalOrganizationdVM = MapBLLRrsr.GetMap().Map<IEnumerable<ExternalOrganizationChancelleryDTO>, List<ExternalOrganizationChancelleryViewModel>>(ExternalOrganizationsChancelleryService.GetExternalOrganizationsChancellery());
             return View(externalOrganizationdVM);
         }
 
@@ -131,15 +132,15 @@ namespace ACS.WEB.Controllers.Chancellery
 
         ExternalOrganizationChancelleryViewModel MappExternalOrganizationDTOToExternalOrganizationVM(ExternalOrganizationChancelleryDTO ExternalOrganizationDTO)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>()).CreateMapper();
-            return Mapper.Map<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>(ExternalOrganizationDTO);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>()).CreateMapper();
+            return MapBLLRrsr.GetMap().Map<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>(ExternalOrganizationDTO);
         }
 
 
         ExternalOrganizationChancelleryDTO MappExternalOrganizationVMToExternalOrganizationDTO(ExternalOrganizationChancelleryViewModel ExternalOrganizationVM)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryViewModel, ExternalOrganizationChancelleryDTO>()).CreateMapper();
-            return Mapper.Map<ExternalOrganizationChancelleryViewModel, ExternalOrganizationChancelleryDTO>(ExternalOrganizationVM);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryViewModel, ExternalOrganizationChancelleryDTO>()).CreateMapper();
+            return MapBLLRrsr.GetMap().Map<ExternalOrganizationChancelleryViewModel, ExternalOrganizationChancelleryDTO>(ExternalOrganizationVM);
         }
 
 

@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACS.BLL.Services
+namespace ACS.BLL
 {
-    static public class MappService
+    static public class MapDALBLL
     {
         static IMapper mapper;
         public static IMapper GetMapp()

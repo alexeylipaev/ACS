@@ -1,6 +1,7 @@
 ﻿using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
+using ACS.WEB.Util;
 using ACS.WEB.ViewModel;
 using AutoMapper;
 using System;
@@ -23,15 +24,15 @@ namespace ACS.WEB.Controllers.Chancellery
         // GET: TypesRecordsChancellery
         public ActionResult Index()
         {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
-                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
+            //var mapper = new MapperConfiguration(cfg =>
+            //{
+            //    cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
+            //    cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
 
-            }).CreateMapper();
+            //}).CreateMapper();
 
 
-            var TypeRecorddVM = mapper.Map<IEnumerable<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(TypeRecordChancelleryService.GetTypesRecordChancellery());
+            var TypeRecorddVM = MapBLLRrsr.GetMap().Map<IEnumerable<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(TypeRecordChancelleryService.GetTypesRecordChancellery());
             return View(TypeRecorddVM);
         }
 
@@ -211,27 +212,27 @@ namespace ACS.WEB.Controllers.Chancellery
 
         TypeRecordChancelleryViewModel MappTypeRecordDTOToTypeRecordVM(TypeRecordChancelleryDTO TypeRecordDTO)
         {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
-                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
+            //var mapper = new MapperConfiguration(cfg =>
+            //{
+            //    cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
+            //    cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>();
 
-            }).CreateMapper();
+            //}).CreateMapper();
             // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
-            return mapper.Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(TypeRecordDTO);
+            return MapBLLRrsr.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(TypeRecordDTO);
         }
 
 
         TypeRecordChancelleryDTO MappTypeRecordVMToTypeRecordDTO(TypeRecordChancelleryViewModel TypeRecordVM)
         {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();
-                cfg.CreateMap<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>();
+            //var mapper = new MapperConfiguration(cfg =>
+            //{
+            //    cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();
+            //    cfg.CreateMap<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>();
 
-            }).CreateMapper();
+            //}).CreateMapper();
             // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>(TypeRecordVM);
+            return MapBLLRrsr.GetMap().Map<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>(TypeRecordVM);
         }
         protected override void Dispose(bool disposing)
         {
