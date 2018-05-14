@@ -148,7 +148,7 @@ namespace ACS.BLL.Services
                 var chancelleryOriginal = Database.Chancelleries.Find(chancelleryDTO.id);
                 /*   var chanceller =*/
 
-                var chancellery = MapDALBLL.GetMapp().Map(chancelleryDTO, chancelleryOriginal);
+                var chancellery = MapDALBLL.GetMapForUpdateOrCreate().Map(chancelleryDTO, chancelleryOriginal);
 
                 if (chancelleryOriginal != null)
                 {
