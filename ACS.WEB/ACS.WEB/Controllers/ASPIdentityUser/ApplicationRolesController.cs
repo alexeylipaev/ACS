@@ -1,6 +1,7 @@
 ﻿using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
+using ACS.WEB.Util;
 using ACS.WEB.ViewModel;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
@@ -34,8 +35,8 @@ namespace ACS.WEB.Controllers
         {
             IEnumerable<ApplicationRoleDTO> rolesDto = ApplicationRoleService.GetApplicationRoles();
             //var user = this.User;
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
-            var roles = Mapper.Map<IEnumerable<ApplicationRoleDTO>, List<ApplicationRoleViewModel>>(rolesDto);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
+            var roles = MapBLLRrsr.GetMap().Map<IEnumerable<ApplicationRoleDTO>, List<ApplicationRoleViewModel>>(rolesDto);
             return View(roles.OrderBy(r=>r.id));
         }
 
@@ -46,8 +47,8 @@ namespace ACS.WEB.Controllers
             try
             {
                 ApplicationRoleDTO roleDto = await ApplicationRoleService.FindByIdAsync((int)id);
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
-                var roleVM = Mapper.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(roleDto);
+                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
+                var roleVM = MapBLLRrsr.GetMap().Map<ApplicationRoleDTO, ApplicationRoleViewModel>(roleDto);
                 //var userVM = new UserViewModel { Id = user.Id };
 
                 return View(roleVM);

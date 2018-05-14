@@ -1,6 +1,7 @@
 ﻿using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
+using ACS.WEB.Util;
 using ACS.WEB.ViewModel;
 using AutoMapper;
 using System;
@@ -147,13 +148,13 @@ namespace ACS.WEB.Controllers.Chancellery
 
         JournalRegistrationsChancelleryDTO MappJournalVMToJournalDTO(JournalRegistrationsChancelleryViewModel JournalVM)
         {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO  > ();
-                cfg.CreateMap<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO  > ();
+            //var mapper = new MapperConfiguration(cfg =>
+            //{
+            //    cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO  > ();
+            //    cfg.CreateMap<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO  > ();
 
-            }).CreateMapper();
-            return mapper.Map<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO>(JournalVM);
+            //}).CreateMapper();
+            return MapBLLRrsr.GetMap().Map<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO>(JournalVM);
         }
 
         //private bool disposed = false;

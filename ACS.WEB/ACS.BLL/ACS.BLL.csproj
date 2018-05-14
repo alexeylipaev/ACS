@@ -115,7 +115,7 @@
     <Compile Include="Services\AccountAppUserService.cs" />
     <Compile Include="Services\ASPIdentityUser\ApplicationRoleService.cs" />
     <Compile Include="Services\Chancellery\ExternalOrganizationChancelleryService.cs" />
-    <Compile Include="Services\MappService.cs" />
+    <Compile Include="Infrastructure\MapDALBLL.cs" />
     <Compile Include="Services\InputControlPKI\InputControlPKIService.cs" />
     <Compile Include="Services\Mapper\Mapper_DB_DTO_EmplService.cs" />
     <Compile Include="Services\ServiceBase.cs" />

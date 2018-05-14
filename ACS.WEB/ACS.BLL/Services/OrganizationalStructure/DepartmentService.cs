@@ -25,15 +25,15 @@ namespace ACS.BLL.Services
             if (department == null)
                 throw new ValidationException("Подразделение не найдено", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Department, DepartmentDTO>()).CreateMapper();
-            return mapper.Map<Department, DepartmentDTO>(department);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Department, DepartmentDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<Department, DepartmentDTO>(department);
         }
 
         public IEnumerable<DepartmentDTO> GetDepartments()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Department, DepartmentDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Department>, List<DepartmentDTO>>(Database.Departments.GetAll());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Department, DepartmentDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<IEnumerable<Department>, List<DepartmentDTO>>(Database.Departments.GetAll());
         }
 
 

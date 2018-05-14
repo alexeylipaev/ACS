@@ -41,22 +41,22 @@ namespace ACS.BLL.Services
 
         public Employee Map_EmployeeDTO_to_Employee(EmployeeDTO EmployeeDTO)
         {
-            return MappService.GetMapp().Map<EmployeeDTO, Employee>(EmployeeDTO);
+            return MapDALBLL.GetMapp().Map<EmployeeDTO, Employee>(EmployeeDTO);
         }
 
         public EmployeeDTO Map_Employee_to_EmployeeDTO(Employee Employee)
         {
-            return MappService.GetMapp().Map<Employee, EmployeeDTO>(Employee);
+            return MapDALBLL.GetMapp().Map<Employee, EmployeeDTO>(Employee);
         }
 
         public IEnumerable<EmployeeDTO> MappListEmplsToListEmplsDTO(IEnumerable<Employee> Empls)
         {
-            return MappService.GetMapp().Map<IEnumerable<Employee>, List<EmployeeDTO>>(Empls);
+            return MapDALBLL.GetMapp().Map<IEnumerable<Employee>, List<EmployeeDTO>>(Empls);
         }
 
         public IEnumerable<Employee> MappListEmplsDTOToListEmpls(IEnumerable<EmployeeDTO> EmplsDTO)
         {
-            return MappService.GetMapp().Map<IEnumerable<EmployeeDTO>, List<Employee>>(EmplsDTO);
+            return MapDALBLL.GetMapp().Map<IEnumerable<EmployeeDTO>, List<Employee>>(EmplsDTO);
         }
     }
 

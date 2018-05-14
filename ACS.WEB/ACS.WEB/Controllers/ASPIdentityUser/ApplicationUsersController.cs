@@ -1,6 +1,7 @@
 ﻿using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
+using ACS.WEB.Util;
 using ACS.WEB.ViewModel;
 using AutoMapper;
 using System;
@@ -51,7 +52,7 @@ namespace ACS.WEB.Controllers
                     {
                         //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
 
-                        var result = Mapper.Map<ApplicationRoleDTO, ApplicationRoleViewModel>(AppRoleDTo);
+                        var result = MapBLLRrsr.GetMap().Map<ApplicationRoleDTO, ApplicationRoleViewModel>(AppRoleDTo);
 
                         userVW.DataRoles.Add(result);
                     }
@@ -68,7 +69,7 @@ namespace ACS.WEB.Controllers
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationRoleDTO, ApplicationRoleViewModel>()).CreateMapper();
 
 
-            rol.RoleCollection = Mapper.Map<IEnumerable<ApplicationRoleDTO>, List<ApplicationRoleViewModel>>(roledDto); 
+            rol.RoleCollection = MapBLLRrsr.GetMap().Map<IEnumerable<ApplicationRoleDTO>, List<ApplicationRoleViewModel>>(roledDto); 
 
             ApplicationUserDTO userDto = await ApplicationUserService.FindByIdAsync(id);
             //var user = this.User;
@@ -271,15 +272,15 @@ namespace ACS.WEB.Controllers
         //}
         ApplicationUserDTO MappAppUserVMToAppUserDTO(ApplicationUserViewModel ApplicationUserVM)
         {
-            return Mapper.Map<ApplicationUserViewModel, ApplicationUserDTO>(ApplicationUserVM);
+            return MapBLLRrsr.GetMap().Map<ApplicationUserViewModel, ApplicationUserDTO>(ApplicationUserVM);
         }
         ApplicationUserViewModel MappAppUserDTOToAppUserVM(ApplicationUserDTO ApplicationUserDTO)
         {
-            return Mapper.Map<ApplicationUserDTO, ApplicationUserViewModel>(ApplicationUserDTO);
+            return MapBLLRrsr.GetMap().Map<ApplicationUserDTO, ApplicationUserViewModel>(ApplicationUserDTO);
         }
         IEnumerable<ApplicationUserViewModel> MappListAppUserDTOToListAppUserVM(IEnumerable<ApplicationUserDTO> ApplicationUserDTO)
         {
-            return Mapper.Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(ApplicationUserDTO);
+            return MapBLLRrsr.GetMap().Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(ApplicationUserDTO);
         }
         #endregion
     }

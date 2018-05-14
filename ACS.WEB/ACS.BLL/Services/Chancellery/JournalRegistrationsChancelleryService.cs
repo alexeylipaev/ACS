@@ -60,7 +60,7 @@ namespace ACS.BLL.Services
             var chancy = Database.Chancelleries.Query(filter: ch => ch.JournalRegistrationsChancellery.id == journalId).ToList();
 
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
-            return MappService.GetMapp().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(chancy);
+            return MapDALBLL.GetMapp().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(chancy);
         }
 
         public JournalRegistrationsChancelleryDTO GetJournal(int id)
@@ -76,7 +76,7 @@ namespace ACS.BLL.Services
 
         public IEnumerable<JournalRegistrationsChancelleryDTO> GetJournalsChancellery()
         {
-            return MappService.GetMapp().Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll());
+            return MapDALBLL.GetMapp().Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll());
         }
 
         //IMapper mapTemplournalToJournalDTO()
@@ -91,7 +91,7 @@ namespace ACS.BLL.Services
 
         JournalRegistrationsChancelleryDTO MappJournalToJournalDTO(JournalRegistrationsChancellery Journal)
         {
-            return MappService.GetMapp().Map<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>(Journal);
+            return MapDALBLL.GetMapp().Map<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>(Journal);
         }
 
         JournalRegistrationsChancellery MappJournalDTOToJournal(JournalRegistrationsChancelleryDTO JournalDto)
@@ -104,7 +104,7 @@ namespace ACS.BLL.Services
             }).CreateMapper();
 
            // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>()).CreateMapper();
-            return MappService.GetMapp().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>(JournalDto);
+            return MapDALBLL.GetMapp().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>(JournalDto);
         }
 
         

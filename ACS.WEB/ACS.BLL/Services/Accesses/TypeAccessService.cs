@@ -19,8 +19,8 @@ namespace ACS.BLL.Services
         public IEnumerable<TypeAccessDTO> GetTypesAccess()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeAccess, TypeAccessDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<TypeAccess>, List<TypeAccessDTO>>(Database.TypesAccesses.GetAll());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeAccess, TypeAccessDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<IEnumerable<TypeAccess>, List<TypeAccessDTO>>(Database.TypesAccesses.GetAll());
         }
 
         public TypeAccessDTO GetTypeAccess(int? id)
@@ -33,8 +33,8 @@ namespace ACS.BLL.Services
             if (type == null)
                 throw new ValidationException("Отсутствует тип доступа", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeAccess, TypeAccessDTO>()).CreateMapper();
-            return mapper.Map<TypeAccess, TypeAccessDTO>(type);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeAccess, TypeAccessDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<TypeAccess, TypeAccessDTO>(type);
         }
 
         public void CreateTypeAccess(TypeAccessDTO TypeAccessDTO, string authorEmail)

@@ -35,8 +35,8 @@ namespace ACS.BLL.Services
 
             try
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<AccessDTO, Access>()).CreateMapper();
-                Access Access = mapper.Map<AccessDTO, Access>(AccessDto);
+                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<AccessDTO, Access>()).CreateMapper();
+                Access Access = MapDALBLL.GetMapp().Map<AccessDTO, Access>(AccessDto);
 
                 //Employee Employee = new Employee
                 //{
@@ -75,8 +75,8 @@ namespace ACS.BLL.Services
         public IEnumerable<AccessDTO> GetAccesses()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Access, AccessDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<Access>, List<AccessDTO>>(Database.Accesses.GetAll());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Access, AccessDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<IEnumerable<Access>, List<AccessDTO>>(Database.Accesses.GetAll());
         }
 
         public AccessDTO GetAccess(int? id)
@@ -88,8 +88,8 @@ namespace ACS.BLL.Services
             if (access == null)
                 throw new ValidationException("Доступ не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Access, AccessDTO>()).CreateMapper();
-            return mapper.Map<Access, AccessDTO>(access);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Access, AccessDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<Access, AccessDTO>(access);
         }
 
         public EmployeeDTO GetUser(int? id)
@@ -101,8 +101,8 @@ namespace ACS.BLL.Services
             if (Employee == null)
                 throw new ValidationException("Пользователь не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
-            return mapper.Map<Employee, EmployeeDTO>(Employee);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<Employee, EmployeeDTO>(Employee);
         }
 
         public void UpdateAccess(AccessDTO accessDTO, string authorEmail)

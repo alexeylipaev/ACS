@@ -70,22 +70,22 @@ namespace ACS.BLL.Services
         public IEnumerable<ExternalOrganizationChancelleryDTO> GetExternalOrganizationsChancellery()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancellery, ExternalOrganizationChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<ExternalOrganizationChancellery>, List<ExternalOrganizationChancelleryDTO>>(Database.ExternalOrganizationChancelleries.GetAll());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancellery, ExternalOrganizationChancelleryDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<IEnumerable<ExternalOrganizationChancellery>, List<ExternalOrganizationChancelleryDTO>>(Database.ExternalOrganizationChancelleries.GetAll());
         }
 
 
         ExternalOrganizationChancelleryDTO MappExternalOrganizationToExternalOrganizationDTO(ExternalOrganizationChancellery ExternalOrganization)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancellery, ExternalOrganizationChancelleryDTO>()).CreateMapper();
-            return mapper.Map<ExternalOrganizationChancellery, ExternalOrganizationChancelleryDTO>(ExternalOrganization);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancellery, ExternalOrganizationChancelleryDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<ExternalOrganizationChancellery, ExternalOrganizationChancelleryDTO>(ExternalOrganization);
         }
 
 
         ExternalOrganizationChancellery MappExternalOrganizationDTOToExternalOrganization(ExternalOrganizationChancelleryDTO ExternalOrganizationDto)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancellery>()).CreateMapper();
-            return mapper.Map<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancellery>(ExternalOrganizationDto);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancellery>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancellery>(ExternalOrganizationDto);
         }
 
 

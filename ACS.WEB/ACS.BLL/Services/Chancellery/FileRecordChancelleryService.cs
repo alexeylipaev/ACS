@@ -71,22 +71,22 @@ namespace ACS.BLL.Services
         public IEnumerable<FileRecordChancelleryDTO> GetFilesRecordChancellery()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<FileRecordChancellery>, List<FileRecordChancelleryDTO>>(Database.FileRecordChancelleries.GetAll());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<IEnumerable<FileRecordChancellery>, List<FileRecordChancelleryDTO>>(Database.FileRecordChancelleries.GetAll());
         }
 
 
         FileRecordChancelleryDTO MappFileRecordToFileRecordDTO(FileRecordChancellery FileRecord)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<FileRecordChancellery, FileRecordChancelleryDTO>(FileRecord);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<FileRecordChancellery, FileRecordChancelleryDTO>(FileRecord);
         }
 
 
         FileRecordChancellery MappFileRecordDTOToFileRecord(FileRecordChancelleryDTO FileRecordDto)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>()).CreateMapper();
-            return mapper.Map<FileRecordChancelleryDTO, FileRecordChancellery>(FileRecordDto);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<FileRecordChancelleryDTO, FileRecordChancellery>(FileRecordDto);
         }
 
 

@@ -25,8 +25,8 @@ namespace ACS.BLL.Services
             if (user == null)
                 throw new ValidationException("Пользователь не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
-            return mapper.Map<Employee, EmployeeDTO>(user);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<Employee, EmployeeDTO>(user);
         }
 
         public EmployeePassportDTO GetEmployeePassport(int? id)
@@ -38,15 +38,15 @@ namespace ACS.BLL.Services
             if (Passport == null)
                 throw new ValidationException("Паспорт не найден", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeePassport, EmployeePassportDTO>()).CreateMapper();
-            return mapper.Map<EmployeePassport, EmployeePassportDTO>(Passport);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeePassport, EmployeePassportDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<EmployeePassport, EmployeePassportDTO>(Passport);
         }
 
         public IEnumerable<EmployeePassportDTO> GetUsersPassport()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeePassport, EmployeePassportDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<EmployeePassport>, List<EmployeePassportDTO>>(Database.EmployeesPassports.GetAll());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeePassport, EmployeePassportDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<IEnumerable<EmployeePassport>, List<EmployeePassportDTO>>(Database.EmployeesPassports.GetAll());
         }
 
 

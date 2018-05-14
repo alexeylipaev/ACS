@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using ACS.WEB.Util;
 namespace ACS.WEB.Controllers
 {
     public class AdminApplicationUserVMController : Controller
@@ -25,7 +25,7 @@ namespace ACS.WEB.Controllers
         {
             IEnumerable<ApplicationUserDTO> userDtos = ApplicationUserService.GetApplicationUsers();
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()).CreateMapper();
-            var users = Mapper.Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(userDtos);
+            var users = MapBLLRrsr.GetMap().Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(userDtos);
             return View(users);
         }
 

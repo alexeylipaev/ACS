@@ -1,6 +1,7 @@
 ﻿using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
+using ACS.WEB.Util;
 using ACS.WEB.ViewModel;
 using AutoMapper;
 using System;
@@ -171,14 +172,14 @@ namespace ACS.WEB.Controllers
 
         FolderChancelleryDTO MappFolderVMToFolderDTO(FolderChancelleryViewModel FolderVM)
         {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();
-                cfg.CreateMap<FolderChancelleryViewModel, FolderChancelleryDTO>();
+            //var mapper = new MapperConfiguration(cfg =>
+            //{
+            //    cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();
+            //    cfg.CreateMap<FolderChancelleryViewModel, FolderChancelleryDTO>();
 
-            }).CreateMapper();
+            //}).CreateMapper();
             // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancelleryViewModel,FolderChancelleryDTO>()).CreateMapper();
-            return mapper.Map<FolderChancelleryViewModel, FolderChancelleryDTO>(FolderVM);
+            return MapBLLRrsr.GetMap().Map<FolderChancelleryViewModel, FolderChancelleryDTO>(FolderVM);
         }
 
         #endregion

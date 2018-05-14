@@ -240,8 +240,8 @@ namespace ACS.BLL.Services
             if (from == null)
                 throw new ValidationException("Отсутствуют данные от кого", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FromChancellery, FromChancelleryDTO>()).CreateMapper();
-            return mapper.Map<FromChancellery, FromChancelleryDTO>(from);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FromChancellery, FromChancelleryDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<FromChancellery, FromChancelleryDTO>(from);
         }
 
         /// <summary>
@@ -281,8 +281,8 @@ namespace ACS.BLL.Services
             if (File == null)
                 throw new ValidationException("Запись не содержит файла с таким ID", "");
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<FileRecordChancellery, FileRecordChancelleryDTO>(File);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<FileRecordChancellery, FileRecordChancelleryDTO>(File);
         }
 
         /// <summary>
@@ -299,8 +299,8 @@ namespace ACS.BLL.Services
             if (File == null)
                 throw new ValidationException("Файл с ID отсутствует", FileId.ToString());
 
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<FileRecordChancellery, FileRecordChancelleryDTO>(File);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<FileRecordChancellery, FileRecordChancelleryDTO>(File);
         }
 
         /// <summary>
@@ -310,8 +310,8 @@ namespace ACS.BLL.Services
         public IEnumerable<FileRecordChancelleryDTO> GetAllFiles()
         {
             // применяем автомаппер для проекции одной коллекции на другую
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<IEnumerable<FileRecordChancellery>, List<FileRecordChancelleryDTO>>(Database.FileRecordChancelleries.GetAll());
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<IEnumerable<FileRecordChancellery>, List<FileRecordChancelleryDTO>>(Database.FileRecordChancelleries.GetAll());
         }
 
 
@@ -561,15 +561,15 @@ x => x.MapFrom(m => m.TypeRecordChancellery)); ;
 
         FileRecordChancelleryDTO MappFileRecordChancelleryToFileRecordChancelleryDTO(FileRecordChancellery FileRecordChancellery)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
-            return mapper.Map<FileRecordChancellery, FileRecordChancelleryDTO>(FileRecordChancellery);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<FileRecordChancellery, FileRecordChancelleryDTO>(FileRecordChancellery);
         }
 
 
         FileRecordChancellery MappFileRecordChancelleryDTOTFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDTO)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>()).CreateMapper();
-            return mapper.Map<FileRecordChancelleryDTO, FileRecordChancellery>(FileRecordChancelleryDTO);
+            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>()).CreateMapper();
+            return MapDALBLL.GetMapp().Map<FileRecordChancelleryDTO, FileRecordChancellery>(FileRecordChancelleryDTO);
         }
 
         #endregion
