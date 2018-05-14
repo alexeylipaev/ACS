@@ -38,12 +38,14 @@ namespace ACS.WEB.ViewModel
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата регистрации")]
+        [Required]
         public DateTime DateRegistration { get; set; }
 
         /// <summary>
         /// Регистрационный номер
         /// </summary>
         [Display(Name = "Регистрационный номер")]
+        [Required]
         public string RegistrationNumber { get; set; }
 
 
@@ -52,6 +54,7 @@ namespace ACS.WEB.ViewModel
         /// </summary>
         [Display(Name = "Описание")]
         [DataType(DataType.MultilineText)]
+        [Required]
         public string Summary { get; set; }
 
         /// <summary>
@@ -63,7 +66,7 @@ namespace ACS.WEB.ViewModel
 
         #region папка
 
-        //public int? FolderId { get; set; }
+        public int? FolderId { get; set; }
 
         /// <summary>
         /// Папка
@@ -81,13 +84,14 @@ namespace ACS.WEB.ViewModel
         /// Журнал
         /// </summary>
         public JournalRegistrationsChancelleryViewModel JournalRegistrationsChancellery { get; set; }
+        public int JournalRegistrationsChancelleryId { get; set; }
         public SelectedJournalRegChancellery SelectedJournalsReg { get; set; }
         #endregion
 
         #region Тип
 
-        //[Display(Name = "Тип")]
-        //public int? TypeRecordId { get; set; }
+        [Display(Name = "Тип")]
+        public int? TypeRecordId { get; set; }
 
         private TypeRecordChancelleryViewModel _typeRecordChancellery;
 
@@ -133,7 +137,7 @@ namespace ACS.WEB.ViewModel
 
         #region Ответственный
 
-        //public int? ResponsibleEmployee_Id { get; set; }
+        public int? ResponsibleEmployee_Id { get; set; }
 
         /// <summary>
         /// Ответственный
