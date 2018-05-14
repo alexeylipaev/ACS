@@ -32,8 +32,15 @@ namespace ACS.WEB.ViewModel
     }
     public class SelectedFolderChancellery
     {
-        public int Id { get; set; }
+        public SelectedFolderChancellery()
+        {
+            if (Collection == null)
+                Collection = new List<FolderChancelleryViewModel>();
+        }
+        public int id { get; set; }
         public int SelectedId { get; set; }
+
+        static public List<FolderChancelleryViewModel>Collection = new List<FolderChancelleryViewModel>();
     }
 
 }

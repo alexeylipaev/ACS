@@ -21,11 +21,11 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         ChancelleryDTO ChancelleryGet(int id);
 
-        /// <summary>
-        /// Сделать запись
-        /// </summary>
-        /// <param name="chancelleryDto"></param>
-        void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail);
+        ///// <summary>
+        ///// Сделать запись
+        ///// </summary>
+        ///// <param name="chancelleryDto"></param>
+        //void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail);
 
         int DeleteChancellery(int chancelleryId);
 
@@ -35,7 +35,7 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         IEnumerable<ChancelleryDTO> ChancellerieGetAll();
 
-        void ChancelleryUpdate(ChancelleryDTO ChancelleryDTO, string authorEmail);
+        int CreateOrUpdateChancellery(ChancelleryDTO ChancelleryDTO, string authorEmail);
 
         #region Folder
 

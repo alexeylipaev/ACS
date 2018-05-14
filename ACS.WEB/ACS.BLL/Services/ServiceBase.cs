@@ -21,6 +21,7 @@ namespace ACS.BLL.Services
         public ServiceBase(IUnitOfWork uow)
         {
             this.db = uow;
+            MapDALBLL.Init(uow);
         }
 
         protected virtual IUnitOfWork Database

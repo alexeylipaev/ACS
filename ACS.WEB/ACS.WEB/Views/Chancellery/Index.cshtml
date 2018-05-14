@@ -131,7 +131,7 @@
                     <a  title = "Подробнее" style="padding-right:5px" href="@Url.Action("Details", "Chancellery", new { id = item.id })" @*class="btn btn-primary"*@>
                         <i class="fa fa-info"></i>
                     </a>
-                    <a  title = "Переместить в корзину" style="padding-right:5px" href="@Url.Action("Delete", "Chancellery", new { id = item.id })" @*class="btn btn-primary"*@>
+                    <a  title = "Переместить в корзину" style="padding-right:5px" href="@Url.Action("MoveToBasket", "Chancellery", new { id = item.id })" @*class="btn btn-primary"*@>
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </a>
                     <a title = "Прикрепить файлы" href="@Url.Action("AttachFiles", "Chancellery", new { id = item.id })" @*class="btn btn-primary"*@>

@@ -72,10 +72,12 @@ namespace ACS.WEB.ViewModel
         public SelectedEmployeeViewModel()
         {
             SelectedId = new HashSet<int>();
+            if(Collection == null)
+            Collection = new List<EmployeeViewModel>();
         }
-        public int Id { get; set; }
+        public int id { get; set; }
 
-
+        static public List<EmployeeViewModel> Collection { get; set; }
         public ICollection<int> SelectedId { get; set; }
     }
   

@@ -39,48 +39,137 @@ namespace ACS.BLL.Services
 
 
 
-        public void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail)
+        //public void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail)
+        //{
+        //    int AuthorID = 0;
+        //    try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+        //    catch (Exception ex) { throw ex; }
+        //    try
+        //    {
+        //        //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
+        //        Chancellery chancellery = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDto);
+
+        //        Database.Chancelleries.Add(chancellery, AuthorID);
+        //        //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        CatchError(e);
+        //    }
+        //}
+
+
+        int CreateOrUpdate_To(ToChancelleryDTO DTO_to, int AuthorID)
+        {
+            try
+            {
+                ToChancellery To_Original = Database.ToChancelleries.Find(DTO_to.id);
+
+                var to = MapDALBLL.GetMapp().Map(DTO_to, To_Original);
+
+                if (To_Original != null)
+                {
+                    To_Original.Chancellery = to.Chancellery;
+                    To_Original.Employee = to.Employee;
+                    To_Original.ExternalOrganization = to.ExternalOrganization;
+                    To_Original.s_InBasket = to.s_InBasket;
+
+                    return Database.ToChancelleries.Update(To_Original, AuthorID);
+                }
+                else if (To_Original == null)
+                {
+                    return Database.ToChancelleries.Add(to, AuthorID);
+                }
+
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
+
+            return 0;
+        }
+
+        int CreateOrUpdate_From(FromChancelleryDTO DTO_From, int AuthorID)
+        {
+            try
+            {
+                FromChancellery From_Original = Database.FromChancelleries.Find(DTO_From.id);
+
+                var from = MapDALBLL.GetMapp().Map(DTO_From, From_Original);
+
+                if (From_Original != null)
+                {
+                    From_Original.Chancellery = from.Chancellery;
+                    From_Original.Employee = from.Employee;
+                    From_Original.ExternalOrganization = from.ExternalOrganization;
+                    From_Original.s_InBasket = from.s_InBasket;
+
+                    return Database.FromChancelleries.Update(From_Original, AuthorID);
+                }
+                else if (From_Original == null)
+                {
+                    return Database.FromChancelleries.Add(from, AuthorID);
+                }
+
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
+
+            return 0;
+        }
+
+        void CraeateOrUpdate_FromAndTo(ChancelleryDTO chancelleryDTO, int AuthorID)
+        {
+            int amountChanged_To = 0;
+            foreach (var DTO_to in chancelleryDTO.ToChancelleries)
+            {
+                amountChanged_To += CreateOrUpdate_To(DTO_to, AuthorID);
+            }
+            int amountChanged_From = 0;
+            foreach (var DTO_From in chancelleryDTO.FromChancelleries)
+            {
+                amountChanged_From += CreateOrUpdate_From(DTO_From, AuthorID);
+            }
+        }
+
+
+        public int CreateOrUpdateChancellery(ChancelleryDTO chancelleryDTO, string authorEmail)
         {
             int AuthorID = 0;
             try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
             catch (Exception ex) { throw ex; }
+
             try
             {
-                //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
-                Chancellery chancellery = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDto);
+                var chancelleryOriginal = Database.Chancelleries.Find(chancelleryDTO.id);
+                /*   var chanceller =*/
 
-                Database.Chancelleries.Add(chancellery, AuthorID);
-                //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
+                var chancellery = MapDALBLL.GetMapp().Map(chancelleryDTO, chancelleryOriginal);
 
+                if (chancelleryOriginal != null)
+                {
+                    //CraeateOrUpdate_FromAndTo(chancellery, AuthorID);
+                    return Database.Chancelleries.Update(chancelleryOriginal, AuthorID);
+                }
+
+                else if (chancelleryOriginal == null)
+                {
+                    //CraeateOrUpdate_FromAndTo(chancelleryDTO, AuthorID);
+                    return Database.Chancelleries.Add(chancellery, AuthorID);
+                }
             }
             catch (Exception e)
             {
                 CatchError(e);
             }
+
+            return 0;
         }
 
-
-        public void ChancelleryUpdate(ChancelleryDTO chancelleryDTO, string editorEmail)
-        {
-            int AuthorID = 0;
-            try { AuthorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
-            catch (Exception ex) { throw ex; }
-
-            Chancellery chancelleryDB = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDTO);
-
-            if (chancelleryDB == null)
-                throw new ValidationException("Невозможно редактировать объект с id", chancelleryDTO.id.ToString());
-
-            try
-            {
-                Database.Chancelleries.Update(chancelleryDB, AuthorID);
-
-            }
-            catch (Exception e)
-            {
-                CatchError(e);
-            }
-        }
 
 
         public int DeleteChancellery(int chancelleryId)
@@ -466,9 +555,13 @@ namespace ACS.BLL.Services
             var mapper = new MapperConfiguration(cfg =>
             {
 
-                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>();
-                cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>();
-                cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>();
+                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>()
+                .ForMember(x => x.Chancelleries, x => x.MapFrom(c => c.Chancelleries));
+                cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>()
+                .ForMember(x => x.Chancelleries, x => x.MapFrom(c => c.Chancelleries));
+
+                cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>()
+                .ForMember(x => x.Chancelleries, x => x.MapFrom(c => c.Chancelleries));
                 cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>();
                 cfg.CreateMap<FromChancelleryDTO, FromChancellery>()
                 .ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))

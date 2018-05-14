@@ -84,6 +84,7 @@ namespace ACS.WEB.ViewModel
         /// Журнал
         /// </summary>
         public JournalRegistrationsChancelleryViewModel JournalRegistrationsChancellery { get; set; }
+        [Display(Name = "Журнал регистрации")]
         public int JournalRegistrationsChancelleryId { get; set; }
         public SelectedJournalRegChancellery SelectedJournalsReg { get; set; }
         #endregion

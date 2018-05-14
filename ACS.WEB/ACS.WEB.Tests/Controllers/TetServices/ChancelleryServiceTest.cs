@@ -238,6 +238,11 @@ namespace ACS.WEB.Tests.Controllers.TetServices
         {
             throw new NotImplementedException();
         }
+
+        public int CreateOrUpdateChancellery(ChancelleryDTO ChancelleryDTO, string authorEmail)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
     }

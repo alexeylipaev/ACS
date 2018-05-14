@@ -30,9 +30,16 @@ namespace ACS.WEB.ViewModel
 
     public class SelectedJournalRegChancellery
     {
-        public int Id { get; set; }
+        public SelectedJournalRegChancellery()
+        {
+            if (Collection == null)
+                Collection = new List<JournalRegistrationsChancelleryViewModel>();
+        }
+        public int id { get; set; }
 
         public int SelectedId { get; set; }
+
+        static public List<JournalRegistrationsChancelleryViewModel> Collection = new List<JournalRegistrationsChancelleryViewModel>();
     }
 
 }

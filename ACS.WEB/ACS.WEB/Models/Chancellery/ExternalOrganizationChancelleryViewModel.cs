@@ -34,10 +34,11 @@ namespace ACS.WEB.ViewModel
         public SelectedExternalOrgViewModel()
         {
             SelectedId = new HashSet<int>();
-
+            if (Collection == null)
+                Collection = new List<ExternalOrganizationChancelleryViewModel>();
         }
-        public int Id { get; set; }
-
+        public int id { get; set; }
+        static public List<ExternalOrganizationChancelleryViewModel> Collection = new List<ExternalOrganizationChancelleryViewModel>();
         public ICollection<int> SelectedId { get; set; }
     }
 }

@@ -1,14 +1,15 @@
 ﻿@model ACS.WEB.ViewModel.ChancelleryViewModel
 @{
-    ViewBag.Title = "Создание";
+
     Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
 }
-<h2>@ViewBag.ActionName</h2>
+<h2>@ViewBag.TypeName</h2>
 @using (Html.BeginForm("Create", "Chancellery", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.TypeRecordId)
     <div class="form-horizontal">
+        <h4>@ViewBag.ActionName</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -42,7 +43,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Employee, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ResponsibleEmployee_Id, new SelectList(ViewBag.EmplsCollection, "Id", "FullName"), new { @class = "chosen", data_placeholder = "Выберите ответственного" })
+                @Html.DropDownListFor(model => model.ResponsibleEmployee_Id, new SelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { @class = "chosen", data_placeholder = "Выберите ответственного" })
                 @Html.ValidationMessageFor(model => model.ResponsibleEmployee_Id, "", new { @class = "text-danger"})
 
             </div>
@@ -51,7 +52,7 @@
             @Html.LabelFor(model => model.JournalRegistrationsChancellery, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <abbr class="search-choice-close"></abbr>
-                @Html.DropDownListFor(model => model.JournalRegistrationsChancelleryId, new SelectList(ViewBag.JournalsCollection, "Id", "Name"), new { @class = "chosen", data_placeholder = "Выберите журнал" })
+                @Html.DropDownListFor(model => model.JournalRegistrationsChancelleryId, new SelectList(ACS.WEB.ViewModel.SelectedJournalRegChancellery.Collection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите журнал"})
                 @Html.ValidationMessageFor(model => model.JournalRegistrationsChancelleryId, "", new { @class = "text-danger" })
 
             </div>
@@ -60,7 +61,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FolderChancellery, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.FolderId, new SelectList(ViewBag.FoldersCollection, "Id", "Name"), new { @class = "chosen", data_placeholder = "Выберите папку" })
+                @Html.DropDownListFor(model => model.FolderId, new SelectList(ACS.WEB.ViewModel.SelectedFolderChancellery.Collection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите папку" })
                 @Html.ValidationMessageFor(model => model.FolderId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -82,13 +83,13 @@
         <div class="form-group">
             @*@Html.LabelFor(model => model.Path, htmlAttributes: new { @class = "control-label col-md-2" })*@
             <div class="col-md-10">
-                <input type="file" name="Files" required id="Files" multiple />
+                <input type="file" name="Files"  id="Files" multiple />
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Создать" class="btn btn-default" />
+                <input type="submit" value=@ViewBag.NameBtn class="btn btn-default" />
             </div>
         </div>
     </div>
