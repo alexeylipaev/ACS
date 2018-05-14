@@ -98,7 +98,7 @@ namespace ACS.WEB.Controllers
             ViewBag.Title = "Создание " + typeVM.Name;
             ViewBag.NameBtn = "Создать";
             var newChancelleryVM = new ChancelleryViewModel();
-            newChancelleryVM.TypeRecordId = TypeRecordId;
+            newChancelleryVM.TypeRecordChancelleryId = TypeRecordId;
             newChancelleryVM.TypeRecordChancellery = typeVM;
             newChancelleryVM.DateRegistration = DateTime.Today;
 
@@ -117,19 +117,19 @@ namespace ACS.WEB.Controllers
         {
             try
             {
-                newChancelleryVM.TypeRecordChancellery = MapBLLRrsr.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById((int)newChancelleryVM.TypeRecordId));
+                newChancelleryVM.TypeRecordChancellery = MapBLLRrsr.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById((int)newChancelleryVM.TypeRecordChancelleryId));
 
-                if (newChancelleryVM.ResponsibleEmployee_Id != null)
+                if (newChancelleryVM.EmployeeId != null)
                 {
-                    var idResponsible = (int)newChancelleryVM.ResponsibleEmployee_Id;//.SelectedResponsible.SelectedId.FirstOrDefault();
+                    var idResponsible = (int)newChancelleryVM.EmployeeId;//.SelectedResponsible.SelectedId.FirstOrDefault();
 
                     if (idResponsible > 0)
                         newChancelleryVM.Employee = MapBLLRrsr.GetMap().Map<EmployeeDTO, EmployeeViewModel>(ChancelleryService.GetEmployee(idResponsible));
                 }
 
-                if (newChancelleryVM.FolderId != null)
+                if (newChancelleryVM.FolderChancelleryId != null)
                 {
-                    var idFolder = (int)newChancelleryVM.FolderId;//newChancelleryVM.SelectedFolder.SelectedId;
+                    var idFolder = (int)newChancelleryVM.FolderChancelleryId;//newChancelleryVM.SelectedFolder.SelectedId;
 
                     if (idFolder > 0)
                         newChancelleryVM.FolderChancellery = MapBLLRrsr.GetMap().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(idFolder));

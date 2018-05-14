@@ -66,7 +66,7 @@ namespace ACS.WEB.ViewModel
 
         #region папка
 
-        public int? FolderId { get; set; }
+        public int? FolderChancelleryId { get; set; }
 
         /// <summary>
         /// Папка
@@ -92,7 +92,7 @@ namespace ACS.WEB.ViewModel
         #region Тип
 
         [Display(Name = "Тип")]
-        public int? TypeRecordId { get; set; }
+        public int? TypeRecordChancelleryId { get; set; }
 
         private TypeRecordChancelleryViewModel _typeRecordChancellery;
 
@@ -138,7 +138,7 @@ namespace ACS.WEB.ViewModel
 
         #region Ответственный
 
-        public int? ResponsibleEmployee_Id { get; set; }
+        public int? EmployeeId { get; set; }
 
         /// <summary>
         /// Ответственный
