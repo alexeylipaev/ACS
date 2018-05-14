@@ -10,46 +10,46 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Start/Description.txt">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Employees/Create.cshtml">
-      <publishTime>05/04/2018 12:57:33</publishTime>
+      <publishTime>05/10/2018 11:42:30</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Employees/Edit.cshtml">
-      <publishTime>05/04/2018 17:23:14</publishTime>
+      <publishTime>05/10/2018 11:42:27</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Employees/Index.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 08:56:49</publishTime>
     </File>
     <File Include="Areas/Admin/Views/Shared/_Layout.cshtml">
-      <publishTime>05/04/2018 12:36:03</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Areas/Admin/Views/TypeRecordChancellery/Create.cshtml">
-      <publishTime>05/08/2018 12:07:23</publishTime>
+      <publishTime>05/10/2018 11:42:25</publishTime>
     </File>
     <File Include="Areas/Admin/Views/TypeRecordChancellery/Delete.cshtml">
-      <publishTime>05/08/2018 14:42:07</publishTime>
+      <publishTime>05/10/2018 11:42:22</publishTime>
     </File>
     <File Include="Areas/Admin/Views/TypeRecordChancellery/Details.cshtml">
-      <publishTime>05/08/2018 12:14:03</publishTime>
+      <publishTime>05/10/2018 11:42:19</publishTime>
     </File>
     <File Include="Areas/Admin/Views/TypeRecordChancellery/Edit.cshtml">
-      <publishTime>05/08/2018 14:48:19</publishTime>
+      <publishTime>05/10/2018 11:42:16</publishTime>
     </File>
     <File Include="Areas/Admin/Views/TypeRecordChancellery/Index.cshtml">
-      <publishTime>05/08/2018 12:14:08</publishTime>
+      <publishTime>05/08/2018 13:53:16</publishTime>
     </File>
     <File Include="Areas/Admin/Views/web.config">
-      <publishTime>05/04/2018 09:24:55</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="bin/ACS.BLL.dll">
-      <publishTime>05/10/2018 10:42:47</publishTime>
+      <publishTime>05/14/2018 14:28:42</publishTime>
     </File>
     <File Include="bin/ACS.DAL.dll">
-      <publishTime>05/10/2018 10:42:36</publishTime>
+      <publishTime>05/14/2018 14:28:36</publishTime>
     </File>
     <File Include="bin/ACS.WEB.dll">
-      <publishTime>05/10/2018 10:43:39</publishTime>
+      <publishTime>05/14/2018 14:28:46</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/10/2013 16:29:20</publishTime>
@@ -65,6 +65,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/EntityFramework.SqlServer.dll">
       <publishTime>10/23/2017 13:15:20</publishTime>
+    </File>
+    <File Include="bin/HtmlAttributeHelper.dll">
+      <publishTime>05/12/2015 15:21:32</publishTime>
+    </File>
+    <File Include="bin/Jellyfish.MVC5.ViewDataConfiguration.dll">
+      <publishTime>03/30/2016 11:21:30</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>04/03/2015 17:07:22</publishTime>
@@ -289,73 +295,295 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/10/2018 08:43:00</publishTime>
     </File>
     <File Include="Content/bootstrap.css">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/12/2018 14:55:41</publishTime>
     </File>
     <File Include="Content/bootstrap.css.map">
       <publishTime>05/10/2018 08:43:00</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/12/2018 14:55:41</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css.map">
       <publishTime>05/10/2018 08:43:00</publishTime>
     </File>
+    <File Include="Content/Chosen/chosen-sprite%402x.png">
+      <publishTime>05/13/2018 17:54:45</publishTime>
+    </File>
     <File Include="Content/Chosen/chosen-sprite.png">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/13/2018 17:54:45</publishTime>
+    </File>
+    <File Include="Content/Chosen/chosen.css">
+      <publishTime>05/13/2018 17:54:45</publishTime>
     </File>
     <File Include="Content/Chosen/chosen.min.css">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/13/2018 17:54:45</publishTime>
+    </File>
+    <File Include="Content/css/select2.css">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Content/css/select2.min.css">
+      <publishTime>05/13/2018 16:24:47</publishTime>
     </File>
     <File Include="Content/Description.txt">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
+    </File>
+    <File Include="Content/font-awesome.css">
+      <publishTime>05/14/2018 10:01:06</publishTime>
+    </File>
+    <File Include="Content/font-awesome.min.css">
+      <publishTime>05/14/2018 10:01:06</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>05/03/2018 17:28:27</publishTime>
+      <publishTime>05/12/2018 14:55:41</publishTime>
     </File>
     <File Include="Controllers/Description.txt">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="favicon.ico">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="fonts/Description.txt">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.eot">
+      <publishTime>05/14/2018 10:01:06</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.svg">
+      <publishTime>05/14/2018 10:01:06</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.ttf">
+      <publishTime>05/14/2018 10:01:06</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.woff">
+      <publishTime>05/14/2018 10:01:06</publishTime>
+    </File>
+    <File Include="fonts/fontawesome-webfont.woff2">
+      <publishTime>05/14/2018 10:01:06</publishTime>
+    </File>
+    <File Include="fonts/FontAwesome.otf">
+      <publishTime>05/14/2018 10:01:05</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.eot">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/10/2018 09:27:02</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.svg">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/10/2018 09:27:02</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.ttf">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/10/2018 09:27:02</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.woff">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/10/2018 09:27:02</publishTime>
     </File>
     <File Include="fonts/glyphicons-halflings-regular.woff2">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/10/2018 09:27:02</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Models/.editorconfig">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Models/Description.txt">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>05/03/2018 11:37:09</publishTime>
+      <publishTime>05/14/2018 10:01:06</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/12/2018 14:56:06</publishTime>
     </File>
     <File Include="Scripts/bootstrap.min.js">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/12/2018 14:56:06</publishTime>
+    </File>
+    <File Include="Scripts/Chosen/chosen.jquery.js">
+      <publishTime>05/13/2018 17:54:28</publishTime>
     </File>
     <File Include="Scripts/Chosen/chosen.jquery.min.js">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/13/2018 17:54:28</publishTime>
+    </File>
+    <File Include="Scripts/Chosen/chosen.proto.js">
+      <publishTime>05/13/2018 17:54:28</publishTime>
+    </File>
+    <File Include="Scripts/Chosen/chosen.proto.min.js">
+      <publishTime>05/13/2018 17:54:28</publishTime>
+    </File>
+    <File Include="Scripts/i18n/af.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ar.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/az.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/bg.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/bs.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ca.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/cs.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/da.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/de.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/dsb.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/el.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/en.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/es.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/et.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/eu.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/fa.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/fi.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/fr.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/gl.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/he.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/hi.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/hr.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/hsb.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/hu.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/hy.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/id.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/is.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/it.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ja.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/km.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ko.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/lt.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/lv.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/mk.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ms.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/nb.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/nl.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/pl.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ps.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/pt-BR.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/pt.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ro.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/ru.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/sk.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/sl.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/sr-Cyrl.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/sr.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/sv.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/th.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/tr.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/uk.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/vi.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/zh-CN.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/i18n/zh-TW.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.js">
+      <publishTime>05/12/2018 14:56:06</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.js">
+      <publishTime>05/12/2018 14:56:06</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.10.2.min.map">
+      <publishTime>05/12/2018 14:56:06</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.7.js">
+      <publishTime>05/13/2018 16:24:46</publishTime>
+    </File>
+    <File Include="Scripts/jquery-1.7.min.js">
+      <publishTime>05/13/2018 16:24:46</publishTime>
     </File>
     <File Include="Scripts/jquery-3.3.1.js">
       <publishTime>05/10/2018 08:43:00</publishTime>
@@ -376,214 +604,271 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/10/2018 08:43:00</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.js">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/12/2018 14:56:06</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.min.js">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/12/2018 14:56:06</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.unobtrusive.js">
-      <publishTime>05/04/2018 17:30:45</publishTime>
+      <publishTime>05/12/2018 14:56:06</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.unobtrusive.min.js">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/12/2018 14:56:06</publishTime>
+    </File>
+    <File Include="Scripts/modernizr-2.6.2.js">
+      <publishTime>05/12/2018 14:56:06</publishTime>
     </File>
     <File Include="Scripts/modernizr-2.8.3.js">
       <publishTime>05/10/2018 08:43:00</publishTime>
     </File>
+    <File Include="Scripts/respond.js">
+      <publishTime>05/12/2018 14:56:06</publishTime>
+    </File>
+    <File Include="Scripts/respond.min.js">
+      <publishTime>05/12/2018 14:56:06</publishTime>
+    </File>
+    <File Include="Scripts/select2.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
+    <File Include="Scripts/select2.min.js">
+      <publishTime>05/13/2018 16:24:47</publishTime>
+    </File>
     <File Include="Views/Access/Delete.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/10/2018 11:42:11</publishTime>
     </File>
     <File Include="Views/Access/Index.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 06:52:57</publishTime>
     </File>
     <File Include="Views/Accesses/Create.cshtml">
-      <publishTime>05/04/2018 14:12:25</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Accesses/Delete.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 06:52:57</publishTime>
     </File>
     <File Include="Views/Accesses/Details.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 06:52:57</publishTime>
     </File>
     <File Include="Views/Accesses/Edit.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 06:52:57</publishTime>
     </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 06:52:57</publishTime>
     </File>
     <File Include="Views/Account/ExternalLoginConfirmation.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Account/ExternalLoginFailure.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Account/ForgotPassword.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Account/ForgotPasswordConfirmation.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Account/Login.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 07:45:34</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 07:45:50</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Account/ResetPasswordConfirmation.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 06:52:57</publishTime>
     </File>
     <File Include="Views/Account/SendCode.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Account/VerifyCode.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Account/_ExternalLoginsListPartial.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 06:52:57</publishTime>
     </File>
     <File Include="Views/ApplicationRoles/Create.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 07:53:24</publishTime>
     </File>
     <File Include="Views/ApplicationRoles/Delete.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 07:53:27</publishTime>
     </File>
     <File Include="Views/ApplicationRoles/Details.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 07:53:29</publishTime>
     </File>
     <File Include="Views/ApplicationRoles/Edit.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 07:53:32</publishTime>
     </File>
     <File Include="Views/ApplicationRoles/Index.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/12/2018 18:03:09</publishTime>
     </File>
     <File Include="Views/ApplicationUsers/AddOrEditRoles.cshtml">
-      <publishTime>05/07/2018 14:30:10</publishTime>
+      <publishTime>05/13/2018 17:41:02</publishTime>
     </File>
     <File Include="Views/ApplicationUsers/Index.cshtml">
-      <publishTime>05/07/2018 14:30:10</publishTime>
+      <publishTime>05/12/2018 18:07:55</publishTime>
+    </File>
+    <File Include="Views/Chancellery/AttachFiles.cshtml">
+      <publishTime>05/11/2018 14:54:32</publishTime>
     </File>
     <File Include="Views/Chancellery/Create.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/14/2018 13:53:09</publishTime>
     </File>
     <File Include="Views/Chancellery/Delete.cshtml">
       <publishTime>05/07/2018 08:58:38</publishTime>
     </File>
     <File Include="Views/Chancellery/Details.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/10/2018 13:11:56</publishTime>
     </File>
     <File Include="Views/Chancellery/Edit.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/14/2018 13:49:28</publishTime>
     </File>
     <File Include="Views/Chancellery/Index.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/14/2018 11:50:36</publishTime>
+    </File>
+    <File Include="Views/Chancellery/_Type1.cshtml">
+      <publishTime>05/14/2018 11:18:13</publishTime>
+    </File>
+    <File Include="Views/Chancellery/_Type2.cshtml">
+      <publishTime>05/14/2018 11:18:28</publishTime>
+    </File>
+    <File Include="Views/Chancellery/_Type3.cshtml">
+      <publishTime>05/14/2018 11:18:47</publishTime>
     </File>
     <File Include="Views/Description.txt">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Employees/Create.cshtml">
-      <publishTime>05/03/2018 15:58:15</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Employees/Delete.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 06:52:57</publishTime>
     </File>
     <File Include="Views/Employees/Details.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 06:52:57</publishTime>
     </File>
     <File Include="Views/Employees/Edit.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 06:52:57</publishTime>
     </File>
     <File Include="Views/Employees/Index.cshtml">
-      <publishTime>05/07/2018 14:30:10</publishTime>
+      <publishTime>05/12/2018 18:08:57</publishTime>
     </File>
     <File Include="Views/Error/Index.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Error/NotFound.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
+    </File>
+    <File Include="Views/ExternalOrganizationsChancellery/Create.cshtml">
+      <publishTime>05/12/2018 19:02:33</publishTime>
+    </File>
+    <File Include="Views/ExternalOrganizationsChancellery/Details.cshtml">
+      <publishTime>05/12/2018 19:04:42</publishTime>
+    </File>
+    <File Include="Views/ExternalOrganizationsChancellery/Edit.cshtml">
+      <publishTime>05/12/2018 19:03:25</publishTime>
+    </File>
+    <File Include="Views/ExternalOrganizationsChancellery/Index.cshtml">
+      <publishTime>05/10/2018 11:33:38</publishTime>
+    </File>
+    <File Include="Views/FileRecordChancellery/Edit.cshtml">
+      <publishTime>05/10/2018 14:22:29</publishTime>
+    </File>
+    <File Include="Views/FileRecordChancellery/Index.cshtml">
+      <publishTime>05/10/2018 14:20:57</publishTime>
     </File>
     <File Include="Views/FoldersChancellery/Create.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/10/2018 09:27:02</publishTime>
     </File>
     <File Include="Views/FoldersChancellery/Details.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/10/2018 09:27:02</publishTime>
     </File>
     <File Include="Views/FoldersChancellery/Edit.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/10/2018 09:27:02</publishTime>
     </File>
     <File Include="Views/FoldersChancellery/Index.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/10/2018 09:27:02</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Home/Contact.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/11/2018 11:27:33</publishTime>
     </File>
     <File Include="Views/JournalRegistrationsChancellery/Create.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/12/2018 18:10:55</publishTime>
     </File>
     <File Include="Views/JournalRegistrationsChancellery/Details.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/12/2018 14:32:52</publishTime>
     </File>
     <File Include="Views/JournalRegistrationsChancellery/Edit.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/12/2018 19:07:10</publishTime>
     </File>
     <File Include="Views/JournalRegistrationsChancellery/Index.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/12/2018 14:47:27</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Manage/ChangePassword.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Manage/Index.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Manage/ManageLogins.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 06:52:57</publishTime>
     </File>
     <File Include="Views/Manage/SetPassword.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Manage/VerifyPhoneNumber.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Shared/.editorconfig">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Shared/Lockout.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>05/08/2018 11:39:10</publishTime>
+      <publishTime>05/11/2018 16:06:47</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutCancelaria.cshtml">
-      <publishTime>05/10/2018 08:43:00</publishTime>
+      <publishTime>05/14/2018 10:04:22</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutModal.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/12/2018 14:33:41</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
-      <publishTime>05/07/2018 08:58:38</publishTime>
+      <publishTime>05/07/2018 06:59:11</publishTime>
+    </File>
+    <File Include="Views/TypesRecordsChancellery/Create.cshtml">
+      <publishTime>05/10/2018 11:40:46</publishTime>
+    </File>
+    <File Include="Views/TypesRecordsChancellery/Details.cshtml">
+      <publishTime>05/10/2018 11:39:53</publishTime>
+    </File>
+    <File Include="Views/TypesRecordsChancellery/Edit.cshtml">
+      <publishTime>05/12/2018 19:08:18</publishTime>
+    </File>
+    <File Include="Views/TypesRecordsChancellery/Index.cshtml">
+      <publishTime>05/12/2018 19:07:57</publishTime>
     </File>
     <File Include="Views/Web.config">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/13/2018 15:21:24</publishTime>
     </File>
     <File Include="Views/_ViewStart.cshtml">
-      <publishTime>05/03/2018 10:18:27</publishTime>
+      <publishTime>05/07/2018 06:52:33</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/10/2018 10:44:10</publishTime>
+      <publishTime>05/14/2018 14:29:04</publishTime>
     </File>
   </ItemGroup>
 </Project>
