@@ -29,6 +29,15 @@
                 </div>
             }*@
     }
+    @using (Html.BeginForm("Search", "Chancellery", new { page = 1 }, FormMethod.Get))
+    {
+    <div class="form-group">
+        <div style="float:left; margin:10px">
+            <input type="hidden" value=1 name="page" />
+            <input type="submit" value="Поиск" class="btn btn-default" />
+        </div>
+    </div>
+    }
 </p>
 <table style="margin-top: 65px;" class="table">
     <tr>
@@ -134,7 +143,7 @@
                     <a  title = "Переместить в корзину" style="padding-right:5px" href="@Url.Action("MoveToBasket", "Chancellery", new { id = item.id })" @*class="btn btn-primary"*@>
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </a>
-                    <a title = "Прикрепить файлы" href="@Url.Action("AttachFiles", "Chancellery", new { id = item.id })" @*class="btn btn-primary"*@>
+                    <a title = "Прикрепить файлы" href="@Url.Action("AttachFiles", "Chancellery", new { ChancelleryId = item.id })" @*class="btn btn-primary"*@>
                         <i class="fa fa-paperclip" aria-hidden="true"></i>
                     </a>
                 </div>

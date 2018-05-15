@@ -13,6 +13,7 @@ using ACS.BLL.BusinessModels;
 using System.Diagnostics;
 using System.Collections;
 using System.IO;
+using System.Linq.Expressions;
 
 namespace ACS.BLL.Services
 {
@@ -194,6 +195,33 @@ namespace ACS.BLL.Services
 
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
             return GetMapChancelleryDBToChancelleryDTO().Map<Chancellery, ChancelleryDTO>(Chancellery);
+        }
+
+        public IEnumerable<ChancelleryDTO> ChancelleryGet(ChancellerySearchModel сhancellerySearchModel)
+        {
+
+            Func<Chancellery, Boolean> predicate = delegate (Chancellery c)
+
+            {
+                bool boolResult = false;
+                if (сhancellerySearchModel != null)
+                {
+                    if (сhancellerySearchModel.Id.HasValue)
+                        boolResult = (c.id == сhancellerySearchModel.Id);
+#warning необходимо доработать фильтр
+                    //if (!string.IsNullOrEmpty(сhancellerySearchModel.FromContains))
+                    //    throw new NotImplementedException("");
+                    if (сhancellerySearchModel.RegistryDateFrom.HasValue)
+                        boolResult = c.DateRegistration >= сhancellerySearchModel.RegistryDateFrom;
+                    if (сhancellerySearchModel.RegistryDateTo.HasValue)
+                        boolResult = c.DateRegistration <= сhancellerySearchModel.RegistryDateTo;
+
+                }
+                return boolResult;
+            };
+            //Expression<Func<Chancellery, bool>> expr = mc => predicate(mc);
+            var result = Database.Chancelleries.Find(predicate);
+            return GetMapChancelleryDBToChancelleryDTO().Map <IEnumerable<Chancellery>, IEnumerable< ChancelleryDTO >> (result);
         }
 
         /// <summary>
@@ -642,7 +670,7 @@ namespace ACS.BLL.Services
             var mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.TypeRecordChancellery,
-x => x.MapFrom(m => m.TypeRecordChancellery)); ;
+        x => x.MapFrom(m => m.TypeRecordChancellery)); ;
                 cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>();
             }).CreateMapper();
 
@@ -678,5 +706,7 @@ x => x.MapFrom(m => m.TypeRecordChancellery)); ;
             FolderChancelleryService.Dispose();
             TypeRecordChancelleryService.Dispose();
         }
+
+
     }
 }

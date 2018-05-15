@@ -1,4 +1,5 @@
-﻿using ACS.BLL.DTO;
+﻿using ACS.BLL.BusinessModels;
+using ACS.BLL.DTO;
 using ACS.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,13 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         ChancelleryDTO ChancelleryGet(int id);
 
+        /// <summary>
+        /// Получить канцелярские записи по модели поиска
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        IEnumerable<ChancelleryDTO> ChancelleryGet(ChancellerySearchModel сhancellerySearchModel);
+        
         ///// <summary>
         ///// Сделать запись
         ///// </summary>

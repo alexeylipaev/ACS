@@ -99,6 +99,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessModels\ChancellerySearchModel.cs" />
     <Compile Include="BusinessModels\Helper.cs" />
     <Compile Include="DTO\ASPIdentityUser\ApplicationRoleDTO.cs" />
     <Compile Include="DTO\ASPIdentityUser\AppUserClaimDTO.cs" />

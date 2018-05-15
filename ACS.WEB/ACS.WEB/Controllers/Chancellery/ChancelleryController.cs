@@ -1,10 +1,12 @@
-﻿using ACS.BLL.DTO;
+﻿using ACS.BLL.BusinessModels;
+using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
-using ACS.WEB.Models;
+using ACS.WEB.Models.Chancellery;
 using ACS.WEB.Util;
 using ACS.WEB.ViewModel;
 using AutoMapper;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -538,6 +540,73 @@ namespace ACS.WEB.Controllers
 
         #endregion
 
+        [HttpGet]
+        public ViewResult Search1(ChancellerySearchModel searchModel)
+        {
+            ChancellerySearchModel csm = new ChancellerySearchModel();
+            //if(searchModel == null) searchModel
+            ViewBag.ListChanc = new List<ChancelleryViewModel>();
+            return View(csm);
 
+            //ViewBag.CurrentSort = sortOrder;
+            //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name desc" : "";
+            //ViewBag.DateSortParm = sortOrder == "Date" ? "Date desc" : "Date";
+
+            //if (Request.HttpMethod == "GET")
+            //{
+            //    searchString = currentFilter;
+            //}
+            //else
+            //{
+            //    page = 1;
+            //}
+            //ViewBag.CurrentFilter = searchString;
+
+            //IEnumerable< ChancelleryDTO > students = ChancelleryService.ChancelleryGet(chancSM);// = from s in db.Students
+            //             //select s;
+            //if (!String.IsNullOrEmpty(searchString))
+            //{
+            //    students = ChancelleryService.ChancellerieGetAll().Where(s => s.RegistrationNumber.ToUpper().Contains(searchString.ToUpper())
+            //                           || s.Employee.LName.ToUpper().Contains(searchString.ToUpper()));
+            //}
+            //else students = ChancelleryService.ChancellerieGetAll();
+            //switch (sortOrder)
+            //{
+            //    case "Name desc":
+            //        students = students.OrderByDescending(s => s.RegistrationNumber);
+            //        break;
+            //    case "Date":
+            //        students = students.OrderBy(s => s.DateRegistration);
+            //        break;
+            //    case "Date desc":
+            //        students = students.OrderByDescending(s => s.DateRegistration);
+            //        break;
+            //    default:
+            //        students = students.OrderBy(s => s.RegistrationNumber);
+            //        break;
+            //}
+
+            //int pageSize = 3;
+            //int pageIndex = (page ?? 1);
+            //var listChancVM = MapBLLRrsr.GetMap().Map<IEnumerable<ChancelleryDTO>, IEnumerable<ChancelleryViewModel>>(students);
+            //return View(listChancVM);
+            //return View(listChancVM.ToPagedList(pageIndex, pageSize));
+        }
+
+        //[HttpPost]
+        public ActionResult Search(ChancellerySearchModelVM searchModelVM)
+        {
+            if (Request.HttpMethod == "POST")
+                Session.Add("search", searchModelVM.ChancellerySearchModel);
+            
+            //else ViewBag.ListChanc = new List<ChancelleryViewModel>();
+            ChancellerySearchModel search = (ChancellerySearchModel)Session["search"];
+            searchModelVM.ChancellerySearchModel = search;
+            searchModelVM.Chancelleries = MapBLLRrsr.GetMap().Map<IEnumerable<ChancelleryDTO>, IEnumerable<ChancelleryViewModel>>( ChancelleryService.ChancelleryGet(search));
+            //Session.Add("search", searchModel);
+            //else search = (ChancellerySearchModel)Session["search"];
+            //else Session.Add("search", searchModel);
+            return View(searchModelVM);
+        }
     }
 }
