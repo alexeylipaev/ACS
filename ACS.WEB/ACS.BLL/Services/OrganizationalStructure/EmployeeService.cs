@@ -15,9 +15,8 @@ namespace ACS.BLL.Services
 {
     public class EmployeeService : ServiceBase, IEmployeeService
     {
-        Mapper_DB_DTO_EmplService Mapper_DB_DTO_EmplService;
 
-        public EmployeeService(IUnitOfWork uow) : base(uow) { Mapper_DB_DTO_EmplService = Mapper_DB_DTO_EmplService.getMapper(); }
+        public EmployeeService(IUnitOfWork uow) : base(uow) {  }
 
         string UNIQEUserString(EmployeeDTO UserData)
         {
@@ -43,7 +42,7 @@ namespace ACS.BLL.Services
             try
             {
                
-                Employee Employee = Mapper_DB_DTO_EmplService.Map_EmployeeDTO_to_Employee(EmplDTO);
+                Employee Employee = MapDALBLL.GetMapp().Map<EmployeeDTO , Employee>(EmplDTO);
 
                 Database.Employees.Add(Employee, author.id);
               
@@ -54,55 +53,33 @@ namespace ACS.BLL.Services
             }
         }
 
-        public void CreateEmployee(EmployeeDTO EmplDTO, string authorEmail)
-        {
 
-            int AuthorID = 0;
-            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
-            catch (Exception ex) { throw ex; }
 
-            var resultString = UNIQEUserString(EmplDTO);
-            Employee user = Database.Employees.Find(u => UNIQEUserString(u) == resultString).FirstOrDefault();
-
-            if (user != null)
-                throw new ValidationException(string.Format("Пользователь с данными {0} уже существует, его id : {1}", resultString, user.id), "");
-
-            try
-            {
-                Employee Employee = Mapper_DB_DTO_EmplService.Map_EmployeeDTO_to_Employee(EmplDTO);
-      
-                Database.Employees.Add(Employee, AuthorID);
-              
-            }
-            catch (Exception e)
-            {
-                CatchError(e);
-            }
-        }
-
-        public void UpdateEmployee(EmployeeDTO EmplDTO, string authorEmail)
+        public void CreateOrUpdateEmpl(EmployeeDTO EmplDTO, string authorEmail)
         {
             int AuthorID = 0;
             try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
             catch (Exception ex) { throw ex; }
 
-            Employee EditableObj = Database.Employees.Find(EmplDTO.id);
-
-            if (EditableObj == null)
-                throw new ValidationException("Не возможно редактировать объект с id", EmplDTO.id.ToString());
-
             try
             {
-                EditableObj.LName = EmplDTO.LName;
-                EditableObj.FName = EmplDTO.FName;
-                EditableObj.MName = EmplDTO.MName;
-                //EditableObj.Email = EmplDTO.Email;
+                var EmplOriginal = Database.Employees.Find(EmplDTO.id);
+                /*   var chanceller =*/
 
-                //EditableObj.s_EditDate = DateTime.Now;
-        
+                var Empl = MapDALBLL.GetMapForUpdateOrCreate().Map(EmplDTO, EmplOriginal);
 
-                Database.Employees.Update(EditableObj, AuthorID);
-              
+                if (EmplOriginal != null)
+                {
+                    //CraeateOrUpdate_FromAndTo(chancellery, AuthorID);
+                    Database.Employees.Update(EmplOriginal, AuthorID);
+                }
+
+                else if (EmplOriginal == null)
+                {
+                    //CraeateOrUpdate_FromAndTo(chancelleryDTO, AuthorID);
+                    Database.Employees.Add(Empl, AuthorID);
+                }
+
             }
             catch (Exception e)
             {
@@ -187,7 +164,7 @@ namespace ACS.BLL.Services
             //return mapper.Map<IEnumerable<Employee>, List<EmployeeDTO>>(Database.Employees.GetAll());
             IEnumerable<Employee> Employees = Database.Employees.GetAll().ToList();
 
-            IEnumerable<EmployeeDTO> result = Mapper_DB_DTO_EmplService.MappListEmplsToListEmplsDTO(Employees);
+            IEnumerable<EmployeeDTO> result = MapDALBLL.GetMapp().Map<IEnumerable<Employee>, List<EmployeeDTO >>(Employees);
             //if (Employees.Any(e => e != null))
             return result;
 
@@ -204,7 +181,7 @@ namespace ACS.BLL.Services
                 throw new ValidationException("Пользователь не найден", "");
 
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Employee, EmployeeDTO>()).CreateMapper();
-            return Mapper_DB_DTO_EmplService.Map_Employee_to_EmployeeDTO(Employee);
+            return MapDALBLL.GetMapp().Map<Employee , EmployeeDTO>(Employee);
 
         }
 

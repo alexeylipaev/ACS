@@ -41,7 +41,7 @@ namespace ACS.DAL.Repositories
 
         private IRepository<Employee> EmployeeRepository;
 
-
+        private IRepository<ProjectRegistry> ProjectRegistryRepository;
 
         public UnitOfWork(string connectionString)
         {
@@ -224,6 +224,16 @@ namespace ACS.DAL.Repositories
             }
         }
 
+
+        public IRepository<ProjectRegistry> ProjectsRegistry
+        {
+            get
+            {
+                if (ProjectRegistryRepository == null)
+                    ProjectRegistryRepository = new Repository<ProjectRegistry>(db);
+                return ProjectRegistryRepository;
+            }
+        }
 
         public void Save()
         {

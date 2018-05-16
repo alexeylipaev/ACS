@@ -90,6 +90,7 @@
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -118,7 +119,7 @@
     <Compile Include="Services\Chancellery\ExternalOrganizationChancelleryService.cs" />
     <Compile Include="Infrastructure\MapDALBLL.cs" />
     <Compile Include="Services\InputControlPKI\InputControlPKIService.cs" />
-    <Compile Include="Services\Mapper\Mapper_DB_DTO_EmplService.cs" />
+    <Compile Include="Services\ProjectRegistryService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Сonnection.cs" />
     <Compile Include="DTO\Access\AccessDTO.cs" />

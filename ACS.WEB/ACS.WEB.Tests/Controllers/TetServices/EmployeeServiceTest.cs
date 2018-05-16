@@ -10,16 +10,7 @@ namespace ACS.WEB.Tests.Controllers.TetServices
 {
     class EmployeeServiceTest : IEmployeeService
     {
-        public void CreateEmployee(EmployeeDTO userDto)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CreateEmployee(EmployeeDTO userDto, string authorEmail)
-        {
-            throw new NotImplementedException();
-        }
-
+     
         public void DeleteEmployee(int userId, string authorEmail)
         {
             throw new NotImplementedException();
@@ -40,10 +31,7 @@ namespace ACS.WEB.Tests.Controllers.TetServices
             throw new NotImplementedException();
         }
 
-        public void UpdateEmployee(EmployeeDTO userDto, string authorEmail)
-        {
-            throw new NotImplementedException();
-        }
+   
 
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
@@ -80,6 +68,11 @@ namespace ACS.WEB.Tests.Controllers.TetServices
         }
 
         public void DeleteEmployee(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateOrUpdateEmpl(EmployeeDTO userDto, string authorEmail)
         {
             throw new NotImplementedException();
         }

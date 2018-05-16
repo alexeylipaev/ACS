@@ -41,7 +41,7 @@ namespace ACS.WEB.Controllers
         // GET: Chancellery
         public ActionResult Index()
         {
-            var chancelleryDTOs = ChancelleryService.ChancellerieGetAll().Where(ch=>ch.s_InBasket == false);
+            var chancelleryDTOs = ChancelleryService.ChancellerieGetAll().Where(ch => ch.s_InBasket == false);
             ViewBag.Types = GetAllTypes();
 
             var chancelleriesVMs = MapBLLRrsr.GetMap().Map<IEnumerable<ChancelleryDTO>, List<ChancelleryViewModel>>(chancelleryDTOs.ToList()); /*(chancelleryDTOs.ToList());*/
@@ -180,7 +180,7 @@ namespace ACS.WEB.Controllers
 
                     var chancelleryDTO = MapBLLRrsr.GetMap().Map<ChancelleryViewModel, ChancelleryDTO>(newChancelleryVM);
                     //var chancelleryDTO = Map_Chancellery.Map_ChancelleryViewModel_to_ChancelleryDTO(newChancelleryVM);
-                    AddFiles(/*this.Request.Files.GetMultiple("Files")*/Files, chancelleryDTO);
+                    AttachFiles(/*this.Request.Files.GetMultiple("Files")*/Files, chancelleryDTO);
 
                     ChancelleryService.CreateOrUpdateChancellery(chancelleryDTO, currentUserEmail);
                     return RedirectToAction("Index");
@@ -261,10 +261,10 @@ namespace ACS.WEB.Controllers
 
             ChancelleryDTO chancDTO = ChancelleryService.ChancelleryGet(id);
             var chancVM = MapBLLRrsr.GetMap().Map<ChancelleryDTO, ChancelleryViewModel>(chancDTO);
-            if(chancDTO.FolderChancellery != null)
-            chancVM.SelectedFolder = new SelectedFolderChancellery() { SelectedId = chancDTO.FolderChancellery.id };
-            if(chancDTO.JournalRegistrationsChancellery != null)
-            chancVM.SelectedJournalsReg = new SelectedJournalRegChancellery() { SelectedId = chancDTO.JournalRegistrationsChancellery.id };
+            if (chancDTO.FolderChancellery != null)
+                chancVM.SelectedFolder = new SelectedFolderChancellery() { SelectedId = chancDTO.FolderChancellery.id };
+            if (chancDTO.JournalRegistrationsChancellery != null)
+                chancVM.SelectedJournalsReg = new SelectedJournalRegChancellery() { SelectedId = chancDTO.JournalRegistrationsChancellery.id };
 
             if (chancDTO.Employee != null)
             {
@@ -346,7 +346,7 @@ namespace ACS.WEB.Controllers
                 {
                     chancVM.TypeRecordChancellery = MapBLLRrsr.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(chancVM.TypeRecordChancelleryId != null ? chancVM.TypeRecordChancelleryId.Value : 0));
                     chancVM.JournalRegistrationsChancellery = MapBLLRrsr.GetMap().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(chancVM.JournalRegistrationsChancelleryId));
-                    chancVM.FolderChancellery = MapBLLRrsr.GetMap().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(chancVM.FolderChancelleryId != null ? chancVM.FolderChancelleryId.Value : 0 ));
+                    chancVM.FolderChancellery = MapBLLRrsr.GetMap().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(chancVM.FolderChancelleryId != null ? chancVM.FolderChancelleryId.Value : 0));
 
                     var chancDTO = MapBLLRrsr.GetMap().Map<ChancelleryViewModel, ChancelleryDTO>(chancVM);
                     ChancelleryService.CreateOrUpdateChancellery(chancDTO, this.User.Identity.Name);
@@ -360,7 +360,7 @@ namespace ACS.WEB.Controllers
             return View(chancVM);
         }
 
-       
+
         public ActionResult MoveToBasket(int id)
         {
             ActionResult action = this.MoveToBasketConfirmed(id);
@@ -461,81 +461,30 @@ namespace ACS.WEB.Controllers
 
 
         [HttpPost]
-        public ActionResult AddFiles(IEnumerable<HttpPostedFileBase> files, int ChancelleryId)
+        public ActionResult AttachFiles(IEnumerable<HttpPostedFileBase> files, int ChancelleryId)
         {
-            foreach (var file in files)
+            int result = 0;
+            try
             {
-                if (file != null)
+                if (ModelState.IsValid)
                 {
 
-                    string pathForSave = @"X:\Подразделения\СВиССА\Файлы канцелярии\";
-
-                    //Возвращает имя файла указанной строки пути без расширения.
-                    string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                    //fileVM.Name = fileName;
-
-                    //Возвращает расширение указанной строки пути.
-                    string extension = Path.GetExtension(file.FileName);
-
-                    //fileVM.Format = extension;
-
-                    //fileVM.Path = @"X:/Подразделения/СВиССА/Файлы канцелярии/" + fileName;
-                    string path = Path.Combine(pathForSave, fileName + extension);
-
-                    FileRecordChancelleryDTO fileDTO = ChancelleryService.GetFileChancellerByPath(path, ChancelleryId);
-
-                    if (fileDTO == null)
-                    {
-                        fileDTO = new FileRecordChancelleryDTO();
-                        fileDTO.Name = fileName;
-                        fileDTO.Path = path;
-                        fileDTO.Format = extension;
-
-                    }
-                    ChancelleryService.AttachOrDetachFile(fileDTO, this.User.Identity.Name, ChancelleryId, true);
-                    file.SaveAs(path);
+                    result = ChancelleryService.AttachFiles(files, ChancelleryId, this.User.Identity.Name);
+                    if (result > 0)
+                        ViewBag.EditResult = "Файлы успешно добавлены";
                 }
             }
-
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(ex.Property, ex.Message);
+            }
             return RedirectToAction("Index");
+
         }
 
-        public void AddFiles(IEnumerable<HttpPostedFileBase> files, ChancelleryDTO ChancelleryDTO)
+        public void AttachFiles(IEnumerable<HttpPostedFileBase> files, ChancelleryDTO ChancelleryDTO)
         {
-            foreach (var file in files)
-            {
-                if (file != null)
-                {
-
-                    string pathForSave = @"X:\Подразделения\СВиССА\Файлы канцелярии\";
-
-                    //Возвращает имя файла указанной строки пути без расширения.
-                    string fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                    //fileVM.Name = fileName;
-
-                    //Возвращает расширение указанной строки пути.
-                    string extension = Path.GetExtension(file.FileName);
-
-                    //fileVM.Format = extension;
-
-                    //fileVM.Path = @"X:/Подразделения/СВиССА/Файлы канцелярии/" + fileName;
-                    string path = Path.Combine(pathForSave, fileName + extension);
-
-                    //FileRecordChancelleryDTO fileDTO = ChancelleryService.GetFileChancellerByPath(path, ChancelleryVM);
-
-                    //if (fileDTO == null)
-                    //{
-                    FileRecordChancelleryDTO fileDTO = new FileRecordChancelleryDTO();
-                    fileDTO.Name = fileName;
-                    fileDTO.Path = path;
-                    fileDTO.Format = extension;
-
-                    //}
-                    ChancelleryDTO.FileRecordChancelleries.Add(fileDTO);
-                    //ChancelleryService.AttachOrDetachFile(fileDTO, this.User.Identity.Name, ChancelleryVM, true);
-                    file.SaveAs(path);
-                }
-            }
+            this.AttachFiles(files, ChancelleryDTO.id);
         }
 
         #endregion
@@ -598,11 +547,11 @@ namespace ACS.WEB.Controllers
         {
             if (Request.HttpMethod == "POST")
                 Session.Add("search", searchModelVM.ChancellerySearchModel);
-            
+
             //else ViewBag.ListChanc = new List<ChancelleryViewModel>();
             ChancellerySearchModel search = (ChancellerySearchModel)Session["search"];
             searchModelVM.ChancellerySearchModel = search;
-            searchModelVM.Chancelleries = MapBLLRrsr.GetMap().Map<IEnumerable<ChancelleryDTO>, IEnumerable<ChancelleryViewModel>>( ChancelleryService.ChancelleryGet(search));
+            searchModelVM.Chancelleries = MapBLLRrsr.GetMap().Map<IEnumerable<ChancelleryDTO>, IEnumerable<ChancelleryViewModel>>(ChancelleryService.ChancelleryGet(search));
             //Session.Add("search", searchModel);
             //else search = (ChancellerySearchModel)Session["search"];
             //else Session.Add("search", searchModel);

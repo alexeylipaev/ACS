@@ -112,7 +112,7 @@ x => x.MapFrom(m => m.Employee_Id));
                     string currentUserEmail = this.User.Identity.Name;
                     //string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
                     var userDto = new EmployeeDTO { id = userVM.id, LName =userVM.LName, FName = userVM.FName, MName = userVM.MName, Email  = userVM.Email};
-                    EmployeeService.CreateEmployee(userDto, currentUserEmail);
+                    EmployeeService.CreateOrUpdateEmpl(userDto, currentUserEmail);
                     return RedirectToAction("Index");
                 }
             }
@@ -152,7 +152,7 @@ x => x.MapFrom(m => m.Employee_Id));
                     string currentUserEmail = this.User.Identity.Name;
                     //string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
                     var userDto = new EmployeeDTO { id = userVM.id, LName = userVM.LName, FName = userVM.FName, MName = userVM.MName, Email = userVM.Email };
-                    EmployeeService.UpdateEmployee(userDto, currentUserEmail);
+                    EmployeeService.CreateOrUpdateEmpl(userDto, currentUserEmail);
                     ViewBag.EditResult = "Данные изменены";
                     return View(userVM); 
                 }

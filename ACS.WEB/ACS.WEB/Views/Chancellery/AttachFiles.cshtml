@@ -8,7 +8,7 @@
 <h2>Прикрепить файлы</h2>
 
 
-@using (Html.BeginForm("AddFiles", "Chancellery", new { ChancelleryId = @ViewBag.ChancelleryId }, FormMethod.Post, new { enctype = "multipart/form-data"}))
+@using (Html.BeginForm("AttachFiles", "Chancellery", new { ChancelleryId = @ViewBag.ChancelleryId }, FormMethod.Post, new { enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
 

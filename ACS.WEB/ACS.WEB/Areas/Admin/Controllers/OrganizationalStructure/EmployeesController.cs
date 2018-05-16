@@ -91,7 +91,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
                     var userDto = new EmployeeDTO();
                     //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
                     userDto = MapBLLRrsr.GetMap().Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
-                    EmployeeService.CreateEmployee(userDto, currentUserEmail);
+                    EmployeeService.CreateOrUpdateEmpl(userDto, currentUserEmail);
                     return RedirectToAction("Index");
                 }
             }
@@ -132,7 +132,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
                 user = MapBLLRrsr.GetMap().Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
                 //var userVM = new UserViewModel { Id = user.Id };
-                EmployeeService.UpdateEmployee(user, this.User.Identity.Name);
+                EmployeeService.CreateOrUpdateEmpl(user, this.User.Identity.Name);
                 return RedirectToAction("Index");
             }
             catch (ValidationException ex)
