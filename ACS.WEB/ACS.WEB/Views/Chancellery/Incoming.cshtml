@@ -1,0 +1,100 @@
+﻿@model IEnumerable<ACS.WEB.ViewModels.IncomingCorrespondencyViewModel>
+
+@{
+    ViewBag.Title = "Incoming";
+    Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
+}
+
+<h2>Incoming</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.s_Guid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_AuthorId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_DateCreation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_EditorId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_EditDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_IsLocked)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_LockedBy_Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.s_InBasket)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateRegistration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RegistrationNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Summary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notice)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_Guid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_AuthorId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_DateCreation)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_EditorId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_EditDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_IsLocked)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_LockedBy_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.s_InBasket)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateRegistration)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RegistrationNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Summary)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notice)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -133,10 +133,6 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
-      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -202,7 +198,9 @@
     <Compile Include="Controllers\Chancellery\JournalRegistrationsChancelleryController.cs" />
     <Compile Include="Controllers\Chancellery\TypesRecordsChancelleryController.cs" />
     <Compile Include="Controllers\ProjectRegistryController.cs" />
+    <Compile Include="Models\Chancellery\BaseCorrespondencyViewModel.cs" />
     <Compile Include="Models\Chancellery\ChancellerySearchModelVM.cs" />
+    <Compile Include="Models\Chancellery\IncomingCorrespondencyViewModel.cs" />
     <Compile Include="Models\ChancyModalDialog.cs" />
     <Compile Include="Models\ProjectRegistryViewModel.cs" />
     <Compile Include="Startup.cs" />
@@ -397,6 +395,7 @@
     <Content Include="Views\Chancellery\_Type3.cshtml" />
     <Content Include="Views\Chancellery\Edit.cshtml" />
     <Content Include="Views\Chancellery\Search.cshtml" />
+    <Content Include="Views\Chancellery\Incoming.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

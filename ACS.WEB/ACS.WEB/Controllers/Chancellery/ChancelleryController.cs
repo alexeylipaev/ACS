@@ -5,8 +5,8 @@ using ACS.BLL.Interfaces;
 using ACS.WEB.Models.Chancellery;
 using ACS.WEB.Util;
 using ACS.WEB.ViewModel;
+using ACS.WEB.ViewModels;
 using AutoMapper;
-using PagedList;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -84,6 +84,14 @@ namespace ACS.WEB.Controllers
         }
 
 
+        public ActionResult Incoming()
+        {
+            ChancellerySearchModel searchModel = new ChancellerySearchModel { RegistryDateTo = DateTime.Now };
+            var incomingDTOs = ChancelleryService.ChancelleryGetIncoming(searchModel);
+            var incomings = MapBLLRrsr.GetMap().Map<IEnumerable<IncomingCorrespondency>, IEnumerable<IncomingCorrespondencyViewModel>>(incomingDTOs);
+            return View(incomings);
+        }
+
         public ActionResult Create(int TypeRecordId)
         {
             SelectedEmployeeViewModel.Collection = GetEmplCollection();
@@ -152,7 +160,7 @@ namespace ACS.WEB.Controllers
                 }
                 #endregion
                 #region Исходящая
-                else if (newChancelleryVM.TypeRecordChancellery.id == 2)
+                else if (newChancelleryVM.TypeRecordChancellery.id == 3)
                 {
                     //from
                     AddOneFromOrToEmpl(ref newChancelleryVM, newChancelleryVM.Selected_From_Empl.SelectedId.FirstOrDefault(), false);
@@ -163,7 +171,7 @@ namespace ACS.WEB.Controllers
                 }
                 #endregion
                 #region Внутреняя
-                else if (newChancelleryVM.TypeRecordChancellery.id == 3)
+                else if (newChancelleryVM.TypeRecordChancellery.id == 2)
                 {
                     //from
                     AddOneFromOrToEmpl(ref newChancelleryVM, newChancelleryVM.Selected_From_Empl.SelectedId.FirstOrDefault(), false);
