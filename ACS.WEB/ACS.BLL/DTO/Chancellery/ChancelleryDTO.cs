@@ -79,9 +79,9 @@ namespace ACS.BLL.DTO
         //public int? ResponsibleEmployee_Id { get; set; }
 
         /// <summary>
-        /// Ответственный
+        /// Ответственные
         /// </summary>
-        public virtual EmployeeDTO Employee { get; set; }
+        public virtual IEnumerable<EmployeeDTO> ResponsibleEmployees { get; set; }
 
         #endregion
 

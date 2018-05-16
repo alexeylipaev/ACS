@@ -1,10 +1,5 @@
 ﻿using ACS.DAL.Entities;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ACS.DAL.Configuration
 {
@@ -29,10 +24,10 @@ namespace ACS.DAL.Configuration
             Property(e => e.SID)
             .IsUnicode(true);
 
-            HasMany(e => e.Chancelleries)
-            .WithOptional(e => e.Employee)
-            //.HasForeignKey(e => e.ResponsibleEmployeeId)
-            .WillCascadeOnDelete(false);//при удалении пользователя, канцелярию где он ответственный не удаляем
+            //HasMany(e => e.Chancelleries)
+            //.WithOptional(e => e.ResponsibleEmployees)
+            ////.HasForeignKey(e => e.ResponsibleEmployeeId)
+            //.WillCascadeOnDelete(false);//при удалении пользователя, канцелярию где он ответственный не удаляем
 
             HasMany(e => e.Accesses)
             .WithOptional(e => e.Employee)

@@ -46,9 +46,9 @@ namespace ACS.DAL.Entities
 
         #endregion
 
-        #region Ответственный
+        #region Ответственные
 
-        public virtual Employee Employee { get; set; }
+        public virtual IEnumerable<Employee> ResponsibleEmployees { get; set; }
 
         #endregion
 
