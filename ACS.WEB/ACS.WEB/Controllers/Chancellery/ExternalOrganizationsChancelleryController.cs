@@ -23,7 +23,7 @@ namespace ACS.WEB.Controllers.Chancellery
         public ActionResult Index()
         {
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>()).CreateMapper();
-            var externalOrganizationdVM = MapBLLRrsr.GetMap().Map<IEnumerable<ExternalOrganizationChancelleryDTO>, List<ExternalOrganizationChancelleryViewModel>>(ExternalOrganizationsChancelleryService.GetExternalOrganizationsChancellery());
+            var externalOrganizationdVM = MapBLLPresenter.GetMap().Map<IEnumerable<ExternalOrganizationChancelleryDTO>, List<ExternalOrganizationChancelleryViewModel>>(ExternalOrganizationsChancelleryService.GetExternalOrganizationsChancellery());
             return View(externalOrganizationdVM);
         }
 
@@ -133,14 +133,14 @@ namespace ACS.WEB.Controllers.Chancellery
         ExternalOrganizationChancelleryViewModel MappExternalOrganizationDTOToExternalOrganizationVM(ExternalOrganizationChancelleryDTO ExternalOrganizationDTO)
         {
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>()).CreateMapper();
-            return MapBLLRrsr.GetMap().Map<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>(ExternalOrganizationDTO);
+            return MapBLLPresenter.GetMap().Map<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>(ExternalOrganizationDTO);
         }
 
 
         ExternalOrganizationChancelleryDTO MappExternalOrganizationVMToExternalOrganizationDTO(ExternalOrganizationChancelleryViewModel ExternalOrganizationVM)
         {
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryViewModel, ExternalOrganizationChancelleryDTO>()).CreateMapper();
-            return MapBLLRrsr.GetMap().Map<ExternalOrganizationChancelleryViewModel, ExternalOrganizationChancelleryDTO>(ExternalOrganizationVM);
+            return MapBLLPresenter.GetMap().Map<ExternalOrganizationChancelleryViewModel, ExternalOrganizationChancelleryDTO>(ExternalOrganizationVM);
         }
 
 

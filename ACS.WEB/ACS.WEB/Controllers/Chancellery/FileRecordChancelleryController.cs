@@ -44,7 +44,7 @@ namespace ACS.WEB.Controllers.Chancellery
             //}).CreateMapper();
 
 
-            var FileRecorddVM = MapBLLRrsr.GetMap().Map<IEnumerable<FileRecordChancelleryDTO>, List<FileRecordChancelleryViewModel>>(FileRecordChancelleryService.GetFilesRecordChancellery());
+            var FileRecorddVM = MapBLLPresenter.GetMap().Map<IEnumerable<FileRecordChancelleryDTO>, List<FileRecordChancelleryViewModel>>(FileRecordChancelleryService.GetFilesRecordChancellery());
             return View(FileRecorddVM);
         }
 
@@ -157,7 +157,7 @@ namespace ACS.WEB.Controllers.Chancellery
 
             //}).CreateMapper();
             // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>()).CreateMapper();
-            return MapBLLRrsr.GetMap().Map<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>(FileRecordDTO);
+            return MapBLLPresenter.GetMap().Map<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>(FileRecordDTO);
         }
 
 
@@ -170,7 +170,7 @@ namespace ACS.WEB.Controllers.Chancellery
 
             //}).CreateMapper();
             // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancelleryViewModel, FileRecordChancelleryDTO>()).CreateMapper();
-            return MapBLLRrsr.GetMap().Map<FileRecordChancelleryViewModel, FileRecordChancelleryDTO>(FileRecordVM);
+            return MapBLLPresenter.GetMap().Map<FileRecordChancelleryViewModel, FileRecordChancelleryDTO>(FileRecordVM);
         }
 
         private bool disposed = false;

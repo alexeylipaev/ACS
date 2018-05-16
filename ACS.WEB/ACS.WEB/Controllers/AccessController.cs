@@ -25,7 +25,7 @@ namespace ACS.WEB.Controllers
         {
             IEnumerable<AccessDTO> userDtos = accessService.GetAccesses();
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<AccessDTO, AccessViewModel>()).CreateMapper();
-            var users = MapBLLRrsr.GetMap().Map<IEnumerable<AccessDTO>, List<AccessViewModel>>(userDtos);
+            var users = MapBLLPresenter.GetMap().Map<IEnumerable<AccessDTO>, List<AccessViewModel>>(userDtos);
             return View(users);
         }
 

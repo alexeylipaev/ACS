@@ -154,7 +154,7 @@ namespace ACS.WEB.Controllers.Chancellery
             //    cfg.CreateMap<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO  > ();
 
             //}).CreateMapper();
-            return MapBLLRrsr.GetMap().Map<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO>(JournalVM);
+            return MapBLLPresenter.GetMap().Map<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO>(JournalVM);
         }
 
         //private bool disposed = false;

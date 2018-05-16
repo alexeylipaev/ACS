@@ -254,7 +254,7 @@
     <Compile Include="Models\SystemParametersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ACSRoleProvider.cs" />
-    <Compile Include="Util\AutoMapperConfig.cs" />
+    <Compile Include="Util\MapBLLPresenter.cs" />
     <Compile Include="Util\NinjectRegistrations.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -409,6 +409,7 @@
     <Content Include="Views\Chancellery\Edit.cshtml" />
     <Content Include="Views\Chancellery\Search.cshtml" />
     <Content Include="Views\Chancellery\Incoming.cshtml" />
+    <Content Include="Views\Chancellery\EditIncoming.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

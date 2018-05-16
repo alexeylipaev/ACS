@@ -1,6 +1,6 @@
-﻿using ACS.WEB.ViewModel;
+﻿
 
-namespace ACS.WEB.ViewModels
+namespace ACS.WEB.ViewModel
 {
     public class IncomingCorrespondencyViewModel : BaseCorrespondencyViewModel
     {

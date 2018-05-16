@@ -8,7 +8,7 @@ using System.Web;
 
 namespace ACS.WEB.Util
 {
-    public static class MapBLLRrsr
+    public static class MapBLLPresenter
     {
         static IMapper mapper;
         public static IMapper GetMap()

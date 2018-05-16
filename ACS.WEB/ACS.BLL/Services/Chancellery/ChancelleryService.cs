@@ -175,18 +175,33 @@ namespace ACS.BLL.Services
             return MapDALBLL.GetMapp().Map<Chancellery, ChancelleryDTO>(Chancellery);
         }
 
-        public IEnumerable<IncomingCorrespondency> ChancelleryGetIncoming(ChancellerySearchModel сhancellerySearchModel)
+      IMapper  getImapp()
         {
-            var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
-            var mapperBLLChancelleries = new MapperConfiguration(cfg =>
+            return new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ChancelleryDTO, IncomingCorrespondency>()
                 .ForMember(x => x.To, opt => opt.ResolveUsing<IncomingToCustomResolver>())
                 .ForMember(x => x.From, opt => opt.ResolveUsing<IncomingFromCustomResolver>());
             }).CreateMapper();
-            return mapperBLLChancelleries.Map<IEnumerable<ChancelleryDTO>, IEnumerable<IncomingCorrespondency>>(chancellerieDTOs);
         }
+        public IEnumerable<IncomingCorrespondency> ChancelleryGetIncoming(ChancellerySearchModel сhancellerySearchModel)
+        {
+            var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
 
+            return getImapp().Map<IEnumerable<ChancelleryDTO>, IEnumerable<IncomingCorrespondency>>(chancellerieDTOs);
+        }
+        public int ChancelleryUpdateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail)
+        {
+            int authorID = 0;
+            try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
+            catch (Exception ex) { throw ex; }
+
+            var original = Database.Chancelleries.Find(incomingCorrespondency.id);
+            
+            getImapp().Map(original, incomingCorrespondency);
+            Database.Chancelleries.Update(original, authorID);
+            return 1;
+        }
         public class IncomingToCustomResolver : IValueResolver<ChancelleryDTO, IncomingCorrespondency, EmployeeDTO>
         {
             public EmployeeDTO Resolve(ChancelleryDTO source, IncomingCorrespondency destination, EmployeeDTO member, ResolutionContext context)

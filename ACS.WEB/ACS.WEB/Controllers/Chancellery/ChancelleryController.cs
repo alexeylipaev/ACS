@@ -5,11 +5,8 @@ using ACS.BLL.Interfaces;
 using ACS.WEB.Models.Chancellery;
 using ACS.WEB.Util;
 using ACS.WEB.ViewModel;
-using ACS.WEB.ViewModels;
-using AutoMapper;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -44,7 +41,7 @@ namespace ACS.WEB.Controllers
             var chancelleryDTOs = ChancelleryService.ChancellerieGetAll().Where(ch => ch.s_InBasket == false);
             ViewBag.Types = GetAllTypes();
 
-            var chancelleriesVMs = MapBLLRrsr.GetMap().Map<IEnumerable<ChancelleryDTO>, List<ChancelleryViewModel>>(chancelleryDTOs.ToList()); /*(chancelleryDTOs.ToList());*/
+            var chancelleriesVMs = MapBLLPresenter.GetMap().Map<IEnumerable<ChancelleryDTO>, List<ChancelleryViewModel>>(chancelleryDTOs.ToList()); /*(chancelleryDTOs.ToList());*/
             return View(chancelleriesVMs);
         }
 
@@ -52,26 +49,26 @@ namespace ACS.WEB.Controllers
         public ActionResult Details(int id)
         {
             var chancelleryDTO = ChancelleryService.ChancelleryGet(id);
-            var chancelleriesVM = MapBLLRrsr.GetMap().Map<ChancelleryDTO, ChancelleryViewModel>(chancelleryDTO);
+            var chancelleriesVM = MapBLLPresenter.GetMap().Map<ChancelleryDTO, ChancelleryViewModel>(chancelleryDTO);
             return View(chancelleriesVM);
         }
 
         List<EmployeeViewModel> GetEmplCollection()
         {
             List<EmployeeViewModel> collection = new List<EmployeeViewModel>() { null };
-            collection.AddRange(MapBLLRrsr.GetMap().Map<IEnumerable<EmployeeDTO>, List<EmployeeViewModel>>(ChancelleryService.GetEmployees().OrderBy(emp => emp.LName)).ToList());
+            collection.AddRange(MapBLLPresenter.GetMap().Map<IEnumerable<EmployeeDTO>, List<EmployeeViewModel>>(ChancelleryService.GetEmployees().OrderBy(emp => emp.LName)).ToList());
             return collection;
         }
         List<FolderChancelleryViewModel> GetFoldersCollection()
         {
             List<FolderChancelleryViewModel> collection = new List<FolderChancelleryViewModel>() { null };
-            collection.AddRange(MapBLLRrsr.GetMap().Map<IEnumerable<FolderChancelleryDTO>, List<FolderChancelleryViewModel>>(ChancelleryService.GetAllFolders().OrderBy(f => f.Name)).ToList());
+            collection.AddRange(MapBLLPresenter.GetMap().Map<IEnumerable<FolderChancelleryDTO>, List<FolderChancelleryViewModel>>(ChancelleryService.GetAllFolders().OrderBy(f => f.Name)).ToList());
             return collection;
         }
         List<JournalRegistrationsChancelleryViewModel> GetJournalsCollection()
         {
             List<JournalRegistrationsChancelleryViewModel> collection = new List<JournalRegistrationsChancelleryViewModel>() { null };
-            collection.AddRange(MapBLLRrsr.GetMap().Map<IEnumerable<JournalRegistrationsChancelleryDTO>, List<JournalRegistrationsChancelleryViewModel>>(ChancelleryService.GetAllJournalesRegistrations().OrderBy(f => f.Name)).ToList());
+            collection.AddRange(MapBLLPresenter.GetMap().Map<IEnumerable<JournalRegistrationsChancelleryDTO>, List<JournalRegistrationsChancelleryViewModel>>(ChancelleryService.GetAllJournalesRegistrations().OrderBy(f => f.Name)).ToList());
             return collection;
         }
         List<ExternalOrganizationChancelleryViewModel> GetExtOrgsCollection()
@@ -79,17 +76,92 @@ namespace ACS.WEB.Controllers
             List<ExternalOrganizationChancelleryViewModel> collection = new List<ExternalOrganizationChancelleryViewModel>() { null };
 
             /*            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>()).CreateMapper();*/
-            collection.AddRange(MapBLLRrsr.GetMap().Map<IEnumerable<ExternalOrganizationChancelleryDTO>, List<ExternalOrganizationChancelleryViewModel>>(ChancelleryService.GetAllExternalOrganizations()));
+            collection.AddRange(MapBLLPresenter.GetMap().Map<IEnumerable<ExternalOrganizationChancelleryDTO>, List<ExternalOrganizationChancelleryViewModel>>(ChancelleryService.GetAllExternalOrganizations()));
             return collection;
         }
 
 
         public ActionResult Incoming()
         {
+            
             ChancellerySearchModel searchModel = new ChancellerySearchModel { RegistryDateTo = DateTime.Now };
             var incomingDTOs = ChancelleryService.ChancelleryGetIncoming(searchModel);
-            var incomings = MapBLLRrsr.GetMap().Map<IEnumerable<IncomingCorrespondency>, IEnumerable<IncomingCorrespondencyViewModel>>(incomingDTOs);
+            var incomings = MapBLLPresenter.GetMap().Map<IEnumerable<IncomingCorrespondency>, IEnumerable<IncomingCorrespondencyViewModel>>(incomingDTOs);
             return View(incomings);
+        }
+
+        public ActionResult EditIncoming(int id)
+        {
+            SelectedEmployeeViewModel.Collection = GetEmplCollection();
+            SelectedFolderChancellery.Collection = GetFoldersCollection();
+            SelectedJournalRegChancellery.Collection = GetJournalsCollection();
+            SelectedExternalOrgViewModel.Collection = GetExtOrgsCollection();
+
+            ChancellerySearchModel searchModel = new ChancellerySearchModel { Id=id };
+            IncomingCorrespondency chancDTO = ChancelleryService.ChancelleryGetIncoming(searchModel).FirstOrDefault();
+            var chancVM = MapBLLPresenter.GetMap().Map<IncomingCorrespondency, IncomingCorrespondencyViewModel>(chancDTO);
+            if (chancDTO.FolderChancellery != null)
+                chancVM.SelectedFolder = new SelectedFolderChancellery() { SelectedId = chancDTO.FolderChancellery.id };
+            if (chancDTO.JournalRegistrationsChancellery != null)
+                chancVM.SelectedJournalsReg = new SelectedJournalRegChancellery() { SelectedId = chancDTO.JournalRegistrationsChancellery.id };
+            foreach (var resp in chancDTO.ResponsibleEmployees)
+            {
+
+
+                if (resp != null)
+                {
+                    chancVM.SelectedResponsible = new SelectedEmployeeViewModel();
+                    chancVM.SelectedResponsible.SelectedId.Add(resp.id);
+                }
+            }
+
+
+                var To = chancVM.To;
+                if (To != null)
+                {
+                        chancVM.Selected_To_Empl = new SelectedEmployeeViewModel() { SelectedId = { (To.id) } };
+                }
+                var From = chancDTO.From;
+                if (From != null)
+                {
+                        chancVM.Selected_ExtOrg = new SelectedExternalOrgViewModel() { SelectedId = { (From.id) } };
+                }
+            
+            chancVM.TypeRecordChancelleryId = chancVM.TypeRecordChancellery.id;
+            ViewBag.ActionName = "Редактирование";
+
+            ViewBag.TypeName = chancVM.TypeRecordChancellery.Name + " корреспонденция";
+
+
+            ViewBag.Title = "Редактирование " + chancVM.TypeRecordChancellery.Name;
+            ViewBag.NameBtn = "Сохранить";
+
+            return View(chancVM);
+        }
+
+        // POST: Chancellery/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditIncoming(IncomingCorrespondencyViewModel chancVM)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    chancVM.TypeRecordChancellery = MapBLLPresenter.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(chancVM.TypeRecordChancelleryId != null ? chancVM.TypeRecordChancelleryId.Value : 0));
+                    chancVM.JournalRegistrationsChancellery = MapBLLPresenter.GetMap().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(chancVM.JournalRegistrationsChancelleryId));
+                    chancVM.FolderChancellery = MapBLLPresenter.GetMap().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(chancVM.FolderChancelleryId != null ? chancVM.FolderChancelleryId.Value : 0));
+
+                    var chancDTO = MapBLLPresenter.GetMap().Map<IncomingCorrespondencyViewModel, IncomingCorrespondency>(chancVM);
+                    ChancelleryService.ChancelleryUpdateIncoming(chancDTO, this.User.Identity.Name);
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(ex.Property, ex.Message);
+            }
+            return View(chancVM);
         }
 
         public ActionResult Create(int TypeRecordId)
@@ -99,7 +171,7 @@ namespace ACS.WEB.Controllers
             SelectedJournalRegChancellery.Collection = GetJournalsCollection();
             SelectedExternalOrgViewModel.Collection = GetExtOrgsCollection();
 
-            var typeVM = MapBLLRrsr.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordId));
+            var typeVM = MapBLLPresenter.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(TypeRecordId));
 
             ViewBag.ActionName = "Создание";
 
@@ -127,14 +199,14 @@ namespace ACS.WEB.Controllers
         {
             try
             {
-                newChancelleryVM.TypeRecordChancellery = MapBLLRrsr.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById((int)newChancelleryVM.TypeRecordChancelleryId));
+                newChancelleryVM.TypeRecordChancellery = MapBLLPresenter.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById((int)newChancelleryVM.TypeRecordChancelleryId));
 
                 if (newChancelleryVM.EmployeeId != null)
                 {
                     var idResponsible = (int)newChancelleryVM.EmployeeId;//.SelectedResponsible.SelectedId.FirstOrDefault();
 
                     if (idResponsible > 0)
-                        newChancelleryVM.Employee = MapBLLRrsr.GetMap().Map<EmployeeDTO, EmployeeViewModel>(ChancelleryService.GetEmployee(idResponsible));
+                        newChancelleryVM.Employee = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(ChancelleryService.GetEmployee(idResponsible));
                 }
 
                 if (newChancelleryVM.FolderChancelleryId != null)
@@ -142,14 +214,14 @@ namespace ACS.WEB.Controllers
                     var idFolder = (int)newChancelleryVM.FolderChancelleryId;//newChancelleryVM.SelectedFolder.SelectedId;
 
                     if (idFolder > 0)
-                        newChancelleryVM.FolderChancellery = MapBLLRrsr.GetMap().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(idFolder));
+                        newChancelleryVM.FolderChancellery = MapBLLPresenter.GetMap().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(idFolder));
                 }
 
 
                 var idJournalsReg = (int)newChancelleryVM.JournalRegistrationsChancelleryId;//newChancelleryVM.SelectedJournalsReg.SelectedId;
 
                 if (idJournalsReg > 0)
-                    newChancelleryVM.JournalRegistrationsChancellery = MapBLLRrsr.GetMap().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(idJournalsReg));
+                    newChancelleryVM.JournalRegistrationsChancellery = MapBLLPresenter.GetMap().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(idJournalsReg));
                 #region  Входящая
                 if (newChancelleryVM.TypeRecordChancellery.id == 1)
                 {
@@ -186,7 +258,7 @@ namespace ACS.WEB.Controllers
                 {
                     string currentUserEmail = this.User.Identity.Name;
 
-                    var chancelleryDTO = MapBLLRrsr.GetMap().Map<ChancelleryViewModel, ChancelleryDTO>(newChancelleryVM);
+                    var chancelleryDTO = MapBLLPresenter.GetMap().Map<ChancelleryViewModel, ChancelleryDTO>(newChancelleryVM);
                     //var chancelleryDTO = Map_Chancellery.Map_ChancelleryViewModel_to_ChancelleryDTO(newChancelleryVM);
                     Attach(/*this.Request.Files.GetMultiple("Files")*/Files, chancelleryDTO);
 
@@ -209,7 +281,7 @@ namespace ACS.WEB.Controllers
             {
                 var ExtOrgDTO = ChancelleryService.GetExternalOrganization(idselectedEmp);
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>()).CreateMapper();
-                var ExtOrgVM = MapBLLRrsr.GetMap().Map<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>(ExtOrgDTO);
+                var ExtOrgVM = MapBLLPresenter.GetMap().Map<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>(ExtOrgDTO);
 
                 if (IsTo)
                 {
@@ -240,7 +312,7 @@ namespace ACS.WEB.Controllers
                     var To = new ToChancelleryViewModel();
                     To.Chancellery = newChancelleryVM;
                     var ToEmplDTO = ChancelleryService.GetEmployee(idselectedEmp);
-                    var ToEmplVM = MapBLLRrsr.GetMap().Map<EmployeeDTO, EmployeeViewModel>(ToEmplDTO);
+                    var ToEmplVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(ToEmplDTO);
 
                     To.Employee = ToEmplVM;
                     newChancelleryVM.ToChancelleries.Add(To);
@@ -250,7 +322,7 @@ namespace ACS.WEB.Controllers
                     var From = new FromChancelleryViewModel();
                     From.Chancellery = newChancelleryVM;
                     var ToEmplDTO = ChancelleryService.GetEmployee(idselectedEmp);
-                    var ToEmplVM = MapBLLRrsr.GetMap().Map<EmployeeDTO, EmployeeViewModel>(ToEmplDTO);
+                    var ToEmplVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(ToEmplDTO);
 
                     From.Employee = ToEmplVM;
                     newChancelleryVM.FromChancelleries.Add(From);
@@ -268,18 +340,21 @@ namespace ACS.WEB.Controllers
             SelectedExternalOrgViewModel.Collection = GetExtOrgsCollection();
 
             ChancelleryDTO chancDTO = ChancelleryService.ChancelleryGet(id);
-            var chancVM = MapBLLRrsr.GetMap().Map<ChancelleryDTO, ChancelleryViewModel>(chancDTO);
+            var chancVM = MapBLLPresenter.GetMap().Map<ChancelleryDTO, ChancelleryViewModel>(chancDTO);
             if (chancDTO.FolderChancellery != null)
                 chancVM.SelectedFolder = new SelectedFolderChancellery() { SelectedId = chancDTO.FolderChancellery.id };
             if (chancDTO.JournalRegistrationsChancellery != null)
                 chancVM.SelectedJournalsReg = new SelectedJournalRegChancellery() { SelectedId = chancDTO.JournalRegistrationsChancellery.id };
+            foreach (var resp in chancDTO.ResponsibleEmployees)
+            {
 
-            if (chancDTO.Employee != null)
+            
+            if (resp != null)
             {
                 chancVM.SelectedResponsible = new SelectedEmployeeViewModel();
-                chancVM.SelectedResponsible.SelectedId.Add(chancDTO.Employee.id);
+                chancVM.SelectedResponsible.SelectedId.Add(resp.id);
             }
-
+}
 
             if (chancVM.TypeRecordChancellery.id == 1)
             {
@@ -352,11 +427,11 @@ namespace ACS.WEB.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    chancVM.TypeRecordChancellery = MapBLLRrsr.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(chancVM.TypeRecordChancelleryId != null ? chancVM.TypeRecordChancelleryId.Value : 0));
-                    chancVM.JournalRegistrationsChancellery = MapBLLRrsr.GetMap().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(chancVM.JournalRegistrationsChancelleryId));
-                    chancVM.FolderChancellery = MapBLLRrsr.GetMap().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(chancVM.FolderChancelleryId != null ? chancVM.FolderChancelleryId.Value : 0));
+                    chancVM.TypeRecordChancellery = MapBLLPresenter.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(chancVM.TypeRecordChancelleryId != null ? chancVM.TypeRecordChancelleryId.Value : 0));
+                    chancVM.JournalRegistrationsChancellery = MapBLLPresenter.GetMap().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(chancVM.JournalRegistrationsChancelleryId));
+                    chancVM.FolderChancellery = MapBLLPresenter.GetMap().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(chancVM.FolderChancelleryId != null ? chancVM.FolderChancelleryId.Value : 0));
 
-                    var chancDTO = MapBLLRrsr.GetMap().Map<ChancelleryViewModel, ChancelleryDTO>(chancVM);
+                    var chancDTO = MapBLLPresenter.GetMap().Map<ChancelleryViewModel, ChancelleryDTO>(chancVM);
                     ChancelleryService.CreateOrUpdateChancellery(chancDTO, this.User.Identity.Name);
                     return RedirectToAction("Index");
                 }
@@ -439,7 +514,7 @@ namespace ACS.WEB.Controllers
         {
             var typeDTOs = ChancelleryService.TypeRecordGetAll();
 
-            return MapBLLRrsr.GetMap().Map<IEnumerable<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(typeDTOs.ToList());
+            return MapBLLPresenter.GetMap().Map<IEnumerable<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(typeDTOs.ToList());
         }
         #region работа с файлами
 
@@ -559,7 +634,7 @@ namespace ACS.WEB.Controllers
             //else ViewBag.ListChanc = new List<ChancelleryViewModel>();
             ChancellerySearchModel search = (ChancellerySearchModel)Session["search"];
             searchModelVM.ChancellerySearchModel = search;
-            searchModelVM.Chancelleries = MapBLLRrsr.GetMap().Map<IEnumerable<ChancelleryDTO>, IEnumerable<ChancelleryViewModel>>(ChancelleryService.ChancelleryGet(search));
+            searchModelVM.Chancelleries = MapBLLPresenter.GetMap().Map<IEnumerable<ChancelleryDTO>, IEnumerable<ChancelleryViewModel>>(ChancelleryService.ChancelleryGet(search));
             //Session.Add("search", searchModel);
             //else search = (ChancellerySearchModel)Session["search"];
             //else Session.Add("search", searchModel);

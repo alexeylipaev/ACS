@@ -179,7 +179,7 @@ namespace ACS.WEB.Controllers
 
             //}).CreateMapper();
             // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancelleryViewModel,FolderChancelleryDTO>()).CreateMapper();
-            return MapBLLRrsr.GetMap().Map<FolderChancelleryViewModel, FolderChancelleryDTO>(FolderVM);
+            return MapBLLPresenter.GetMap().Map<FolderChancelleryViewModel, FolderChancelleryDTO>(FolderVM);
         }
 
         #endregion

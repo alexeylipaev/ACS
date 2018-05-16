@@ -32,7 +32,7 @@ namespace ACS.WEB.Controllers.Chancellery
             //}).CreateMapper();
 
 
-            var TypeRecorddVM = MapBLLRrsr.GetMap().Map<IEnumerable<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(TypeRecordChancelleryService.GetTypesRecordChancellery());
+            var TypeRecorddVM = MapBLLPresenter.GetMap().Map<IEnumerable<TypeRecordChancelleryDTO>, List<TypeRecordChancelleryViewModel>>(TypeRecordChancelleryService.GetTypesRecordChancellery());
             return View(TypeRecorddVM);
         }
 
@@ -219,7 +219,7 @@ namespace ACS.WEB.Controllers.Chancellery
 
             //}).CreateMapper();
             // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>()).CreateMapper();
-            return MapBLLRrsr.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(TypeRecordDTO);
+            return MapBLLPresenter.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(TypeRecordDTO);
         }
 
 
@@ -232,7 +232,7 @@ namespace ACS.WEB.Controllers.Chancellery
 
             //}).CreateMapper();
             // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>()).CreateMapper();
-            return MapBLLRrsr.GetMap().Map<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>(TypeRecordVM);
+            return MapBLLPresenter.GetMap().Map<TypeRecordChancelleryViewModel, TypeRecordChancelleryDTO>(TypeRecordVM);
         }
         protected override void Dispose(bool disposing)
         {

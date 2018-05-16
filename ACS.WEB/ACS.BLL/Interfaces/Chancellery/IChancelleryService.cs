@@ -37,6 +37,8 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         IEnumerable<IncomingCorrespondency> ChancelleryGetIncoming(ChancellerySearchModel сhancellerySearchModel);
 
+        int ChancelleryUpdateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail);
+
         /// <summary>
         /// Получить канцелярские записи по модели поиска
         /// </summary>

@@ -31,7 +31,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
             IEnumerable<EmployeeDTO> userDtos = EmployeeService.GetEmployees();
             var user = this.User;
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
-            var users = MapBLLRrsr.GetMap().Map<IEnumerable<EmployeeDTO>, List<EmployeeAdminVM>>(userDtos);
+            var users = MapBLLPresenter.GetMap().Map<IEnumerable<EmployeeDTO>, List<EmployeeAdminVM>>(userDtos);
             return View(users);
         }
 
@@ -46,7 +46,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
             {
                 EmployeeDTO user = EmployeeService.GetEmployee(id);
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
-                var userVM = MapBLLRrsr.GetMap().Map<EmployeeDTO, EmployeeAdminVM>(user);
+                var userVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeAdminVM>(user);
                 //var userVM = new UserViewModel { Id = user.Id };
 
                 return View(userVM);
@@ -90,7 +90,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
                     //string currentUserEmail = ActiveDirectory.IdentityUserEmailFromActiveDirectory(name);
                     var userDto = new EmployeeDTO();
                     //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
-                    userDto = MapBLLRrsr.GetMap().Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
+                    userDto = MapBLLPresenter.GetMap().Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
                     EmployeeService.CreateOrUpdateEmpl(userDto, currentUserEmail);
                     return RedirectToAction("Index");
                 }
@@ -109,7 +109,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
             {
                 EmployeeDTO user = EmployeeService.GetEmployee(id);
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
-                var userVM = MapBLLRrsr.GetMap().Map<EmployeeDTO, EmployeeAdminVM>(user);
+                var userVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeAdminVM>(user);
                 //var userVM = new UserViewModel { Id = user.Id };
 
                 return View(userVM);
@@ -130,7 +130,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
             {
                 
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeAdminVM, EmployeeDTO>()).CreateMapper();
-                user = MapBLLRrsr.GetMap().Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
+                user = MapBLLPresenter.GetMap().Map<EmployeeAdminVM, EmployeeDTO>(employeeAdminVM);
                 //var userVM = new UserViewModel { Id = user.Id };
                 EmployeeService.CreateOrUpdateEmpl(user, this.User.Identity.Name);
                 return RedirectToAction("Index");
@@ -149,7 +149,7 @@ namespace ACS.WEB.Areas.Admin.Controllers
             {
                 EmployeeDTO user = EmployeeService.GetEmployee(id);
                 //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<EmployeeDTO, EmployeeAdminVM>()).CreateMapper();
-                var userVM = MapBLLRrsr.GetMap().Map<EmployeeDTO, EmployeeAdminVM>(user);
+                var userVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeAdminVM>(user);
                 //var userVM = new UserViewModel { Id = user.Id };
 
                 return View(userVM);

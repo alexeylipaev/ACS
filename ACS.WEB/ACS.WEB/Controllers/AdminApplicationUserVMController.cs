@@ -25,7 +25,7 @@ namespace ACS.WEB.Controllers
         {
             IEnumerable<ApplicationUserDTO> userDtos = ApplicationUserService.GetApplicationUsers();
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ApplicationUserDTO, ApplicationUserViewModel>()).CreateMapper();
-            var users = MapBLLRrsr.GetMap().Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(userDtos);
+            var users = MapBLLPresenter.GetMap().Map<IEnumerable<ApplicationUserDTO>, List<ApplicationUserViewModel>>(userDtos);
             return View(users);
         }
 
