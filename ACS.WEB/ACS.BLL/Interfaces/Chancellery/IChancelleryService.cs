@@ -25,10 +25,33 @@ namespace ACS.BLL.Interfaces
         /// <summary>
         /// Получить канцелярские записи по модели поиска
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="сhancellerySearchModel"></param>
         /// <returns></returns>
         IEnumerable<ChancelleryDTO> ChancelleryGet(ChancellerySearchModel сhancellerySearchModel);
-        
+
+        /// <summary>
+        /// Получить канцелярские записи по модели поиска
+        /// </summary>
+        /// <param name="сhancellerySearchModel"></param>
+        /// <returns></returns>
+        IEnumerable<IncomingCorrespondency> ChancelleryGetIncoming(ChancellerySearchModel сhancellerySearchModel);
+
+        /// <summary>
+        /// Получить канцелярские записи по модели поиска
+        /// </summary>
+        /// <param name="сhancellerySearchModel"></param>
+        /// <returns></returns>
+        IEnumerable<OutgoingCorrespondency> ChancelleryGetOutgoing(ChancellerySearchModel сhancellerySearchModel);
+
+
+        /// <summary>
+        /// Получить канцелярские записи по модели поиска
+        /// </summary>
+        /// <param name="сhancellerySearchModel"></param>
+        /// <returns></returns>
+        IEnumerable<InternalCorrespondency> ChancelleryGetInternal(ChancellerySearchModel сhancellerySearchModel);
+
+
         ///// <summary>
         ///// Сделать запись
         ///// </summary>

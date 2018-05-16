@@ -197,6 +197,49 @@ namespace ACS.BLL.Services
             return GetMapChancelleryDBToChancelleryDTO().Map<Chancellery, ChancelleryDTO>(Chancellery);
         }
 
+        public IEnumerable<IncomingCorrespondency> ChancelleryGetIncoming(ChancellerySearchModel сhancellerySearchModel)
+        {
+            var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
+            var mapperBLLChancelleries = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ChancelleryDTO, IncomingCorrespondency>()
+                .ForMember(x => x.To, opt => opt.ResolveUsing<IncomingToCustomResolver>())
+                .ForMember(x => x.From, opt => opt.ResolveUsing<IncomingFromCustomResolver>());
+            }).CreateMapper();
+            return mapperBLLChancelleries.Map<IEnumerable<ChancelleryDTO>, IEnumerable<IncomingCorrespondency>>(chancellerieDTOs);
+        }
+
+        public class IncomingToCustomResolver : IValueResolver<ChancelleryDTO, IncomingCorrespondency, EmployeeDTO>
+        {
+            public EmployeeDTO Resolve(ChancelleryDTO source, IncomingCorrespondency destination, EmployeeDTO member, ResolutionContext context)
+            {
+                EmployeeDTO result = null;
+                if (source.ToChancelleries.Count() != 0) result = source.ToChancelleries.First().Employee?? null;
+                return result;
+            }
+        }
+
+        public class IncomingFromCustomResolver : IValueResolver<ChancelleryDTO, IncomingCorrespondency, ExternalOrganizationChancelleryDTO>
+        {
+            public ExternalOrganizationChancelleryDTO Resolve(ChancelleryDTO source, IncomingCorrespondency destination, ExternalOrganizationChancelleryDTO member, ResolutionContext context)
+            {
+                ExternalOrganizationChancelleryDTO result = null;
+                if (source.FromChancelleries.Count() != 0) result = source.FromChancelleries.First().ExternalOrganization ?? null;
+                return result;
+            }
+        }
+
+
+        public IEnumerable<OutgoingCorrespondency> ChancelleryGetOutgoing(ChancellerySearchModel сhancellerySearchModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<InternalCorrespondency> ChancelleryGetInternal(ChancellerySearchModel сhancellerySearchModel)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<ChancelleryDTO> ChancelleryGet(ChancellerySearchModel сhancellerySearchModel)
         {
 
@@ -598,7 +641,7 @@ namespace ACS.BLL.Services
                 .ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))
                 .ForMember(x => x.ExternalOrganization, x => x.MapFrom(c => Database.ExternalOrganizationChancelleries.Find((int)c.ExternalOrganization.id)));
                 cfg.CreateMap<ChancelleryDTO, Chancellery>()
-                .ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))
+                .ForMember(x => x.ResponsibleEmployees, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))
                 .ForMember(x => x.FolderChancellery, x => x.MapFrom(c => Database.FolderChancelleries.Find((int)c.FolderChancellery.id)))
                 .ForMember(x => x.JournalRegistrationsChancellery, x => x.MapFrom(c => Database.JournalRegistrationsChancelleries.Find((int)c.JournalRegistrationsChancellery.id)))
                 .ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => Database.TypeRecordChancelleries.Find((int)c.TypeRecordChancellery.id)));
@@ -709,4 +752,9 @@ namespace ACS.BLL.Services
 
 
     }
+
+    //public interface IValueResolver<in TSource, in TDestination, TDestMember>
+    //{
+    //    TDestMember Resolve(TSource source, TDestination destination, TDestMember destMember, ResolutionContext context);
+    //}
 }

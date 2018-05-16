@@ -99,12 +99,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessModels\ChancellerySearchModel.cs" />
+    <Compile Include="BusinessModels\Chancellery\BaseCorrespondency.cs" />
+    <Compile Include="BusinessModels\Chancellery\ChancellerySearchModel.cs" />
+    <Compile Include="BusinessModels\Chancellery\InternalCorrespondency.cs" />
     <Compile Include="BusinessModels\Helper.cs" />
+    <Compile Include="BusinessModels\Chancellery\OutgoingCorrespondency.cs" />
     <Compile Include="DTO\ASPIdentityUser\ApplicationRoleDTO.cs" />
     <Compile Include="DTO\ASPIdentityUser\AppUserClaimDTO.cs" />
     <Compile Include="DTO\ASPIdentityUser\AppUserLoginDTO.cs" />
     <Compile Include="DTO\ASPIdentityUser\AppUserRoleDTO.cs" />
+    <Compile Include="BusinessModels\Chancellery\IncomingCorrespondency.cs" />
     <Compile Include="DTO\InputControlPKI\InputControlPKI.cs" />
     <Compile Include="DTO\InputControlPKI\ReceivedDocPKI.cs" />
     <Compile Include="DTO\TheProjectRegistry\ProjectRegistryDTO.cs" />
