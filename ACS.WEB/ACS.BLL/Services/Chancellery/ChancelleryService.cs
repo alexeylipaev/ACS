@@ -467,7 +467,7 @@ namespace ACS.BLL.Services
                     string pathForSave = @"X:\Подразделения\СВиССА\Файлы канцелярии\";
 
                     //Возвращает имя файла указанной строки пути без расширения.
-                    string fileName = Path.GetFileNameWithoutExtension(file.FileName) + DateTime.Now.ToString("dd.MM.yyyy hh:mm:ss:fff"); 
+                    string fileName = Path.GetFileNameWithoutExtension(file.FileName) + DateTime.Now.ToString("_dd_MM_yyyy_hh_mm_ss_fff"); 
                     //fileVM.Name = fileName;
 
                     //Возвращает расширение указанной строки пути.

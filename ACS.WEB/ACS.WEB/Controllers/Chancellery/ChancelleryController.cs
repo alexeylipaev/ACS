@@ -180,7 +180,7 @@ namespace ACS.WEB.Controllers
 
                     var chancelleryDTO = MapBLLRrsr.GetMap().Map<ChancelleryViewModel, ChancelleryDTO>(newChancelleryVM);
                     //var chancelleryDTO = Map_Chancellery.Map_ChancelleryViewModel_to_ChancelleryDTO(newChancelleryVM);
-                    AttachFiles(/*this.Request.Files.GetMultiple("Files")*/Files, chancelleryDTO);
+                    Attach(/*this.Request.Files.GetMultiple("Files")*/Files, chancelleryDTO);
 
                     ChancelleryService.CreateOrUpdateChancellery(chancelleryDTO, currentUserEmail);
                     return RedirectToAction("Index");
@@ -461,7 +461,7 @@ namespace ACS.WEB.Controllers
 
 
         [HttpPost]
-        public ActionResult AttachFiles(IEnumerable<HttpPostedFileBase> files, int ChancelleryId)
+        public ActionResult Attach(IEnumerable<HttpPostedFileBase> files, int ChancelleryId)
         {
             int result = 0;
             try
@@ -482,9 +482,9 @@ namespace ACS.WEB.Controllers
 
         }
 
-        public void AttachFiles(IEnumerable<HttpPostedFileBase> files, ChancelleryDTO ChancelleryDTO)
+        public void Attach(IEnumerable<HttpPostedFileBase> files, ChancelleryDTO ChancelleryDTO)
         {
-            this.AttachFiles(files, ChancelleryDTO.id);
+            this.Attach(files, ChancelleryDTO.id);
         }
 
         #endregion
