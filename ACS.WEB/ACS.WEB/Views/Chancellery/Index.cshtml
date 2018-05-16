@@ -126,9 +126,15 @@
                     @foreach (var file in item.FileRecordChancelleries.Where(f => f.s_InBasket == false))
                 {
                         <div style="display:inline-flex; line-height:25px">
-                            @Html.ActionLink(@file.Name + file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank" })
-                            @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })
-                        </div>
+                            <a data-fancybox-type="iframe" style="padding-right:5px" class="fancybox" href="@Url.Action("DownloadFile", "Chancellery", new { id = file.id })" title="открыть" @*class="btn btn-primary"*@>
+                                @string.Format("{0}{1}", @file.Name, @file.Format)
+                            </a>
+                    
+
+                        
+                                @Html.ActionLink(@file.Name + file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank", @class = "lightbox" })
+                                @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })
+</div>
                     }
                    
             </td>
@@ -151,3 +157,21 @@
         </tr>
     }
 </table>
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function(){
+            $(".fancybox").fancybox({
+                openEffect: 'none',
+                closeEffect: 'none',
+                iframe: {
+                    preload: true
+                }
+            });
+            });
+
+    </script>
+}

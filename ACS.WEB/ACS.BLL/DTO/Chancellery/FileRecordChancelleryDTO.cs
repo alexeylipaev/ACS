@@ -26,6 +26,12 @@ namespace ACS.BLL.DTO
         /// Путь к файлу
         /// </summary>
         public string Path { get; set; }
-   
+
+        /// <summary>
+        /// Дата добавления файла (уникальный параметр)
+        /// </summary>
+        public string DataString { get; set; }
+        
+
     }
 }

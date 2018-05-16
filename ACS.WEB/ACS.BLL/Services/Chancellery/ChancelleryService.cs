@@ -358,14 +358,6 @@ namespace ACS.BLL.Services
 
 
 
-        //public bool DownloadFile(int id)
-        //{
-        //    var fileDTO = this.GetFile(id);
-        //    string path = (fileDTO.Path);
-        //    string type = fileDTO.Format;
-        //    string name = fileDTO.Name;
-        //    return File(path, type, null);
-        //}
 
         /// <summary>
         /// Получить данные о файле по id
@@ -467,7 +459,7 @@ namespace ACS.BLL.Services
                     string pathForSave = @"X:\Подразделения\СВиССА\Файлы канцелярии\";
 
                     //Возвращает имя файла указанной строки пути без расширения.
-                    string fileName = Path.GetFileNameWithoutExtension(file.FileName) + DateTime.Now.ToString("_dd_MM_yyyy_hh_mm_ss_fff"); 
+                    string fileName = Path.GetFileNameWithoutExtension(file.FileName); 
                     //fileVM.Name = fileName;
 
                     //Возвращает расширение указанной строки пути.
@@ -478,7 +470,7 @@ namespace ACS.BLL.Services
                     //fileVM.Path = @"X:/Подразделения/СВиССА/Файлы канцелярии/" + fileName;
                     string path = Path.Combine(pathForSave, fileName + extension);
 
-                    FileRecordChancelleryDTO fileDTO = this.GetFileChancellerByPath(path, ChancelleryId);
+                    FileRecordChancelleryDTO fileDTO = null;/* = this.GetFileChancellerByPath(path, ChancelleryId);*/
 
                     if (fileDTO == null)
                     {
@@ -486,8 +478,11 @@ namespace ACS.BLL.Services
                         fileDTO.Name = fileName;
                         fileDTO.Path = path;
                         fileDTO.Format = extension;
+                        fileDTO.DataString = DateTime.Now.ToString("ddMMyyyyhhmmssfff");
 
                     }
+
+                    path = Path.Combine(pathForSave, fileDTO.Name+ fileDTO.DataString + extension);
 
                     file.SaveAs(path);
                     return this.AttachOrDetachFile(fileDTO, authorEmail, ChancelleryId, true);

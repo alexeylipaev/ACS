@@ -8,6 +8,10 @@
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/Chosen/chosen.min.css")
     @Styles.Render("~/Content/font-awesome.min.css")
+    <!--fancybox css -->
+    @Styles.Render("~/Content/jquery.fancybox-buttons.css")
+    @Styles.Render("~/Content/jquery.fancybox-thumbs.css")
+    @Styles.Render("~/Content/jquery.fancybox.css")
 
 </head>
 <body>
@@ -54,6 +58,12 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/Scripts/Chosen/chosen.jquery.min.js")
+    <!--fancybox js -->
+    @Scripts.Render("~/Scripts/jquery.fancybox.js")
+    @Scripts.Render("~/Scripts/jquery.fancybox.pack.js")
+    @Scripts.Render("~/Scripts/jquery.fancybox-buttons.js")
+    @Scripts.Render("~/Scripts/jquery.fancybox-media.js")
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

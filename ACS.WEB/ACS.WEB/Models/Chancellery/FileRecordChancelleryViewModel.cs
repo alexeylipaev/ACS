@@ -34,6 +34,11 @@ namespace ACS.WEB.ViewModel
         public string Path { get; set; }
 
         public HttpPostedFileBase File { get; set; }
-   
+
+        /// <summary>
+        /// Дата добавления файла (уникальный параметр)
+        /// </summary>
+        public string DataString { get; set; }
+
     }
 }

@@ -30,6 +30,9 @@ namespace ACS.DAL.Entities
         /// </summary>
         public string Path { get; set; }
 
-
+        /// <summary>
+        /// Дата добавления файла (уникальный параметр)
+        /// </summary>
+        public string DataString { get; set; }
     }
 }
