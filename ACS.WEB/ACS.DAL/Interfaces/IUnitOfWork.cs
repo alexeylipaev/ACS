@@ -40,7 +40,7 @@ namespace ACS.DAL.Interfaces
 
         IRepository<WorkHistory> WorkHistories { get; }
         IRepository<EmployeePassport> EmployeesPassports { get; }
-
+        IRepository<ProjectRegistry> ProjectsRegistry { get; }
         void Save();
 
         Task SaveAsync();

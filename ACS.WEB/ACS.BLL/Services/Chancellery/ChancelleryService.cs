@@ -14,10 +14,10 @@ using System.Diagnostics;
 using System.Collections;
 using System.IO;
 using System.Linq.Expressions;
+using System.Web;
 
 namespace ACS.BLL.Services
 {
-
 
     public class ChancelleryService : ServiceBase, IChancelleryService
     {
@@ -37,28 +37,6 @@ namespace ACS.BLL.Services
 
         #region Канцелярия 
 
-
-
-
-        //public void CreateChancellery(ChancelleryDTO chancelleryDto, string authorEmail)
-        //{
-        //    int AuthorID = 0;
-        //    try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
-        //    catch (Exception ex) { throw ex; }
-        //    try
-        //    {
-        //        //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ChancelleryDTO, Chancellery>()).CreateMapper();
-        //        Chancellery chancellery = GetMapChancelleryDTOToChancelleryDB().Map<ChancelleryDTO, Chancellery>(chancelleryDto);
-
-        //        Database.Chancelleries.Add(chancellery, AuthorID);
-        //        //Database.TypeRecordChancelleries.Update(chancellery.TypeRecordChancellery);
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        CatchError(e);
-        //    }
-        //}
 
 
         int CreateOrUpdate_To(ToChancelleryDTO DTO_to, int AuthorID)
@@ -194,7 +172,7 @@ namespace ACS.BLL.Services
                 throw new ValidationException("Канцелярская запись не найдена", "");
 
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
-            return GetMapChancelleryDBToChancelleryDTO().Map<Chancellery, ChancelleryDTO>(Chancellery);
+            return MapDALBLL.GetMapp().Map<Chancellery, ChancelleryDTO>(Chancellery);
         }
 
         public IEnumerable<IncomingCorrespondency> ChancelleryGetIncoming(ChancellerySearchModel сhancellerySearchModel)
@@ -264,7 +242,7 @@ namespace ACS.BLL.Services
             };
             //Expression<Func<Chancellery, bool>> expr = mc => predicate(mc);
             var result = Database.Chancelleries.Find(predicate);
-            return GetMapChancelleryDBToChancelleryDTO().Map <IEnumerable<Chancellery>, IEnumerable< ChancelleryDTO >> (result);
+            return MapDALBLL.GetMapp().Map<IEnumerable<Chancellery>, IEnumerable<ChancelleryDTO>>(result);
         }
 
         /// <summary>
@@ -275,7 +253,7 @@ namespace ACS.BLL.Services
         {
             // применяем автомаппер для проекции одной коллекции на другую
             // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
-            return GetMapChancelleryDBToChancelleryDTO().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(Database.Chancelleries.GetAll().ToList());
+            return MapDALBLL.GetMapp().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(Database.Chancelleries.GetAll().ToList());
         }
 
         #region Внешнии организации
@@ -412,7 +390,7 @@ namespace ACS.BLL.Services
         {
             // применяем автомаппер для проекции одной коллекции на другую
             //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToChancellery, ToChancelleryDTO>()).CreateMapper();
-            return GetMapChancelleryDBToChancelleryDTO().Map<IEnumerable<ToChancellery>, List<ToChancelleryDTO>>(Database.ToChancelleries.GetAll());
+            return MapDALBLL.GetMapp().Map<IEnumerable<ToChancellery>, List<ToChancelleryDTO>>(Database.ToChancelleries.GetAll());
         }
 
         #endregion
@@ -420,6 +398,9 @@ namespace ACS.BLL.Services
         #endregion
 
         #region работа с файлами 
+
+
+
 
         /// <summary>
         /// Получить данные о файле по id
@@ -479,7 +460,6 @@ namespace ACS.BLL.Services
         /// Получить связанный с канцелярией файл по его пути
         /// </summary>
         /// <param name="Path"></param>
-        /// <param name="ChancelleryId"></param>
         /// <returns></returns>
         public FileRecordChancelleryDTO GetFileChancellerByPath(string Path, int ChancelleryId)
         {
@@ -495,7 +475,7 @@ namespace ACS.BLL.Services
 
                 if (chancellery != null)
                 {
-                    result = MappFileRecordChancelleryToFileRecordChancelleryDTO(file);
+                    result = MapDALBLL.GetMapp().Map<FileRecordChancellery,FileRecordChancelleryDTO>(file);
                 }
             }
             return result;
@@ -512,6 +492,47 @@ namespace ACS.BLL.Services
             return Files;
         }
 
+        public int AttachFiles(IEnumerable<HttpPostedFileBase> files, int ChancelleryId, string authorEmail)
+        {
+            foreach (var file in files)
+            {
+                if (file != null)
+                {
+
+                    string pathForSave = @"X:\Подразделения\СВиССА\Файлы канцелярии\";
+
+                    //Возвращает имя файла указанной строки пути без расширения.
+                    string fileName = Path.GetFileNameWithoutExtension(file.FileName); 
+                    //fileVM.Name = fileName;
+
+                    //Возвращает расширение указанной строки пути.
+                    string extension = Path.GetExtension(file.FileName);
+
+                    //fileVM.Format = extension;
+
+                    //fileVM.Path = @"X:/Подразделения/СВиССА/Файлы канцелярии/" + fileName;
+                    string path = Path.Combine(pathForSave, fileName + extension);
+
+                    FileRecordChancelleryDTO fileDTO = null;/* = this.GetFileChancellerByPath(path, ChancelleryId);*/
+
+                    if (fileDTO == null)
+                    {
+                        fileDTO = new FileRecordChancelleryDTO();
+                        fileDTO.Name = fileName;
+                        fileDTO.Path = path;
+                        fileDTO.Format = extension;
+                        fileDTO.DataString = DateTime.Now.ToString("ddMMyyyyhhmmssfff");
+
+                    }
+
+                    path = Path.Combine(pathForSave, fileDTO.Name+ fileDTO.DataString + extension);
+
+                    file.SaveAs(path);
+                    return this.AttachOrDetachFile(fileDTO, authorEmail, ChancelleryId, true);
+                }
+            }
+            return 0;
+        }
 
         public int AttachOrDetachFile(FileRecordChancelleryDTO fileDTO, string authorEmail, int ChancelleryId, bool attach)
         {
@@ -523,7 +544,7 @@ namespace ACS.BLL.Services
 
             if (file == null)//файла нет, создать нужно
             {
-                FileRecordChancellery newFile = MappFileRecordChancelleryDTOTFileRecordChancellery(fileDTO);
+                FileRecordChancellery newFile = MapDALBLL.GetMapp().Map<FileRecordChancelleryDTO , FileRecordChancellery>(fileDTO);
 
                 var Chanc = Database.Chancelleries.Find(ChancelleryId);
 
@@ -540,7 +561,10 @@ namespace ACS.BLL.Services
 
                     if (attach) // прикрепить
                         file.s_InBasket = false;
-                    else file.s_InBasket = true;// открепить
+                    else {
+                        file.Name += "_dtch";
+                            file.s_InBasket = true;// открепить
+                    } 
 
                     return Database.FileRecordChancelleries.Update(file, AuthorID);
 
@@ -618,128 +642,6 @@ namespace ACS.BLL.Services
         #endregion
 
 
-        #region mappers
-        IMapper GetMapChancelleryDTOToChancelleryDB()
-        {
-
-#warning таким образом были убраны баги с созданием копий
-            var mapper = new MapperConfiguration(cfg =>
-            {
-
-                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>()
-                .ForMember(x => x.Chancelleries, x => x.MapFrom(c => c.Chancelleries));
-                cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>()
-                .ForMember(x => x.Chancelleries, x => x.MapFrom(c => c.Chancelleries));
-
-                cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>()
-                .ForMember(x => x.Chancelleries, x => x.MapFrom(c => c.Chancelleries));
-                cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>();
-                cfg.CreateMap<FromChancelleryDTO, FromChancellery>()
-                .ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))
-                .ForMember(x => x.ExternalOrganization, x => x.MapFrom(c => Database.ExternalOrganizationChancelleries.Find((int)c.ExternalOrganization.id)));
-                cfg.CreateMap<ToChancelleryDTO, ToChancellery>()
-                .ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))
-                .ForMember(x => x.ExternalOrganization, x => x.MapFrom(c => Database.ExternalOrganizationChancelleries.Find((int)c.ExternalOrganization.id)));
-                cfg.CreateMap<ChancelleryDTO, Chancellery>()
-                .ForMember(x => x.ResponsibleEmployees, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))
-                .ForMember(x => x.FolderChancellery, x => x.MapFrom(c => Database.FolderChancelleries.Find((int)c.FolderChancellery.id)))
-                .ForMember(x => x.JournalRegistrationsChancellery, x => x.MapFrom(c => Database.JournalRegistrationsChancelleries.Find((int)c.JournalRegistrationsChancellery.id)))
-                .ForMember(x => x.TypeRecordChancellery, x => x.MapFrom(c => Database.TypeRecordChancelleries.Find((int)c.TypeRecordChancellery.id)));
-
-
-            }).CreateMapper();
-
-            return mapper;
-        }
-
-
-        IMapper GetMapChancelleryDBToChancelleryDTO()
-        {
-            //var mapper = new MapperConfiguration(cfg =>
-            //{
-
-            //    cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
-            //    cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>();
-            //    cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>();
-            //    cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>();
-            //    cfg.CreateMap<Chancellery, ChancelleryDTO>();
-
-            //}).CreateMapper();
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>();
-                cfg.CreateMap<FolderChancellery, FolderChancelleryDTO>();
-                cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>();
-                cfg.CreateMap<FromChancellery, FromChancelleryDTO>();
-                cfg.CreateMap<ToChancellery, ToChancelleryDTO>();
-                cfg.CreateMap<Employee, EmployeeDTO>();
-                cfg.CreateMap<ExternalOrganizationChancellery, ExternalOrganizationChancelleryDTO>();
-                cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
-                cfg.CreateMap<ApplicationUser, ApplicationUserDTO>();
-                cfg.CreateMap<Chancellery, ChancelleryDTO>();
-            }).CreateMapper();
-
-            return mapper;
-        }
-
-        //IMapper GetMapEmployeeDBToDTO()
-        //{
-        //    var mapper = new MapperConfiguration(cfg =>
-        //    {
-        //        cfg.CreateMap<ApplicationUser, ApplicationUserDTO>();
-        //        cfg.CreateMap<Chancellery, ChancelleryDTO>();
-        //        cfg.CreateMap<Employee, EmployeeDTO>();
-
-
-        //    }).CreateMapper();
-
-        //    return mapper;
-        //}
-
-        IMapper GetMapTypeRecordChancelleryDBToTypeRecordChancelleryDTO()
-        {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Chancellery, ChancelleryDTO>();
-                cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
-
-            }).CreateMapper();
-
-            return mapper;
-        }
-
-        IMapper GetMap_TypeRecordChancellery_DTO_To_DB()
-        {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ChancelleryDTO, Chancellery>().ForMember(x => x.TypeRecordChancellery,
-        x => x.MapFrom(m => m.TypeRecordChancellery)); ;
-                cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>();
-            }).CreateMapper();
-
-            return mapper;
-        }
-
-
-        #region маппер для файлов
-
-        FileRecordChancelleryDTO MappFileRecordChancelleryToFileRecordChancelleryDTO(FileRecordChancellery FileRecordChancellery)
-        {
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
-            return MapDALBLL.GetMapp().Map<FileRecordChancellery, FileRecordChancelleryDTO>(FileRecordChancellery);
-        }
-
-
-        FileRecordChancellery MappFileRecordChancelleryDTOTFileRecordChancellery(FileRecordChancelleryDTO FileRecordChancelleryDTO)
-        {
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>()).CreateMapper();
-            return MapDALBLL.GetMapp().Map<FileRecordChancelleryDTO, FileRecordChancellery>(FileRecordChancelleryDTO);
-        }
-
-        #endregion
-
-        #endregion
-
         public void Dispose()
         {
             Database.Dispose();
@@ -752,9 +654,4 @@ namespace ACS.BLL.Services
 
 
     }
-
-    //public interface IValueResolver<in TSource, in TDestination, TDestMember>
-    //{
-    //    TDestMember Resolve(TSource source, TDestination destination, TDestMember destMember, ResolutionContext context);
-    //}
 }

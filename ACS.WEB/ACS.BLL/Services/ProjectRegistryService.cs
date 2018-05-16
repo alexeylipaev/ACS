@@ -1,7 +1,8 @@
 ﻿using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
-using ACS.DAL.Interface;
+using ACS.DAL.Entities;
+using ACS.DAL.Interfaces;
 using AutoMapper;
 using System;
 using System.Collections;
@@ -10,17 +11,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ACS.DAL.Entity;
+
 namespace ACS.BLL.Services
 {
-   public class ProjectRegistryService : IProjectRegistryService
+   public class ProjectRegistryService : ServiceBase, IProjectRegistryService
     {
-        IUnitOfWork Database { get; set; }
-
-        public ProjectRegistryService(IUnitOfWork uow)
-        {
-            Database = uow;
-        }
+        public ProjectRegistryService(IUnitOfWork uow) : base(uow) { }
 
         public void Dispose()
         {
@@ -29,17 +25,16 @@ namespace ACS.BLL.Services
 
         public async Task<OperationDetails> CreateAsync(ProjectRegistryDTO ProjectRegistryDto, string authorEmail)
         {
-            var Author =  Database.Employees.Find(u => u.Email == authorEmail).FirstOrDefault();
+            int AuthorID = 0;
+            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+            catch (Exception ex) { throw ex; }
 
-            if (Author == null)
-                throw new ValidationException("Не возможно идентифицировать текущего пользователя по почте", authorEmail);
             try
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ProjectRegistryDTO, ProjectRegistry>()).CreateMapper();
-                ProjectRegistry projectRegistry = mapper.Map<ProjectRegistryDTO, ProjectRegistry>(ProjectRegistryDto);
+                ProjectRegistry projectRegistry = MapDALBLL.GetMapp().Map<ProjectRegistryDTO, ProjectRegistry>(ProjectRegistryDto);
 
 
-                Database.ProjectsRegistry.Create(projectRegistry);
+                Database.ProjectsRegistry.Add(projectRegistry, AuthorID);
                 await Database.SaveAsync();
             }
             catch (Exception e)
@@ -84,7 +79,7 @@ namespace ACS.BLL.Services
 
         public IEnumerable<ProjectRegistryDTO> GetProjectsRegistry()
         {
-           
+            return null;
         }
 
         public IEnumerable<InputControlPKIDTO> GetPKIProjectRegistry(ProjectRegistryDTO ProjectRegistry)

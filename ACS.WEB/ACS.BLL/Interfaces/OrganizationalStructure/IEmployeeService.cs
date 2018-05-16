@@ -6,9 +6,7 @@ namespace ACS.BLL.Interfaces
 {
     public interface IEmployeeService : IDisposable
     {
-        void CreateEmployee(EmployeeDTO userDto);
-        void CreateEmployee(EmployeeDTO userDto, string authorEmail);
-        void UpdateEmployee(EmployeeDTO userDto, string authorEmail);
+        void CreateOrUpdateEmpl(EmployeeDTO userDto, string authorEmail);
         void MoveToBasketEmployee(int userId, string authorEmail);
         void DeleteEmployee(int userId );
         EmployeeDTO GetEmployee(int? id);

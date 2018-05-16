@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ACS.BLL.Interfaces
 {
@@ -142,6 +143,8 @@ namespace ACS.BLL.Interfaces
         #endregion
 
         #region работа с файлами 
+
+        int AttachFiles(IEnumerable<HttpPostedFileBase> files, int ChancelleryId, string authorEmail);
 
         /// <summary>
         /// Прикрепить/Открепить файл
