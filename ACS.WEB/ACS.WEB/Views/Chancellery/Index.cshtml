@@ -129,10 +129,6 @@
                             <a data-fancybox-type="iframe" style="padding-right:5px" class="fancybox" href="@Url.Action("DownloadFile", "Chancellery", new { id = file.id })" title="открыть" @*class="btn btn-primary"*@>
                                 @string.Format("{0}{1}", @file.Name, @file.Format)
                             </a>
-                    
-
-                        
-                                @Html.ActionLink(@file.Name + file.Format, "DownloadFile", new { id = file.id }, new { target = "_blank", @class = "lightbox" })
                                 @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })
 </div>
                     }
