@@ -26,6 +26,11 @@ namespace ACS.WEB.ViewModel
         [Display(Name = "Канцелярия в журнале")]
         public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
 
+        public override string ToString()
+        {
+            return this.Name ?? "";
+        }
+
     }
 
     public class SelectedJournalRegChancellery
