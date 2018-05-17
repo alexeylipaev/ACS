@@ -30,6 +30,7 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         IEnumerable<ChancelleryDTO> ChancelleryGet(ChancellerySearchModel сhancellerySearchModel);
 
+        #region Incoming 
         /// <summary>
         /// Получить канцелярские записи по модели поиска
         /// </summary>
@@ -42,6 +43,7 @@ namespace ACS.BLL.Interfaces
 
         int ChancelleryUpdateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail);
 
+        #endregion
         /// <summary>
         /// Получить канцелярские записи по модели поиска
         /// </summary>
@@ -49,9 +51,16 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         IEnumerable<OutgoingCorrespondency> ChancelleryGetOutgoing(ChancellerySearchModel сhancellerySearchModel);
 
+        #region OutGoing
         int ChancelleryCreateOutgoing(OutgoingCorrespondency outgoingCorrespondency, string editorEmail);
 
         int ChancelleryUpdateOutgoing(OutgoingCorrespondency outgoingCorrespondency, string editorEmail);
+
+
+
+        #endregion
+
+        #region Internal
 
         /// <summary>
         /// Получить канцелярские записи по модели поиска
@@ -64,6 +73,7 @@ namespace ACS.BLL.Interfaces
 
         int ChancelleryUpdateInternal(InternalCorrespondency internalCorrespondency, string editorEmail);
 
+        #endregion
         ///// <summary>
         ///// Сделать запись
         ///// </summary>
@@ -229,7 +239,6 @@ namespace ACS.BLL.Interfaces
         IEnumerable<EmployeeDTO> GetEmployees();
 
         #endregion
-
 
         #region Работа с типами корреспонденции
 

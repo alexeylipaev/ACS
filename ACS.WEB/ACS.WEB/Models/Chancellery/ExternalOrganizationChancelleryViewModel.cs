@@ -38,7 +38,7 @@ namespace ACS.WEB.ViewModel
                 Collection = new List<ExternalOrganizationChancelleryViewModel>();
         }
         public int id { get; set; }
-        static public List<ExternalOrganizationChancelleryViewModel> Collection = new List<ExternalOrganizationChancelleryViewModel>();
+        static public List<ExternalOrganizationChancelleryViewModel> Collection ;
         public ICollection<int> SelectedId { get; set; }
     }
 }

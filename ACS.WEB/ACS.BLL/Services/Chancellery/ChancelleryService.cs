@@ -268,16 +268,23 @@ namespace ACS.BLL.Services
 
         public IEnumerable<OutgoingCorrespondency> ChancelleryGetOutgoing(ChancellerySearchModel сhancellerySearchModel)
         {
-            throw new NotImplementedException();
+            var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
+            return getImapp().Map<IEnumerable<ChancelleryDTO>, IEnumerable<OutgoingCorrespondency>>(chancellerieDTOs);
         }
 
-        public IEnumerable<InternalCorrespondency> ChancelleryGetInternal(ChancellerySearchModel сhancellerySearchModel)
-        {
-            throw new NotImplementedException();
-        }
+
         #endregion
 
         #region внутреняя канцелярия
+
+        public IEnumerable<InternalCorrespondency> ChancelleryGetInternal(ChancellerySearchModel сhancellerySearchModel)
+        {
+            var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
+            return getImapp().Map<IEnumerable<ChancelleryDTO>, IEnumerable<InternalCorrespondency>>(chancellerieDTOs);
+        }
+
+ 
+
         public int ChancelleryCreateInternal(InternalCorrespondency internalCorrespondency, string editorEmail)
         {
             int authorID = 0;
