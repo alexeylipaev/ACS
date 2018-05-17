@@ -19,6 +19,45 @@ namespace ACS.BLL.Services
     {
         public FileRecordChancelleryService(IUnitOfWork uow) : base(uow) { }
 
+        /// <summary>
+        /// получить все файлы канцелярской записи
+        /// </summary>
+        /// <param name="Chancellery"></param>
+        /// <returns></returns>
+        public IEnumerable<FileRecordChancelleryDTO> GetAllFilesChancellery(ChancelleryDTO Chancellery)
+        {
+            var Files = (from file in Chancellery.FileRecordChancelleries
+                         select file);
+
+            if (Files == null)
+                throw new ValidationException("Запись не содержит файлов", "");
+            return Files;
+        }
+
+        /// Получить связанный с канцелярией файл по его пути
+        /// </summary>
+        /// <param name="Path"></param>
+        /// <returns></returns>
+        public FileRecordChancelleryDTO GetFileChancellerByPath(string Path, int ChancelleryId)
+        {
+            FileRecordChancelleryDTO result = null;
+            var files = Database.FileRecordChancelleries.Query(filter: f => f.Path == Path);
+
+            foreach (var file in files)
+            {
+                var chancellery = (from ch in Database.Chancelleries.ToList()
+                                   from f in ch.FileRecordChancelleries.ToList()
+                                   where f.id == file.id
+                                   select ch).FirstOrDefault();
+
+                if (chancellery != null)
+                {
+                    result = MapDALBLL.GetMapp().Map<FileRecordChancellery, FileRecordChancelleryDTO>(file);
+                }
+            }
+            return result;
+        }
+
         public int CreateOrUpdateFileRecord(FileRecordChancelleryDTO FileRecordChancelleryDTO, string authorEmail)
         {
             int AuthorID = 0;

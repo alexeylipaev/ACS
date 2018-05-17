@@ -18,11 +18,10 @@ namespace ACS.WEB.Controllers
     public class ChancelleryController : Controller
     {
         IChancelleryService ChancelleryService;
-        IFileRecordChancelleryService FileService;
-        public ChancelleryController(IChancelleryService chancelleryService, IFileRecordChancelleryService fileService)
+
+        public ChancelleryController(IChancelleryService chancelleryService)
         {
             ChancelleryService = chancelleryService;
-            FileService = fileService;
         }
 
         const int pageSize = 12;
@@ -317,7 +316,7 @@ namespace ACS.WEB.Controllers
 
                     var chancelleryDTO = MapBLLPresenter.GetMap().Map<IncomingCorrespondencyViewModel, IncomingCorrespondency>(newChancelleryVM);
                     //var chancelleryDTO = Map_Chancellery.Map_ChancelleryViewModel_to_ChancelleryDTO(newChancelleryVM);
-                    var files = FileService.AddFiles(Files);// Attach(Files, chancelleryDTO);
+                    var files = ChancelleryService.AttachFiles(Files);// Attach(Files, chancelleryDTO);
                     chancelleryDTO.FileRecordChancelleries = files.ToList();
                     ChancelleryService.ChancelleryCreateIncoming(chancelleryDTO, currentUserEmail);
                     return RedirectToAction("Index");

@@ -37,6 +37,7 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         IEnumerable<IncomingCorrespondency> ChancelleryGetIncoming(ChancellerySearchModel сhancellerySearchModel);
 
+
         int ChancelleryCreateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail);
 
         int ChancelleryUpdateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail);
@@ -48,6 +49,9 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         IEnumerable<OutgoingCorrespondency> ChancelleryGetOutgoing(ChancellerySearchModel сhancellerySearchModel);
 
+        int ChancelleryCreateOutgoing(OutgoingCorrespondency outgoingCorrespondency, string editorEmail);
+
+        int ChancelleryUpdateOutgoing(OutgoingCorrespondency outgoingCorrespondency, string editorEmail);
 
         /// <summary>
         /// Получить канцелярские записи по модели поиска
@@ -56,6 +60,9 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         IEnumerable<InternalCorrespondency> ChancelleryGetInternal(ChancellerySearchModel сhancellerySearchModel);
 
+        int ChancelleryCreateInternal(InternalCorrespondency internalCorrespondency, string editorEmail);
+
+        int ChancelleryUpdateInternal(InternalCorrespondency internalCorrespondency, string editorEmail);
 
         ///// <summary>
         ///// Сделать запись
@@ -148,6 +155,8 @@ namespace ACS.BLL.Interfaces
 
         #region работа с файлами 
 
+         IEnumerable<FileRecordChancelleryDTO> AttachFiles(IEnumerable<HttpPostedFileBase> httpPostedFileBases);
+
         int AttachFiles(IEnumerable<HttpPostedFileBase> files, int ChancelleryId, string authorEmail);
 
         /// <summary>
@@ -185,11 +194,6 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         FileRecordChancelleryDTO GetFileChancellerByPath(string Path, int ChancelleryId);
 
-        /// <summary>
-        /// Получить связанный с канцелярской записью файл по его id
-        /// </summary>
-        /// <param name="id"></param>
-        FileRecordChancelleryDTO GetFileChanceller(int FileId);
 
         /// <summary>
         /// Получить все файлы канцелярской записи
