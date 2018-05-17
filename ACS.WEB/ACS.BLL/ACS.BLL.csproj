@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessModels\Chancellery\BaseCorrespondency.cs" />
+    <Compile Include="BusinessModels\Chancellery\ChancelleryConst.cs" />
     <Compile Include="BusinessModels\Chancellery\ChancellerySearchModel.cs" />
     <Compile Include="BusinessModels\Chancellery\InternalCorrespondency.cs" />
     <Compile Include="BusinessModels\Helper.cs" />

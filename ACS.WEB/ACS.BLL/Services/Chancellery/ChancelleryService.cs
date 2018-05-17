@@ -191,6 +191,19 @@ namespace ACS.BLL.Services
             return getImapp().Map<IEnumerable<ChancelleryDTO>, IEnumerable<IncomingCorrespondency>>(chancellerieDTOs);
         }
 
+        public int ChancelleryCreateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail)
+        {
+            int authorID = 0;
+            try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
+            catch (Exception ex) { throw ex; }
+
+            Chancellery original = new Chancellery();
+
+            getImapp().Map(original, incomingCorrespondency);
+            Database.Chancelleries.Add(original, authorID);
+            return 1;
+        }
+
         public int ChancelleryUpdateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail)
         {
             int authorID = 0;
@@ -515,7 +528,7 @@ namespace ACS.BLL.Services
                 if (file != null)
                 {
 
-                    string pathForSave = @"X:\Подразделения\СВиССА\Файлы канцелярии\";
+                    string pathForSave = BusinessModels.Chancellery.Constants.FolderPath;
 
                     //Возвращает имя файла указанной строки пути без расширения.
                     string fileName = Path.GetFileNameWithoutExtension(file.FileName); 

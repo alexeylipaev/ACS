@@ -10,6 +10,8 @@ using AutoMapper;
 using ACS.DAL.Entities;
 using ACS.BLL.Infrastructure;
 using ACS.DAL.Interfaces;
+using System.Web;
+using System.IO;
 
 namespace ACS.BLL.Services
 {
@@ -95,10 +97,42 @@ namespace ACS.BLL.Services
             Database.Dispose();
         }
 
+        public IEnumerable<FileRecordChancelleryDTO> AddFiles(IEnumerable<HttpPostedFileBase> httpPostedFileBases)
+        {
+            List<FileRecordChancelleryDTO> resultFiles = new List<DTO.FileRecordChancelleryDTO>();
+            foreach (var file in httpPostedFileBases)
+            {
+                string pathForSave = BusinessModels.Chancellery.Constants.FolderPath;
+
+                //Возвращает имя файла указанной строки пути без расширения.
+                string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+
+                //Возвращает расширение указанной строки пути.
+                string extension = Path.GetExtension(file.FileName);
+
+                string path = Path.Combine(pathForSave, fileName + extension);
+
+                
+                FileRecordChancelleryDTO fileDTO = new FileRecordChancelleryDTO();
+                fileDTO.Name = fileName;
+                fileDTO.Path = path;
+                fileDTO.Format = extension;
+                fileDTO.DataString = DateTime.Now.ToString("ddMMyyyyhhmmssfff");
+
+
+
+                path = Path.Combine(pathForSave, fileDTO.Name + fileDTO.DataString + extension);
+
+                file.SaveAs(path);
+                resultFiles.Add(fileDTO);
+            }
+            return resultFiles;
+        }
+
 
         //public FileRecordChancelleryDTO DownloadFile(int id)
         //{
-          
+
         //}
 
         //public FileRecordChancelleryDTO OpenFileNewTab(int id)
