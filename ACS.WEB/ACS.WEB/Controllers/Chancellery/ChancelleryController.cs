@@ -41,10 +41,10 @@ namespace ACS.WEB.Controllers
             int page = id ?? 0;
             if (Request.IsAjaxRequest())
             {
-            
+
                 return PartialView("_Items", GetItemsPage(page));
             }
-            return View("IndexData",GetItemsPage(page));
+            return View("IndexData", GetItemsPage(page));
 
         }
         private List<ChancelleryViewModel> GetItemsPage(int page = 1)
@@ -61,7 +61,7 @@ namespace ACS.WEB.Controllers
 
         public ActionResult table_row(List<ChancelleryViewModel> Model)
         {
-            return PartialView("_Items",Model);
+            return PartialView("_Items", Model);
 
         }
         #endregion
@@ -121,7 +121,7 @@ namespace ACS.WEB.Controllers
             return collection;
         }
 
-#region Входящая канцелярия
+        #region Входящая канцелярия
 
         public ActionResult Incoming(ChancellerySearchModelVM searchModelVM, int? page)
         {
@@ -153,7 +153,7 @@ namespace ACS.WEB.Controllers
 
             var incomingDTOs = ChancelleryService.ChancelleryGetIncoming(searchModelVM);
             var incomings = MapBLLPresenter.GetMap().Map<IEnumerable<IncomingCorrespondency>, IEnumerable<IncomingCorrespondencyViewModel>>(incomingDTOs);
-            
+
             searchModelVM.Chancelleries = incomings;
             return View(searchModelVM);
         }
@@ -176,10 +176,10 @@ namespace ACS.WEB.Controllers
             if (chancDTO.JournalRegistrationsChancellery != null)
                 chancVM.SelectedJournalsReg = new SelectedJournalRegChancellery() { SelectedId = chancDTO.JournalRegistrationsChancellery.id };
 
-                if (chancDTO.ResponsibleEmployees != null)
-                {
-                    chancVM.Selected_Responsible_Empl = new SelectedEmployeeViewModel() { SelectedId = chancDTO.ResponsibleEmployees.Select(r=> r.id).ToArray()};
-                }
+            if (chancDTO.ResponsibleEmployees != null)
+            {
+                chancVM.Selected_Responsible_Empl = new SelectedEmployeeViewModel() { SelectedId = chancDTO.ResponsibleEmployees.Select(r => r.id).ToArray() };
+            }
 
             var To = chancVM.To;
             if (To != null)
@@ -203,7 +203,7 @@ namespace ACS.WEB.Controllers
 
             return View(chancVM);
         }
-        
+
         // POST: Chancellery/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -269,7 +269,7 @@ namespace ACS.WEB.Controllers
                     {
                         respDTOs.Add(ChancelleryService.GetEmployee(idResponsible));
                     }
-                    newChancelleryVM.ResponsibleEmployees = MapBLLPresenter.GetMap().Map<IEnumerable< EmployeeDTO>, IEnumerable< EmployeeViewModel>>(respDTOs);
+                    newChancelleryVM.ResponsibleEmployees = MapBLLPresenter.GetMap().Map<IEnumerable<EmployeeDTO>, IEnumerable<EmployeeViewModel>>(respDTOs);
                 }
 
                 if (newChancelleryVM.FolderChancelleryId != null)
@@ -300,7 +300,7 @@ namespace ACS.WEB.Controllers
                 var respEmployeeDTO = ChancelleryService.GetEmployee(newChancelleryVM.Selected_Responsible_Empl.SelectedId.FirstOrDefault());
                 var respEmployeeVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(extEmployeeDTO);
                 newChancelleryVM.ResponsibleEmployees = new List<EmployeeViewModel> { extEmployeeVM };
-            
+
 
 
                 // TODO: Add insert logic here
@@ -390,12 +390,13 @@ namespace ACS.WEB.Controllers
             if (internalCorrespondency.JournalRegistrationsChancellery != null)
                 internalCorrespondencyVM.SelectedJournalsReg = new SelectedJournalRegChancellery() { SelectedId = internalCorrespondency.JournalRegistrationsChancellery.id };
 
-            foreach (var resp in internalCorrespondency.ResponsibleEmployees)
+            internalCorrespondencyVM.Selected_Responsible_Empl = new SelectedEmployeeViewModel();
+
+            if (internalCorrespondency.ResponsibleEmployees != null)
             {
-                if (resp != null)
+                foreach (var resp in internalCorrespondency.ResponsibleEmployees)
                 {
-                    //internalCorrespondencyVM.SelectedResponsible = new SelectedEmployeeViewModel();
-                    //internalCorrespondencyVM.SelectedResponsible.SelectedId.Add(resp.id);
+                    internalCorrespondencyVM.Selected_Responsible_Empl.SelectedId.Add(resp.id);
                 }
             }
 
@@ -406,7 +407,7 @@ namespace ACS.WEB.Controllers
                 {
                     internalCorrespondencyVM.Selected_To_Empl = new SelectedEmployeeViewModel() { SelectedId = { (to.id) } };
                 }
-                
+
             }
 
             var From = internalCorrespondency.From;
@@ -478,63 +479,65 @@ namespace ACS.WEB.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] 
-        //public ActionResult CreateInternal(InternalCorrespondencyViewModel newInternalVM, IEnumerable<HttpPostedFileBase> Files)
-        //{
-        //    try
-        //    {
-        //        //newChancelleryVM.TypeRecordChancellery = MapBLLPresenter.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById((int)newChancelleryVM.TypeRecordChancelleryId));
+        public ActionResult CreateInternal(InternalCorrespondencyViewModel newInternalVM, IEnumerable<HttpPostedFileBase> Files)
+        {
+            try
+            {
+                //newChancelleryVM.TypeRecordChancellery = MapBLLPresenter.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById((int)newChancelleryVM.TypeRecordChancelleryId));
 
-        //        if (newInternalVM.EmployeeId != null)
-        //        {
-        //            var idResponsible = (int)newInternalVM.EmployeeId;//.SelectedResponsible.SelectedId.FirstOrDefault();
+                if (newInternalVM.Selected_Responsible_Empl != null)
+                {
+                    List<EmployeeDTO> respDTOs = new List<EmployeeDTO>();
+                    foreach (var idResponsible in newInternalVM.Selected_Responsible_Empl.SelectedId)
+                    {
+                        respDTOs.Add(ChancelleryService.GetEmployee(idResponsible));
+                    }
+                    newInternalVM.ResponsibleEmployees = MapBLLPresenter.GetMap().Map<IEnumerable<EmployeeDTO>, IEnumerable<EmployeeViewModel>>(respDTOs);
+                }
 
-        //            if (idResponsible > 0)
-        //                newInternalVM.Employee = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(ChancelleryService.GetEmployee(idResponsible));
-        //        }
+                if (newInternalVM.FolderChancelleryId != null)
+                {
+                    var idFolder = (int)newInternalVM.FolderChancelleryId;//newChancelleryVM.SelectedFolder.SelectedId;
 
-        //        if (newInternalVM.FolderChancelleryId != null)
-        //        {
-        //            var idFolder = (int)newInternalVM.FolderChancelleryId;//newChancelleryVM.SelectedFolder.SelectedId;
-
-        //            if (idFolder > 0)
-        //                newInternalVM.FolderChancellery = MapBLLPresenter.GetMap().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(idFolder));
-        //        }
+                    if (idFolder > 0)
+                        newInternalVM.FolderChancellery = MapBLLPresenter.GetMap().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(idFolder));
+                }
 
 
-        //        var idJournalsReg = (int)newInternalVM.JournalRegistrationsChancelleryId;//newChancelleryVM.SelectedJournalsReg.SelectedId;
+                var idJournalsReg = (int)newInternalVM.JournalRegistrationsChancelleryId;//newChancelleryVM.SelectedJournalsReg.SelectedId;
 
-        //        if (idJournalsReg > 0)
-        //            newInternalVM.JournalRegistrationsChancellery = MapBLLPresenter.GetMap().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(idJournalsReg));
+                if (idJournalsReg > 0)
+                    newInternalVM.JournalRegistrationsChancellery = MapBLLPresenter.GetMap().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(idJournalsReg));
 
-        //        //from
-        //        var EmplFromDTO = ChancelleryService.GetEmployee(newInternalVM.Selected_From_Empl.SelectedId.FirstOrDefault());
-        //        var EmplFromVM= MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(EmplFromDTO);
-        //        newInternalVM.From = EmplFromVM;
+                //from
+                var EmplFromDTO = ChancelleryService.GetEmployee(newInternalVM.Selected_From_Empl.SelectedId.FirstOrDefault());
+                var EmplFromVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(EmplFromDTO);
+                newInternalVM.From = EmplFromVM;
 
-        //        //to
-        //        var ToEmployeeDTO = ChancelleryService.GetEmployee(newInternalVM.Selected_To_Empl.SelectedId.FirstOrDefault());
-        //        var ToEmployeeVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(ToEmployeeDTO);
-        //        newInternalVM.To.Add(ToEmployeeVM);
+                //to
+                var ToEmployeeDTO = ChancelleryService.GetEmployee(newInternalVM.Selected_To_Empl.SelectedId.FirstOrDefault());
+                var ToEmployeeVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(ToEmployeeDTO);
+                newInternalVM.To.Add(ToEmployeeVM);
 
-        //        // TODO: Add insert logic here
-        //        if (ModelState.IsValid)
-        //        {
-        //            string currentUserEmail = this.User.Identity.Name;
+                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    string currentUserEmail = this.User.Identity.Name;
 
-        //            var newInternalDTO = MapBLLPresenter.GetMap().Map<InternalCorrespondencyViewModel, InternalCorrespondency>(newInternalVM);
-        //            //var chancelleryDTO = Map_Chancellery.Map_ChancelleryViewModel_to_ChancelleryDTO(newChancelleryVM);
-        //            var files = ChancelleryService.AttachFiles(Files);// Attach(Files, chancelleryDTO);
-        //            newInternalDTO.FileRecordChancelleries = files.ToList();
-        //            ChancelleryService.ChancelleryCreateInternal(newInternalDTO, currentUserEmail);
-        //            return RedirectToAction("Index");
-        //        }
-        //    }
-        //    catch (ValidationException ex)
-        //    {
-        //        ModelState.AddModelError(ex.Property, ex.Message);
-        //    }
-        //    return View(newInternalVM);
-        //}
+                    var newInternalDTO = MapBLLPresenter.GetMap().Map<InternalCorrespondencyViewModel, InternalCorrespondency>(newInternalVM);
+                    //var chancelleryDTO = Map_Chancellery.Map_ChancelleryViewModel_to_ChancelleryDTO(newChancelleryVM);
+                    var files = ChancelleryService.AttachFiles(Files);// Attach(Files, chancelleryDTO);
+                    newInternalDTO.FileRecordChancelleries = files.ToList();
+                    ChancelleryService.ChancelleryCreateInternal(newInternalDTO, currentUserEmail);
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(ex.Property, ex.Message);
+            }
+            return View(newInternalVM);
+        }
         #endregion
 
         public ActionResult Create(int TypeRecordId)
