@@ -201,9 +201,7 @@ namespace ACS.BLL.Services
             int authorID = 0;
             try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
             catch (Exception ex) { throw ex; }
-
-            ChancelleryDTO originalDTO = new ChancelleryDTO();
-            originalDTO.TypeRecordChancellery = TypeRecordGet(Constants.CorrespondencyType.Incoming);
+            
             var mapper = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<IncomingCorrespondency, ChancelleryDTO>()
@@ -211,11 +209,12 @@ namespace ACS.BLL.Services
                  .ForMember(x => x.ToChancelleries, opt => opt.ResolveUsing<IncomingToDTO_ToCustomResolver>());
             }).CreateMapper();
 
-            mapper.Map(incomingCorrespondency, originalDTO);
-            Chancellery originalDB = new Chancellery();
-            originalDB = MapDALBLL.GetMapForUpdateOrCreate().Map<ChancelleryDTO, Chancellery>(originalDTO);
+            ChancelleryDTO newDTO = mapper.Map<IncomingCorrespondency, ChancelleryDTO>(incomingCorrespondency);
+            newDTO.TypeRecordChancellery = TypeRecordGet(Constants.CorrespondencyType.Incoming);
+
+            var newDB = MapDALBLL.GetMapForUpdateOrCreate().Map<ChancelleryDTO, Chancellery>(newDTO);
             
-            Database.Chancelleries.Add(originalDB, authorID);
+            Database.Chancelleries.Add(newDB, authorID);
             return 1;
         }
         public class IncomingToDTO_FromCustomResolver : IValueResolver<IncomingCorrespondency, ChancelleryDTO, ICollection<FromChancelleryDTO>>
