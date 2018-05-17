@@ -40,7 +40,7 @@ namespace ACS.WEB.ViewModel
         public int id { get; set; }
         public int SelectedId { get; set; }
 
-        static public List<FolderChancelleryViewModel>Collection = new List<FolderChancelleryViewModel>();
+        static public List<FolderChancelleryViewModel>Collection ;
     }
 
 }

@@ -27,6 +27,7 @@ namespace ACS.BLL.Services
         private JournalRegistrationsChancelleryService JournalRegistrationsChancelleryService;
         private FolderChancelleryService FolderChancelleryService;
         private TypeRecordChancelleryService TypeRecordChancelleryService;
+        private FileRecordChancelleryService FileRecordChancelleryService;
         public ChancelleryService(IUnitOfWork uow) : base(uow)
         {
             ExternalOrganizationChancelleryService = new ExternalOrganizationChancelleryService(uow);
@@ -34,11 +35,10 @@ namespace ACS.BLL.Services
             JournalRegistrationsChancelleryService = new JournalRegistrationsChancelleryService(uow);
             FolderChancelleryService = new FolderChancelleryService(uow);
             TypeRecordChancelleryService = new TypeRecordChancelleryService(uow);
+            FileRecordChancelleryService = new FileRecordChancelleryService(uow);
         }
 
         #region Канцелярия 
-
-
 
         int CreateOrUpdate_To(ToChancelleryDTO DTO_to, int AuthorID)
         {
@@ -176,7 +176,11 @@ namespace ACS.BLL.Services
             return MapDALBLL.GetMapp().Map<Chancellery, ChancelleryDTO>(Chancellery);
         }
 
-      IMapper getImapp()
+
+
+        #region Входящая канцелярия
+
+        IMapper getImapp()
         {
             return new MapperConfiguration(cfg =>
             {
@@ -244,7 +248,7 @@ namespace ACS.BLL.Services
             catch (Exception ex) { throw ex; }
 
             var original = Database.Chancelleries.Find(incomingCorrespondency.id);
-            
+
             getImapp().Map(original, incomingCorrespondency);
             Database.Chancelleries.Update(original, authorID);
             return 1;
@@ -254,7 +258,7 @@ namespace ACS.BLL.Services
             public EmployeeDTO Resolve(ChancelleryDTO source, IncomingCorrespondency destination, EmployeeDTO member, ResolutionContext context)
             {
                 EmployeeDTO result = null;
-                if (source.ToChancelleries.Count() != 0) result = source.ToChancelleries.First().Employee?? null;
+                if (source.ToChancelleries.Count() != 0) result = source.ToChancelleries.First().Employee ?? null;
                 return result;
             }
         }
@@ -270,15 +274,79 @@ namespace ACS.BLL.Services
         }
 
 
+        #endregion
+        #region Исходящая канцелярия 
+
+        public int ChancelleryCreateOutgoing(OutgoingCorrespondency outgoingCorrespondency, string editorEmail)
+        {
+            int authorID = 0;
+            try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
+            catch (Exception ex) { throw ex; }
+
+            var newData = getImapp().Map<OutgoingCorrespondency, Chancellery>(outgoingCorrespondency);
+            Database.Chancelleries.Add(newData, authorID);
+            return 1;
+        }
+
+        public int ChancelleryUpdateOutgoing(OutgoingCorrespondency outgoingCorrespondency, string editorEmail)
+        {
+            int authorID = 0;
+            try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
+            catch (Exception ex) { throw ex; }
+
+            var original = Database.Chancelleries.Find(outgoingCorrespondency.id);
+
+            getImapp().Map(original, outgoingCorrespondency);
+            Database.Chancelleries.Update(original, authorID);
+            return 1;
+        }
+
         public IEnumerable<OutgoingCorrespondency> ChancelleryGetOutgoing(ChancellerySearchModel сhancellerySearchModel)
         {
-            throw new NotImplementedException();
+            var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
+            return getImapp().Map<IEnumerable<ChancelleryDTO>, IEnumerable<OutgoingCorrespondency>>(chancellerieDTOs);
         }
+
+
+        #endregion
+
+        #region внутреняя канцелярия
 
         public IEnumerable<InternalCorrespondency> ChancelleryGetInternal(ChancellerySearchModel сhancellerySearchModel)
         {
-            throw new NotImplementedException();
+            var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
+            return getImapp().Map<IEnumerable<ChancelleryDTO>, IEnumerable<InternalCorrespondency>>(chancellerieDTOs);
         }
+
+ 
+
+        public int ChancelleryCreateInternal(InternalCorrespondency internalCorrespondency, string editorEmail)
+        {
+            int authorID = 0;
+            try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
+            catch (Exception ex) { throw ex; }
+
+            var newData = getImapp().Map<InternalCorrespondency, Chancellery>(internalCorrespondency);
+            Database.Chancelleries.Add(newData, authorID);
+            return 1;
+        }
+
+        public int ChancelleryUpdateInternal(InternalCorrespondency internalCorrespondency, string editorEmail)
+        {
+            int authorID = 0;
+            try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
+            catch (Exception ex) { throw ex; }
+
+            var original = Database.Chancelleries.Find(internalCorrespondency.id);
+
+            getImapp().Map(original, internalCorrespondency);
+            Database.Chancelleries.Update(original, authorID);
+            return 1;
+        }
+
+
+        #endregion
+
 
         public IEnumerable<ChancelleryDTO> ChancelleryGet(ChancellerySearchModel сhancellerySearchModel)
         {
@@ -472,32 +540,12 @@ namespace ACS.BLL.Services
 
         #region работа с файлами 
 
-
-
-
-        /// <summary>
-        /// Получить данные о файле по id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public FileRecordChancelleryDTO GetFileChanceller(int FileId)
+        public IEnumerable<FileRecordChancelleryDTO> AddFiles(IEnumerable<HttpPostedFileBase> httpPostedFileBases)
         {
-            //if (id == null)
-            //    throw new ValidationException("Не установлено id файла ", "");
-            FileRecordChancellery File = null;
-
-            File = (from ch in Database.Chancelleries.ToList()
-                    where ch.FileRecordChancelleries.Any(f => f.id == FileId)
-                    from file in ch.FileRecordChancelleries
-                    select file).FirstOrDefault();
-
-
-            if (File == null)
-                throw new ValidationException("Запись не содержит файла с таким ID", "");
-
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
-            return MapDALBLL.GetMapp().Map<FileRecordChancellery, FileRecordChancelleryDTO>(File);
+            return FileRecordChancelleryService.AddFiles(httpPostedFileBases);
         }
+
+
 
         /// <summary>
         /// Получить данные о файле по id
@@ -506,15 +554,7 @@ namespace ACS.BLL.Services
         /// <returns></returns>
         public FileRecordChancelleryDTO GetFile(int FileId)
         {
-            FileRecordChancellery File = null;
-
-            File = Database.FileRecordChancelleries.Find(FileId);
-
-            if (File == null)
-                throw new ValidationException("Файл с ID отсутствует", FileId.ToString());
-
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
-            return MapDALBLL.GetMapp().Map<FileRecordChancellery, FileRecordChancelleryDTO>(File);
+            return FileRecordChancelleryService.GetFileRecord(FileId);
         }
 
         /// <summary>
@@ -523,9 +563,7 @@ namespace ACS.BLL.Services
         /// <returns></returns>
         public IEnumerable<FileRecordChancelleryDTO> GetAllFiles()
         {
-            // применяем автомаппер для проекции одной коллекции на другую
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>()).CreateMapper();
-            return MapDALBLL.GetMapp().Map<IEnumerable<FileRecordChancellery>, List<FileRecordChancelleryDTO>>(Database.FileRecordChancelleries.GetAll());
+            return FileRecordChancelleryService.GetFilesRecordChancellery();
         }
 
 
@@ -536,33 +574,13 @@ namespace ACS.BLL.Services
         /// <returns></returns>
         public FileRecordChancelleryDTO GetFileChancellerByPath(string Path, int ChancelleryId)
         {
-            FileRecordChancelleryDTO result = null;
-            var files = Database.FileRecordChancelleries.Query(filter: f => f.Path == Path);
-
-            foreach (var file in files)
-            {
-                var chancellery = (from ch in Database.Chancelleries.ToList()
-                                   from f in ch.FileRecordChancelleries.ToList()
-                                   where f.id == file.id
-                                   select ch).FirstOrDefault();
-
-                if (chancellery != null)
-                {
-                    result = MapDALBLL.GetMapp().Map<FileRecordChancellery,FileRecordChancelleryDTO>(file);
-                }
-            }
-            return result;
+            return FileRecordChancelleryService.GetFileChancellerByPath(Path, ChancelleryId);
         }
 
 
         public IEnumerable<FileRecordChancelleryDTO> GetAllFilesChancellery(ChancelleryDTO Chancellery)
         {
-            var Files = (from file in Chancellery.FileRecordChancelleries
-                         select file);
-
-            if (Files == null)
-                throw new ValidationException("Запись не содержит файлов", "");
-            return Files;
+            return FileRecordChancelleryService.GetAllFilesChancellery(Chancellery);
         }
 
         public int AttachFiles(IEnumerable<HttpPostedFileBase> files, int ChancelleryId, string authorEmail)
@@ -575,7 +593,7 @@ namespace ACS.BLL.Services
                     string pathForSave = BusinessModels.Chancellery.Constants.FolderPath;
 
                     //Возвращает имя файла указанной строки пути без расширения.
-                    string fileName = Path.GetFileNameWithoutExtension(file.FileName); 
+                    string fileName = Path.GetFileNameWithoutExtension(file.FileName);
                     //fileVM.Name = fileName;
 
                     //Возвращает расширение указанной строки пути.
@@ -598,7 +616,7 @@ namespace ACS.BLL.Services
 
                     }
 
-                    path = Path.Combine(pathForSave, fileDTO.Name+ fileDTO.DataString + extension);
+                    path = Path.Combine(pathForSave, fileDTO.Name + fileDTO.DataString + extension);
 
                     file.SaveAs(path);
                     return this.AttachOrDetachFile(fileDTO, authorEmail, ChancelleryId, true);
@@ -617,7 +635,7 @@ namespace ACS.BLL.Services
 
             if (file == null)//файла нет, создать нужно
             {
-                FileRecordChancellery newFile = MapDALBLL.GetMapp().Map<FileRecordChancelleryDTO , FileRecordChancellery>(fileDTO);
+                FileRecordChancellery newFile = MapDALBLL.GetMapp().Map<FileRecordChancelleryDTO, FileRecordChancellery>(fileDTO);
 
                 var Chanc = Database.Chancelleries.Find(ChancelleryId);
 
@@ -634,10 +652,11 @@ namespace ACS.BLL.Services
 
                     if (attach) // прикрепить
                         file.s_InBasket = false;
-                    else {
+                    else
+                    {
                         file.Name += "_dtch";
-                            file.s_InBasket = true;// открепить
-                    } 
+                        file.s_InBasket = true;// открепить
+                    }
 
                     return Database.FileRecordChancelleries.Update(file, AuthorID);
 
@@ -715,6 +734,9 @@ namespace ACS.BLL.Services
         #endregion
 
 
+
+
+
         public void Dispose()
         {
             Database.Dispose();
@@ -723,8 +745,15 @@ namespace ACS.BLL.Services
             JournalRegistrationsChancelleryService.Dispose();
             FolderChancelleryService.Dispose();
             TypeRecordChancelleryService.Dispose();
+            FileRecordChancelleryService.Dispose();
         }
 
 
+
+
+        public IEnumerable<FileRecordChancelleryDTO> AttachFiles(IEnumerable<HttpPostedFileBase> httpPostedFileBases)
+        {
+            return FileRecordChancelleryService.AddFiles(httpPostedFileBases);
+        }
     }
 }

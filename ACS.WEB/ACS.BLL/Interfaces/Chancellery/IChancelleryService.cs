@@ -30,6 +30,7 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         IEnumerable<ChancelleryDTO> ChancelleryGet(ChancellerySearchModel сhancellerySearchModel);
 
+        #region Incoming 
         /// <summary>
         /// Получить канцелярские записи по модели поиска
         /// </summary>
@@ -37,10 +38,12 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         IEnumerable<IncomingCorrespondency> ChancelleryGetIncoming(ChancellerySearchModel сhancellerySearchModel);
 
+
         int ChancelleryCreateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail);
 
         int ChancelleryUpdateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail);
 
+        #endregion
         /// <summary>
         /// Получить канцелярские записи по модели поиска
         /// </summary>
@@ -48,6 +51,16 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         IEnumerable<OutgoingCorrespondency> ChancelleryGetOutgoing(ChancellerySearchModel сhancellerySearchModel);
 
+        #region OutGoing
+        int ChancelleryCreateOutgoing(OutgoingCorrespondency outgoingCorrespondency, string editorEmail);
+
+        int ChancelleryUpdateOutgoing(OutgoingCorrespondency outgoingCorrespondency, string editorEmail);
+
+
+
+        #endregion
+
+        #region Internal
 
         /// <summary>
         /// Получить канцелярские записи по модели поиска
@@ -56,7 +69,11 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         IEnumerable<InternalCorrespondency> ChancelleryGetInternal(ChancellerySearchModel сhancellerySearchModel);
 
+        int ChancelleryCreateInternal(InternalCorrespondency internalCorrespondency, string editorEmail);
 
+        int ChancelleryUpdateInternal(InternalCorrespondency internalCorrespondency, string editorEmail);
+
+        #endregion
         ///// <summary>
         ///// Сделать запись
         ///// </summary>
@@ -148,6 +165,8 @@ namespace ACS.BLL.Interfaces
 
         #region работа с файлами 
 
+         IEnumerable<FileRecordChancelleryDTO> AttachFiles(IEnumerable<HttpPostedFileBase> httpPostedFileBases);
+
         int AttachFiles(IEnumerable<HttpPostedFileBase> files, int ChancelleryId, string authorEmail);
 
         /// <summary>
@@ -185,11 +204,6 @@ namespace ACS.BLL.Interfaces
         /// <returns></returns>
         FileRecordChancelleryDTO GetFileChancellerByPath(string Path, int ChancelleryId);
 
-        /// <summary>
-        /// Получить связанный с канцелярской записью файл по его id
-        /// </summary>
-        /// <param name="id"></param>
-        FileRecordChancelleryDTO GetFileChanceller(int FileId);
 
         /// <summary>
         /// Получить все файлы канцелярской записи
@@ -225,7 +239,6 @@ namespace ACS.BLL.Interfaces
         IEnumerable<EmployeeDTO> GetEmployees();
 
         #endregion
-
 
         #region Работа с типами корреспонденции
 

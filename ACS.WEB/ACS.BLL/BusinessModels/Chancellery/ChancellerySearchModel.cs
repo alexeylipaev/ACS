@@ -6,6 +6,7 @@ using System.Web;
 
 namespace ACS.BLL.BusinessModels
 {
+
     public class ChancellerySearchModel
     {
         public int? Id { get; set; }

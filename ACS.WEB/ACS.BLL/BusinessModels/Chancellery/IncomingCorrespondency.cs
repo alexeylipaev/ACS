@@ -2,6 +2,9 @@
 
 namespace ACS.BLL.BusinessModels
 {
+    /// <summary>
+    /// Входящая канцелярия
+    /// </summary>
     public class IncomingCorrespondency : BaseCorrespondency
     {
         /// <summary>

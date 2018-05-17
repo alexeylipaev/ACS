@@ -39,7 +39,7 @@ namespace ACS.WEB.ViewModel
 
         public int SelectedId { get; set; }
 
-        static public List<JournalRegistrationsChancelleryViewModel> Collection = new List<JournalRegistrationsChancelleryViewModel>();
+        static public List<JournalRegistrationsChancelleryViewModel> Collection ;
     }
 
 }

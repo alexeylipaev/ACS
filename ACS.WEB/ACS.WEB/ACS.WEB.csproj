@@ -201,7 +201,9 @@
     <Compile Include="Models\Chancellery\BaseCorrespondencyViewModel.cs" />
     <Compile Include="Models\Chancellery\ChancellerySearchModelVM.cs" />
     <Compile Include="Models\Chancellery\IncomingCorrespondencyViewModel.cs" />
+    <Compile Include="Models\Chancellery\InternalCorrespondencyViewModel.cs" />
     <Compile Include="Models\ChancyModalDialog.cs" />
+    <Compile Include="Models\IndexChancelleryViewModel.cs" />
     <Compile Include="Models\ProjectRegistryViewModel.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
@@ -275,6 +277,7 @@
     <Content Include="Content\fancybox\fancybox_sprite.png" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\images\loading_spinner.gif" />
     <Content Include="Content\images\slide_button.png" />
     <Content Include="Content\jquery.fancybox-buttons.css" />
     <Content Include="Content\jquery.fancybox-thumbs.css" />
@@ -414,8 +417,9 @@
     <Content Include="Views\Chancellery\Incoming.cshtml" />
     <Content Include="Views\Chancellery\EditIncoming.cshtml" />
     <Content Include="Views\Chancellery\_ChancellerySearchPanel.cshtml" />
-    <Content Include="Views\Chancellery\_ChancelleryIncomingWebGrid.cshtml" />
-    <Content Include="Views\Chancellery\CreateIncoming.cshtml" />
+    <Content Include="Views\Chancellery\IndexPage.cshtml" />
+    <Content Include="Views\Chancellery\_Items.cshtml" />
+    <Content Include="Views\Chancellery\IndexData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

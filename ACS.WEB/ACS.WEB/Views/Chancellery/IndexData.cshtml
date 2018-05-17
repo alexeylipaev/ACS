@@ -1,0 +1,145 @@
+﻿@using ACS.WEB.ViewModel;
+@model IEnumerable<ACS.WEB.ViewModel.ChancelleryViewModel>
+@{
+    ViewBag.Title = "Канцелярия";
+    Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
+}
+<h2>Канцелярия</h2>
+<p>
+    @foreach (var item in ViewBag.Types)
+    {
+        using (Html.BeginForm("Create", "Chancellery", FormMethod.Get))
+        {
+            <div class="form-group">
+                <div style="float:left; margin:10px">
+                    <input type="hidden" value=@item.id name="TypeRecordId" />
+                    <input type="submit" value="Создать @item.Name" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    }
+    @using (Html.BeginForm("Incoming", "Chancellery", new { page = 1 }, FormMethod.Get))
+    {
+        <div class="form-group">
+            <div style="float:left; margin:10px">
+                <input type="hidden" value=1 name="page" />
+                <input type="submit" value="Входящая корреспонденция" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
+    @using (Html.BeginForm("Search", "Chancellery", new { page = 1 }, FormMethod.Get))
+    {
+        <div class="form-group">
+            <div style="float:left; margin:10px">
+                <input type="hidden" value=1 name="page" />
+                <input type="submit" value="Поиск" class="btn btn-default" />
+            </div>
+        </div>
+    }
+</p>
+
+<div id="tblbody">
+    <table class="table table-responsive table-striped table-bordered" id="tbldata">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RegistrationNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.JournalRegistrationsChancellery.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FolderChancellery.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Summary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Notice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateRegistration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TypeRecordChancellery.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ToChancelleries)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FromChancelleries)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FileRecordChancelleries)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="trow">
+            @{
+                Html.RenderAction("table_row", "Chancellery", new { Model = Model });
+            }
+        </tbody>
+    </table>
+
+    <div id="loading"><img src='@Url.Content("~/Content/loading_spinner.gif")'></div>
+
+
+            @section scripts
+{
+                <script>
+                    $(function () {
+
+                        $('div#loading').hide();
+
+                        var page = 0;
+                        var _inCallback = false;
+                        function loadItems() {
+                            if (page > -1 && !_inCallback) {
+                                _inCallback = true;
+                                page++;
+                                $('div#loading').show();
+
+                                $.ajax({
+                                    type: 'GET',
+                                    url: '/Chancellery/Index/' + page,
+                                    success: function (data, textstatus) {
+                                        if (data != '') {
+                                            $("#trow").append(data);
+                                        }
+                                        else {
+                                            page = -1;
+                                        }
+                                        _inCallback = false;
+                                        $("div#loading").hide();
+                                    }
+                                });
+                            }
+                        }
+                        // обработка события скроллинга
+                        $(window).scroll(function () {
+                            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+
+                                loadItems();
+                            }
+                        });
+                    })
+
+                    $(document).ready(function () {
+                        $(".fancybox").fancybox({
+                            openEffect: 'none',
+                            closeEffect: 'none',
+                            iframe: {
+                                preload: true
+                            }
+                        });
+                    });
+                </script>
+            }

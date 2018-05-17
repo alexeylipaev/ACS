@@ -176,7 +176,10 @@ namespace ACS.WEB.ViewModel
         public SelectedExternalOrgViewModel Selected_ExtOrg { get; set; }
         public SelectedEmployeeViewModel Selected_From_Empl { get; set; }
         public SelectedEmployeeViewModel Selected_To_Empl { get; set; }
+
+   
     }
+   
 }
 
 

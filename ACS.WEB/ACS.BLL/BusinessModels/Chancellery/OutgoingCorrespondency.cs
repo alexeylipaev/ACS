@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace ACS.BLL.BusinessModels
 {
+    /// <summary>
+    /// Исходящая канцелярия
+    /// </summary>
     public class OutgoingCorrespondency : BaseCorrespondency
     {
 

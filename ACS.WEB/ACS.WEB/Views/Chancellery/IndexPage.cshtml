@@ -1,5 +1,6 @@
-﻿@using ACS.WEB.ViewModel;
-@model IEnumerable<ACS.WEB.ViewModel.ChancelleryViewModel>
+﻿@using ACS.WEB.Helpers;
+
+@model ACS.WEB.ViewModel.IndexChancelleryViewModel
 @{
     ViewBag.Title = "Канцелярия";
     Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
@@ -53,44 +54,44 @@
 <table style="margin-top: 65px;" class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.id)
+           ID
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RegistrationNumber)
+          Регистрационный номер
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.JournalRegistrationsChancellery.Name)
+          Журнал регистраций
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FolderChancellery.Name)
+          Папка
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Summary)
+          Описание
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Notice)
+           Примечание
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateRegistration)
+           Дата регистрации
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TypeRecordChancellery.Name)
+           Тип
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Employee)
+           Ответственный
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ToChancelleries)
+           Кому
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FromChancelleries)
+        От кого
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FileRecordChancelleries)
+           Файлы
         </th>
         <th></th>
     </tr>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Chancelleries)
     {
         <tr>
             <td>
@@ -164,11 +165,14 @@
         </tr>
     }
 </table>
-
+<br />
+<div class="btn-group">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("IndexPage", new { page = x }))
+</div>
 
 @section scripts
 {
-        <script>
+    <script>
         $(document).ready(function () {
             $(".fancybox").fancybox({
                 openEffect: 'none',
@@ -180,3 +184,4 @@
         });
     </script>
 }
+

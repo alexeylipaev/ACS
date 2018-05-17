@@ -27,6 +27,14 @@ namespace ACS.BLL.Interfaces
 
         IEnumerable<FileRecordChancelleryDTO> GetFilesRecordChancellery();
 
+        /// <summary>
+        /// Получить все файлы канцелярии
+        /// </summary>
+        /// <param name="Chancellery"></param>
+        /// <returns></returns>
+        IEnumerable<FileRecordChancelleryDTO> GetAllFilesChancellery(ChancelleryDTO Chancellery);
+        FileRecordChancelleryDTO GetFileChancellerByPath(string Path, int ChancelleryId);
+
         int DeleteFileRecord(int id);
 
     }
