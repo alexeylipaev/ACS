@@ -3,16 +3,16 @@
 @{
     ViewBag.Title = "Входящая корреспонденция";
     Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
+
 }
 <link href="~/Content/slide_panel.css" rel="stylesheet" />
-<h2>Incoming</h2>
+<h2>Входящая корреспонденция</h2>
 
 @{Html.RenderPartial("_ChancellerySearchPanel", Model);}
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Создать", "CreateIncoming")
 </p>
-@Html.Partial("_ChancelleryIncomingWebGrid", Model.Chancelleries);
-
+@Html.Partial("_ChancelleryIncomingWebGrid", Model.Chancelleries)
 @section scripts
 {
 <script src="~/Scripts/slide_panel.js"></script>
