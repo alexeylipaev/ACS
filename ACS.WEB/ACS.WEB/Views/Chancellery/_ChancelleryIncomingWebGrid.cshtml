@@ -1,0 +1,23 @@
+﻿@model IEnumerable<ACS.WEB.ViewModel.IncomingCorrespondencyViewModel>
+
+<div id="grid">
+    @{
+        var grid = new WebGrid(/*source: ViewBag.ListChanc,*/
+                              defaultSort: "id",
+                              rowsPerPage: 3,
+                              canPage: true,
+                              ajaxUpdateContainerId: "grid");
+        grid.Bind(Model);
+    }
+    @grid.GetHtml(
+                tableStyle: "grid",
+                headerStyle: "head",
+                alternatingRowStyle: "alt",
+                columns: grid.Columns(
+                    grid.Column("Id", format:@<text>@item.id</text>),
+                    grid.Column("From", "От кого", format:@<text>@item.FromStringValue</text>),
+                    grid.Column("To", format:@<i>@item.ToStringValue</i>)
+                    
+                                                                        )
+                                                                        )
+</div>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ACS.BLL.Interfaces
 {
@@ -13,7 +14,7 @@ namespace ACS.BLL.Interfaces
 
         int CreateOrUpdateFileRecord(FileRecordChancelleryDTO FileRecordChancelleryDTO, string authorEmail);
 
-
+        IEnumerable<FileRecordChancelleryDTO> AddFiles(IEnumerable<HttpPostedFileBase> httpPostedFileBases);
 
 
         //int UpdateFolderChancellery(FolderChancelleryDTO FolderChancelleryDTO, string authorEmail);
