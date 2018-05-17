@@ -29,6 +29,8 @@ namespace ACS.WEB.Util
                     cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>().ReverseMap();
                     cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>().ReverseMap();
                     cfg.CreateMap<IncomingCorrespondency, IncomingCorrespondencyViewModel>().ReverseMap();
+                    cfg.CreateMap<OutgoingCorrespondency, OutgoingCorrespondencyViewModel>().ReverseMap();
+                    cfg.CreateMap<InternalCorrespondency, InternalCorrespondencyViewModel>().ReverseMap();
                     cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>().ReverseMap();
 
                 }).CreateMapper();
