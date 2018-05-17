@@ -175,21 +175,22 @@ namespace ACS.BLL.Services
             return MapDALBLL.GetMapp().Map<Chancellery, ChancelleryDTO>(Chancellery);
         }
 
-      IMapper  getImapp()
+      IMapper getImapp()
         {
             return new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ChancelleryDTO, IncomingCorrespondency>()
-                .ForMember(x => x.To, opt => opt.ResolveUsing<IncomingToCustomResolver>())
-                .ForMember(x => x.From, opt => opt.ResolveUsing<IncomingFromCustomResolver>());
+                 .ForMember(x => x.To, x => x.MapFrom(c => c.ToChancelleries.FirstOrDefault().Employee ?? null))
+                 .ForMember(x => x.From, x => x.MapFrom(c => c.FromChancelleries.FirstOrDefault().ExternalOrganization ?? null));
             }).CreateMapper();
         }
+
         public IEnumerable<IncomingCorrespondency> ChancelleryGetIncoming(ChancellerySearchModel сhancellerySearchModel)
         {
             var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
-
             return getImapp().Map<IEnumerable<ChancelleryDTO>, IEnumerable<IncomingCorrespondency>>(chancellerieDTOs);
         }
+
         public int ChancelleryUpdateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail)
         {
             int authorID = 0;

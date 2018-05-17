@@ -45,7 +45,6 @@ namespace ACS.BLL
                 .ForMember(x => x.Chancelleries, x => x.MapFrom(c => c.Chancelleries));
                 cfg.CreateMap<FolderChancelleryDTO, FolderChancellery>()
                 .ForMember(x => x.Chancelleries, x => x.MapFrom(c => c.Chancelleries));
-
                 cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>()
                 .ForMember(x => x.Chancelleries, x => x.MapFrom(c => c.Chancelleries));
                 cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancellery>();
@@ -92,10 +91,6 @@ namespace ACS.BLL
                 }).CreateMapper();
 
             return mapper;
-
-
         }
-
-
     }
 }
