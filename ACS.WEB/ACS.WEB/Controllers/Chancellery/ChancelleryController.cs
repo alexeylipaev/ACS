@@ -91,6 +91,16 @@ namespace ACS.WEB.Controllers
             return View(searchModelVM);
         }
 
+        public ActionResult Incoming(ChancellerySearchModelVM searchModelVM)
+        {
+
+            ChancellerySearchModel searchModel = new ChancellerySearchModel { RegistryDateTo = DateTime.Now };
+            var incomingDTOs = ChancelleryService.ChancelleryGetIncoming(searchModel);
+            var incomings = MapBLLPresenter.GetMap().Map<IEnumerable<IncomingCorrespondency>, IEnumerable<IncomingCorrespondencyViewModel>>(incomingDTOs);
+            //ChancellerySearchModelVM searchModelVM = new Models.Chancellery.ChancellerySearchModelVM { ChancellerySearchModel = searchModel, Chancelleries = incomings };
+            return View(searchModelVM);
+        }
+
         public ActionResult EditIncoming(int id)
         {
             SelectedEmployeeViewModel.Collection = GetEmplCollection();

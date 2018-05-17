@@ -44,17 +44,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<div id="grid">
-    @{
-        var grid = new WebGrid(/*source: ViewBag.ListChanc,*/
-                              defaultSort: "id",
-                              rowsPerPage: 3,
-                              canPage: true/*,
-                              ajaxUpdateContainerId: "grid"*/);
-        grid.Bind(Model.Chancelleries);
-    }
-    @grid.GetHtml()
-</div>
+@Html.Partial("_ChancelleryIncomingWebGrid", Model.Chancelleries);
 
 @section scripts
 {

@@ -1,0 +1,13 @@
+﻿@model IEnumerable<ACS.WEB.ViewModel.IncomingCorrespondencyViewModel>
+
+<div id="grid">
+    @{
+        var grid = new WebGrid(/*source: ViewBag.ListChanc,*/
+                              defaultSort: "id",
+                              rowsPerPage: 3,
+                              canPage: true/*,
+                              ajaxUpdateContainerId: "grid"*/);
+        grid.Bind(Model);
+    }
+    @grid.GetHtml()
+</div>

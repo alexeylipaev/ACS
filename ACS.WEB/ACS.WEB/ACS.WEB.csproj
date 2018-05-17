@@ -412,6 +412,7 @@
     <Content Include="Views\Chancellery\Incoming.cshtml" />
     <Content Include="Views\Chancellery\EditIncoming.cshtml" />
     <Content Include="Views\Chancellery\_ChancellerySearchPanel.cshtml" />
+    <Content Include="Views\Chancellery\_ChancelleryIncomingWebGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
