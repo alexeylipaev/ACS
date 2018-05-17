@@ -133,14 +133,10 @@ namespace ACS.WEB.Controllers
             if (chancDTO.JournalRegistrationsChancellery != null)
                 chancVM.SelectedJournalsReg = new SelectedJournalRegChancellery() { SelectedId = chancDTO.JournalRegistrationsChancellery.id };
 
-            foreach (var resp in chancDTO.ResponsibleEmployees)
-            {
-                if (resp != null)
+                if (chancDTO.ResponsibleEmployees != null)
                 {
-                    chancVM.SelectedResponsible = new SelectedEmployeeViewModel();
-                    chancVM.SelectedResponsible.SelectedId.Add(resp.id);
+                    chancVM.Selected_Responsible_Empl = new SelectedEmployeeViewModel() { SelectedId = chancDTO.ResponsibleEmployees.Select(r=> r.id).ToArray()};
                 }
-            }
 
             var To = chancVM.To;
             if (To != null)
@@ -223,12 +219,14 @@ namespace ACS.WEB.Controllers
             {
                 //newChancelleryVM.TypeRecordChancellery = MapBLLPresenter.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById((int)newChancelleryVM.TypeRecordChancelleryId));
 
-                if (newChancelleryVM.EmployeeId != null)
+                if (newChancelleryVM.Selected_Responsible_Empl != null)
                 {
-                    var idResponsible = (int)newChancelleryVM.EmployeeId;//.SelectedResponsible.SelectedId.FirstOrDefault();
-
-                    if (idResponsible > 0)
-                        newChancelleryVM.Employee = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(ChancelleryService.GetEmployee(idResponsible));
+                    List<EmployeeDTO> respDTOs = new List<EmployeeDTO>();
+                    foreach (var idResponsible in newChancelleryVM.Selected_Responsible_Empl.SelectedId)
+                    {
+                        respDTOs.Add(ChancelleryService.GetEmployee(idResponsible));
+                    }
+                    newChancelleryVM.ResponsibleEmployees = MapBLLPresenter.GetMap().Map<IEnumerable< EmployeeDTO>, IEnumerable< EmployeeViewModel>>(respDTOs);
                 }
 
                 if (newChancelleryVM.FolderChancelleryId != null)
@@ -245,17 +243,22 @@ namespace ACS.WEB.Controllers
                 if (idJournalsReg > 0)
                     newChancelleryVM.JournalRegistrationsChancellery = MapBLLPresenter.GetMap().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(idJournalsReg));
 
-                    //from
-                    var extOrgDTO = ChancelleryService.GetExternalOrganization(newChancelleryVM.Selected_ExtOrg.SelectedId.FirstOrDefault());
-                    var extOrgVM = MapBLLPresenter.GetMap().Map<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>(extOrgDTO);
-                    newChancelleryVM.From = extOrgVM;
+                //from
+                var extOrgDTO = ChancelleryService.GetExternalOrganization(newChancelleryVM.Selected_ExtOrg.SelectedId.FirstOrDefault());
+                var extOrgVM = MapBLLPresenter.GetMap().Map<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>(extOrgDTO);
+                newChancelleryVM.From = extOrgVM;
 
-                    //to
-                    var extEmployeeDTO = ChancelleryService.GetEmployee(newChancelleryVM.Selected_To_Empl.SelectedId.FirstOrDefault());
-                    var extEmployeeVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(extEmployeeDTO);
-                    newChancelleryVM.To = extEmployeeVM;
+                //to
+                var extEmployeeDTO = ChancelleryService.GetEmployee(newChancelleryVM.Selected_To_Empl.SelectedId.FirstOrDefault());
+                var extEmployeeVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(extEmployeeDTO);
+                newChancelleryVM.To = extEmployeeVM;
 
-                
+                //responsible
+                var respEmployeeDTO = ChancelleryService.GetEmployee(newChancelleryVM.Selected_Responsible_Empl.SelectedId.FirstOrDefault());
+                var respEmployeeVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(extEmployeeDTO);
+                newChancelleryVM.ResponsibleEmployees = new List<EmployeeViewModel> { extEmployeeVM };
+            
+
 
                 // TODO: Add insert logic here
                 if (ModelState.IsValid)

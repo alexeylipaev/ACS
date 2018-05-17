@@ -15,6 +15,7 @@ using System.Collections;
 using System.IO;
 using System.Linq.Expressions;
 using System.Web;
+using ACS.BLL.BusinessModels.Chancellery;
 
 namespace ACS.BLL.Services
 {
@@ -197,12 +198,44 @@ namespace ACS.BLL.Services
             try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
             catch (Exception ex) { throw ex; }
 
-            Chancellery original = new Chancellery();
+            ChancelleryDTO originalDTO = new ChancelleryDTO();
+            originalDTO.TypeRecordChancellery = TypeRecordGet(Constants.CorrespondencyType.Incoming);
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<IncomingCorrespondency, ChancelleryDTO>()
+                 .ForMember(x => x.FromChancelleries, opt => opt.ResolveUsing<IncomingToDTO_FromCustomResolver>())
+                 .ForMember(x => x.ToChancelleries, opt => opt.ResolveUsing<IncomingToDTO_ToCustomResolver>());
+            }).CreateMapper();
 
-            getImapp().Map(original, incomingCorrespondency);
-            Database.Chancelleries.Add(original, authorID);
+            mapper.Map(incomingCorrespondency, originalDTO);
+            Chancellery originalDB = new Chancellery();
+            originalDB = MapDALBLL.GetMapForUpdateOrCreate().Map<ChancelleryDTO, Chancellery>(originalDTO);
+            
+            Database.Chancelleries.Add(originalDB, authorID);
             return 1;
         }
+        public class IncomingToDTO_FromCustomResolver : IValueResolver<IncomingCorrespondency, ChancelleryDTO, ICollection<FromChancelleryDTO>>
+        {
+            public ICollection<FromChancelleryDTO> Resolve(IncomingCorrespondency source, ChancelleryDTO destination, ICollection<FromChancelleryDTO> member, ResolutionContext context)
+            {
+
+                ICollection<FromChancelleryDTO> result = new List<FromChancelleryDTO>();
+                if (source.From != null) result.Add(new FromChancelleryDTO { ExternalOrganization = source.From });
+                return result;
+            }
+        }
+
+        public class IncomingToDTO_ToCustomResolver : IValueResolver<IncomingCorrespondency, ChancelleryDTO, ICollection<ToChancelleryDTO>>
+        {
+            public ICollection<ToChancelleryDTO> Resolve(IncomingCorrespondency source, ChancelleryDTO destination, ICollection<ToChancelleryDTO> member, ResolutionContext context)
+            {
+
+                ICollection<ToChancelleryDTO> result = new List<ToChancelleryDTO>();
+                if (source.To != null) result.Add(new ToChancelleryDTO { Employee = source.To });
+                return result;
+            }
+        }
+
 
         public int ChancelleryUpdateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail)
         {
@@ -319,6 +352,17 @@ namespace ACS.BLL.Services
         public TypeRecordChancelleryDTO TypeRecordGetById(int id)
         {
 
+            return TypeRecordChancelleryService.GetTypeRecordChancellery(id);
+        }
+
+        /// <summary>
+        /// Тип канцелярской записи
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public TypeRecordChancelleryDTO TypeRecordGet(Constants.CorrespondencyType сorrespondencyType)
+        {
+            int id = (int)сorrespondencyType;
             return TypeRecordChancelleryService.GetTypeRecordChancellery(id);
         }
 

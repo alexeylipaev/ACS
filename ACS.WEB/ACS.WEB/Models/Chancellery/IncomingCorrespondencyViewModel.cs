@@ -9,7 +9,7 @@ namespace ACS.WEB.ViewModel
         /// </summary>
         public ExternalOrganizationChancelleryViewModel From { get; set; }
 
-        public string FromStringValue {
+        public override string FromStringValue {
             get {
                 if (From == null) return string.Empty;
                 else return this.From.Name;
@@ -20,7 +20,7 @@ namespace ACS.WEB.ViewModel
         /// Кому
         /// </summary>
         public EmployeeViewModel To { get; set; }
-        public string ToStringValue
+        public override string ToStringValue
         {
             get
             {

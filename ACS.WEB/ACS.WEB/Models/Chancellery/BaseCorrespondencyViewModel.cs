@@ -103,14 +103,14 @@ namespace ACS.WEB.ViewModel
 
         #region Ответственный
 
-        public int? EmployeeId { get; set; }
+        //public int? EmployeeId { get; set; }
 
         /// <summary>
         /// Ответственный
         /// </summary>
         [Display(Name = "Ответственный")]
-        public virtual EmployeeViewModel Employee { get; set; }
-
+        //public virtual EmployeeViewModel Employee { get; set; }
+        public IEnumerable<EmployeeViewModel> ResponsibleEmployees { get; set; }
         #endregion
 
 
@@ -122,10 +122,13 @@ namespace ACS.WEB.ViewModel
         public ICollection<FileRecordChancelleryViewModel> FileRecordChancelleries { get; set; }
 
 
-        public SelectedEmployeeViewModel SelectedResponsible { get; set; }
+        //public SelectedEmployeeViewModel SelectedResponsible { get; set; }
 
         public SelectedExternalOrgViewModel Selected_ExtOrg { get; set; }
         public SelectedEmployeeViewModel Selected_From_Empl { get; set; }
         public SelectedEmployeeViewModel Selected_To_Empl { get; set; }
+        public SelectedEmployeeViewModel Selected_Responsible_Empl { get; set; }
+        public virtual string ToStringValue { get; set; }
+        public virtual string FromStringValue { get; set; }
     }
 }
