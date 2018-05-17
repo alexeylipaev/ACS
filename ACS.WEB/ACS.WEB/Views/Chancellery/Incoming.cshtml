@@ -4,41 +4,8 @@
     ViewBag.Title = "Входящая корреспонденция";
     Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
 }
-
+<link href="~/Content/slide_panel.css" rel="stylesheet" />
 <h2>Incoming</h2>
-<style>
-    /*.slide_panel_wrap {
-        margin: 60px auto;
-        width: 200px;
-    }*/
-
-    .slide_panel_wrap {
-        margin: 60px auto; /*width:200px;*/
-    }
-
-        .slide_panel_wrap p {
-            margin-bottom: 10px;
-            padding-left: 12px;
-            width: 107px;
-            height: 30px;
-            background: url(../Content/images/slide_button.png) no-repeat 0 0;
-            cursor: pointer;
-        }
-
-            .slide_panel_wrap p.active {
-                background: url(../Content/images/slide_button.png) no-repeat 0 -30px;
-            }
-
-    .slide_panel {
-        padding-top: 30px;
-        width: 100%; /*height:70px;*/
-        border: 1px solid #000;
-        background: #e5e5e5;
-        text-align: center;
-        display: none;
-        font-size: 12px;
-    }
-</style>
 
 @{Html.RenderPartial("_ChancellerySearchPanel", Model);}
 <p>
@@ -48,15 +15,5 @@
 
 @section scripts
 {
-
-    <script>
-        $(document).ready(function () {
-            $(".slide_panel_wrap p").click(function () {
-                $(".slide_panel").slideToggle('fast');
-                $(this).toggleClass("active");
-            });
-            return false;
-        });
-
-    </script>
+<script src="~/Scripts/slide_panel.js"></script>
 }

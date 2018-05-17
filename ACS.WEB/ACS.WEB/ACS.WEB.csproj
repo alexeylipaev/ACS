@@ -280,6 +280,7 @@
     <Content Include="Content\jquery.fancybox-thumbs.css" />
     <Content Include="Content\jquery.fancybox.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\slide_panel.css" />
     <Content Include="Controllers\Description.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\Description.txt" />
@@ -337,6 +338,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Scripts\slide_panel.js" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Chancellery\Details.cshtml" />
