@@ -37,8 +37,6 @@ namespace ACS.BLL.Services
 
         #region Канцелярия 
 
-
-
         int CreateOrUpdate_To(ToChancelleryDTO DTO_to, int AuthorID)
         {
             try
@@ -415,9 +413,6 @@ namespace ACS.BLL.Services
 
         #region работа с файлами 
 
-
-
-
         /// <summary>
         /// Получить данные о файле по id
         /// </summary>
@@ -433,7 +428,6 @@ namespace ACS.BLL.Services
                     where ch.FileRecordChancelleries.Any(f => f.id == FileId)
                     from file in ch.FileRecordChancelleries
                     select file).FirstOrDefault();
-
 
             if (File == null)
                 throw new ValidationException("Запись не содержит файла с таким ID", "");

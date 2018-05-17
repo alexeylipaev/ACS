@@ -1,0 +1,77 @@
+﻿
+@model IEnumerable<ACS.WEB.ViewModel.ChancelleryViewModel>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegistrationNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JournalRegistrationsChancellery.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FolderChancellery.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Summary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateRegistration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeRecordChancellery.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.FullName)
+            </td>
+            <td>
+                @foreach (var toItem in item.ToChancelleries)
+                {
+                    @Html.Label(toItem.ToString());
+                }
+            </td>
+            <td>
+                @foreach (var toItem in item.FromChancelleries)
+                {
+                    @Html.Label(toItem.ToString());
+                }
+            </td>
+            <td style="font-size:12px;">
+
+                @foreach (var file in item.FileRecordChancelleries.Where(f => f.s_InBasket == false))
+                {
+                    <div style="display:inline-flex; line-height:25px">
+                        <a data-fancybox-type="iframe" style="padding-right:5px" class="fancybox" href="@Url.Action("DownloadFile", "Chancellery", new { id = file.id })" title="открыть" @*class="btn btn-primary"*@>
+                            @string.Format("{0}{1}", @file.Name, @file.Format)
+                        </a>
+                        @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })
+                    </div>
+                }
+
+            </td>
+            <td>
+                <div style="display: inline-flex; font-size:1.8em">
+                    <a style="padding-right:5px" href="@Url.Action("Edit", "Chancellery", new { id = item.id })" title="Редактировать" @*class="btn btn-primary"*@>
+                        <i class="fa fa-pencil-square-o"></i>
+                    </a>
+                    <a title="Подробнее" style="padding-right:5px" href="@Url.Action("Details", "Chancellery", new { id = item.id })" @*class="btn btn-primary"*@>
+                        <i class="fa fa-info"></i>
+                    </a>
+                    <a title="Переместить в корзину" style="padding-right:5px" href="@Url.Action("MoveToBasket", "Chancellery", new { id = item.id })" @*class="btn btn-primary"*@>
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </a>
+                    <a title="Прикрепить файлы" href="@Url.Action("AttachFiles", "Chancellery", new { ChancelleryId = item.id })" @*class="btn btn-primary"*@>
+                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    }

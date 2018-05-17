@@ -23,16 +23,69 @@ namespace ACS.WEB.Controllers
             ChancelleryService = chancelleryService;
         }
 
-
+        const int pageSize = 12;
         // GET: Chancellery
-        public ActionResult Index()
+        //public ActionResult Index()
+        //{
+        //    var chancelleryDTOs = ChancelleryService.ChancellerieGetAll().Where(ch => ch.s_InBasket == false);
+        //    ViewBag.Types = GetAllTypes();
+
+        //    var chancelleriesVMs = MapBLLPresenter.GetMap().Map<IEnumerable<ChancelleryDTO>, List<ChancelleryViewModel>>(chancelleryDTOs.ToList()); /*(chancelleryDTOs.ToList());*/
+        //    return View(chancelleriesVMs);
+        //}
+        #region infinite scrolling 
+        public ActionResult Index(int? id)
         {
-            var chancelleryDTOs = ChancelleryService.ChancellerieGetAll().Where(ch => ch.s_InBasket == false);
+            ViewBag.Types = GetAllTypes();
+            int page = id ?? 0;
+            if (Request.IsAjaxRequest())
+            {
+            
+                return PartialView("_Items", GetItemsPage(page));
+            }
+            return View("IndexData",GetItemsPage(page));
+
+        }
+        private List<ChancelleryViewModel> GetItemsPage(int page = 1)
+        {
+            var itemsToSkip = page * pageSize;
+            return MapBLLPresenter.GetMap().Map<IEnumerable<ChancelleryDTO>, List<ChancelleryViewModel>>
+                (ChancelleryService.ChancellerieGetAll().ToList()
+                .OrderBy(ch => ch.id)
+                .Skip(itemsToSkip)
+                .Take(pageSize).ToList());
+        }
+
+        [ChildActionOnly]
+
+        public ActionResult table_row(List<ChancelleryViewModel> Model)
+        {
+            return PartialView("_Items",Model);
+
+        }
+        #endregion
+
+        #region  для пагинации
+        public ActionResult IndexPage(int page = 1)
+        {
             ViewBag.Types = GetAllTypes();
 
-            var chancelleriesVMs = MapBLLPresenter.GetMap().Map<IEnumerable<ChancelleryDTO>, List<ChancelleryViewModel>>(chancelleryDTOs.ToList()); /*(chancelleryDTOs.ToList());*/
-            return View(chancelleriesVMs);
+            var allVM = MapBLLPresenter.GetMap().Map<IEnumerable<ChancelleryDTO>, List<ChancelleryViewModel>>(ChancelleryService.ChancellerieGetAll().ToList()
+                .Where(ch => ch.s_InBasket == false));
+
+            IEnumerable<ChancelleryViewModel> chancelleriesVMs = allVM
+                .Where(ch => ch.s_InBasket == false)
+                .OrderBy(ch => ch.id)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize).ToList();
+
+            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = allVM.ToList().Count };
+            IndexChancelleryViewModel ivm = new IndexChancelleryViewModel { PageInfo = pageInfo, Chancelleries = chancelleriesVMs };
+            return View(ivm);
+
         }
+
+        #endregion
 
         // GET: Chancellery/Details/5
         public ActionResult Details(int id)
@@ -73,7 +126,7 @@ namespace ACS.WEB.Controllers
             ChancellerySearchModel searchModel = new ChancellerySearchModel { RegistryDateTo = DateTime.Now };
             var incomingDTOs = ChancelleryService.ChancelleryGetIncoming(searchModel);
             var incomings = MapBLLPresenter.GetMap().Map<IEnumerable<IncomingCorrespondency>, IEnumerable<IncomingCorrespondencyViewModel>>(incomingDTOs);
-            ChancellerySearchModelVM searchModelVM = new Models.Chancellery.ChancellerySearchModelVM { ChancellerySearchModel = searchModel, Chancelleries = incomings};
+            ChancellerySearchModelVM searchModelVM = new Models.Chancellery.ChancellerySearchModelVM { ChancellerySearchModel = searchModel, Chancelleries = incomings };
             return View(searchModelVM);
         }
 
