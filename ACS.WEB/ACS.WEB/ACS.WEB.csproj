@@ -275,6 +275,7 @@
     <Content Include="Content\fancybox\fancybox_sprite.png" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\images\slide_button.png" />
     <Content Include="Content\jquery.fancybox-buttons.css" />
     <Content Include="Content\jquery.fancybox-thumbs.css" />
     <Content Include="Content\jquery.fancybox.css" />
@@ -410,6 +411,7 @@
     <Content Include="Views\Chancellery\Search.cshtml" />
     <Content Include="Views\Chancellery\Incoming.cshtml" />
     <Content Include="Views\Chancellery\EditIncoming.cshtml" />
+    <Content Include="Views\Chancellery\_ChancellerySearchPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

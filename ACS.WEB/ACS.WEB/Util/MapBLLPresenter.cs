@@ -1,4 +1,5 @@
-﻿using ACS.BLL.DTO;
+﻿using ACS.BLL.BusinessModels;
+using ACS.BLL.DTO;
 using ACS.WEB.ViewModel;
 using AutoMapper;
 using System;
@@ -27,6 +28,7 @@ namespace ACS.WEB.Util
                     cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>().ReverseMap();
                     cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>().ReverseMap();
                     cfg.CreateMap<FileRecordChancelleryDTO, FileRecordChancelleryViewModel>().ReverseMap();
+                    cfg.CreateMap<IncomingCorrespondency, IncomingCorrespondencyViewModel>().ReverseMap();
                     cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>().ReverseMap();
 
                 }).CreateMapper();

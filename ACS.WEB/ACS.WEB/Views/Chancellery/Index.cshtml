@@ -29,6 +29,16 @@
                 </div>
             }*@
     }
+    @using (Html.BeginForm("Incoming", "Chancellery", new { page = 1 }, FormMethod.Get))
+    {
+        <div class="form-group">
+            <div style="float:left; margin:10px">
+                <input type="hidden" value=1 name="page" />
+                <input type="submit" value="Входящая корреспонденция" class="btn btn-default" />
+            </div>
+        </div>
+    }
+
     @using (Html.BeginForm("Search", "Chancellery", new { page = 1 }, FormMethod.Get))
     {
     <div class="form-group">

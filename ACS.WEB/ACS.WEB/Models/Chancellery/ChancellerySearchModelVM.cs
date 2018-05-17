@@ -8,6 +8,6 @@ namespace ACS.WEB.Models.Chancellery
     {
         public ChancellerySearchModel ChancellerySearchModel { get; set; }
 
-        public IEnumerable<ChancelleryViewModel> Chancelleries { get; set; }
+        public IEnumerable<object> Chancelleries { get; set; }
     }
 }

@@ -73,7 +73,8 @@ namespace ACS.WEB.Controllers
             ChancellerySearchModel searchModel = new ChancellerySearchModel { RegistryDateTo = DateTime.Now };
             var incomingDTOs = ChancelleryService.ChancelleryGetIncoming(searchModel);
             var incomings = MapBLLPresenter.GetMap().Map<IEnumerable<IncomingCorrespondency>, IEnumerable<IncomingCorrespondencyViewModel>>(incomingDTOs);
-            return View(incomings);
+            ChancellerySearchModelVM searchModelVM = new Models.Chancellery.ChancellerySearchModelVM { ChancellerySearchModel = searchModel, Chancelleries = incomings};
+            return View(searchModelVM);
         }
 
         public ActionResult EditIncoming(int id)

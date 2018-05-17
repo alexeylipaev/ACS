@@ -1,100 +1,72 @@
-﻿@model IEnumerable<ACS.WEB.ViewModel.IncomingCorrespondencyViewModel>
+﻿@model ACS.WEB.Models.Chancellery.ChancellerySearchModelVM
 
 @{
-    ViewBag.Title = "Incoming";
+    ViewBag.Title = "Входящая корреспонденция";
     Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
 }
 
 <h2>Incoming</h2>
+<style>
+    /*.slide_panel_wrap {
+        margin: 60px auto;
+        width: 200px;
+    }*/
 
+    .slide_panel_wrap {
+        margin: 60px auto; /*width:200px;*/
+    }
+
+        .slide_panel_wrap p {
+            margin-bottom: 10px;
+            padding-left: 12px;
+            width: 107px;
+            height: 30px;
+            background: url(../Content/images/slide_button.png) no-repeat 0 0;
+            cursor: pointer;
+        }
+
+            .slide_panel_wrap p.active {
+                background: url(../Content/images/slide_button.png) no-repeat 0 -30px;
+            }
+
+    .slide_panel {
+        padding-top: 30px;
+        width: 100%; /*height:70px;*/
+        border: 1px solid #000;
+        background: #e5e5e5;
+        text-align: center;
+        display: none;
+        font-size: 12px;
+    }
+</style>
+
+@{Html.RenderPartial("_ChancellerySearchPanel", Model);}
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.s_Guid)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_AuthorId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_DateCreation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_EditorId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_EditDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_IsLocked)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_LockedBy_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.s_InBasket)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateRegistration)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RegistrationNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Summary)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notice)
-        </th>
-        <th></th>
-    </tr>
+<div id="grid">
+    @{
+        var grid = new WebGrid(/*source: ViewBag.ListChanc,*/
+                              defaultSort: "id",
+                              rowsPerPage: 3,
+                              canPage: true/*,
+                              ajaxUpdateContainerId: "grid"*/);
+        grid.Bind(Model.Chancelleries);
+    }
+    @grid.GetHtml()
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_Guid)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_AuthorId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_DateCreation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_EditorId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_EditDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_IsLocked)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_LockedBy_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.s_InBasket)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateRegistration)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RegistrationNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Summary)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notice)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
+@section scripts
+{
+
+    <script>
+        $(document).ready(function () {
+            $(".slide_panel_wrap p").click(function () {
+                $(".slide_panel").slideToggle('fast');
+                $(this).toggleClass("active");
+            });
+            return false;
+        });
+
+    </script>
 }
-
-</table>
