@@ -180,20 +180,11 @@ namespace ACS.BLL.Services
 
         #region Входящая канцелярия
 
-        IMapper getImapp()
-        {
-            return new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ChancelleryDTO, IncomingCorrespondency>()
-                 .ForMember(x => x.To, x => x.MapFrom(c => c.ToChancelleries.FirstOrDefault().Employee ?? null))
-                 .ForMember(x => x.From, x => x.MapFrom(c => c.FromChancelleries.FirstOrDefault().ExternalOrganization ?? null));
-            }).CreateMapper();
-        }
 
         public IEnumerable<IncomingCorrespondency> ChancelleryGetIncoming(ChancellerySearchModel сhancellerySearchModel)
         {
             var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
-            return getImapp().Map<IEnumerable<ChancelleryDTO>, IEnumerable<IncomingCorrespondency>>(chancellerieDTOs);
+            return MapDALBLL.GetMap_Incoming_DTO_TO_DB().Map<IEnumerable<ChancelleryDTO>, IEnumerable<IncomingCorrespondency>>(chancellerieDTOs);
         }
 
         public int ChancelleryCreateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail)
@@ -201,15 +192,8 @@ namespace ACS.BLL.Services
             int authorID = 0;
             try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
             catch (Exception ex) { throw ex; }
-            
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<IncomingCorrespondency, ChancelleryDTO>()
-                 .ForMember(x => x.FromChancelleries, opt => opt.ResolveUsing<IncomingToDTO_FromCustomResolver>())
-                 .ForMember(x => x.ToChancelleries, opt => opt.ResolveUsing<IncomingToDTO_ToCustomResolver>());
-            }).CreateMapper();
 
-            ChancelleryDTO newDTO = mapper.Map<IncomingCorrespondency, ChancelleryDTO>(incomingCorrespondency);
+            ChancelleryDTO newDTO = MapDALBLL.GetMap_IncomingDB_TO_DTO().Map<IncomingCorrespondency, ChancelleryDTO>(incomingCorrespondency);
             newDTO.TypeRecordChancellery = TypeRecordGet(Constants.CorrespondencyType.Incoming);
 
             var newDB = MapDALBLL.GetMapForUpdateOrCreate().Map<ChancelleryDTO, Chancellery>(newDTO);
@@ -217,27 +201,7 @@ namespace ACS.BLL.Services
             Database.Chancelleries.Add(newDB, authorID);
             return 1;
         }
-        public class IncomingToDTO_FromCustomResolver : IValueResolver<IncomingCorrespondency, ChancelleryDTO, ICollection<FromChancelleryDTO>>
-        {
-            public ICollection<FromChancelleryDTO> Resolve(IncomingCorrespondency source, ChancelleryDTO destination, ICollection<FromChancelleryDTO> member, ResolutionContext context)
-            {
-
-                ICollection<FromChancelleryDTO> result = new List<FromChancelleryDTO>();
-                if (source.From != null) result.Add(new FromChancelleryDTO { ExternalOrganization = source.From });
-                return result;
-            }
-        }
-
-        public class IncomingToDTO_ToCustomResolver : IValueResolver<IncomingCorrespondency, ChancelleryDTO, ICollection<ToChancelleryDTO>>
-        {
-            public ICollection<ToChancelleryDTO> Resolve(IncomingCorrespondency source, ChancelleryDTO destination, ICollection<ToChancelleryDTO> member, ResolutionContext context)
-            {
-
-                ICollection<ToChancelleryDTO> result = new List<ToChancelleryDTO>();
-                if (source.To != null) result.Add(new ToChancelleryDTO { Employee = source.To });
-                return result;
-            }
-        }
+       
 
 
         public int ChancelleryUpdateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail)
@@ -248,32 +212,14 @@ namespace ACS.BLL.Services
 
             var original = Database.Chancelleries.Find(incomingCorrespondency.id);
 
-            getImapp().Map(original, incomingCorrespondency);
+            MapDALBLL.GetMap_Incoming_DTO_TO_DB().Map(original, incomingCorrespondency);
             Database.Chancelleries.Update(original, authorID);
             return 1;
-        }
-        public class IncomingToCustomResolver : IValueResolver<ChancelleryDTO, IncomingCorrespondency, EmployeeDTO>
-        {
-            public EmployeeDTO Resolve(ChancelleryDTO source, IncomingCorrespondency destination, EmployeeDTO member, ResolutionContext context)
-            {
-                EmployeeDTO result = null;
-                if (source.ToChancelleries.Count() != 0) result = source.ToChancelleries.First().Employee ?? null;
-                return result;
-            }
-        }
-
-        public class IncomingFromCustomResolver : IValueResolver<ChancelleryDTO, IncomingCorrespondency, ExternalOrganizationChancelleryDTO>
-        {
-            public ExternalOrganizationChancelleryDTO Resolve(ChancelleryDTO source, IncomingCorrespondency destination, ExternalOrganizationChancelleryDTO member, ResolutionContext context)
-            {
-                ExternalOrganizationChancelleryDTO result = null;
-                if (source.FromChancelleries.Count() != 0) result = source.FromChancelleries.First().ExternalOrganization ?? null;
-                return result;
-            }
         }
 
 
         #endregion
+
         #region Исходящая канцелярия 
 
         public int ChancelleryCreateOutgoing(OutgoingCorrespondency outgoingCorrespondency, string editorEmail)
@@ -282,8 +228,12 @@ namespace ACS.BLL.Services
             try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
             catch (Exception ex) { throw ex; }
 
-            var newData = getImapp().Map<OutgoingCorrespondency, Chancellery>(outgoingCorrespondency);
-            Database.Chancelleries.Add(newData, authorID);
+            ChancelleryDTO newDTO = MapDALBLL.GetMap_OutgoingDB_TO_DTO().Map<OutgoingCorrespondency, ChancelleryDTO>(outgoingCorrespondency);
+            newDTO.TypeRecordChancellery = TypeRecordGet(Constants.CorrespondencyType.Incoming);
+
+            var newDB = MapDALBLL.GetMapForUpdateOrCreate().Map<ChancelleryDTO, Chancellery>(newDTO);
+
+            Database.Chancelleries.Add(newDB, authorID);
             return 1;
         }
 
@@ -295,7 +245,7 @@ namespace ACS.BLL.Services
 
             var original = Database.Chancelleries.Find(outgoingCorrespondency.id);
 
-            getImapp().Map(original, outgoingCorrespondency);
+            MapDALBLL.GetMap_Outgoing_DTO_TO_DB().Map(original, outgoingCorrespondency);
             Database.Chancelleries.Update(original, authorID);
             return 1;
         }
@@ -303,7 +253,7 @@ namespace ACS.BLL.Services
         public IEnumerable<OutgoingCorrespondency> ChancelleryGetOutgoing(ChancellerySearchModel сhancellerySearchModel)
         {
             var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
-            return getImapp().Map<IEnumerable<ChancelleryDTO>, IEnumerable<OutgoingCorrespondency>>(chancellerieDTOs);
+            return MapDALBLL.GetMap_Outgoing_DTO_TO_DB().Map<IEnumerable<ChancelleryDTO>, IEnumerable<OutgoingCorrespondency>>(chancellerieDTOs);
         }
 
 
@@ -314,7 +264,7 @@ namespace ACS.BLL.Services
         public IEnumerable<InternalCorrespondency> ChancelleryGetInternal(ChancellerySearchModel сhancellerySearchModel)
         {
             var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
-            return getImapp().Map<IEnumerable<ChancelleryDTO>, IEnumerable<InternalCorrespondency>>(chancellerieDTOs);
+            return MapDALBLL.GetMap_Internal_DTO_TO_DB().Map<IEnumerable<ChancelleryDTO>, IEnumerable<InternalCorrespondency>>(chancellerieDTOs);
         }
 
  
@@ -325,8 +275,12 @@ namespace ACS.BLL.Services
             try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
             catch (Exception ex) { throw ex; }
 
-            var newData = getImapp().Map<InternalCorrespondency, Chancellery>(internalCorrespondency);
-            Database.Chancelleries.Add(newData, authorID);
+            ChancelleryDTO newDTO = MapDALBLL.GetMap_InternalDB_TO_DTO().Map<InternalCorrespondency, ChancelleryDTO>(internalCorrespondency);
+            newDTO.TypeRecordChancellery = TypeRecordGet(Constants.CorrespondencyType.Incoming);
+
+            var newDB = MapDALBLL.GetMapForUpdateOrCreate().Map<ChancelleryDTO, Chancellery>(newDTO);
+
+            Database.Chancelleries.Add(newDB, authorID);
             return 1;
         }
 
@@ -338,7 +292,7 @@ namespace ACS.BLL.Services
 
             var original = Database.Chancelleries.Find(internalCorrespondency.id);
 
-            getImapp().Map(original, internalCorrespondency);
+            MapDALBLL.GetMap_Internal_DTO_TO_DB().Map(original, internalCorrespondency);
             Database.Chancelleries.Update(original, authorID);
             return 1;
         }
@@ -539,12 +493,10 @@ namespace ACS.BLL.Services
 
         #region работа с файлами 
 
-        public IEnumerable<FileRecordChancelleryDTO> AddFiles(IEnumerable<HttpPostedFileBase> httpPostedFileBases)
+        public IEnumerable<FileRecordChancelleryDTO> AttachFiles(IEnumerable<HttpPostedFileBase> httpPostedFileBases)
         {
             return FileRecordChancelleryService.AddFiles(httpPostedFileBases);
         }
-
-
 
         /// <summary>
         /// Получить данные о файле по id
@@ -732,10 +684,6 @@ namespace ACS.BLL.Services
 
         #endregion
 
-
-
-
-
         public void Dispose()
         {
             Database.Dispose();
@@ -748,11 +696,5 @@ namespace ACS.BLL.Services
         }
 
 
-
-
-        public IEnumerable<FileRecordChancelleryDTO> AttachFiles(IEnumerable<HttpPostedFileBase> httpPostedFileBases)
-        {
-            return FileRecordChancelleryService.AddFiles(httpPostedFileBases);
-        }
     }
 }

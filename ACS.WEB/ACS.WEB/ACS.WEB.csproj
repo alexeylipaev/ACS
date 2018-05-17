@@ -202,6 +202,7 @@
     <Compile Include="Models\Chancellery\ChancellerySearchModelVM.cs" />
     <Compile Include="Models\Chancellery\IncomingCorrespondencyViewModel.cs" />
     <Compile Include="Models\Chancellery\InternalCorrespondencyViewModel.cs" />
+    <Compile Include="Models\Chancellery\OutgoingCorrespondencyViewModel.cs" />
     <Compile Include="Models\ChancyModalDialog.cs" />
     <Compile Include="Models\IndexChancelleryViewModel.cs" />
     <Compile Include="Models\ProjectRegistryViewModel.cs" />

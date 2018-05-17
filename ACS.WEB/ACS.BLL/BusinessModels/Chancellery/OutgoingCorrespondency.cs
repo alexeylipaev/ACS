@@ -8,16 +8,14 @@ namespace ACS.BLL.BusinessModels
     /// </summary>
     public class OutgoingCorrespondency : BaseCorrespondency
     {
-
-        /// <summary>
-        /// Кому
-        /// </summary>
-        public IEnumerable< ExternalOrganizationChancelleryDTO > To { get; set; }
-
-
         /// <summary>
         /// От кого"
         /// </summary>
         public EmployeeDTO From { get; set; }
+        /// <summary>
+        /// Кому
+        /// </summary>
+        public IEnumerable<ExternalOrganizationChancelleryDTO> To { get; set; }
+
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,10 +6,7 @@ using System.Web;
 
 namespace ACS.WEB.ViewModel
 {
-    /// <summary>
-    /// внутреняя
-    /// </summary>
-    public class InternalCorrespondencyViewModel : BaseCorrespondencyViewModel
+    public class OutgoingCorrespondencyViewModel : BaseCorrespondencyViewModel
     {
         /// <summary>
         /// От кого"
@@ -29,7 +25,7 @@ namespace ACS.WEB.ViewModel
         /// <summary>
         /// Кому
         /// </summary>
-        public List<EmployeeViewModel> To { get; set; }
+        public List<ExternalOrganizationChancelleryViewModel> To { get; set; }
         public override string ToStringValue
         {
             get
@@ -40,8 +36,8 @@ namespace ACS.WEB.ViewModel
 
                 else
                     foreach (var t in To)
-                        result.Append(t.FullName + "|");
-                  
+                        result.Append(t.Name + "|");
+
                 return result.ToString();
             }
         }

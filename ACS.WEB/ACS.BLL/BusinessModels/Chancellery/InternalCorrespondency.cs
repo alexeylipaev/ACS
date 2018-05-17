@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ACS.BLL.BusinessModels
 {
     /// <summary>
-    /// Исходящая канцелярия
+    /// Внутреняя
     /// </summary>
     public class InternalCorrespondency : BaseCorrespondency
     {
