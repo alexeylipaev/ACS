@@ -1,23 +1,35 @@
 ﻿@model IEnumerable<ACS.WEB.ViewModel.IncomingCorrespondencyViewModel>
 
-<div id="grid">
-    @{
+    <div id="grid">
+        @{
         var grid = new WebGrid(/*source: ViewBag.ListChanc,*/
-                              defaultSort: "id",
-                              rowsPerPage: 3,
-                              canPage: true,
-                              ajaxUpdateContainerId: "grid");
+        defaultSort: "id",
+        rowsPerPage: 10,
+        canPage: true,
+        ajaxUpdateContainerId: "grid");
         grid.Bind(Model);
-    }
-    @grid.GetHtml(
-                tableStyle: "grid",
-                headerStyle: "head",
-                alternatingRowStyle: "alt",
-                columns: grid.Columns(
-                    grid.Column("Id", format:@<text>@item.id</text>),
-                    grid.Column("From", "От кого", format:@<text>@item.FromStringValue</text>),
-                    grid.Column("To", format:@<i>@item.ToStringValue</i>)
-                    
-                                                                        )
-                                                                        )
-</div>
+        }
+
+        @grid.GetHtml(
+        tableStyle: "grid",
+        headerStyle: "head",
+        alternatingRowStyle: "alt",
+        columns: grid.Columns(
+        grid.Column("Id", format:@<text>@item.id</text>),
+        grid.Column("RegistryNumber", format:@<text>@item.RegistrationNumber</text>),
+        grid.Column("DateRegistration", format:@<text>@item.DateRegistration</text>),
+        grid.Column("JournalRegistrationsChancellery", format:@<text>@item.JournalRegistrationsChancellery</text>),
+        grid.Column("FolderChancellery", format:@<text>@item.FolderChancellery</text>),
+        grid.Column("Ответственные", 
+        @foreach (var resp in @item.ResponsibleEmployees)
+    {
+        format:@<text>@resp.FullName</text>
+        }),
+        grid.Column("Summary", format:@<text>@item.Summary</text>),
+        grid.Column("Notice", format:@<text>@item.Notice</text>),
+        grid.Column("From", "От кого", format:@<text>@item.FromStringValue</text>),
+        grid.Column("To", format:@<i>@item.ToStringValue</i>)
+
+        )
+        )
+    </div>

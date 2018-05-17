@@ -29,6 +29,12 @@ namespace ACS.WEB.ViewModel
         /// Канцелярские записи в папке
         /// </summary>
         public virtual ICollection<ChancelleryViewModel> Chancelleries { get; set; }
+
+        public override string ToString()
+        {
+            
+            return this.Name??"";
+        }
     }
     public class SelectedFolderChancellery
     {
