@@ -175,6 +175,10 @@ namespace ACS.BLL.Services
             return MapDALBLL.GetMapp().Map<Chancellery, ChancelleryDTO>(Chancellery);
         }
 
+
+
+        #region Входящая канцелярия
+
         IMapper getImapp()
         {
             return new MapperConfiguration(cfg =>
@@ -184,8 +188,6 @@ namespace ACS.BLL.Services
                  .ForMember(x => x.From, x => x.MapFrom(c => c.FromChancelleries.FirstOrDefault().ExternalOrganization ?? null));
             }).CreateMapper();
         }
-
-        #region Входящая канцелярия
 
         public IEnumerable<IncomingCorrespondency> ChancelleryGetIncoming(ChancellerySearchModel сhancellerySearchModel)
         {
@@ -199,10 +201,8 @@ namespace ACS.BLL.Services
             try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
             catch (Exception ex) { throw ex; }
 
-            Chancellery original = new Chancellery();
-
-            getImapp().Map(original, incomingCorrespondency);
-            Database.Chancelleries.Add(original, authorID);
+           var newData = getImapp().Map<IncomingCorrespondency, Chancellery>(incomingCorrespondency);
+            Database.Chancelleries.Add(newData, authorID);
             return 1;
         }
 
