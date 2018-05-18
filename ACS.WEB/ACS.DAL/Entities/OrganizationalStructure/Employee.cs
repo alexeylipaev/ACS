@@ -28,6 +28,16 @@ namespace ACS.DAL.Entities
 
         public string MName { get; set; }
 
+        [NotMapped]
+        public string FullName {
+            get {
+                string fullName = LName != null ? LName : string.Empty;
+                fullName = FName !=null ? string.IsNullOrWhiteSpace(fullName) ? FName: " "+FName : string.Empty;
+                fullName = MName != null ? string.IsNullOrWhiteSpace(fullName) ? MName : " " + MName : string.Empty;
+                return fullName;
+            }
+        }
+
         public string Email { get; set; }
 
         public DateTime? Birthday { get; set; }
