@@ -16,6 +16,7 @@ namespace ACS.BLL.DTO
             FileRecordChancelleries = new HashSet<FileRecordChancelleryDTO>();
             FromChancelleries = new HashSet<FromChancelleryDTO>();
             ToChancelleries = new HashSet<ToChancelleryDTO>();
+            ResponsibleEmployees = new HashSet<EmployeeDTO>();
         }
 
         public int id { get; set; }
@@ -81,7 +82,7 @@ namespace ACS.BLL.DTO
         /// <summary>
         /// Ответственные
         /// </summary>
-        public virtual IEnumerable<EmployeeDTO> ResponsibleEmployees { get; set; }
+        public virtual ICollection<EmployeeDTO> ResponsibleEmployees { get; set; }
 
         #endregion
 

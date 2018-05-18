@@ -1,5 +1,11 @@
 ﻿@model IEnumerable<ACS.WEB.ViewModel.IncomingCorrespondencyViewModel>
-
+@helper WriteItems(IEnumerable<ACS.WEB.ViewModel.EmployeeViewModel> myList)
+{
+foreach (var myItem in myList)
+{
+        @myItem.FullName<br/>
+}
+}
     <div id="grid">
         @{
         var grid = new WebGrid(/*source: ViewBag.ListChanc,*/
@@ -20,11 +26,7 @@
         grid.Column("DateRegistration", format:@<text>@item.DateRegistration</text>),
         grid.Column("JournalRegistrationsChancellery", format:@<text>@item.JournalRegistrationsChancellery</text>),
         grid.Column("FolderChancellery", format:@<text>@item.FolderChancellery</text>),
-        grid.Column("Ответственные", 
-        @foreach (var resp in @item.ResponsibleEmployees)
-    {
-        format:@<text>@resp.FullName</text>
-        }),
+        grid.Column("Ответственные", format: @item => (WriteItems(item.ResponsibleEmployees))),
         grid.Column("Summary", format:@<text>@item.Summary</text>),
         grid.Column("Notice", format:@<text>@item.Notice</text>),
         grid.Column("From", "От кого", format:@<text>@item.FromStringValue</text>),

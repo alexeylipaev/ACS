@@ -16,6 +16,7 @@ namespace ACS.DAL.Entities
             FileRecordChancelleries = new HashSet<FileRecordChancellery>();
             FromChancelleries = new HashSet<FromChancellery>();
             ToChancelleries = new HashSet<ToChancellery>();
+            ResponsibleEmployees = new HashSet<Employee>();
         }
 
         public int id { get; set; }
@@ -48,7 +49,7 @@ namespace ACS.DAL.Entities
 
         #region Ответственные
 
-        public virtual IEnumerable<Employee> ResponsibleEmployees { get; set; }
+        public virtual ICollection<Employee> ResponsibleEmployees { get; set; }
 
         #endregion
 

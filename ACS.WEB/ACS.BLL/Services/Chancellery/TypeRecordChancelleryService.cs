@@ -26,7 +26,7 @@ namespace ACS.BLL.Services
 
             try
             {
-                var typeRecord = MappTypeRecordDTOToTypeRecord(TypeRecordChancelleryDTO);
+                var typeRecord = MapDALBLL.GetMapp().Map<TypeRecordChancelleryDTO , TypeRecordChancellery>(TypeRecordChancelleryDTO);
 
                 var TypeRecord = Database.TypeRecordChancelleries.Find(TypeRecordChancelleryDTO.id);
 
@@ -64,27 +64,10 @@ namespace ACS.BLL.Services
         public IEnumerable<ChancelleryDTO> GetChancelleriesByType(int TypeRecordChancelleryId)
         {
             var chancy = Database.Chancelleries.Query(filter: ch => ch.TypeRecordChancellery.id == TypeRecordChancelleryId).ToList();
-
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
+        
             return MapDALBLL.GetMapp().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(chancy);
         }
 
-        public IEnumerable<TypeRecordChancelleryDTO> GetTypesRecordChancellery()
-        {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Chancellery, ChancelleryDTO >();
-                cfg.CreateMap<FileRecordChancellery, FileRecordChancelleryDTO>();
-                cfg.CreateMap<FromChancellery, FromChancelleryDTO>();
-                cfg.CreateMap<Employee, EmployeeDTO>();
-                cfg.CreateMap<ApplicationUser, ApplicationUserDTO>();
-                cfg.CreateMap<ExternalOrganizationChancellery, ExternalOrganizationChancelleryDTO>();
-                cfg.CreateMap<ToChancelleryDTO, ToChancelleryDTO>();
-                cfg.CreateMap<TypeRecordChancellery,TypeRecordChancelleryDTO>();
-            }).CreateMapper();
-
-            return MapDALBLL.GetMapp().Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO>>(Database.TypeRecordChancelleries.GetAll());
-        }
 
         public TypeRecordChancelleryDTO GetTypeRecordChancellery(int id)
         {
@@ -93,34 +76,18 @@ namespace ACS.BLL.Services
             if (type == null)
                 throw new ValidationException("Отсутствует тип", "");
 
-            return MappTypeRecordToTypeRecordDTO(type);
-        }
-
-
-        TypeRecordChancelleryDTO MappTypeRecordToTypeRecordDTO(TypeRecordChancellery TypeRecord)
-        {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Chancellery, ChancelleryDTO>();
-                cfg.CreateMap<TypeRecordChancellery, TypeRecordChancelleryDTO>();
-            }).CreateMapper();
-
-
-           var dto = MapDALBLL.GetMapp().Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(TypeRecord);
-            return dto;
-        }
-
-
-        TypeRecordChancellery MappTypeRecordDTOToTypeRecord(TypeRecordChancelleryDTO TypeRecordDto)
-        {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TypeRecordChancelleryDTO, TypeRecordChancellery>()).CreateMapper();
-            return MapDALBLL.GetMapp().Map<TypeRecordChancelleryDTO, TypeRecordChancellery>(TypeRecordDto);
+            return MapDALBLL.GetMapp().Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(type);
         }
 
         public TypeRecordChancelleryDTO GetTypeRecordByName(string nameType)
         {
             TypeRecordChancellery result = Database.TypeRecordChancelleries.Query(filter: t => t.Name == nameType).FirstOrDefault();
-            return MappTypeRecordToTypeRecordDTO(result);
+            return MapDALBLL.GetMapp().Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(result);
+        }
+
+        public IEnumerable<TypeRecordChancelleryDTO> GetTypesRecordChancellery()
+        {
+            return MapDALBLL.GetMapp().Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO >>(Database.TypeRecordChancelleries.GetAll());
         }
     }
 }

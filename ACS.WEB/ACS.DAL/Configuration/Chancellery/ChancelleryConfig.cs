@@ -21,11 +21,11 @@ namespace ACS.DAL.Configuration
                .IsUnicode(true);
 
             //Property(p => p.DateRegistration).HasColumnType("date");
+            //N:N
+            HasMany(e => e.ResponsibleEmployees)
+               .WithMany(e => e.Chancelleries);
 
-            //HasMany(e => e.FileRecordChancelleries)
-            //   .WithOptional(e => e.Chancellery)
-            //   .WillCascadeOnDelete(false);
-
+            //1:N
             HasMany(e => e.FromChancelleries)//одна канцелярская запись может быть оформлена от N (обсуждали)
             .WithOptional(e => e.Chancellery)//в записи "от кого" может отсуствовать ссылка на канцелярскую запись
             //.HasForeignKey(e => e.ChancelleryId)//связываем по внешнему ключу ChancelleryId

@@ -24,8 +24,8 @@ namespace ACS.DAL.Configuration
             Property(e => e.SID)
             .IsUnicode(true);
 
-            //HasMany(e => e.Chancelleries)
-            //.WithOptional(e => e.ResponsibleEmployees)
+            HasMany(e => e.Chancelleries)
+            .WithMany(e => e.ResponsibleEmployees);
             ////.HasForeignKey(e => e.ResponsibleEmployeeId)
             //.WillCascadeOnDelete(false);//при удалении пользователя, канцелярию где он ответственный не удаляем
 

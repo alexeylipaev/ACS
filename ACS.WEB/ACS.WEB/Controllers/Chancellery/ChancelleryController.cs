@@ -261,7 +261,7 @@ namespace ACS.WEB.Controllers
             try
             {
                 //newChancelleryVM.TypeRecordChancellery = MapBLLPresenter.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById((int)newChancelleryVM.TypeRecordChancelleryId));
-
+                //responsible
                 if (newChancelleryVM.Selected_Responsible_Empl != null)
                 {
                     List<EmployeeDTO> respDTOs = new List<EmployeeDTO>();
@@ -297,9 +297,9 @@ namespace ACS.WEB.Controllers
                 newChancelleryVM.To = extEmployeeVM;
 
                 //responsible
-                var respEmployeeDTO = ChancelleryService.GetEmployee(newChancelleryVM.Selected_Responsible_Empl.SelectedId.FirstOrDefault());
-                var respEmployeeVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(extEmployeeDTO);
-                newChancelleryVM.ResponsibleEmployees = new List<EmployeeViewModel> { extEmployeeVM };
+                //var respEmployeeDTO = ChancelleryService.GetEmployee(newChancelleryVM.Selected_Responsible_Empl.SelectedId.FirstOrDefault());
+                //var respEmployeeVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(extEmployeeDTO);
+                //newChancelleryVM.ResponsibleEmployees = new List<EmployeeViewModel> { extEmployeeVM };
 
 
 
@@ -310,8 +310,11 @@ namespace ACS.WEB.Controllers
 
                     var chancelleryDTO = MapBLLPresenter.GetMap().Map<IncomingCorrespondencyViewModel, IncomingCorrespondency>(newChancelleryVM);
                     //var chancelleryDTO = Map_Chancellery.Map_ChancelleryViewModel_to_ChancelleryDTO(newChancelleryVM);
-                    var files = ChancelleryService.AttachFiles(Files);// Attach(Files, chancelleryDTO);
-                    chancelleryDTO.FileRecordChancelleries = files.ToList();
+                    if (Files != null && Files.FirstOrDefault() != null)
+                    {
+                        var files = ChancelleryService.AttachFiles(Files);// Attach(Files, chancelleryDTO);
+                        chancelleryDTO.FileRecordChancelleries = files.ToList();
+                    }
                     ChancelleryService.ChancelleryCreateIncoming(chancelleryDTO, currentUserEmail);
                     return RedirectToAction("Index");
                 }

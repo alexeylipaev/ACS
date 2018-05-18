@@ -246,8 +246,11 @@ namespace ACS.BLL
                 mapperUpdateCreate = new MapperConfiguration(cfg =>
             {
 
-                cfg.CreateMap<EmployeeDTO, Employee>();
+                cfg.CreateMap<EmployeeDTO, Employee>()
+                                           .ForMember(x => x.PostsEmployeesСode1С, opt => opt.Ignore());
+
                 cfg.CreateMap<PostEmployeeСode1СDTO, PostEmployeeСode1С>();
+                                //.ForMember(x => x.CodePost1C, x => x.MapFrom(c => Database.PostsEmployeesСode1С.Find((int)c.id)));
                 cfg.CreateMap<ApplicationUserDTO, ApplicationUser>();
                 cfg.CreateMap<AppUserClaimDTO, AppUserClaim>();
                 cfg.CreateMap<AppUserLoginDTO, AppUserLogin>();
@@ -268,6 +271,7 @@ namespace ACS.BLL
                 .ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))
                 .ForMember(x => x.ExternalOrganization, x => x.MapFrom(c => Database.ExternalOrganizationChancelleries.Find((int)c.ExternalOrganization.id)));
                 cfg.CreateMap<ChancelleryDTO, Chancellery>()
+               .ForMember(x => x.ResponsibleEmployees, x => x.MapFrom(c => c.ResponsibleEmployees))
                 //.ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))
                 .ForMember(x => x.FolderChancellery, x => x.MapFrom(c => Database.FolderChancelleries.Find((int)c.FolderChancellery.id)))
                 .ForMember(x => x.JournalRegistrationsChancellery, x => x.MapFrom(c => Database.JournalRegistrationsChancelleries.Find((int)c.JournalRegistrationsChancellery.id)))

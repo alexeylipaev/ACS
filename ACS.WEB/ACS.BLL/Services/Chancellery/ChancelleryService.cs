@@ -196,10 +196,10 @@ namespace ACS.BLL.Services
             ChancelleryDTO newDTO = MapDALBLL.GetMap_IncomingDB_TO_DTO().Map<IncomingCorrespondency, ChancelleryDTO>(incomingCorrespondency);
             newDTO.TypeRecordChancellery = TypeRecordGet(Constants.CorrespondencyType.Incoming);
 
-            var newDB = MapDALBLL.GetMapForUpdateOrCreate().Map<ChancelleryDTO, Chancellery>(newDTO);
-            
-            Database.Chancelleries.Add(newDB, authorID);
-            return 1;
+            //var newDB = MapDALBLL.GetMapForUpdateOrCreate().Map<ChancelleryDTO, Chancellery>(newDTO);
+
+         return   CreateOrUpdateChancellery(newDTO, editorEmail);
+            //return 1;
         }
        
 
