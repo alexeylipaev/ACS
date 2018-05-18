@@ -271,7 +271,7 @@ namespace ACS.BLL
                 .ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))
                 .ForMember(x => x.ExternalOrganization, x => x.MapFrom(c => Database.ExternalOrganizationChancelleries.Find((int)c.ExternalOrganization.id)));
                 cfg.CreateMap<ChancelleryDTO, Chancellery>()
-               .ForMember(x => x.ResponsibleEmployees, x => x.MapFrom(c => c.ResponsibleEmployees))
+                .ForMember(x => x.ResponsibleEmployees, opt => opt.ResolveUsing<ResponsibleEmployees_DTOToDAL_Resolver>())
                 //.ForMember(x => x.Employee, x => x.MapFrom(c => Database.Employees.Find((int)c.Employee.id)))
                 .ForMember(x => x.FolderChancellery, x => x.MapFrom(c => Database.FolderChancelleries.Find((int)c.FolderChancellery.id)))
                 .ForMember(x => x.JournalRegistrationsChancellery, x => x.MapFrom(c => Database.JournalRegistrationsChancelleries.Find((int)c.JournalRegistrationsChancellery.id)))
@@ -281,6 +281,19 @@ namespace ACS.BLL
             }).CreateMapper();
 
             return mapperUpdateCreate;
+        }
+
+        public class ResponsibleEmployees_DTOToDAL_Resolver : IValueResolver<ChancelleryDTO, Chancellery, ICollection<Employee>>
+        {
+            public ICollection<Employee> Resolve(ChancelleryDTO source, Chancellery destination, ICollection<Employee> member, ResolutionContext context)
+            {
+                ICollection<Employee> result = new List<Employee>();
+                if (source.ResponsibleEmployees != null) 
+                        foreach(var emnpl in source.ResponsibleEmployees)
+                        result.Add(Database.Employees.Find(emnpl.id));
+
+                return result;
+            }
         }
 
         static IMapper mapper;

@@ -63,5 +63,21 @@ namespace ACS.DAL.Entities
         /// Коды1С должностей пользователя
         /// </summary>
         public virtual ICollection<PostEmployeeСode1С> PostsEmployeesСode1С { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            Employee empl = obj as Employee;
+            if (empl != null) return Equals(empl);
+            return base.Equals(obj);
+        }
+        public bool Equals(Employee empl)
+        {
+            return this.id == empl.id;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.s_Guid.GetHashCode();
+        }
     }
 }
