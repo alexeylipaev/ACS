@@ -301,24 +301,97 @@ namespace ACS.BLL.Services
         #endregion
 
 
-        public IEnumerable<ChancelleryDTO> ChancelleryGet(ChancellerySearchModel сhancellerySearchModel)
+        public IEnumerable<ChancelleryDTO> ChancelleryGet(ChancellerySearchModel searchModel)
         {
 
             Func<Chancellery, Boolean> predicate = delegate (Chancellery c)
 
             {
                 bool boolResult = false;
-                if (сhancellerySearchModel != null)
+                if (searchModel != null)
                 {
-                    if (сhancellerySearchModel.Id.HasValue)
-                        boolResult = (c.id == сhancellerySearchModel.Id);
-#warning необходимо доработать фильтр
-                    //if (!string.IsNullOrEmpty(сhancellerySearchModel.FromContains))
-                    //    throw new NotImplementedException("");
-                    if (сhancellerySearchModel.RegistryDateFrom.HasValue)
-                        boolResult = c.DateRegistration >= сhancellerySearchModel.RegistryDateFrom;
-                    if (сhancellerySearchModel.RegistryDateTo.HasValue)
-                        boolResult = c.DateRegistration <= сhancellerySearchModel.RegistryDateTo;
+                    if (searchModel.Id.HasValue)
+                    {
+                        boolResult = (c.id == searchModel.Id);
+                        if (!boolResult) return boolResult;
+                    }
+                    if (searchModel.RegistryDateFrom.HasValue)
+                    {
+                        boolResult = c.DateRegistration >= searchModel.RegistryDateFrom;
+                        if (!boolResult) return boolResult;
+                    }
+                    if (searchModel.RegistryDateTo.HasValue)
+                    { 
+                        boolResult = c.DateRegistration <= searchModel.RegistryDateTo;
+                        if (!boolResult) return boolResult;
+                    }
+                    if (searchModel.TypeRecordId.HasValue)
+                    { 
+                        boolResult = (c.TypeRecordChancellery.id == searchModel.TypeRecordId);
+                        if (!boolResult) return boolResult;
+                    }
+                    if (searchModel.FolderId.HasValue)
+                    { 
+                        boolResult = (c.FolderChancellery.id == searchModel.FolderId);
+                        if (!boolResult) return boolResult;
+                    }
+                    if (!string.IsNullOrWhiteSpace(searchModel.FromContains))
+                    {
+                        string fromInLower = searchModel.FromContains.ToLower();
+                        bool isContainString = false;
+                        foreach (var item in c.FromChancelleries)
+                        {
+                            if (isContainString) break;
+                            if (item.Employee != null) {
+                                string fullNameInLower = item.Employee.FullName.ToLower();
+                                isContainString = fullNameInLower.Contains(fromInLower);
+                            }
+                            if (!isContainString && item.ExternalOrganization != null)
+                            {
+                                string name = item.ExternalOrganization.Name.ToLower();
+                                isContainString = name.Contains(fromInLower);
+                            }
+                        }
+                        boolResult = isContainString;
+                        if (!boolResult) return boolResult;
+                    }
+                    if (!string.IsNullOrWhiteSpace(searchModel.ToContains))
+                    {
+                        string toInLower = searchModel.ToContains.ToLower();
+                        bool isContainString = false;
+                        foreach (var item in c.FromChancelleries)
+                        {
+                            if (isContainString) break;
+                            if (item.Employee != null)
+                            {
+                                string fullNameInLower = item.Employee.FullName.ToLower();
+                                isContainString = fullNameInLower.Contains(toInLower);
+                            }
+                            if (!isContainString && item.ExternalOrganization != null)
+                            {
+                                string nameInLower = item.ExternalOrganization.Name.ToLower();
+                                isContainString = nameInLower.Contains(toInLower);
+                            }
+                        }
+                        boolResult = isContainString;
+                        if (!boolResult) return boolResult;
+                    }
+                    if (!string.IsNullOrWhiteSpace(searchModel.ResponsibleContains))
+                    {
+                        string toInLower = searchModel.ResponsibleContains.ToLower();
+                        bool isContainString = false;
+                        foreach (var item in c.ResponsibleEmployees)
+                        {
+                            if (isContainString) break;
+                            if (item != null)
+                            {
+                                string fullNameInLower = item.FullName.ToLower();
+                                isContainString = fullNameInLower.Contains(toInLower);
+                            }
+                        }
+                        boolResult = isContainString;
+                        if (!boolResult) return boolResult;
+                    }
 
                 }
                 return boolResult;
