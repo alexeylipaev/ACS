@@ -122,10 +122,10 @@ namespace ACS.WEB.Controllers
         }
 
         #region Входящая канцелярия
-
+        const string SearchSessionName = "chancellerySearch";
         public ActionResult Incoming(ChancellerySearchModelVM searchModelVM, int? page)
         {
-            const string SearchSessionName = "chancellerySearch";
+            
             ChancellerySearchModel searchModel;
 
             if (Request.HttpMethod == "POST")
@@ -1214,16 +1214,37 @@ namespace ACS.WEB.Controllers
         }
 
         //[HttpPost]
-        //public ActionResult Search(ChancellerySearchModelVM searchModelVM)
-        //{
-        //    if (Request.HttpMethod == "POST")
-        //        Session.Add("search", searchModelVM);
+        public ActionResult Search(ChancellerySearchModelVM searchModelVM, int? page)
+        {
+            SelectedFolderChancellery.Collection = GetFoldersCollection();
+            ChancellerySearchModel searchModel;
 
-        //    ChancellerySearchModel search = (ChancellerySearchModel)Session["search"];
-        //    searchModelVM.ChancellerySearchModel = search;
-        //    searchModelVM.Chancelleries = MapBLLPresenter.GetMap().Map<IEnumerable<ChancelleryDTO>, IEnumerable<ChancelleryViewModel>>(ChancelleryService.ChancelleryGet(search));
+            if (Request.HttpMethod == "POST")
+            {
+                if (ModelState.IsValid)
+                {
+                    searchModel = searchModelVM as ChancellerySearchModel;
+                    Session.Add(SearchSessionName, searchModel);
+                    page = 1;
+                }
+            }
 
-        //    return View(searchModelVM);
-        //}
+            if (searchModelVM == null)
+                searchModelVM = new ChancellerySearchModelVM();
+            searchModel = (ChancellerySearchModel)Session[SearchSessionName];
+            if (searchModel != null)
+            {
+                IMapper mapCfg = new MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<ChancellerySearchModel, ChancellerySearchModelVM>();
+                }).CreateMapper();
+
+                searchModelVM = mapCfg.Map<ChancellerySearchModel, ChancellerySearchModelVM>(searchModel);
+            }
+
+            searchModelVM.Chancelleries = MapBLLPresenter.GetMap().Map<IEnumerable<ChancelleryDTO>, IEnumerable<ChancelleryViewModel>>(ChancelleryService.ChancelleryGet(searchModel));
+
+            return View(searchModelVM);
+        }
     }
 }

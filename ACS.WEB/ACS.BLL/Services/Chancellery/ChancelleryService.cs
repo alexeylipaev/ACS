@@ -332,7 +332,7 @@ namespace ACS.BLL.Services
                     }
                     if (searchModel.FolderId.HasValue)
                     { 
-                        boolResult = (c.FolderChancellery.id == searchModel.FolderId);
+                        boolResult = (c.FolderChancellery != null && c.FolderChancellery.id == searchModel.FolderId);
                         if (!boolResult) return boolResult;
                     }
                     if (!string.IsNullOrWhiteSpace(searchModel.FromContains))

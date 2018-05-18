@@ -1,4 +1,4 @@
-﻿@model ACS.WEB.Models.Chancellery.ChancellerySearchModelVM<ACS.WEB.ViewModel.BaseCorrespondencyViewModel>
+﻿@model ACS.WEB.Models.Chancellery.ChancellerySearchModelVM
 
 @{
     ViewBag.Title = "Search";
@@ -13,47 +13,48 @@
     
     <div class="form-horizontal">
         <h4>ChancellerySearchModel</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @*@Html.HiddenFor(model => model.Id)*@
+        @{Html.RenderPartial("_ChancellerySearchPanel", Model);}
+        @*<hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ChancellerySearchModel.RegistryDateFrom, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ChancellerySearchModel.RegistryDateFrom, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ChancellerySearchModel.RegistryDateFrom, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ChancellerySearchModel.RegistryDateTo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ChancellerySearchModel.RegistryDateTo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ChancellerySearchModel.RegistryDateTo, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ChancellerySearchModel.RegistryDateFrom, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ChancellerySearchModel.RegistryDateFrom, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ChancellerySearchModel.RegistryDateFrom, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ChancellerySearchModel.FromContains, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ChancellerySearchModel.FromContains, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ChancellerySearchModel.FromContains, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ChancellerySearchModel.RegistryDateTo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ChancellerySearchModel.RegistryDateTo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ChancellerySearchModel.RegistryDateTo, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ChancellerySearchModel.ToContains, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ChancellerySearchModel.ToContains, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ChancellerySearchModel.ToContains, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ChancellerySearchModel.FromContains, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ChancellerySearchModel.FromContains, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ChancellerySearchModel.FromContains, "", new { @class = "text-danger" })
         </div>
+    </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Искать" class="btn btn-default" />
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ChancellerySearchModel.ToContains, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ChancellerySearchModel.ToContains, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ChancellerySearchModel.ToContains, "", new { @class = "text-danger" })
         </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Искать" class="btn btn-default" />
+        </div>
+    </div>*@
     </div>
 }
 
