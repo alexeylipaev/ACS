@@ -43,7 +43,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ResponsibleEmployees, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Selected_Responsible_Empl.SelectedId, new MultiSelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { multiple = "multiple"}@*, new { @class = "chosen", data_placeholder = "Выберите ответственного" }*@)
+                @Html.ListBoxFor(model => model.Selected_Responsible_Empl.SelectedId, new MultiSelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { @class = "chosen", multiple = "multiple", data_placeholder = "Выберите ответственного" })
+                @*@Html.ListBoxFor(model => model.Selected_Responsible_Empl.SelectedId, new MultiSelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { multiple = "multiple"}, new { @class = "chosen", data_placeholder = "Выберите ответственного" })*@
                 @*@Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })*@
 
             </div>

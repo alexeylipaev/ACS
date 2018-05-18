@@ -14,6 +14,7 @@
     <div class="form-horizontal">
         <h4>ChancellerySearchModel</h4>
         @{Html.RenderPartial("_ChancellerySearchPanel", Model);}
+        
         @*<hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -57,19 +58,35 @@
     </div>*@
     </div>
 }
+<form>
+    <div class="ui-input-search ui-icon-search ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear">
+    <input id="filterTable-input" data-type="search">
+    @*<a href="#" tabindex="-1" aria-hidden="true" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Clear text</a>*@
+    </div>
+</form>
 
 <div id="grid">
     @{
         var grid = new WebGrid(source: ViewBag.ListChanc,
                               defaultSort: "id",
-                              rowsPerPage: 3,
+                              rowsPerPage: 10,
                               canPage: true,
                               ajaxUpdateContainerId: "grid");
         grid.Bind(Model.Chancelleries);
     }
-    @grid.GetHtml()
+    @grid.GetHtml(htmlAttributes: new { data_filter = "true", data_input = "#filterTable-input" @*, data_role ="table", @class="ui-responsive"*@})
 </div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<script>
+$(document).ready(function(){
+    $("#filterTable-input").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    $("#grid tr").filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>

@@ -125,7 +125,7 @@ namespace ACS.WEB.Controllers
         const string SearchSessionName = "chancellerySearch";
         public ActionResult Incoming(ChancellerySearchModelVM searchModelVM, int? page)
         {
-            
+            SelectedFolderChancellery.Collection = GetFoldersCollection();
             ChancellerySearchModel searchModel;
 
             if (Request.HttpMethod == "POST")
@@ -316,7 +316,7 @@ namespace ACS.WEB.Controllers
                         chancelleryDTO.FileRecordChancelleries = files.ToList();
                     }
                     ChancelleryService.ChancelleryCreateIncoming(chancelleryDTO, currentUserEmail);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Incoming");
                 }
             }
             catch (ValidationException ex)

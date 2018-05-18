@@ -18,6 +18,7 @@ foreach (var myItem in myList)
 
         @grid.GetHtml(
         tableStyle: "grid",
+        htmlAttributes: new { data_filter= "true", data_input="#filterTable-input"},
         headerStyle: "head",
         alternatingRowStyle: "alt",
         columns: grid.Columns(
