@@ -20,5 +20,8 @@ namespace ACS.BLL.BusinessModels
         public DateTime? RegistryDateTo { get; set; }
         public string FromContains { get; set; }
         public string ToContains { get; set; }
+        public string ResponsibleContains { get; set; }
+        public int? FolderId { get; set; }
+        public int? TypeRecordId { get; set; }
     }
 }
