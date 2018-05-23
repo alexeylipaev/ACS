@@ -1242,7 +1242,7 @@ namespace ACS.WEB.Controllers
                 searchModelVM = mapCfg.Map<ChancellerySearchModel, ChancellerySearchModelVM>(searchModel);
             }
 
-            searchModelVM.Chancelleries = MapBLLPresenter.GetMap().Map<IEnumerable<ChancelleryDTO>, IEnumerable<ChancelleryViewModel>>(ChancelleryService.ChancelleryGet(searchModel));
+            searchModelVM.Chancelleries = MapBLLPresenter.GetMap().Map<IEnumerable<ChancelleryDTO>, IEnumerable<BaseCorrespondencyViewModel>>(ChancelleryService.ChancelleryGet(searchModel));
 
             return View(searchModelVM);
         }

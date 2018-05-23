@@ -12,8 +12,52 @@
 <p>
     @Html.ActionLink("Создать", "CreateIncoming")
 </p>
-@Html.Partial("_ChancelleryIncomingWebGrid", Model.Chancelleries)
+@Styles.Render("~/Content/datatable/css")
+@Scripts.Render("~/bundles/dataTable")
+<div>
+    @{Html.RenderPartial("_ChancelleryIncomingTable", Model.Chancelleries);}
+</div>
 @section scripts
 {
-<script src="~/Scripts/slide_panel.js"></script>
+    <script src="~/Scripts/slide_panel.js"></script>
+    <script>
+    $(document).ready(function () {
+        var table = $('#baseCorTable').DataTable({
+            dom: 'Bflrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: 'Save current page',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
+                }
+, {
+    extend: 'colvis',
+    text: 'Скрыть/показать колонки'
+}, {
+    extend: 'print',
+    text: 'Печать'
+}
+            ],
+            "columnDefs": [
+            {
+                "targets": [9, 10, 11, 12, 13, 14, 15, 16],
+                "visible": false,
+                "searchable": false
+            },
+
+            ]
+        }
+        );
+    });
+
+
+
+
+    //table.buttons().container()
+    //  .appendTo($('.col-sm-6:eq(0)', table.table().container()));
+    </script>
 }

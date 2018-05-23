@@ -23,6 +23,8 @@ namespace ACS.WEB.Util
                     cfg.CreateMap<EmployeeDTO, EmployeeViewModel>().ReverseMap();
                     cfg.CreateMap<AccessDTO, AccessViewModel>().ReverseMap();
                     cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>().ReverseMap();
+                    cfg.CreateMap<ChancelleryDTO, BaseCorrespondencyViewModel>().ReverseMap();
+                    
                     cfg.CreateMap<PostEmployeeСode1СDTO, PostsEmployeeСode1СViewModel>().ReverseMap();
                     cfg.CreateMap<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>().ReverseMap();
                     cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>().ReverseMap();

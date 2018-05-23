@@ -11,22 +11,28 @@ namespace ACS.WEB.ViewModel
         /// <summary>
         /// Дата регистрации
         /// </summary>
+        [Display(Name = "Дата регистрации")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateRegistration { get; set; }
 
         /// <summary>
         /// Регистрационный номер
         /// </summary>
+        [Display(Name = "Регистрационный номер")]
         public string RegistrationNumber { get; set; }
 
 
         /// <summary>
         /// Описание
         /// </summary>
+        [Display(Name = "Описание")]
         public string Summary { get; set; }
 
         /// <summary>
         /// Примечание
         /// </summary>
+        [Display(Name = "Примечание")]
         public string Notice { get; set; }
 
         #region папка

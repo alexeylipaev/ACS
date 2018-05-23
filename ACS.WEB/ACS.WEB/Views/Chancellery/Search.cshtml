@@ -1,92 +1,78 @@
 ﻿@model ACS.WEB.Models.Chancellery.ChancellerySearchModelVM
 
 @{
-    ViewBag.Title = "Search";
+    ViewBag.Title = "Поиск";
     Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
+    IEnumerable<ACS.WEB.ViewModel.BaseCorrespondencyViewModel> gridData = Model.Chancelleries.Select(c => c as ACS.WEB.ViewModel.BaseCorrespondencyViewModel);
 }
+<link rel="stylesheet" type="text/css" href="~/Scripts/DataTables/datatables.min.css" />
 
-<h2>Search</h2>
+<script type="text/javascript" src="~/Scripts/DataTables/datatables.js"></script>
+
+<h2>Поиск</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>ChancellerySearchModel</h4>
+        @*<h4>ChancellerySearchModel</h4>*@
         @{Html.RenderPartial("_ChancellerySearchPanel", Model);}
-        
-        @*<hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ChancellerySearchModel.RegistryDateFrom, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ChancellerySearchModel.RegistryDateFrom, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ChancellerySearchModel.RegistryDateFrom, "", new { @class = "text-danger" })
-        </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ChancellerySearchModel.RegistryDateTo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ChancellerySearchModel.RegistryDateTo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ChancellerySearchModel.RegistryDateTo, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ChancellerySearchModel.FromContains, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ChancellerySearchModel.FromContains, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ChancellerySearchModel.FromContains, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.ChancellerySearchModel.ToContains, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ChancellerySearchModel.ToContains, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ChancellerySearchModel.ToContains, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Искать" class="btn btn-default" />
-        </div>
-    </div>*@
-    </div>
-}
-<form>
-    <div class="ui-input-search ui-icon-search ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear">
-    <input id="filterTable-input" data-type="search">
-    @*<a href="#" tabindex="-1" aria-hidden="true" class="ui-input-clear ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all ui-input-clear-hidden" title="Clear text">Clear text</a>*@
-    </div>
-</form>
-
-<div id="grid">
-    @{
-        var grid = new WebGrid(source: ViewBag.ListChanc,
-                              defaultSort: "id",
-                              rowsPerPage: 10,
-                              canPage: true,
-                              ajaxUpdateContainerId: "grid");
-        grid.Bind(Model.Chancelleries);
-    }
-    @grid.GetHtml(htmlAttributes: new { data_filter = "true", data_input = "#filterTable-input" @*, data_role ="table", @class="ui-responsive"*@})
+            }
+<link href="~/Content/slide_panel.css" rel="stylesheet" />
+@Styles.Render("~/Content/datatable/css")
+@Scripts.Render("~/bundles/dataTable")
+<div>
+    @{Html.RenderPartial("_BaseCorrespondencyTable", Model.Chancelleries);}
 </div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/slide_panel.js"></script>
 <script>
-$(document).ready(function(){
-    $("#filterTable-input").on("keyup", function () {
-    var value = $(this).val().toLowerCase();
-    $("#grid tr").filter(function () {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    $(document).ready(function () {
+        var table = $('#baseCorTable').DataTable({
+            dom: 'Bflrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: 'Save current page',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
+                }
+, {
+    extend: 'colvis',
+    text: 'Скрыть/показать колонки'
+}, {
+    extend: 'print',
+    text: 'Печать'
+}
+            ],
+            "columnDefs": [
+            {
+                "targets": [9, 10, 11, 12, 13, 14, 15, 16],
+                "visible": false,
+                "searchable": false
+            },
+
+            ]
+        }
+        );
     });
-  });
-});
+
+
+
+
+    //table.buttons().container()
+    //  .appendTo($('.col-sm-6:eq(0)', table.table().container()));
 </script>
+}
