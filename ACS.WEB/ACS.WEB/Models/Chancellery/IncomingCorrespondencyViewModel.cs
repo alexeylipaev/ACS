@@ -4,6 +4,11 @@ namespace ACS.WEB.ViewModel
 {
     public class IncomingCorrespondencyViewModel : BaseCorrespondencyViewModel
     {
+
+        public IncomingCorrespondencyViewModel() :base()
+        {
+            this.TypeRecordChancelleryId = (int)ACS.BLL.BusinessModels.Chancellery.Constants.CorrespondencyType.Incoming;
+        }
         /// <summary>
         /// От кого"
         /// </summary>
