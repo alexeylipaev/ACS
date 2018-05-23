@@ -55,7 +55,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.s_InBasket)
             </th>
-            @*<th></th>*@
+            <th></th>
         </tr>
     </thead>
 @foreach (var item in Model) {
@@ -112,11 +112,11 @@
             @Html.DisplayFor(modelItem => item.s_InBasket)
         </td>
         
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+        <td>
+            @Html.ActionLink("Edit", "EditIncoming", new { id=item.id }) |
+            @Html.ActionLink("Details", "DetailsIncoming", new { id=item.id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>*@
+        </td>
     </tr>
 }
 

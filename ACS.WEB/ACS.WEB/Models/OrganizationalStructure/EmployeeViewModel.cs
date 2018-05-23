@@ -78,7 +78,16 @@ namespace ACS.WEB.ViewModel
         public int id { get; set; }
 
         static public List<EmployeeViewModel> Collection { get; set; }
+
+        /// <summary>
+        /// Для контролов с множественным выбором
+        /// </summary>
         public ICollection<int> SelectedId { get; set; }
+
+        /// <summary>
+        /// Для контролов с единичным выбором
+        /// </summary>
+        public int? SingleSelectedId { get; set; }
     }
   
 }

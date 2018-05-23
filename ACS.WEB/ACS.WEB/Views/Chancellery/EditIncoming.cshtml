@@ -7,7 +7,7 @@
 
 <h2>@ViewBag.TypeName</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditIncoming", "Chancellery", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -51,21 +51,25 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Employee, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ResponsibleEmployees, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.EmployeeId, new SelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { @class = "chosen", data_placeholder = "Выберите ответственного" })
-                @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                @Html.ListBoxFor(model => model.Selected_Responsible_Empl.SelectedId, new MultiSelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { @class = "chosen", multiple = "multiple", data_placeholder = "Выберите ответственного" })
+                @*@Html.ListBoxFor(model => model.Selected_Responsible_Empl.SelectedId, new MultiSelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { multiple = "multiple"}, new { @class = "chosen", data_placeholder = "Выберите ответственного" })*@
+                @*@Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })*@
+
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.JournalRegistrationsChancellery, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                <abbr class="search-choice-close"></abbr>
                 @Html.DropDownListFor(model => model.JournalRegistrationsChancelleryId, new SelectList(ACS.WEB.ViewModel.SelectedJournalRegChancellery.Collection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите журнал" })
                 @Html.ValidationMessageFor(model => model.JournalRegistrationsChancelleryId, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
+            </div>
+
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.FolderChancellery, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -73,21 +77,19 @@
                 @Html.ValidationMessageFor(model => model.FolderChancelleryId, "", new { @class = "text-danger" })
             </div>
         </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.To, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Selected_To_Empl.SingleSelectedId, new SelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { @class = "chosen", data_placeholder = "Выберите работника" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.From, htmlAttributes: new { @class = "control-label col-md-2" })
 
-        @switch (Model.TypeRecordChancellery.id)
-        {
-            case 1:
-                { @Html.Partial("_Type1", Model) break;
-                };
-            case 2:
-                { @Html.Partial("_Type2", Model) break;
-                };
-            case 3:
-                { @Html.Partial("_Type3", Model) break;
-                };
-            default:
-                break;
-        }
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Selected_ExtOrg.SingleSelectedId, new SelectList(ACS.WEB.ViewModel.SelectedExternalOrgViewModel.Collection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите организацию" })
+            </div>
+        </div>
 
         <div class="form-group">
             @*@Html.LabelFor(model => model.Path, htmlAttributes: new { @class = "control-label col-md-2" })*@

@@ -178,19 +178,19 @@ namespace ACS.WEB.Controllers
 
             if (chancDTO.ResponsibleEmployees != null)
             {
-                chancVM.Selected_Responsible_Empl = new SelectedEmployeeViewModel() { SelectedId = chancDTO.ResponsibleEmployees.Select(r => r.id).ToArray() };
+                chancVM.Selected_Responsible_Empl = new SelectedEmployeeViewModel() { SelectedId = chancDTO.ResponsibleEmployees.Select(r => r.id).ToList() };
             }
 
             var To = chancVM.To;
             if (To != null)
             {
-                chancVM.Selected_To_Empl = new SelectedEmployeeViewModel() { SelectedId = { (To.id) } };
+                chancVM.Selected_To_Empl = new SelectedEmployeeViewModel() { SingleSelectedId =  To.id };
             }
 
             var From = chancDTO.From;
             if (From != null)
             {
-                chancVM.Selected_ExtOrg = new SelectedExternalOrgViewModel() { SelectedId = { (From.id) } };
+                chancVM.Selected_ExtOrg = new SelectedExternalOrgViewModel() { SingleSelectedId = From.id };
             }
 
             chancVM.TypeRecordChancelleryId = chancVM.TypeRecordChancellery.id;
@@ -207,20 +207,68 @@ namespace ACS.WEB.Controllers
         // POST: Chancellery/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditIncoming(IncomingCorrespondencyViewModel chancVM)
+        public ActionResult EditIncoming(IncomingCorrespondencyViewModel chancVM, IEnumerable<HttpPostedFileBase> Files)
         {
+            if (chancVM.Selected_Responsible_Empl != null)
+            {
+                List<EmployeeDTO> respDTOs = new List<EmployeeDTO>();
+                foreach (var idResponsible in chancVM.Selected_Responsible_Empl.SelectedId)
+                {
+                    respDTOs.Add(ChancelleryService.GetEmployee(idResponsible));
+                }
+                chancVM.ResponsibleEmployees = MapBLLPresenter.GetMap().Map<IEnumerable<EmployeeDTO>, IEnumerable<EmployeeViewModel>>(respDTOs);
+            }
+
+            if (chancVM.FolderChancelleryId != null)
+            {
+                var idFolder = (int)chancVM.FolderChancelleryId;//newChancelleryVM.SelectedFolder.SelectedId;
+
+                if (idFolder > 0)
+                    chancVM.FolderChancellery = MapBLLPresenter.GetMap().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(idFolder));
+            }
+
+
+            var idJournalsReg = (int)chancVM.JournalRegistrationsChancelleryId;//newChancelleryVM.SelectedJournalsReg.SelectedId;
+
+            if (idJournalsReg > 0)
+                chancVM.JournalRegistrationsChancellery = MapBLLPresenter.GetMap().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(idJournalsReg));
+
+            //from
+            if (chancVM.Selected_ExtOrg.SingleSelectedId != null)
+            {
+                var extOrgDTO = ChancelleryService.GetExternalOrganization((int)chancVM.Selected_ExtOrg.SingleSelectedId);
+                var extOrgVM = MapBLLPresenter.GetMap().Map<ExternalOrganizationChancelleryDTO, ExternalOrganizationChancelleryViewModel>(extOrgDTO);
+                chancVM.From = extOrgVM;
+            }
+            //to
+            if (chancVM.Selected_To_Empl.SingleSelectedId != null)
+            {
+                var extEmployeeDTO = ChancelleryService.GetEmployee((int)chancVM.Selected_To_Empl.SingleSelectedId);
+                var extEmployeeVM = MapBLLPresenter.GetMap().Map<EmployeeDTO, EmployeeViewModel>(extEmployeeDTO);
+                chancVM.To = extEmployeeVM;
+            }
             try
             {
                 if (ModelState.IsValid)
                 {
-                    chancVM.TypeRecordChancellery = MapBLLPresenter.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(chancVM.TypeRecordChancelleryId != null ? chancVM.TypeRecordChancelleryId.Value : 0));
+                    //chancVM.TypeRecordChancelleryId
+                    //chancVM.TypeRecordChancellery = MapBLLPresenter.GetMap().Map<TypeRecordChancelleryDTO, TypeRecordChancelleryViewModel>(ChancelleryService.TypeRecordGetById(chancVM.TypeRecordChancelleryId != null ? chancVM.TypeRecordChancelleryId.Value : 0));
                     chancVM.JournalRegistrationsChancellery = MapBLLPresenter.GetMap().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(ChancelleryService.GetJournalRegistrations(chancVM.JournalRegistrationsChancelleryId));
                     chancVM.FolderChancellery = MapBLLPresenter.GetMap().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(ChancelleryService.FolderGet(chancVM.FolderChancelleryId != null ? chancVM.FolderChancelleryId.Value : 0));
-
+                    
                     var chancDTO = MapBLLPresenter.GetMap().Map<IncomingCorrespondencyViewModel, IncomingCorrespondency>(chancVM);
+                    if (Files != null && Files.FirstOrDefault() != null)
+                    {
+                        var files = ChancelleryService.AttachFiles(Files);// Attach(Files, chancelleryDTO);
+                        foreach (var file in files)
+                        {
+                            chancDTO.FileRecordChancelleries.Add(file);
+                        }
+                    }
                     ChancelleryService.ChancelleryUpdateIncoming(chancDTO, this.User.Identity.Name);
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Incoming");
                 }
+                
             }
             catch (ValidationException ex)
             {
@@ -313,7 +361,11 @@ namespace ACS.WEB.Controllers
                     if (Files != null && Files.FirstOrDefault() != null)
                     {
                         var files = ChancelleryService.AttachFiles(Files);// Attach(Files, chancelleryDTO);
-                        chancelleryDTO.FileRecordChancelleries = files.ToList();
+                        foreach (var file in files)
+                        {
+                            chancelleryDTO.FileRecordChancelleries.Add(file);
+                        }
+                        
                     }
                     ChancelleryService.ChancelleryCreateIncoming(chancelleryDTO, currentUserEmail);
                     return RedirectToAction("Incoming");
