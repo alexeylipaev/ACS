@@ -26,13 +26,6 @@
             var table = $('#baseCorTable').DataTable({
                 dom: 'Bflrtip',
                 buttons: [
-                    @*{
-                    text: 'Создать',
-                    action: function (e, dt, node, config)
-                    {
-                        window.open(@Url.Action("CreateIncoming", "ChancelleryController"), "_self");
-                    }
-                },*@
                     {
                         text: 'Создать',
                         action: function (e, dt, node, config) {
@@ -67,12 +60,6 @@
             }
             );
         });
-
-
-
-
-        //table.buttons().container()
-        //  .appendTo($('.col-sm-6:eq(0)', table.table().container()));
     </script>
 }
 

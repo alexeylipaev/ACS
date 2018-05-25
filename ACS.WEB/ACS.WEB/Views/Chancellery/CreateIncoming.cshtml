@@ -3,6 +3,9 @@
 
     Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
 }
+@Scripts.Render("~/bundles/fileInput")
+@Styles.Render("~/Content/fileInput/css")
+
 <h2>@ViewBag.TypeName</h2>
 @using (Html.BeginForm("CreateIncoming", "Chancellery", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -101,6 +104,15 @@
 </div>
 @section scripts
 {
+    <script>
+    $(document).ready(function () {
+        // initialize with defaults
+        $("#Files").fileinput();
+
+        // with plugin options
+        $("#Files").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
+    });
+    </script>
     <script>
         $(function () {
             $('.chosen').chosen({
