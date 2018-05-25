@@ -10,9 +10,9 @@
 <h2>Входящая корреспонденция</h2>
 
 @{Html.RenderPartial("_ChancellerySearchPanel", Model);}
-<p>
+@*<p>
     @Html.ActionLink("Создать", "CreateIncoming")
-</p>
+</p>*@
 @Styles.Render("~/Content/datatable/css")
 @Scripts.Render("~/bundles/dataTable")
 <div>
@@ -51,7 +51,7 @@
                 ],
                 "columnDefs": [
                 {
-                    "targets": [10, 11, 12, 13, 14, 15, 16, 17],
+                    "targets": [11, 12, 13, 14, 15, 16, 17, 18],
                     "visible": false,
                     "searchable": false
                 },
@@ -61,5 +61,17 @@
             );
         });
     </script>
+
+<script>
+        $(document).ready(function () {
+            $(".fancybox").fancybox({
+                openEffect: 'none',
+                closeEffect: 'none',
+                iframe: {
+                    preload: true
+                }
+            });
+        });
+</script>
 }
 

@@ -35,6 +35,9 @@
                 @Html.DisplayNameFor(model => model.FromStringValue)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.FileRecordChancelleries)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.s_Guid)
             </th>
             <th>
@@ -98,6 +101,19 @@
         <td>
             @Html.DisplayFor(modelItem => item.FromStringValue)
         </td>
+        <td style="font-size:12px;">
+
+            @foreach (var file in item.FileRecordChancelleries)
+                {
+                <div style="display:inline-flex; line-height:25px">
+                    <a data-fancybox-type="iframe" style="padding-right:5px" class="fancybox" href="@Url.Action("DownloadFile", "Chancellery", new { id = file.id })" title="открыть" @*class="btn btn-primary"*@>
+                        @string.Format("{0}{1}", @file.Name, @file.Format)
+                    </a>
+                </div>
+            }
+
+        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.s_Guid)
         </td>

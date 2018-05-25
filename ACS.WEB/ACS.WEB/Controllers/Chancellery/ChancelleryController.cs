@@ -1138,7 +1138,6 @@ namespace ACS.WEB.Controllers
 
 
         // GET: Chancellery/Delete/5
-        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             ActionResult action = this.DeleteConfirmed(id);
@@ -1159,8 +1158,6 @@ namespace ACS.WEB.Controllers
                     result = ChancelleryService.DeleteChancellery(id);
                     if (result > 0)
                         ViewBag.EditResult = "Данные успешно удалены";
-
-
                 }
             }
             catch (ValidationException ex)
@@ -1183,10 +1180,13 @@ namespace ACS.WEB.Controllers
         public FilePathResult DownloadFile(int id)
         {
             var fileDTO = ChancelleryService.GetFile(id);
-            string path = (fileDTO.Path);
             string type = fileDTO.Format;
             string name = fileDTO.Name;
-            return File(path, type, null);
+            string downloadName = name+ type;
+
+            string postfix = fileDTO.DataString;
+            string filePath = BLL.BusinessModels.Chancellery.Constants.FolderPath+ name +postfix+ type;
+            return File(filePath, type, null);
         }
 
 
