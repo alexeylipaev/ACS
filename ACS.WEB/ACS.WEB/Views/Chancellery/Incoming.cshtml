@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
 
 }
+
 <link href="~/Content/slide_panel.css" rel="stylesheet" />
 <h2>Входящая корреспонденция</h2>
 
@@ -21,43 +22,62 @@
 {
     <script src="~/Scripts/slide_panel.js"></script>
     <script>
-    $(document).ready(function () {
-        var table = $('#baseCorTable').DataTable({
-            dom: 'Bflrtip',
-            buttons: [
-                {
-                    extend: 'excelHtml5',
-                    text: 'Save current page',
-                    exportOptions: {
-                        modifier: {
-                            page: 'current'
+        $(document).ready(function () {
+            var table = $('#baseCorTable').DataTable({
+                dom: 'Bflrtip',
+                buttons: [
+                    @*{
+                    text: 'Создать',
+                    action: function (e, dt, node, config)
+                    {
+                        window.open(@Url.Action("CreateIncoming", "ChancelleryController"), "_self");
+                    }
+                },*@
+                    {
+                        text: 'Создать',
+                        action: function (e, dt, node, config) {
+                            window.open("@Url.Action("CreateIncoming", "Chancellery", null, Request.Url.Scheme)", "_self");
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        text: 'Save current page',
+                        exportOptions: {
+                            modifier: {
+                                page: 'current'
+                            }
                         }
                     }
-                }
-, {
-    extend: 'colvis',
-    text: 'Скрыть/показать колонки'
-}, {
-    extend: 'print',
-    text: 'Печать'
-}
-            ],
-            "columnDefs": [
-            {
-                "targets": [10, 11, 12, 13, 14, 15, 16, 17],
-                "visible": false,
-                "searchable": false
-            },
+    , {
+        extend: 'colvis',
+        text: 'Скрыть/показать колонки'
+    }, {
+        extend: 'print',
+        text: 'Печать'
+    }
+                ],
+                "columnDefs": [
+                {
+                    "targets": [10, 11, 12, 13, 14, 15, 16, 17],
+                    "visible": false,
+                    "searchable": false
+                },
 
-            ]
-        }
-        );
-    });
-
+                ]
+            }
+            );
+        });
 
 
 
-    //table.buttons().container()
-    //  .appendTo($('.col-sm-6:eq(0)', table.table().container()));
+
+        //table.buttons().container()
+        //  .appendTo($('.col-sm-6:eq(0)', table.table().container()));
     </script>
 }
+
+
+@section footers
+{
+    
+    }
