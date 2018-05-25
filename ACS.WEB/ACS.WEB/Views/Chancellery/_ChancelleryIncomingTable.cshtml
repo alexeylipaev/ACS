@@ -26,6 +26,9 @@
                 @Html.DisplayNameFor(model => model.TypeRecordChancellery)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.ResponsibleEmployees)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ToStringValue)
             </th>
             <th>
@@ -55,7 +58,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.s_InBasket)
             </th>
-            <th></th>
+            <th>Команды</th>
         </tr>
     </thead>
 @foreach (var item in Model) {
@@ -80,6 +83,14 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TypeRecordChancellery.Name)
+        </td>
+        <td>
+            @foreach (var file in item.ResponsibleEmployees)
+                {
+                <div style="display:inline-flex;">
+                    @file.FullName
+                </div>
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ToStringValue)
