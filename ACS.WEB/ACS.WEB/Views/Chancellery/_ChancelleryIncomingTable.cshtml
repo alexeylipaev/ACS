@@ -17,13 +17,13 @@
                 @Html.DisplayNameFor(model => model.Notice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FolderChancelleryId)
+                @Html.DisplayNameFor(model => model.FolderChancellery)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.JournalRegistrationsChancelleryId)
+                @Html.DisplayNameFor(model => model.JournalRegistrationsChancellery)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TypeRecordChancelleryId)
+                @Html.DisplayNameFor(model => model.TypeRecordChancellery)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ToStringValue)
@@ -73,13 +73,13 @@
             @Html.DisplayFor(modelItem => item.Notice)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FolderChancelleryId)
+            @Html.DisplayFor(modelItem => item.FolderChancellery.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.JournalRegistrationsChancelleryId)
+            @Html.DisplayFor(modelItem => item.JournalRegistrationsChancellery.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TypeRecordChancelleryId)
+            @Html.DisplayFor(modelItem => item.TypeRecordChancellery.Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ToStringValue)

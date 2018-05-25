@@ -76,7 +76,7 @@ namespace ACS.BLL.Services
 
         public IEnumerable<JournalRegistrationsChancelleryDTO> GetJournalsChancellery()
         {
-            return MapDALBLL.GetMapp().Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll());
+            return MapDALBLL.GetMapp().Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll().ToList());
         }
 
         //IMapper mapTemplournalToJournalDTO()

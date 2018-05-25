@@ -164,18 +164,18 @@ namespace ACS.BLL
 
         #region Incoming
 
-        static IMapper incomingCorrespondency_DTO_TO_DB;
-        public static IMapper GetMap_Incoming_DTO_TO_DB()
+        static IMapper chancelleryDTO_TO_Incoming;
+        public static IMapper GetMap_ChancelleryDTO_TO_Incoming()
         {
-            if (incomingCorrespondency_DTO_TO_DB == null)
-                incomingCorrespondency_DTO_TO_DB = new MapperConfiguration(cfg =>
+            if (chancelleryDTO_TO_Incoming == null)
+                chancelleryDTO_TO_Incoming = new MapperConfiguration(cfg =>
            {
                cfg.CreateMap<ChancelleryDTO, IncomingCorrespondency>()
                 .ForMember(x => x.To, x => x.MapFrom(c => c.ToChancelleries.FirstOrDefault().Employee ?? null))
                 .ForMember(x => x.From, x => x.MapFrom(c => c.FromChancelleries.FirstOrDefault().ExternalOrganization ?? null));
            }).CreateMapper();
 
-            return incomingCorrespondency_DTO_TO_DB;
+            return chancelleryDTO_TO_Incoming;
         }
 
         //private class IncomingToCustomResolver : IValueResolver<ChancelleryDTO, IncomingCorrespondency, EmployeeDTO>
@@ -198,18 +198,18 @@ namespace ACS.BLL
         //    }
         //}
 
-        static IMapper incomingCorrespondencyDB_TO_DTO;
-        public static IMapper GetMap_IncomingDB_TO_DTO()
+        static IMapper incomingCorrespondency_TO_ChancelleryDTO;
+        public static IMapper GetMap_IncomingCorrespondency_TO_ChancelleryDTO()
         {
-            if (incomingCorrespondencyDB_TO_DTO == null)
-                incomingCorrespondencyDB_TO_DTO = new MapperConfiguration(cfg =>
+            if (incomingCorrespondency_TO_ChancelleryDTO == null)
+                incomingCorrespondency_TO_ChancelleryDTO = new MapperConfiguration(cfg =>
                 {
                     cfg.CreateMap<IncomingCorrespondency, ChancelleryDTO>()
                      .ForMember(x => x.FromChancelleries, opt => opt.ResolveUsing<IncomingToDTO_FromCustomResolver>())
                      .ForMember(x => x.ToChancelleries, opt => opt.ResolveUsing<IncomingToDTO_ToCustomResolver>());
                 }).CreateMapper();
 
-            return incomingCorrespondencyDB_TO_DTO;
+            return incomingCorrespondency_TO_ChancelleryDTO;
         }
 
 

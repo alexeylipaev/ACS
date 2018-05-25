@@ -127,6 +127,12 @@ namespace ACS.WEB.ViewModel
         [Display(Name = "Файлы")]
         public ICollection<FileRecordChancelleryViewModel> FileRecordChancelleries { get; set; }
 
+        FileRecordManager _FileRecordManager;
+        public FileRecordManager FileRecordManager { get {
+                if (_FileRecordManager == null)
+                    _FileRecordManager = new FileRecordManager();
+                return _FileRecordManager;
+            } }
 
         //public SelectedEmployeeViewModel SelectedResponsible { get; set; }
 
@@ -134,6 +140,7 @@ namespace ACS.WEB.ViewModel
         public SelectedEmployeeViewModel Selected_From_Empl { get; set; }
         public SelectedEmployeeViewModel Selected_To_Empl { get; set; }
         public SelectedEmployeeViewModel Selected_Responsible_Empl { get; set; }
+        public SelectedFileRecordViewModel Selected_FileRecords { get; set; }
         public virtual string ToStringValue { get; set; }
         public virtual string FromStringValue { get; set; }
     }

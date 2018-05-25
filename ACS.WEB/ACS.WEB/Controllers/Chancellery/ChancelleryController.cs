@@ -164,11 +164,14 @@ namespace ACS.WEB.Controllers
             SelectedFolderChancellery.Collection = GetFoldersCollection();
             SelectedJournalRegChancellery.Collection = GetJournalsCollection();
             SelectedExternalOrgViewModel.Collection = GetExtOrgsCollection();
+            
 
             ChancellerySearchModel searchModel = new ChancellerySearchModel { Id = id };
 
             IncomingCorrespondency chancDTO = ChancelleryService.ChancelleryGetIncoming(searchModel).FirstOrDefault();
             var chancVM = MapBLLPresenter.GetMap().Map<IncomingCorrespondency, IncomingCorrespondencyViewModel>(chancDTO);
+            SelectedFileRecordViewModel.Collection = chancVM.FileRecordChancelleries.ToList();
+            chancVM.FileRecordManager.OldFileRecords = chancVM.FileRecordChancelleries;
 
             if (chancDTO.FolderChancellery != null)
                 chancVM.SelectedFolder = new SelectedFolderChancellery() { SelectedId = chancDTO.FolderChancellery.id };
@@ -180,7 +183,14 @@ namespace ACS.WEB.Controllers
             {
                 chancVM.Selected_Responsible_Empl = new SelectedEmployeeViewModel() { SelectedId = chancDTO.ResponsibleEmployees.Select(r => r.id).ToList() };
             }
-
+            if (chancDTO.FileRecordChancelleries != null)
+            {
+                var fileCol = new List<FileRecordChancelleryDTO>();
+                foreach (var item in chancDTO.FileRecordChancelleries)
+                {
+                    chancVM.Selected_FileRecords = new SelectedFileRecordViewModel() { SelectedId = chancDTO.FileRecordChancelleries.Select(r => r.id).ToList() };
+                }
+            }
             var To = chancVM.To;
             if (To != null)
             {
@@ -218,6 +228,18 @@ namespace ACS.WEB.Controllers
                 }
                 chancVM.ResponsibleEmployees = MapBLLPresenter.GetMap().Map<IEnumerable<EmployeeDTO>, IEnumerable<EmployeeViewModel>>(respDTOs);
             }
+
+            //remove unselected fileRecords
+            if (chancVM.Selected_FileRecords != null)
+            {
+                List<FileRecordChancelleryDTO> list = new List<FileRecordChancelleryDTO>();
+                foreach (var id in chancVM.Selected_FileRecords.SelectedId)
+                {
+                    list.Add(ChancelleryService.GetFile(id));
+                }
+                chancVM.FileRecordChancelleries = MapBLLPresenter.GetMap().Map<IEnumerable<FileRecordChancelleryDTO>, IEnumerable<FileRecordChancelleryViewModel>>(list).ToList();
+            }
+            else { chancVM.FileRecordChancelleries = new List<FileRecordChancelleryViewModel>(); }
 
             if (chancVM.FolderChancelleryId != null)
             {
@@ -1204,6 +1226,29 @@ namespace ACS.WEB.Controllers
             return RedirectToAction("Index");
 
         }
+
+        [HttpPost]
+        public ActionResult AttachFile(FileRecordManager fileRecordManager, IEnumerable<HttpPostedFileBase> files)
+        {
+            //int result = 0;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    foreach (var file in files)
+                    {
+                        fileRecordManager.OldFileRecords.Add(new ViewModel.FileRecordChancelleryViewModel() { File = file });
+                    }
+                }
+            }
+            catch (ValidationException ex)
+            {
+                ModelState.AddModelError(ex.Property, ex.Message);
+            }
+            return View(fileRecordManager);
+
+        }
+
 
         public void Attach(IEnumerable<HttpPostedFileBase> files, BaseCorrespondency ChancelleryDTO)
         {

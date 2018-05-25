@@ -184,7 +184,7 @@ namespace ACS.BLL.Services
         public IEnumerable<IncomingCorrespondency> ChancelleryGetIncoming(ChancellerySearchModel сhancellerySearchModel)
         {
             var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
-            return MapDALBLL.GetMap_Incoming_DTO_TO_DB().Map<IEnumerable<ChancelleryDTO>, IEnumerable<IncomingCorrespondency>>(chancellerieDTOs);
+            return MapDALBLL.GetMap_ChancelleryDTO_TO_Incoming().Map<IEnumerable<ChancelleryDTO>, IEnumerable<IncomingCorrespondency>>(chancellerieDTOs);
         }
 
         public int ChancelleryCreateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail)
@@ -193,7 +193,7 @@ namespace ACS.BLL.Services
             try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
             catch (Exception ex) { throw ex; }
 
-            ChancelleryDTO newDTO = MapDALBLL.GetMap_IncomingDB_TO_DTO().Map<IncomingCorrespondency, ChancelleryDTO>(incomingCorrespondency);
+            ChancelleryDTO newDTO = MapDALBLL.GetMap_IncomingCorrespondency_TO_ChancelleryDTO().Map<IncomingCorrespondency, ChancelleryDTO>(incomingCorrespondency);
             newDTO.TypeRecordChancellery = TypeRecordGet(Constants.CorrespondencyType.Incoming);
 
             //var newDB = MapDALBLL.GetMapForUpdateOrCreate().Map<ChancelleryDTO, Chancellery>(newDTO);
@@ -211,8 +211,8 @@ namespace ACS.BLL.Services
             catch (Exception ex) { throw ex; }
 
             var original = Database.Chancelleries.Find(incomingCorrespondency.id);
-
-            MapDALBLL.GetMap_Incoming_DTO_TO_DB().Map(original, incomingCorrespondency);
+            var chancelleryDTO = MapDALBLL.GetMap_IncomingCorrespondency_TO_ChancelleryDTO().Map<IncomingCorrespondency, ChancelleryDTO>(incomingCorrespondency);
+            MapDALBLL.GetMapForUpdateOrCreate().Map(chancelleryDTO, original);
             Database.Chancelleries.Update(original, authorID);
             return 1;
         }
