@@ -1,6 +1,6 @@
 ﻿@model ACS.WEB.Models.Chancellery.ChancellerySearchModelVM
 
-
+<hr />
 <div class="slide_panel_wrap">
     <p></p>
     <div class="slide_panel">
@@ -29,7 +29,8 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.FromContains, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @*@Html.LabelFor(model => model.FromContains, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @Html.Label("От кого, содержит", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.FromContains, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.FromContains, "", new { @class = "text-danger" })
@@ -37,7 +38,8 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.ToContains, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @*@Html.LabelFor(model => model.ToContains, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @Html.Label("Кому, содержит", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.ToContains, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.ToContains, "", new { @class = "text-danger" })
@@ -45,14 +47,16 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.ResponsibleContains, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @*@Html.LabelFor(model => model.ResponsibleContains, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @Html.Label("Ответственный, содержит", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.ResponsibleContains, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.ResponsibleContains, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.FolderId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @*@Html.LabelFor(model => model.FolderId, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                    @Html.Label("Папка", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.DropDownListFor(model => model.FolderId, new SelectList(ACS.WEB.ViewModel.SelectedFolderChancellery.Collection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите папку" })
                         @Html.ValidationMessageFor(model => model.FolderId, "", new { @class = "text-danger" })
@@ -68,5 +72,6 @@
         }
     </div>
 </div>
+<hr />
 
 
