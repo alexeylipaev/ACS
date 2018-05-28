@@ -359,7 +359,7 @@ namespace ACS.BLL.Services
                     {
                         string toInLower = searchModel.ToContains.ToLower();
                         bool isContainString = false;
-                        foreach (var item in c.FromChancelleries)
+                        foreach (var item in c.ToChancelleries)
                         {
                             if (isContainString) break;
                             if (item.Employee != null)
