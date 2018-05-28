@@ -58,7 +58,7 @@
                     @*@Html.LabelFor(model => model.FolderId, htmlAttributes: new { @class = "control-label col-md-2" })*@
                     @Html.Label("Папка", htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.FolderId, new SelectList(ACS.WEB.ViewModel.SelectedFolderChancellery.Collection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите папку" })
+                        @Html.DropDownListFor(model => model.FolderId, new SelectList(ACS.WEB.ViewModel.SelectedFolderChancellery.Collection, "id", "Name"), new { @class = "form-control", data_placeholder = "Выберите папку" })
                         @Html.ValidationMessageFor(model => model.FolderId, "", new { @class = "text-danger" })
                     </div>
                 </div>
