@@ -1,6 +1,6 @@
 ﻿using ACS.DAL.Interfaces;
 using ACS.DAL.Entities;
-using EntityFramework.Extensions;
+
 
 using System;
 using System.Collections.Generic;
@@ -9,6 +9,8 @@ using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using ACS.DAL.EF;
+using System.Data.Entity.Validation;
+using ACS.DAL.Infrastructure;
 
 namespace ACS.DAL.Repositories
 {
@@ -26,6 +28,18 @@ namespace ACS.DAL.Repositories
         {
         }
 
+        private int Save(ACSContext DbContext)
+        {
+            try
+            {
+                return  DbContext.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                throw new DbEntitySaveValidationException(e);
+            }
+        }
+
         protected virtual DbSet<T> DbSet
         {
             get { return DbContext.Set<T>(); }
@@ -36,6 +50,7 @@ namespace ACS.DAL.Repositories
         {
           return  DbSet.ToList<T>();
         }
+
         #region IRepository<T> Members
 
         public Type ObjectType
@@ -63,12 +78,17 @@ namespace ACS.DAL.Repositories
         {
             return DbSet.Where(predicate).ToList();
         }
+        public bool Any(Func<T, bool> predicate)
+        {
+            return DbSet.Any(predicate);
+        }
+
         public int Add(T entity, int EditorId)
         {
             LastEdit<T>.SetData(ref entity, EditorId);
             DbSet.Add(entity);
 
-            return DbContext.SaveChanges();
+            return Save(DbContext);
         }
 
         public int AddRange(IEnumerable<T> entities, int EditorId)
@@ -76,7 +96,7 @@ namespace ACS.DAL.Repositories
             LastEdit<T>.SetData(ref entities, EditorId);
             DbSet.AddRange(entities);
 
-            return DbContext.SaveChanges();
+            return Save(DbContext);
         }
 
         public int AddOrUpdate(T entity, int EditorId)
@@ -84,7 +104,7 @@ namespace ACS.DAL.Repositories
             LastEdit<T>.SetData(ref entity, EditorId);
             DbSet.AddOrUpdate(entity);
 
-            return DbContext.SaveChanges();
+            return Save(DbContext);
         }
 
         public int AddOrUpdate(T[] entities, int EditorId)
@@ -92,7 +112,7 @@ namespace ACS.DAL.Repositories
             LastEdit<T>.SetData(ref entities, EditorId);
             DbSet.AddOrUpdate(entities);
 
-            return DbContext.SaveChanges();
+            return Save(DbContext);
         }
 
         public int AddOrUpdate(T entity, Expression<Func<T, object>> identifier, int EditorId)
@@ -100,7 +120,7 @@ namespace ACS.DAL.Repositories
             LastEdit<T>.SetData(ref entity, EditorId);
             DbSet.AddOrUpdate(identifier, entity);
 
-            return DbContext.SaveChanges();
+            return Save(DbContext);
         }
 
         public int AddOrUpdate(T[] entities, Expression<Func<T, object>> identifier, int EditorId)
@@ -109,7 +129,7 @@ namespace ACS.DAL.Repositories
             LastEdit<T>.SetData(ref entities, EditorId);
             DbSet.AddOrUpdate(identifier, entities);
 
-            return DbContext.SaveChanges();
+            return Save(DbContext);
         }
 
         public int Update(T entity, int EditorId)
@@ -118,7 +138,7 @@ namespace ACS.DAL.Repositories
 
             DbContext.Entry(entity).State = EntityState.Modified;
 
-            return DbContext.SaveChanges();
+            return Save(DbContext);
         }
 
         public int Delete(T entity)
@@ -126,7 +146,15 @@ namespace ACS.DAL.Repositories
             DbSet.Attach(entity);
             DbSet.Remove(entity);
 
-            return DbContext.SaveChanges();
+            return Save(DbContext);
+        }
+        public int Delete(int id )
+        {
+            var forDel = DbSet.Find(id);
+            DbSet.Attach(forDel);
+            DbSet.Remove(forDel);
+
+            return Save(DbContext);
         }
 
         public int Delete(params object[] id)
@@ -138,7 +166,7 @@ namespace ACS.DAL.Repositories
 
             DbSet.Remove(entity);
 
-            return DbContext.SaveChanges();
+            return Save(DbContext);
         }
 
         public int DeleteRange(IEnumerable<T> entities)
@@ -150,14 +178,14 @@ namespace ACS.DAL.Repositories
 
             DbSet.RemoveRange(entities);
 
-            return DbContext.SaveChanges();
+            return Save(DbContext);
         }
 
         public int DeleteAll(Expression<Func<T, bool>> filter)
         {
             DbSet.RemoveRange(DbSet.Where(filter).ToList());
 
-            return DbContext.SaveChanges();
+            return Save(DbContext);
         }
 
         public long Count(Expression<Func<T, bool>> filter = null)
@@ -341,48 +369,20 @@ namespace ACS.DAL.Repositories
 
         #endregion
 
-        #region Methods immediately executed, pass by tracking system
+        //#region Methods immediately executed, pass by tracking system
 
-        public int DeleteImmediately(Expression<Func<T, bool>> filter)
-        {
-            return DbSet.Where(filter).Delete();
-        }
+        //public int DeleteImmediately(Expression<Func<T, bool>> filter)
+        //{
+        //    return DbSet.Where(filter).Delete();
+        //}
 
-        public int UpdateImmediately(Expression<Func<T, bool>> filter, Expression<Func<T, T>> updater, int EditorId)
-        {
+        //public int UpdateImmediately(Expression<Func<T, bool>> filter, Expression<Func<T, T>> updater, int EditorId)
+        //{
 
-            return DbSet.Where(filter).Update(updater);
-        }
+        //    return DbSet.Where(filter).Update(updater);
+        //}
 
-        #endregion
+        //#endregion
     }
-    static public class LastEdit<T> where T : class
-    {
-        static public void SetData(ref T entity, int EditorId)
-        {
-            var sysparam = (entity as SystemParameters);
-            if (sysparam != null)
-            {
-                sysparam.s_EditorId = EditorId;
-                sysparam.s_EditDate = DateTime.Now;
-            }
-
-        }
-        static public void SetData(ref IEnumerable<T> entities, int EditorId)
-        {
-            foreach (var Entity in entities)
-            {
-                var entity = Entity;
-                SetData(ref entity, EditorId);
-            }
-        }
-        static public void SetData(ref T[] entities, int EditorId)
-        {
-            foreach (var Entity in entities)
-            {
-                var entity = Entity;
-                SetData(ref entity, EditorId);
-            }
-        }
-    }
+    
 }

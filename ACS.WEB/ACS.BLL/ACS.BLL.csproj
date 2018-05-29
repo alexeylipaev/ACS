@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{386A2A76-6372-4066-8E2C-E39FDEA3373A}</ProjectGuid>
+    <ProjectGuid>{ED1BA3C1-7F04-4999-B18D-2329551AA55C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ACS.BLL</RootNamespace>
     <AssemblyName>ACS.BLL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=6.2.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.6.2.2\lib\net45\AutoMapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -51,47 +46,14 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.4.0.0\lib\net451\Microsoft.Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.4.0.0\lib\net451\Microsoft.Owin.Security.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.0\lib\net451\Microsoft.Owin.Security.Cookies.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.0\lib\net451\Microsoft.Owin.Security.OAuth.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.DirectoryServices" />
-    <Reference Include="System.DirectoryServices.AccountManagement" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -100,104 +62,67 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessModels\Chancellery\BaseCorrespondency.cs" />
-    <Compile Include="BusinessModels\Chancellery\ChancelleryConst.cs" />
-    <Compile Include="BusinessModels\Chancellery\ChancellerySearchModel.cs" />
-    <Compile Include="BusinessModels\Chancellery\InternalCorrespondency.cs" />
+    <Compile Include="BusinessModels\ChancellerySearchModel.cs" />
+    <Compile Include="BusinessModels\Constants.cs" />
     <Compile Include="BusinessModels\Helper.cs" />
-    <Compile Include="BusinessModels\Chancellery\OutgoingCorrespondency.cs" />
-    <Compile Include="DTO\ASPIdentityUser\ApplicationRoleDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\AppUserClaimDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\AppUserLoginDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\AppUserRoleDTO.cs" />
-    <Compile Include="BusinessModels\Chancellery\IncomingCorrespondency.cs" />
-    <Compile Include="DTO\InputControlPKI\InputControlPKI.cs" />
-    <Compile Include="DTO\InputControlPKI\ReceivedDocPKI.cs" />
-    <Compile Include="DTO\TheProjectRegistry\ProjectRegistryDTO.cs" />
-    <Compile Include="Interfaces\ASPIdentityUser\IApplicationRoleService.cs" />
-    <Compile Include="Interfaces\IAccountAppUserService.cs" />
-    <Compile Include="Interfaces\IInputControlPKIService.cs" />
-    <Compile Include="Interfaces\IMapper_DB_DTO_EmplService.cs" />
-    <Compile Include="Interfaces\IProjectRegistryService.cs" />
-    <Compile Include="Services\AccountAppUserService.cs" />
-    <Compile Include="Services\ASPIdentityUser\ApplicationRoleService.cs" />
-    <Compile Include="Services\Chancellery\ExternalOrganizationChancelleryService.cs" />
-    <Compile Include="Infrastructure\MapDALBLL.cs" />
-    <Compile Include="Services\InputControlPKI\InputControlPKIService.cs" />
-    <Compile Include="Services\ProjectRegistryService.cs" />
-    <Compile Include="Services\ServiceBase.cs" />
-    <Compile Include="Сonnection.cs" />
-    <Compile Include="DTO\Access\AccessDTO.cs" />
-    <Compile Include="DTO\Access\TypeAccessDTO.cs" />
-    <Compile Include="DTO\ASPIdentityUser\ApplicationUserDTO.cs" />
     <Compile Include="DTO\Chancellery\ChancelleryDTO.cs" />
-    <Compile Include="DTO\Chancellery\ExternalOrganizationChancelleryDTO.cs" />
-    <Compile Include="DTO\Chancellery\FileRecordChancelleryDTO.cs" />
-    <Compile Include="DTO\Chancellery\FolderChancelleryDTO.cs" />
-    <Compile Include="DTO\Chancellery\FromChancelleryDTO.cs" />
-    <Compile Include="DTO\Chancellery\JournalRegistrationsChancelleryDTO.cs" />
-    <Compile Include="DTO\Chancellery\ToChancelleryDTO.cs" />
-    <Compile Include="DTO\Chancellery\TypeRecordChancelleryDTO.cs" />
-    <Compile Include="DTO\DataEntityDTO.cs" />
-    <Compile Include="DTO\OrganizationalStructure\DepartmentDTO.cs" />
-    <Compile Include="DTO\OrganizationalStructure\PostNameEmployeeDTO.cs" />
-    <Compile Include="DTO\OrganizationalStructure\PostEmployeeСode1СDTO.cs" />
-    <Compile Include="DTO\OrganizationalStructure\EmployeeDTO.cs" />
-    <Compile Include="DTO\OrganizationalStructure\EmployeePassportDTO.cs" />
-    <Compile Include="DTO\OrganizationalStructure\WorkHistoryDTO.cs" />
+    <Compile Include="DTO\Chancellery\EntitiesCorrespondencesDTO.cs" />
+    <Compile Include="DTO\EmployeeDTO.cs" />
+    <Compile Include="DTO\EntityDTO.cs" />
+    <Compile Include="DTO\ExternalOrganizationDTO.cs" />
+    <Compile Include="DTO\FilesDTO.cs" />
+    <Compile Include="DTO\Identity\ApplicationRoleDTO.cs" />
+    <Compile Include="DTO\Identity\ApplicationUserDTO.cs" />
+    <Compile Include="DTO\Identity\AppUserClaimDTO.cs" />
+    <Compile Include="DTO\Identity\AppUserLoginDTO.cs" />
+    <Compile Include="DTO\Identity\AppUserRoleDTO.cs" />
     <Compile Include="DTO\SystemParametersDTO.cs" />
     <Compile Include="Infrastructure\OperationDetails.cs" />
     <Compile Include="Infrastructure\ServiceModule.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
-    <Compile Include="Interfaces\Access\IAccessService.cs" />
-    <Compile Include="Interfaces\ASPIdentityUser\IApplicationUserService.cs" />
-    <Compile Include="Interfaces\IDataEntityService.cs" />
     <Compile Include="Interfaces\IServiceCreator.cs" />
-    <Compile Include="Interfaces\OrganizationalStructure\IDepartmentService.cs" />
-    <Compile Include="Interfaces\Chancellery\IChancelleryService.cs" />
-    <Compile Include="Interfaces\Chancellery\IExternalOrganizationChancelleryService.cs" />
-    <Compile Include="Interfaces\Chancellery\IFileRecordChancelleryService.cs" />
-    <Compile Include="Interfaces\Chancellery\IFolderChancelleryService.cs.cs" />
-    <Compile Include="Interfaces\Chancellery\IFromChancelleryService.cs" />
-    <Compile Include="Interfaces\Chancellery\IJournalRegistrationsChancelleryService.cs" />
-    <Compile Include="Interfaces\OrganizationalStructure\IPostNameEmployeeService.cs" />
-    <Compile Include="Interfaces\OrganizationalStructure\IPostUserСode1СService.cs" />
-    <Compile Include="Interfaces\ISystemParametersService.cs" />
-    <Compile Include="Interfaces\Chancellery\IToChancelleryService.cs" />
-    <Compile Include="Interfaces\Access\ITypeAccessService.cs" />
-    <Compile Include="Interfaces\Chancellery\ITypeRecordChancelleryService.cs" />
-    <Compile Include="Interfaces\OrganizationalStructure\IEmployeePassportService.cs" />
-    <Compile Include="Interfaces\OrganizationalStructure\IEmployeeService.cs" />
-    <Compile Include="Interfaces\OrganizationalStructure\IWorkHistoryService.cs" />
-    <Compile Include="Interfaces\ISecurityService.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Infrastructure\ActiveDirectory.cs" />
-    <Compile Include="Services\Accesses\AccessService.cs" />
-    <Compile Include="Services\Accesses\TypeAccessService.cs" />
+    <Compile Include="Interfaces\Service\Chancellery\IChancelleryService.cs" />
+    <Compile Include="Interfaces\Service\Chancellery\IFolderChancelleryService.cs" />
+    <Compile Include="Interfaces\Service\Chancellery\IJournalRegistrationsChancelleryService.cs" />
+    <Compile Include="Interfaces\Service\Chancellery\ITypeRecordChancelleryService.cs" />
+    <Compile Include="Interfaces\Service\IAccountAppUserService.cs" />
+    <Compile Include="Interfaces\Service\Identity\IApplicationRoleService.cs" />
+    <Compile Include="Interfaces\Service\Identity\IApplicationUserService.cs" />
+    <Compile Include="Interfaces\Service\IEmployeeServiceAsync.cs" />
+    <Compile Include="Interfaces\Service\IExternalOrganizationService.cs" />
+    <Compile Include="Interfaces\Service\IFilesSevice.cs" />
+    <Compile Include="Mapper\MapApplicationRole.cs" />
+    <Compile Include="Mapper\MapApplicationUser.cs" />
+    <Compile Include="Mapper\MapDB.cs" />
+    <Compile Include="Mapper\MapChancellery.cs" />
+    <Compile Include="Mapper\MapEmpl.cs" />
+    <Compile Include="Mapper\MapExtlOrg.cs" />
+    <Compile Include="Mapper\MapFile.cs" />
+    <Compile Include="Mapper\MapSystemParam.cs" />
+    <Compile Include="Services\AccountAppUserService.cs" />
     <Compile Include="Services\Chancellery\ChancelleryService.cs" />
-    <Compile Include="Services\Chancellery\FileRecordChancelleryService.cs" />
     <Compile Include="Services\Chancellery\FolderChancelleryService.cs" />
     <Compile Include="Services\Chancellery\JournalRegistrationsChancelleryService.cs" />
     <Compile Include="Services\Chancellery\TypeRecordChancelleryService.cs" />
-    <Compile Include="Services\OrganizationalStructure\DepartmentService.cs" />
-    <Compile Include="Services\OrganizationalStructure\EmployeePassportService.cs" />
-    <Compile Include="Services\OrganizationalStructure\EmployeeService.cs" />
-    <Compile Include="Services\ASPIdentityUser\ApplicationUserService.cs" />
+    <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\ExternalOrganizationService.cs" />
+    <Compile Include="Services\FilesService.cs" />
+    <Compile Include="Services\Identity\ApplicationRoleService.cs" />
+    <Compile Include="Services\Identity\ApplicationUserService.cs" />
+    <Compile Include="Services\ServiceBase.cs" />
     <Compile Include="Services\ServiceCreator.cs" />
+    <Compile Include="Сonnection.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ACS.DAL\ACS.DAL.csproj">
-      <Project>{CA4FF575-EE2C-45B8-BEB7-8E396218DCEF}</Project>
+      <Project>{94244CE9-5DB8-4705-8EDE-25DA6B69C87A}</Project>
       <Name>ACS.DAL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DTO\Description.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

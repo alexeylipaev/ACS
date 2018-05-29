@@ -1,6 +1,6 @@
 ﻿using ACS.DAL.Interfaces;
 using ACS.DAL.Entities;
-using EntityFramework.Extensions;
+
 //using PagedList;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using ACS.DAL.EF;
+using System.Data.Entity.Validation;
+using ACS.DAL.Infrastructure;
 
 namespace ACS.DAL.Repositories
 {
@@ -25,6 +27,29 @@ namespace ACS.DAL.Repositories
             : base(dbContext)
         {
         }
+        public async Task<List<T>> ToListAsync(bool noTracking = false)
+        {
+            if (!noTracking)
+            {
+                return await DbSet.ToListAsync();
+            }
+            else
+            {
+                return await DbSet.AsNoTracking().ToListAsync();
+            }
+        }
+
+        private async Task<int> SaveAsync(ACSContext DbContext)
+        {
+            try
+            {
+                return await DbContext.SaveChangesAsync();
+            }
+            catch (DbEntityValidationException e)
+            {
+                throw new DbEntitySaveValidationException(e);
+            }
+        }
 
         #region IRepositoryAsync<T> Members
 
@@ -39,38 +64,77 @@ namespace ACS.DAL.Repositories
                 return await DbSet.AsNoTracking().ToListAsync();
             }
         }
-
+  
         public async Task<T> FindAsync(params object[] id)
         {
             return await DbSet.FindAsync(id);
         }
 
-        public Task<int> AddRangeAsync(IEnumerable<T> entities)
+        public async Task<int> AddAsync(T entity, int EditorId)
         {
+            LastEdit<T>.SetData(ref entity, EditorId);
+            DbSet.Add(entity);
+
+            return await SaveAsync(DbContext);
+        }
+        public async Task<int> AddRangeAsync(IEnumerable<T> entities, int EditorId)
+        {
+            LastEdit<T>.SetData(ref entities, EditorId);
             DbSet.AddRange(entities);
 
-            return DbContext.SaveChangesAsync();
+            return await SaveAsync(DbContext);
         }
 
-        public async Task<int> AddOrUpdateAsync(T[] entities)
+        public async Task<int> AddOrUpdateAsync(T entity, int EditorId)
         {
+            LastEdit<T>.SetData(ref entity, EditorId);
+            DbSet.AddOrUpdate(entity);
+
+            return await SaveAsync(DbContext);
+        }
+
+        public async Task<int> AddOrUpdateAsync(T[] entities, int EditorId)
+        {
+            LastEdit<T>.SetData(ref entities, EditorId);
             DbSet.AddOrUpdate(entities);
 
-            return await DbContext.SaveChangesAsync();
+          return await SaveAsync(DbContext);
         }
 
-        public async Task<int> AddOrUpdateAsync(T[] entities, Expression<Func<T, object>> identifier)
+        public async Task<int> AddOrUpdateAsync(T[] entities, Expression<Func<T, object>> identifier, int EditorId)
         {
+            LastEdit<T>.SetData(ref entities, EditorId);
             DbSet.AddOrUpdate(identifier, entities);
 
-            return await DbContext.SaveChangesAsync();
+            return await SaveAsync(DbContext);
         }
+        public async Task<int> UpdateAsync(T entity, int EditorId)
+        {
 
+            LastEdit<T>.SetData(ref entity, EditorId);
+
+            DbContext.Entry(entity).State = EntityState.Modified;
+
+            return await SaveAsync(DbContext);
+        }
+        public async Task<int> DeleteAsync(int id)
+        {
+        
+            DbSet.Remove(await DbSet.FindAsync(id));
+
+            return await SaveAsync(DbContext);
+        }
+        public async Task<int> DeleteAsync(T entity)
+        {
+            DbSet.Remove(entity);
+
+            return await SaveAsync(DbContext);
+        }
         public async Task<int> DeleteAllAsync(Expression<Func<T, bool>> filter)
         {
             DbSet.RemoveRange(await DbSet.Where(filter).ToListAsync());
 
-            return await DbContext.SaveChangesAsync();
+            return await SaveAsync(DbContext);
         }
 
         public async Task<long> CountAsync(Expression<Func<T, bool>> filter = null)
@@ -252,18 +316,18 @@ namespace ACS.DAL.Repositories
 
         #endregion
 
-        #region Methods immediately executed, pass by tracking system
+        //#region Methods immediately executed, pass by tracking system
 
-        public async Task<int> DeleteImmediatelyAsync(Expression<Func<T, bool>> filter)
-        {
-            return await DbSet.Where(filter).DeleteAsync();
-        }
+        //public async Task<int> DeleteImmediatelyAsync(Expression<Func<T, bool>> filter)
+        //{
+        //    return await DbSet.Where(filter).DeleteAsync();
+        //}
 
-        public async Task<int> UpdateImmediatelyAsync(Expression<Func<T, bool>> filter, Expression<Func<T, T>> updater)
-        {
-            return await DbSet.Where(filter).UpdateAsync(updater);
-        }
+        //public async Task<int> UpdateImmediatelyAsync(Expression<Func<T, bool>> filter, Expression<Func<T, T>> updater)
+        //{
+        //    return await DbSet.Where(filter).UpdateAsync(updater);
+        //}
 
-        #endregion
+        //#endregion
     }
 }

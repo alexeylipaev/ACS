@@ -1,22 +1,22 @@
-﻿@using ACS.WEB.ViewModel;
-@model IEnumerable<ACS.WEB.ViewModel.ChancelleryViewModel>
+﻿@using ACS.WEB.ViewModels;
+@model IEnumerable<ACS.WEB.ViewModels.ChancelleryViewModel>
 @{
     ViewBag.Title = "Канцелярия";
-    Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
+    Layout = "~/Views/Shared/_LayoutChancellery.cshtml";
 }
 <h2>Канцелярия</h2>
 <p>
     @foreach (var item in ViewBag.Types)
     {
-        using (Html.BeginForm("Create", "Chancellery", FormMethod.Get))
+        @*using (Html.BeginForm("Create", "Chancellery", FormMethod.Get))
         {
             <div class="form-group">
                 <div style="float:left; margin:10px">
-                    <input type="hidden" value=@item.id name="TypeRecordId" />
+                    <input type="hidden" value=@item.Id name="TypeRecordId" />
                     <input type="submit" value="Создать @item.Name" class="btn btn-default" />
                 </div>
             </div>
-        }
+        }*@
         @*using (Html.BeginForm())
             {
                 <div class="form-group">
@@ -53,16 +53,16 @@
 <table style="margin-top: 65px;" class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.id)
+            @Html.DisplayNameFor(model => model.Id)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.RegistrationNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.JournalRegistrationsChancellery.Name)
+            @Html.DisplayNameFor(model => model.JournalRegistrations)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FolderChancellery.Name)
+            @Html.DisplayNameFor(model => model.Folder)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Summary)
@@ -74,19 +74,19 @@
             @Html.DisplayNameFor(model => model.DateRegistration)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TypeRecordChancellery.Name)
+            @Html.DisplayNameFor(model => model.Type)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Employee)
+            @Html.DisplayNameFor(model => model.ResponsibleEmployees)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ToChancelleries)
+            @Html.DisplayNameFor(model => model.To)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FromChancelleries)
+            @Html.DisplayNameFor(model => model.From)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FileRecordChancelleries)
+            @Html.DisplayNameFor(model => model.Files)
         </th>
         <th></th>
     </tr>
@@ -94,16 +94,16 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.id)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RegistrationNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.JournalRegistrationsChancellery.Name)
+                @Html.DisplayFor(modelItem => item.JournalRegistrations)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FolderChancellery.Name)
+                @Html.DisplayFor(modelItem => item.Folder)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Summary)
@@ -115,48 +115,51 @@
                 @Html.DisplayFor(modelItem => item.DateRegistration)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TypeRecordChancellery.Name)
+                @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Employee.FullName)
+                @foreach (var respItem in item.ResponsibleEmployees)
+            {
+                @Html.Label(respItem.ToString());
+            }
             </td>
             <td>
-                @foreach (var toItem in item.ToChancelleries)
+                @foreach (var toItem in item.To)
                 {
                     @Html.Label(toItem.ToString());
                 }
             </td>
             <td>
-                @foreach (var toItem in item.FromChancelleries)
+                @foreach (var toItem in item.From)
                 {
                     @Html.Label(toItem.ToString());
                 }
             </td>
             <td style="font-size:12px;">
 
-                @foreach (var file in item.FileRecordChancelleries.Where(f => f.s_InBasket == false))
+                @foreach (var file in item.Files)
                 {
                     <div style="display:inline-flex; line-height:25px">
-                        <a data-fancybox-type="iframe" style="padding-right:5px" class="fancybox" href="@Url.Action("DownloadFile", "Chancellery", new { id = file.id })" title="открыть" @*class="btn btn-primary"*@>
-                            @string.Format("{0}{1}", @file.Name, @file.Format)
+                        <a data-fancybox-type="iframe" style="padding-right:5px" class="fancybox" href="@Url.Action("DownloadFile", "Chancellery", new { id = file })" title="открыть" @*class="btn btn-primary"*@>
+                            @file)
                         </a>
-                        @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.id, FileId = file.id }, new { @class = "close" })
+                        @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.Id, FileId = file }, new { @class = "close" })
                     </div>
                 }
 
             </td>
             <td>
                 <div style="display: inline-flex; font-size:1.8em">
-                    <a style="padding-right:5px" href="@Url.Action("Edit", "Chancellery", new { id = item.id })" title="Редактировать" @*class="btn btn-primary"*@>
+                    <a style="padding-right:5px" href="@Url.Action("Edit", "Chancellery", new { id = item.Id })" title="Редактировать" @*class="btn btn-primary"*@>
                         <i class="fa fa-pencil-square-o"></i>
                     </a>
-                    <a title="Подробнее" style="padding-right:5px" href="@Url.Action("Details", "Chancellery", new { id = item.id })" @*class="btn btn-primary"*@>
+                    <a title="Подробнее" style="padding-right:5px" href="@Url.Action("Details", "Chancellery", new { id = item.Id })" @*class="btn btn-primary"*@>
                         <i class="fa fa-info"></i>
                     </a>
-                    <a title="Переместить в корзину" style="padding-right:5px" href="@Url.Action("MoveToBasket", "Chancellery", new { id = item.id })" @*class="btn btn-primary"*@>
+                    <a title="Переместить в корзину" style="padding-right:5px" href="@Url.Action("MoveToBasket", "Chancellery", new { id = item.Id })" @*class="btn btn-primary"*@>
                         <i class="fa fa-trash-o" aria-hidden="true"></i>
                     </a>
-                    <a title="Прикрепить файлы" href="@Url.Action("AttachFiles", "Chancellery", new { ChancelleryId = item.id })" @*class="btn btn-primary"*@>
+                    <a title="Прикрепить файлы" href="@Url.Action("AttachFiles", "Chancellery", new { ChancelleryId = item.Id })" @*class="btn btn-primary"*@>
                         <i class="fa fa-paperclip" aria-hidden="true"></i>
                     </a>
                 </div>

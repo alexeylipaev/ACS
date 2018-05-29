@@ -10,23 +10,9 @@ namespace ACS.WEB
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
-            bundles.Add(new ScriptBundle("~/bundles/jqueryMobile").Include(
-                        "~/Scripts/jqueryMobile/jquery.mobile-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
-
-            bundles.Add(new ScriptBundle("~/bundles/dataTable").Include(
-                        "~/Scripts/DataTables/*js"));
-            bundles.Add(new StyleBundle("~/Content/datatable/css").Include(
-                      "~/Scripts/DataTables/*css"));
-
-            bundles.Add(new ScriptBundle("~/bundles/fileInput").Include(
-                        "~/Scripts/kartik-v-bootstrap-fileinput-e03b535/js/fileinput.js",
-                        "~/Scripts/kartik-v-bootstrap-fileinput-e03b535/js/plugins/*.js")
-                        );
-            bundles.Add(new StyleBundle("~/Content/fileInput/css").Include(
-                      "~/Scripts/kartik-v-bootstrap-fileinput-e03b535/css/*css"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

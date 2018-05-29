@@ -1,12 +1,9 @@
-using ACS.BLL;
-using ACS.BLL.DTO;
+﻿using ACS.BLL.DTO;
+using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
 using ACS.BLL.Services;
-using ACS.BLL.Infrastructure;
-
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -39,7 +36,7 @@ namespace ACS.WEB.Providers
             //use the service locator pattern.
             //The service locator pattern is normally considered to be an anti-pattern
             //для  Ninject. Следующий код должен работать.
-            ApplicationUserService = DependencyResolver.Current.GetService<IApplicationUserService>();
+            ApplicationUserService = DependencyResolver.Current.GetService<ApplicationUserService>();
 
         }
 
@@ -98,7 +95,7 @@ namespace ACS.WEB.Providers
             {
                 applicationUserDTO = ApplicationUserService.FindByEmail(loginEmail);//SecurityService.GetIdentityUser(Email);
             }
-            catch (ValidationException )
+            catch (ValidationException)
             {
                 throw new ValidationException("Учетная запись отсутствует, обратитесь в отдел автоматизации", "");
             }

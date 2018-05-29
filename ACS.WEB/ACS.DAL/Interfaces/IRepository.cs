@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +34,8 @@ namespace ACS.DAL.Interfaces
         T Find(params object[] id);
 
         IEnumerable<T> Find(Func<T, Boolean> predicate);
+
+        bool Any(Func<T, Boolean> predicate);
 
         /// <summary>
         /// Добавить сущность к контексту
@@ -99,7 +100,7 @@ namespace ACS.DAL.Interfaces
         /// <param name="entity">Удаляемая сущность</param>
         /// <returns>Количество удаленных объектов</returns>
         int Delete( T entity);
-
+        int Delete(int id);
         /// <summary>
         /// Удалить сущность в контексте
         /// </summary>
@@ -215,27 +216,27 @@ namespace ACS.DAL.Interfaces
         //     Func<IQueryable<T>, IOrderedQueryable<T>> orderBy,
         //    params Expression<Func<T, object>>[] include);
 
-        #region Methods immediately executed, pass by tracking system
+        //#region Methods immediately executed, pass by tracking system
 
-        /// <summary>
-        /// Удалить сущности по условию в контексте.
-        /// Метод выполняется немедленно, минуя систему трекинга.
-        /// Изменения не будут отражаться на сущностях в текущем контексте.
-        /// </summary>
-        /// <param name="filter">Условие отбора сущностей для удаления</param>
-        /// <returns>Количество удаленных объектов</returns>
-        int DeleteImmediately( Expression<Func<T, bool>> filter);
+        ///// <summary>
+        ///// Удалить сущности по условию в контексте.
+        ///// Метод выполняется немедленно, минуя систему трекинга.
+        ///// Изменения не будут отражаться на сущностях в текущем контексте.
+        ///// </summary>
+        ///// <param name="filter">Условие отбора сущностей для удаления</param>
+        ///// <returns>Количество удаленных объектов</returns>
+        //int DeleteImmediately( Expression<Func<T, bool>> filter);
 
-        /// <summary>
-        /// Обновить сущности по условию в контексте.
-        /// Метод выполняется немедленно, минуя систему трекинга.
-        /// Изменения не будут отражаться на сущностях в текущем контексте.
-        /// </summary>
-        /// <param name="filter">Условие отбора сущностей для обновления</param>
-        /// <param name="updater">Выражение указывает, какие поля необходимо обновить</param>
-        /// <returns>Количество обновленных объектов</returns>
-        int UpdateImmediately( Expression<Func<T, bool>> filter,  Expression<Func<T, T>> updater, int EditorId);
+        ///// <summary>
+        ///// Обновить сущности по условию в контексте.
+        ///// Метод выполняется немедленно, минуя систему трекинга.
+        ///// Изменения не будут отражаться на сущностях в текущем контексте.
+        ///// </summary>
+        ///// <param name="filter">Условие отбора сущностей для обновления</param>
+        ///// <param name="updater">Выражение указывает, какие поля необходимо обновить</param>
+        ///// <returns>Количество обновленных объектов</returns>
+        //int UpdateImmediately( Expression<Func<T, bool>> filter,  Expression<Func<T, T>> updater, int EditorId);
 
-        #endregion
+        //#endregion
     }
 }

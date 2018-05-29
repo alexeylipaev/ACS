@@ -1,0 +1,13 @@
+H:\new\ACS.WEB\ActiveDirectory\bin\Debug\ActiveDirectory.dll
+H:\new\ACS.WEB\ActiveDirectory\bin\Debug\ActiveDirectory.pdb
+H:\new\ACS.WEB\ActiveDirectory\obj\Debug\ActiveDirectory.dll
+H:\new\ACS.WEB\ActiveDirectory\obj\Debug\ActiveDirectory.pdb
+X:\Подразделения\СВиССА\Dinamika Extension\new\ACS.WEB\ActiveDirectory\bin\Debug\ActiveDirectory.dll
+X:\Подразделения\СВиССА\Dinamika Extension\new\ACS.WEB\ActiveDirectory\bin\Debug\ActiveDirectory.pdb
+X:\Подразделения\СВиССА\Dinamika Extension\new\ACS.WEB\ActiveDirectory\obj\Debug\ActiveDirectory.csprojResolveAssemblyReference.cache
+X:\Подразделения\СВиССА\Dinamika Extension\new\ACS.WEB\ActiveDirectory\obj\Debug\ActiveDirectory.dll
+X:\Подразделения\СВиССА\Dinamika Extension\new\ACS.WEB\ActiveDirectory\obj\Debug\ActiveDirectory.pdb
+C:\Users\lipaev\Source\Repos\Git\ACS\ACS.WEB\ActiveDirectory\bin\Debug\ActiveDirectory.dll
+C:\Users\lipaev\Source\Repos\Git\ACS\ACS.WEB\ActiveDirectory\bin\Debug\ActiveDirectory.pdb
+C:\Users\lipaev\Source\Repos\Git\ACS\ACS.WEB\ActiveDirectory\obj\Debug\ActiveDirectory.dll
+C:\Users\lipaev\Source\Repos\Git\ACS\ACS.WEB\ActiveDirectory\obj\Debug\ActiveDirectory.pdb

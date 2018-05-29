@@ -2,11 +2,12 @@
 using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
 using ACS.WEB.Util;
-using ACS.WEB.ViewModel;
-using AutoMapper;
+using ACS.WEB.ViewModels;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 namespace ACS.WEB.Controllers
@@ -17,43 +18,29 @@ namespace ACS.WEB.Controllers
 
         public FoldersChancelleryController(IFolderChancelleryService folderChancelleryService)
         {
-            //Mapper.Initialize(cfg =>
-            //{
-            //    cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>()
-            //       .ReverseMap();
-            //});
 
             FolderChancelleryService = folderChancelleryService;
         }
-        //private object mapFolder(FolderChancelleryDTO folderDTO = null, FolderChancelleryViewModel folderVM = null)
-        //{
-
-        //    if (folderDTO != null)
-        //        return Mapper.Map<FolderChancelleryDTO, FolderChancelleryViewModel>(folderDTO);
-        //    else if (folderVM != null)
-        //        return Mapper.Map<FolderChancelleryViewModel, FolderChancelleryDTO>(folderVM);
-
-        //    return null;
-        //}
-
 
         // GET: FoldersChancellery
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>()).CreateMapper();
-            var folderdVM = mapTemplFolderDTOToFolderVM().Map<IEnumerable<FolderChancelleryDTO>, List<FolderChancelleryViewModel>>(FolderChancelleryService.GetFoldersChancellery());
-            return View(folderdVM);
+            var foldersDto = await FolderChancelleryService.GetAllAsync();
+            foldersDto = foldersDto.Where(ch => ch.s_InBasket == false);
+
+            var ExternalOrganizationsVM = MapChancelleryWEB.ListFolderDTOToListFolderVM(foldersDto.ToList()); /*(chancelleryDTOs.ToList());*/
+            return View(ExternalOrganizationsVM);
         }
 
 
         // GET: FoldersChancellery/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
             try
             {
-                var folderDTO = FolderChancelleryService.GetFolderChancellery(id);
+                var folderDTO = await FolderChancelleryService.FindAsync(id);
 
-                var folderVM = MappFolderDTOToFolderVM(folderDTO);
+                var folderVM = MapChancelleryWEB.FolderDtoToFolderVM(folderDTO);
                 return View(folderVM);
             }
             catch (ValidationException ex)
@@ -62,12 +49,7 @@ namespace ACS.WEB.Controllers
             }
         }
 
-        FolderChancelleryViewModel GetFolderVM(int id)
-        {
-            var folderDTO = FolderChancelleryService.GetFolderChancellery(id);
-            if (folderDTO == null) { throw new Exception("Папка не найдена"); }
-            return MappFolderDTOToFolderVM(folderDTO);
-        }
+
 
         // GET: FoldersChancellery/Create
         public ActionResult Create()
@@ -77,50 +59,52 @@ namespace ACS.WEB.Controllers
 
         // POST: FoldersChancellery/Create
         [HttpPost]
-        public ActionResult Create(FolderChancelleryViewModel folrderVM)
+        public async Task<ActionResult> Create(FolderCorrespondencesInput folderInput)
         {
-            return CreateOrUpdateOrDel(folrderVM);
+            return await CreateOrUpdateOrDelAsync(folderInput);
         }
 
         // GET: FoldersChancellery/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            var VM = GetFolderVM(id);
-            return View(VM);
+            var folderDTO = await FolderChancelleryService.FindAsync(id);
+            if (folderDTO == null) { throw new Exception("Папка не найдена"); }
+            return View(MapChancelleryWEB.FolderChancelleryDTOToFolderChancelleryInput(folderDTO));
+  
         }
 
 
         // POST: FoldersChancellery/Edit/5
         [HttpPost]
-        public ActionResult Edit(/*[Bind(Include = "Name")]*/ FolderChancelleryViewModel folrderVM)
+        public async Task<ActionResult> Edit(/*[Bind(Include = "Name")]*/ FolderCorrespondencesInput folderInput)
         {
-            return CreateOrUpdateOrDel(folrderVM);
+            return await CreateOrUpdateOrDelAsync(folderInput);
         }
 
-        ActionResult CreateOrUpdateOrDel(/*[Bind(Include = "Id,Name")]*/ FolderChancelleryViewModel folrderVM, bool del = false)
+       async Task<ActionResult> CreateOrUpdateOrDelAsync(/*[Bind(Include = "Id,Name")]*/ FolderCorrespondencesInput folderInput, bool del = false)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     string currentUserEmail = this.User.Identity.Name;
-                    var folrderDto = MappFolderVMToFolderDTO(folrderVM);
+                    var folrderDto = MapChancelleryWEB.FolderInputToFolderDto(folderInput);
 
                     int result = 0;
 
                     if (del)
                     {
-                        result = FolderChancelleryService.DeleteFolderChancellery(folrderDto);
+                        result = await FolderChancelleryService.DeleteAsync(folrderDto.Id);
                         if (result > 0)
                             ViewBag.EditResult = "Данные успешно удалены";
                         return RedirectToAction("Index");
                     }
                     else
                     {
-                        result = FolderChancelleryService.CreateOrUpdateFolderChancellery(folrderDto, currentUserEmail);
+                        result = await FolderChancelleryService.CreateOrUpdateAsync(folrderDto, currentUserEmail);
                         if (result > 0)
                             ViewBag.EditResult = "Данные успешно обновлены";
-                        return View(folrderVM);
+                        return View(folderInput);
                     }
 
                 }
@@ -129,14 +113,14 @@ namespace ACS.WEB.Controllers
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
             }
-            return View(folrderVM);
+            return View(folderInput);
         }
 
         // GET: FoldersChancellery/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var vm = GetFolderVM(id);
-            ActionResult action = this.DeleteConfirmed(id);
+            var vm = await FolderChancelleryService.FindAsync(id);
+            ActionResult action = await this.DeleteConfirmed(id);
             return action;
             //return RedirectToAction("Delete", "FoldersChancellery", new { id = id });
             //return View(vm);
@@ -145,44 +129,13 @@ namespace ACS.WEB.Controllers
         // POST: FoldersChancellery/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            var folderDTO = FolderChancelleryService.GetFolderChancellery(id);
-            var folderVM = MappFolderDTOToFolderVM(folderDTO);
-            return CreateOrUpdateOrDel(folderVM, true);
+            var folderDTO = await FolderChancelleryService.FindAsync(id);
+            var folderInput= MapChancelleryWEB.FolderChancelleryDTOToFolderChancelleryInput(folderDTO);
+            return await CreateOrUpdateOrDelAsync(folderInput, true);
         }
 
-
-        #region mapper
-        IMapper mapTemplFolderDTOToFolderVM()
-        {
-            return new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
-                cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>();
-
-            }).CreateMapper();
-        }
-        FolderChancelleryViewModel MappFolderDTOToFolderVM(FolderChancelleryDTO FolderDTO)
-        {
-            // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancelleryDTO, FolderChancelleryViewModel>()).CreateMapper();
-            return mapTemplFolderDTOToFolderVM().Map<FolderChancelleryDTO, FolderChancelleryViewModel>(FolderDTO);
-        }
-
-
-        FolderChancelleryDTO MappFolderVMToFolderDTO(FolderChancelleryViewModel FolderVM)
-        {
-            //var mapper = new MapperConfiguration(cfg =>
-            //{
-            //    cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO>();
-            //    cfg.CreateMap<FolderChancelleryViewModel, FolderChancelleryDTO>();
-
-            //}).CreateMapper();
-            // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FolderChancelleryViewModel,FolderChancelleryDTO>()).CreateMapper();
-            return MapBLLPresenter.GetMap().Map<FolderChancelleryViewModel, FolderChancelleryDTO>(FolderVM);
-        }
-
-        #endregion
         protected override void Dispose(bool disposing)
         {
             if (disposing)

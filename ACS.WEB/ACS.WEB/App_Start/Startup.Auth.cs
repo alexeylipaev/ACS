@@ -20,7 +20,7 @@ namespace ACS.WEB.App_Start
     {
         public void ConfigureAuth(IAppBuilder app)
         {
-            app.CreatePerOwinContext(CreateAccountUserService);
+            //app.CreatePerOwinContext(CreateAccountUserService);
             // need to add UserManager into owin, because this is used in cookie invalidation
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {

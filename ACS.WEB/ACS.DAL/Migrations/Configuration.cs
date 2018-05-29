@@ -1,45 +1,54 @@
-using ACS.DAL.EF;
+ï»¿using ACS.DAL.EF;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ACS.DAL.Migrations
 {
-
     internal sealed class Configuration : DbMigrationsConfiguration<ACSContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;//àâòîìàòè÷åñêîå îáíîâëåíèå áä
-            AutomaticMigrationDataLossAllowed = true;//îáíîâëÿòü áä äàæå åñëè ïğè ıòîì áóäóò óòåğÿíû äàííûå
+
+            AutomaticMigrationsEnabled = true;//Ğ°Ğ²Ñ‚Ğ¾Ğ¼Ğ°Ñ‚Ğ¸Ñ‡ĞµÑĞºĞ¾Ğµ Ğ¾Ğ±Ğ½Ğ¾Ğ²Ğ»ĞµĞ½Ğ¸Ğµ Ğ±Ğ´
+            AutomaticMigrationDataLossAllowed = true;//Ğ¾Ğ±Ğ½Ğ¾Ğ²Ğ»ÑÑ‚ÑŒ Ğ±Ğ´ Ğ´Ğ°Ğ¶Ğµ ĞµÑĞ»Ğ¸ Ğ¿Ñ€Ğ¸ ÑÑ‚Ğ¾Ğ¼ Ğ±ÑƒĞ´ÑƒÑ‚ ÑƒÑ‚ĞµÑ€ÑĞ½Ñ‹ Ğ´Ğ°Ğ½Ğ½Ñ‹Ğµ
             // DefaultValue Sql Generator
-            //SetSqlGenerator("System.Data.SqlClient", new DefaultValueSqlServerMigrationSqlGenerator());
+            SetSqlGenerator("System.Data.SqlClient", new DefaultValueSqlServerMigrationSqlGenerator());
+        }
+
+        public void PublicSeed(ACSContext db)
+        {
+            Debug.WriteLine("GenerateAppRolesRepository");
+            DataLoader1C.GenerateAppRolesRepository(db);
+            Debug.WriteLine("GenerateApplicationUserSystem");
+            DataLoader1C.GenerateApplicationUserSystem(db);
+            Debug.WriteLine("GenerateUserRepository");
+            DataLoader1C.GenerateUserRepository(db);
+            //Debug.WriteLine("GenerateDepartmentRepository");
+            //DataLoader1C.GenerateDepartmentRepository(db);
+            //Debug.WriteLine("GeneratePostRepository");
+            //DataLoader1C.GeneratePostRepository(db);
+            //Debug.WriteLine("GeneratePostsEmployeesĞ¡ode1Ğ¡Repository");
+            //DataLoader1C.GeneratePostsEmployeesĞ¡ode1Ğ¡Repository(db);
+            //Debug.WriteLine("GenerateWorkHistoryRepository");
+            //DataLoader1C.GenerateWorkHistoryRepository(db);
+            //Debug.WriteLine("GenerateTypeAccessRepository");
+            //DataLoader1C.GenerateTypeAccessRepository(db);
+            Debug.WriteLine("GenerateTypeRecordChancelleryRepository");
+            DataLoader1C.GenerateTypeRecordChancelleryRepository(db);
         }
 
         protected override void Seed(ACSContext db)
         {
             base.Seed(db);
+#warning Ñ€Ğ°ÑĞºĞ¾Ğ¼Ğ¼ĞµĞ½Ñ‚Ğ¸Ñ‚ÑŒ Ğ´Ğ»Ñ Ñ€Ğ°Ğ·Ğ¾Ğ²Ğ¾Ğ³Ğ¾ Ğ·Ğ°Ğ¿Ğ¾Ğ»Ğ½ĞµĞ½Ğ¸Ñ Ğ‘Ğ”
+            //PublicSeed(db);
 
-#warning ğàñêîììåíòèòü äëÿ ğàçîâîãî çàïîëíåíèÿ ÁÄ
-            //Debug.WriteLine("GenerateAppRolesRepository");
-            //DataLoader1C.GenerateAppRolesRepository(db);
-            //Debug.WriteLine("GenerateApplicationUserSystem");
-            //DataLoader1C.GenerateApplicationUserSystem(db);
-            //Debug.WriteLine("GenerateUserRepository");
-            //DataLoader1C.GenerateUserRepository(db);
-            //Debug.WriteLine("GenerateDepartmentRepository");
-            //DataLoader1C.GenerateDepartmentRepository(db);
-            //Debug.WriteLine("GeneratePostRepository");
-            //DataLoader1C.GeneratePostRepository(db);
-            //Debug.WriteLine("GeneratePostsEmployeesÑode1ÑRepository");
-            //DataLoader1C.GeneratePostsEmployeesÑode1ÑRepository(db);
-            //Debug.WriteLine("GenerateWorkHistoryRepository");
-            //DataLoader1C.GenerateWorkHistoryRepository(db);
-            //Debug.WriteLine("GenerateTypeAccessRepository");
-            //DataLoader1C.GenerateTypeAccessRepository(db);
-            //Debug.WriteLine("GenerateTypeRecordChancelleryRepository");
-            //DataLoader1C.GenerateTypeRecordChancelleryRepository(db);
         }
-
 
     }
 

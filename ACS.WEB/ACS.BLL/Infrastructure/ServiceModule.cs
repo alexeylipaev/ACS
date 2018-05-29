@@ -1,6 +1,4 @@
-﻿using ACS.BLL.Interfaces;
-using ACS.BLL.Services;
-using ACS.DAL.Interfaces;
+﻿using ACS.DAL.Interfaces;
 using ACS.DAL.Repositories;
 using Ninject.Modules;
 using System;

@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using System.Text;
-using ACS.WEB.ViewModel;
+using ACS.WEB.ViewModels;
 
 namespace ACS.WEB.Helpers
 {

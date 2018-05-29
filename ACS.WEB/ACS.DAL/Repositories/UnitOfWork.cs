@@ -21,27 +21,28 @@ namespace ACS.DAL.Repositories
         private ApplicationUserManager userManager;
         private ApplicationRoleManager roleManager;
 
-        private IRepository<Chancellery> ChancelleryRepository;
-        private IRepository<DataEntity> DataEntityRepository;
-        private IRepository<Department> DepartmentRepository;
-        private IRepository<ExternalOrganizationChancellery> ExternalOrganizationChancelleryRepository;
-        private IRepository<FolderChancellery> FolderChancelleryRepository;
-        private IRepository<FileRecordChancellery> FileRecordChancelleryRepository;
-        private IRepository<FromChancellery> FromChancelleryRepository;
-        private IRepository<JournalRegistrationsChancellery> JournalRegistrationsChancelleryRepository;
-        private IRepository<PostNameEmployee> PostNameUserRepository;
-        private IRepository<PostEmployeeСode1С> PostsEmployeesСode1СRepository;
-        private IRepository<ToChancellery> ToChancelleryRepository;
-        private IRepository<TypeAccess> TypeAccessRepository;
+        #region Chancellery
 
-        private IRepository<TypeRecordChancellery> TypeRecordChancelleryRepository;
-        private IRepository<WorkHistory> WorkHistoryRepository;
-        private IRepository<EmployeePassport> EmployeePassportRepository;
-        private IRepository<Access> AccessRepository;
+        private IRepositoryAsync<Chancellery> ChancelleryRepository;
+        private IRepositoryAsync<FolderChancellery> FolderChancelleryRepository;
+        private IRepositoryAsync<JournalRegistrationsChancellery> JournalRegistrationsChancelleryRepository;
+        private IRepositoryAsync<TypeRecordChancellery> TypeRecordChancelleryRepository;
 
-        private IRepository<Employee> EmployeeRepository;
+        #region To
+        private IRepositoryAsync<ToEmplChancellery> ToEmplChancelleryRepository;
+        private IRepositoryAsync<ToExtlOrgChancellery> ToExtlOrgChancelleryRepository;
+        #endregion
 
-        private IRepository<ProjectRegistry> ProjectRegistryRepository;
+        #region From
+        private IRepositoryAsync<FromEmplChancellery> FromEmplChancelleryRepository;
+        private IRepositoryAsync<FromExtlOrgChancellery> FromExtlOrgChancelleryRepository;
+        #endregion
+
+        #endregion
+
+        private IRepositoryAsync<Files> FilesRepository;
+        private IRepositoryAsync<ExternalOrganization> ExternalOrganizationRepository;
+        private IRepositoryAsync<Employee> EmployeeRepository;
 
         public UnitOfWork(string connectionString)
         {
@@ -60,178 +61,122 @@ namespace ACS.DAL.Repositories
             get { return roleManager; }
         }
 
-
-        public IRepository<Employee> Employees
-        {
-            get
-            {
-                if (EmployeeRepository == null)
-                    EmployeeRepository = new Repository<Employee>(db);
-                return EmployeeRepository;
-            }
-        }
-
-        public IRepository<EmployeePassport> EmployeesPassports
-        {
-            get
-            {
-                if (EmployeePassportRepository == null)
-                    EmployeePassportRepository = new Repository<EmployeePassport>(db);
-                return EmployeePassportRepository;
-            }
-        }
-
-        public IRepository<Access> Accesses
-        {
-            get
-            {
-                if (AccessRepository == null)
-                    AccessRepository = new Repository<Access>(db);
-                return AccessRepository;
-            }
-        }
-
-        public IRepository<Chancellery> Chancelleries
+        #region Канцелярия 
+        public IRepositoryAsync<Chancellery> Chancelleries
         {
             get
             {
                 if (ChancelleryRepository == null)
-                    ChancelleryRepository = new Repository<Chancellery>(db);
+                    ChancelleryRepository = new RepositoryAsync<Chancellery>(db);
                 return ChancelleryRepository;
             }
         }
-        public IRepository<DataEntity> DataEntityis
-        {
-            get
-            {
-                if (DataEntityRepository == null)
-                    DataEntityRepository = new Repository<DataEntity>(db);
-                return DataEntityRepository;
-            }
-        }
-        public IRepository<Department> Departments
-        {
-            get
-            {
-                if (DepartmentRepository == null)
-                    DepartmentRepository = new Repository<Department>(db);
-                return DepartmentRepository;
-            }
-        }
-        public IRepository<ExternalOrganizationChancellery> ExternalOrganizationChancelleries
-        {
-            get
-            {
-                if (ExternalOrganizationChancelleryRepository == null)
-                    ExternalOrganizationChancelleryRepository = new Repository<ExternalOrganizationChancellery>(db);
-                return ExternalOrganizationChancelleryRepository;
-            }
-        }
-        public IRepository<FileRecordChancellery> FileRecordChancelleries
-        {
-            get
-            {
-                if (FileRecordChancelleryRepository == null)
-                    FileRecordChancelleryRepository = new Repository<FileRecordChancellery>(db);
-                return FileRecordChancelleryRepository;
-            }
-        }
-        public IRepository<FolderChancellery> FolderChancelleries
-        {
-            get
-            {
-                if (FolderChancelleryRepository == null)
-                    FolderChancelleryRepository = new Repository<FolderChancellery>(db);
-                return FolderChancelleryRepository;
-            }
-        }
-        public IRepository<FromChancellery> FromChancelleries
-        {
-            get
-            {
-                if (FromChancelleryRepository == null)
-                    FromChancelleryRepository = new Repository<FromChancellery>(db);
-                return FromChancelleryRepository;
-            }
-        }
-        public IRepository<JournalRegistrationsChancellery> JournalRegistrationsChancelleries
-        {
-            get
-            {
-                if (JournalRegistrationsChancelleryRepository == null)
-                    JournalRegistrationsChancelleryRepository = new Repository<JournalRegistrationsChancellery>(db);
-                return JournalRegistrationsChancelleryRepository;
-            }
-        }
-        public IRepository<PostNameEmployee> PostsEmployees
-        {
-            get
-            {
-                if (PostNameUserRepository == null)
-                    PostNameUserRepository = new Repository<PostNameEmployee>(db);
-                return PostNameUserRepository;
-            }
-        }
-
-        public IRepository<PostEmployeeСode1С> PostsEmployeesСode1С
-        {
-            get
-            {
-                if (PostsEmployeesСode1СRepository == null)
-                    PostsEmployeesСode1СRepository = new Repository<PostEmployeeСode1С>(db);
-                return PostsEmployeesСode1СRepository;
-            }
-        }
-
-        public IRepository<ToChancellery> ToChancelleries
-        {
-            get
-            {
-                if (ToChancelleryRepository == null)
-                    ToChancelleryRepository = new Repository<ToChancellery>(db);
-                return ToChancelleryRepository;
-            }
-        }
-
-        public IRepository<TypeAccess> TypesAccesses
-        {
-            get
-            {
-                if (TypeAccessRepository == null)
-                    TypeAccessRepository = new Repository<TypeAccess>(db);
-                return TypeAccessRepository;
-            }
-        }
-
-        public IRepository<TypeRecordChancellery> TypeRecordChancelleries
+        public IRepositoryAsync<TypeRecordChancellery> TypeRecordChancelleries
         {
             get
             {
                 if (TypeRecordChancelleryRepository == null)
-                    TypeRecordChancelleryRepository = new Repository<TypeRecordChancellery>(db);
+                    TypeRecordChancelleryRepository = new RepositoryAsync<TypeRecordChancellery>(db);
                 return TypeRecordChancelleryRepository;
             }
         }
-
-
-        public IRepository<WorkHistory> WorkHistories
+        public IRepositoryAsync<FolderChancellery> FolderChancelleries
         {
             get
             {
-                if (WorkHistoryRepository == null)
-                    WorkHistoryRepository = new Repository<WorkHistory>(db);
-                return WorkHistoryRepository;
+                if (FolderChancelleryRepository == null)
+                    FolderChancelleryRepository = new RepositoryAsync<FolderChancellery>(db);
+                return FolderChancelleryRepository;
+            }
+        }
+
+        public IRepositoryAsync<JournalRegistrationsChancellery> JournalRegistrationsChancelleries
+        {
+            get
+            {
+                if (JournalRegistrationsChancelleryRepository == null)
+                    JournalRegistrationsChancelleryRepository = new RepositoryAsync<JournalRegistrationsChancellery>(db);
+                return JournalRegistrationsChancelleryRepository;
             }
         }
 
 
-        public IRepository<ProjectRegistry> ProjectsRegistry
+        #region To
+        public IRepositoryAsync<ToEmplChancellery> ToEmplsChancellery
         {
             get
             {
-                if (ProjectRegistryRepository == null)
-                    ProjectRegistryRepository = new Repository<ProjectRegistry>(db);
-                return ProjectRegistryRepository;
+                if (ToEmplChancelleryRepository == null)
+                    ToEmplChancelleryRepository = new RepositoryAsync<ToEmplChancellery>(db);
+                return ToEmplChancelleryRepository;
+            }
+        }
+
+        public IRepositoryAsync<ToExtlOrgChancellery> ToExtlOrgsChancellery
+        {
+            get
+            {
+                if (ToExtlOrgChancelleryRepository == null)
+                    ToExtlOrgChancelleryRepository = new RepositoryAsync<ToExtlOrgChancellery>(db);
+                return ToExtlOrgChancelleryRepository;
+            }
+        }
+
+
+        #endregion
+
+        #region From
+        public IRepositoryAsync<FromEmplChancellery> FromEmplsChancellery
+        {
+            get
+            {
+                if (FromEmplChancelleryRepository == null)
+                    FromEmplChancelleryRepository = new RepositoryAsync<FromEmplChancellery>(db);
+                return FromEmplChancelleryRepository;
+            }
+        }
+
+        public IRepositoryAsync<FromExtlOrgChancellery> FromExtlOrgsChancellery
+        {
+            get
+            {
+                if (FromExtlOrgChancelleryRepository == null)
+                    FromExtlOrgChancelleryRepository = new RepositoryAsync<FromExtlOrgChancellery>(db);
+                return FromExtlOrgChancelleryRepository;
+            }
+        }
+        #endregion
+
+        #endregion
+        public IRepositoryAsync<Employee> Employees
+        {
+            get
+            {
+                if (EmployeeRepository == null)
+                    EmployeeRepository = new RepositoryAsync<Employee>(db);
+                return EmployeeRepository;
+            }
+        }
+
+     
+       
+     
+        public IRepositoryAsync<ExternalOrganization> ExternalOrganization
+        {
+            get
+            {
+                if (ExternalOrganizationRepository == null)
+                    ExternalOrganizationRepository = new RepositoryAsync<ExternalOrganization>(db);
+                return ExternalOrganizationRepository;
+            }
+        }
+        public IRepositoryAsync<Files> Files
+        {
+            get
+            {
+                if (FilesRepository == null)
+                    FilesRepository = new RepositoryAsync<Files>(db);
+                return FilesRepository;
             }
         }
 
@@ -250,6 +195,7 @@ namespace ACS.DAL.Repositories
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
         private bool disposed = false;
 
         public virtual void Dispose(bool disposing)

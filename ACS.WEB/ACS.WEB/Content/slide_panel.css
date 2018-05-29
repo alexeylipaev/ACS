@@ -5,14 +5,14 @@
         .slide_panel_wrap p {
             margin-bottom: 10px;
             padding-left: 12px;
-            width: 169px;
+            width: 107px;
             height: 30px;
-            background: url(../Content/images/slide_button_FilterConfig.png) no-repeat 0 0;
+            background: url(../Content/images/slide_button.png) no-repeat 0 0;
             cursor: pointer;
         }
 
             .slide_panel_wrap p.active {
-                background: url(../Content/images/slide_button_FilterConfig.png) no-repeat 0 -30px;
+                background: url(../Content/images/slide_button.png) no-repeat 0 -30px;
             }
 
     .slide_panel {
@@ -20,7 +20,7 @@ padding-top: 30px;
     width: 100%;
     /* height: 70px; */
     /* border: 1px solid #000; */
-     background: #e5e5e5; 
+    /* background: #e5e5e5; */
     /* text-align: center; */
     display: none;
     font-size: 12px;

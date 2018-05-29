@@ -1,610 +1,40 @@
-﻿using ACS.BLL.Interfaces;
+﻿using ACS.BLL.DTO;
+using ACS.BLL.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using ACS.BLL.DTO;
 using ACS.DAL.Interfaces;
-using ACS.DAL.Entities;
-using AutoMapper;
-using ACS.BLL.Infrastructure;
 using ACS.BLL.BusinessModels;
-using System.Diagnostics;
-using System.Collections;
-using System.IO;
-using System.Linq.Expressions;
 using System.Web;
-using ACS.BLL.BusinessModels.Chancellery;
+using System.IO;
+using ACS.DAL.Entities;
+using System.Linq;
 
 namespace ACS.BLL.Services
 {
-
     public class ChancelleryService : ServiceBase, IChancelleryService
     {
-        private ExternalOrganizationChancelleryService ExternalOrganizationChancelleryService;
-        private EmployeeService EmployeeService;
-        private JournalRegistrationsChancelleryService JournalRegistrationsChancelleryService;
-        private FolderChancelleryService FolderChancelleryService;
-        private TypeRecordChancelleryService TypeRecordChancelleryService;
-        private FileRecordChancelleryService FileRecordChancelleryService;
+        private IExternalOrganizationService ExternalOrganizationService;
+        private IEmployeeService EmployeeService;
+        private IJournalRegistrationsChancelleryService JournalRegistrationsChancelleryService;
+        private IFolderChancelleryService FolderChancelleryService;
+        private ITypeRecordChancelleryService TypeRecordChancelleryService;
+        private IFilesSevice FilesService;
+
         public ChancelleryService(IUnitOfWork uow) : base(uow)
         {
-            ExternalOrganizationChancelleryService = new ExternalOrganizationChancelleryService(uow);
+            ExternalOrganizationService = new ExternalOrganizationService(uow);
             EmployeeService = new EmployeeService(uow);
             JournalRegistrationsChancelleryService = new JournalRegistrationsChancelleryService(uow);
             FolderChancelleryService = new FolderChancelleryService(uow);
             TypeRecordChancelleryService = new TypeRecordChancelleryService(uow);
-            FileRecordChancelleryService = new FileRecordChancelleryService(uow);
+            FilesService = new FilesService(uow);
         }
 
-        #region Канцелярия 
-
-        int CreateOrUpdate_To(ToChancelleryDTO DTO_to, int AuthorID)
+        #region files
+        public IEnumerable<FilesDTO> AttachFiles(IEnumerable<HttpPostedFileBase> httpPostedFileBases, string authorEmail)
         {
-            try
-            {
-                ToChancellery To_Original = Database.ToChancelleries.Find(DTO_to.id);
-
-                var to = MapDALBLL.GetMapp().Map(DTO_to, To_Original);
-
-                if (To_Original != null)
-                {
-                    To_Original.Chancellery = to.Chancellery;
-                    To_Original.Employee = to.Employee;
-                    To_Original.ExternalOrganization = to.ExternalOrganization;
-                    To_Original.s_InBasket = to.s_InBasket;
-
-                    return Database.ToChancelleries.Update(To_Original, AuthorID);
-                }
-                else if (To_Original == null)
-                {
-                    return Database.ToChancelleries.Add(to, AuthorID);
-                }
-
-            }
-            catch (Exception e)
-            {
-                CatchError(e);
-            }
-
-            return 0;
-        }
-
-        int CreateOrUpdate_From(FromChancelleryDTO DTO_From, int AuthorID)
-        {
-            try
-            {
-                FromChancellery From_Original = Database.FromChancelleries.Find(DTO_From.id);
-
-                var from = MapDALBLL.GetMapp().Map(DTO_From, From_Original);
-
-                if (From_Original != null)
-                {
-                    From_Original.Chancellery = from.Chancellery;
-                    From_Original.Employee = from.Employee;
-                    From_Original.ExternalOrganization = from.ExternalOrganization;
-                    From_Original.s_InBasket = from.s_InBasket;
-
-                    return Database.FromChancelleries.Update(From_Original, AuthorID);
-                }
-                else if (From_Original == null)
-                {
-                    return Database.FromChancelleries.Add(from, AuthorID);
-                }
-
-            }
-            catch (Exception e)
-            {
-                CatchError(e);
-            }
-
-            return 0;
-        }
-
-        void CraeateOrUpdate_FromAndTo(ChancelleryDTO chancelleryDTO, int AuthorID)
-        {
-            int amountChanged_To = 0;
-            foreach (var DTO_to in chancelleryDTO.ToChancelleries)
-            {
-                amountChanged_To += CreateOrUpdate_To(DTO_to, AuthorID);
-            }
-            int amountChanged_From = 0;
-            foreach (var DTO_From in chancelleryDTO.FromChancelleries)
-            {
-                amountChanged_From += CreateOrUpdate_From(DTO_From, AuthorID);
-            }
-        }
-
-
-        public int CreateOrUpdateChancellery(ChancelleryDTO chancelleryDTO, string authorEmail)
-        {
-            int AuthorID = 0;
-            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
-            catch (Exception ex) { throw ex; }
-
-            try
-            {
-                var chancelleryOriginal = Database.Chancelleries.Find(chancelleryDTO.id);
-                /*   var chanceller =*/
-
-                var chancellery = MapDALBLL.GetMapForUpdateOrCreate().Map(chancelleryDTO, chancelleryOriginal);
-
-                if (chancelleryOriginal != null)
-                {
-                    //CraeateOrUpdate_FromAndTo(chancellery, AuthorID);
-                    return Database.Chancelleries.Update(chancelleryOriginal, AuthorID);
-                }
-
-                else if (chancelleryOriginal == null)
-                {
-                    //CraeateOrUpdate_FromAndTo(chancelleryDTO, AuthorID);
-                    return Database.Chancelleries.Add(chancellery, AuthorID);
-                }
-            }
-            catch (Exception e)
-            {
-                CatchError(e);
-            }
-
-            return 0;
-        }
-
-
-
-        public int DeleteChancellery(int chancelleryId)
-        {
-            return Database.Chancelleries.Delete(chancelleryId);
-        }
-
-        /// <summary>
-        /// Получить канцеляскую запись по id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ChancelleryDTO ChancelleryGet(int id)
-        {
-            //if (id == null)
-            //    throw new ValidationException("Не установлено id канцелярской записи", "");
-
-            var Chancellery = Database.Chancelleries.Find(id);
-
-            if (Chancellery == null)
-                throw new ValidationException("Канцелярская запись не найдена", "");
-
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
-            return MapDALBLL.GetMapp().Map<Chancellery, ChancelleryDTO>(Chancellery);
-        }
-
-
-
-        #region Входящая канцелярия
-
-
-        public IEnumerable<IncomingCorrespondency> ChancelleryGetIncoming(ChancellerySearchModel сhancellerySearchModel)
-        {
-            var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
-            return MapDALBLL.GetMap_ChancelleryDTO_TO_Incoming().Map<IEnumerable<ChancelleryDTO>, IEnumerable<IncomingCorrespondency>>(chancellerieDTOs);
-        }
-
-        public int ChancelleryCreateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail)
-        {
-            int authorID = 0;
-            try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
-            catch (Exception ex) { throw ex; }
-
-            ChancelleryDTO newDTO = MapDALBLL.GetMap_IncomingCorrespondency_TO_ChancelleryDTO().Map<IncomingCorrespondency, ChancelleryDTO>(incomingCorrespondency);
-            newDTO.TypeRecordChancellery = TypeRecordGet(Constants.CorrespondencyType.Incoming);
-
-            //var newDB = MapDALBLL.GetMapForUpdateOrCreate().Map<ChancelleryDTO, Chancellery>(newDTO);
-
-         return   CreateOrUpdateChancellery(newDTO, editorEmail);
-            //return 1;
-        }
-       
-
-
-        public int ChancelleryUpdateIncoming(IncomingCorrespondency incomingCorrespondency, string editorEmail)
-        {
-            int authorID = 0;
-            try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
-            catch (Exception ex) { throw ex; }
-
-            var original = Database.Chancelleries.Find(incomingCorrespondency.id);
-            var chancelleryDTO = MapDALBLL.GetMap_IncomingCorrespondency_TO_ChancelleryDTO().Map<IncomingCorrespondency, ChancelleryDTO>(incomingCorrespondency);
-            MapDALBLL.GetMapForUpdateOrCreate().Map(chancelleryDTO, original);
-            Database.Chancelleries.Update(original, authorID);
-            return 1;
-        }
-
-
-        #endregion
-
-        #region Исходящая канцелярия 
-
-        public int ChancelleryCreateOutgoing(OutgoingCorrespondency outgoingCorrespondency, string editorEmail)
-        {
-            int authorID = 0;
-            try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
-            catch (Exception ex) { throw ex; }
-
-            ChancelleryDTO newDTO = MapDALBLL.GetMap_OutgoingDB_TO_DTO().Map<OutgoingCorrespondency, ChancelleryDTO>(outgoingCorrespondency);
-            newDTO.TypeRecordChancellery = TypeRecordGet(Constants.CorrespondencyType.Incoming);
-
-            var newDB = MapDALBLL.GetMapForUpdateOrCreate().Map<ChancelleryDTO, Chancellery>(newDTO);
-
-            Database.Chancelleries.Add(newDB, authorID);
-            return 1;
-        }
-
-        public int ChancelleryUpdateOutgoing(OutgoingCorrespondency outgoingCorrespondency, string editorEmail)
-        {
-            int authorID = 0;
-            try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
-            catch (Exception ex) { throw ex; }
-
-            var original = Database.Chancelleries.Find(outgoingCorrespondency.id);
-
-            MapDALBLL.GetMap_Outgoing_DTO_TO_DB().Map(original, outgoingCorrespondency);
-            Database.Chancelleries.Update(original, authorID);
-            return 1;
-        }
-
-        public IEnumerable<OutgoingCorrespondency> ChancelleryGetOutgoing(ChancellerySearchModel сhancellerySearchModel)
-        {
-            var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
-            return MapDALBLL.GetMap_Outgoing_DTO_TO_DB().Map<IEnumerable<ChancelleryDTO>, IEnumerable<OutgoingCorrespondency>>(chancellerieDTOs);
-        }
-
-
-        #endregion
-
-        #region внутреняя канцелярия
-
-        public IEnumerable<InternalCorrespondency> ChancelleryGetInternal(ChancellerySearchModel сhancellerySearchModel)
-        {
-            var chancellerieDTOs = ChancelleryGet(сhancellerySearchModel);
-            return MapDALBLL.GetMap_Internal_DTO_TO_DB().Map<IEnumerable<ChancelleryDTO>, IEnumerable<InternalCorrespondency>>(chancellerieDTOs);
-        }
-
- 
-
-        public int ChancelleryCreateInternal(InternalCorrespondency internalCorrespondency, string editorEmail)
-        {
-            int authorID = 0;
-            try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
-            catch (Exception ex) { throw ex; }
-
-            ChancelleryDTO newDTO = MapDALBLL.GetMap_InternalDB_TO_DTO().Map<InternalCorrespondency, ChancelleryDTO>(internalCorrespondency);
-            newDTO.TypeRecordChancellery = TypeRecordGet(Constants.CorrespondencyType.Incoming);
-
-            var newDB = MapDALBLL.GetMapForUpdateOrCreate().Map<ChancelleryDTO, Chancellery>(newDTO);
-
-            Database.Chancelleries.Add(newDB, authorID);
-            return 1;
-        }
-
-        public int ChancelleryUpdateInternal(InternalCorrespondency internalCorrespondency, string editorEmail)
-        {
-            int authorID = 0;
-            try { authorID = CheckAuthorAndGetIndexAuthor(editorEmail); }
-            catch (Exception ex) { throw ex; }
-
-            var original = Database.Chancelleries.Find(internalCorrespondency.id);
-
-            MapDALBLL.GetMap_Internal_DTO_TO_DB().Map(original, internalCorrespondency);
-            Database.Chancelleries.Update(original, authorID);
-            return 1;
-        }
-
-
-        #endregion
-
-
-        public IEnumerable<ChancelleryDTO> ChancelleryGet(ChancellerySearchModel searchModel)
-        {
-
-            Func<Chancellery, Boolean> predicate = delegate (Chancellery c)
-
-            {
-                bool boolResult = false;
-                if (searchModel != null)
-                {
-                    if (searchModel.Id.HasValue)
-                    {
-                        boolResult = (c.id == searchModel.Id);
-                        if (!boolResult) return boolResult;
-                    }
-                    if (searchModel.RegistryDateFrom.HasValue)
-                    {
-                        boolResult = c.DateRegistration >= searchModel.RegistryDateFrom;
-                        if (!boolResult) return boolResult;
-                    }
-                    if (searchModel.RegistryDateTo.HasValue)
-                    { 
-                        boolResult = c.DateRegistration <= searchModel.RegistryDateTo;
-                        if (!boolResult) return boolResult;
-                    }
-                    if (searchModel.TypeRecordId.HasValue)
-                    { 
-                        boolResult = (c.TypeRecordChancellery.id == searchModel.TypeRecordId);
-                        if (!boolResult) return boolResult;
-                    }
-                    if (searchModel.FolderId.HasValue)
-                    { 
-                        boolResult = (c.FolderChancellery != null && c.FolderChancellery.id == searchModel.FolderId);
-                        if (!boolResult) return boolResult;
-                    }
-                    if (!string.IsNullOrWhiteSpace(searchModel.FromContains))
-                    {
-                        string fromInLower = searchModel.FromContains.ToLower();
-                        bool isContainString = false;
-                        foreach (var item in c.FromChancelleries)
-                        {
-                            if (isContainString) break;
-                            if (item.Employee != null) {
-                                string fullNameInLower = item.Employee.FullName.ToLower();
-                                isContainString = fullNameInLower.Contains(fromInLower);
-                            }
-                            if (!isContainString && item.ExternalOrganization != null)
-                            {
-                                string name = item.ExternalOrganization.Name.ToLower();
-                                isContainString = name.Contains(fromInLower);
-                            }
-                        }
-                        boolResult = isContainString;
-                        if (!boolResult) return boolResult;
-                    }
-                    if (!string.IsNullOrWhiteSpace(searchModel.ToContains))
-                    {
-                        string toInLower = searchModel.ToContains.ToLower();
-                        bool isContainString = false;
-                        foreach (var item in c.ToChancelleries)
-                        {
-                            if (isContainString) break;
-                            if (item.Employee != null)
-                            {
-                                string fullNameInLower = item.Employee.FullName.ToLower();
-                                isContainString = fullNameInLower.Contains(toInLower);
-                            }
-                            if (!isContainString && item.ExternalOrganization != null)
-                            {
-                                string nameInLower = item.ExternalOrganization.Name.ToLower();
-                                isContainString = nameInLower.Contains(toInLower);
-                            }
-                        }
-                        boolResult = isContainString;
-                        if (!boolResult) return boolResult;
-                    }
-                    if (!string.IsNullOrWhiteSpace(searchModel.ResponsibleContains))
-                    {
-                        string toInLower = searchModel.ResponsibleContains.ToLower();
-                        bool isContainString = false;
-                        foreach (var item in c.ResponsibleEmployees)
-                        {
-                            if (isContainString) break;
-                            if (item != null)
-                            {
-                                string fullNameInLower = item.FullName.ToLower();
-                                isContainString = fullNameInLower.Contains(toInLower);
-                            }
-                        }
-                        boolResult = isContainString;
-                        if (!boolResult) return boolResult;
-                    }
-
-                }
-                return boolResult;
-            };
-            //Expression<Func<Chancellery, bool>> expr = mc => predicate(mc);
-            var result = Database.Chancelleries.Find(predicate);
-            return MapDALBLL.GetMapp().Map<IEnumerable<Chancellery>, IEnumerable<ChancelleryDTO>>(result);
-        }
-
-        /// <summary>
-        /// Получить всю канцелярию
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<ChancelleryDTO> ChancellerieGetAll()
-        {
-            // применяем автомаппер для проекции одной коллекции на другую
-            // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
-            return MapDALBLL.GetMapp().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(Database.Chancelleries.GetAll().ToList());
-        }
-
-        #region Внешнии организации
-
-        public ExternalOrganizationChancelleryDTO GetExternalOrganization(int id)
-        {
-            return ExternalOrganizationChancelleryService.GetExternalOrganization(id);
-        }
-
-        public IEnumerable<ExternalOrganizationChancelleryDTO> GetAllExternalOrganizations()
-        {
-            return ExternalOrganizationChancelleryService.GetExternalOrganizationsChancellery();
-        }
-
-        #endregion
-
-        #region TypeRecordChancelleries
-
-        /// <summary>
-        /// Получить все типы канцелярии
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<TypeRecordChancelleryDTO> TypeRecordGetAll()
-        {
-            return TypeRecordChancelleryService.GetTypesRecordChancellery();
-        }
-
-
-        /// <summary>
-        /// Тип канцелярской записи
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public TypeRecordChancelleryDTO TypeRecordGetById(int id)
-        {
-
-            return TypeRecordChancelleryService.GetTypeRecordChancellery(id);
-        }
-
-        /// <summary>
-        /// Тип канцелярской записи
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public TypeRecordChancelleryDTO TypeRecordGet(Constants.CorrespondencyType сorrespondencyType)
-        {
-            int id = (int)сorrespondencyType;
-            return TypeRecordChancelleryService.GetTypeRecordChancellery(id);
-        }
-
-        /// <summary>
-        /// получить тип по имени
-        /// </summary>
-        /// <param name="typeName"></param>
-        /// <returns></returns>
-        public TypeRecordChancelleryDTO TypeRecordGetByName(string typeName)
-        {
-            return TypeRecordChancelleryService.GetTypeRecordByName(typeName);
-        }
-
-        public void TypeRecordCreateOrUpdate(TypeRecordChancelleryDTO typeDTO, string currentUserEmail)
-        {
-            TypeRecordChancelleryService.CreateOrUpdateTypeRecordChancellery(typeDTO, currentUserEmail);
-        }
-
-
-        public void TypeRecordMoveToBasket(TypeRecordChancelleryDTO typeDTO, string authorEmail)
-        {
-            typeDTO.s_InBasket = true;
-            TypeRecordChancelleryService.CreateOrUpdateTypeRecordChancellery(typeDTO, authorEmail);
-        }
-
-        public void TypeRecordDelete(int typeId)
-        {
-            TypeRecordChancelleryService.DeleteTypeRecordChancellery(typeId);
-        }
-        #endregion
-
-        #region работа с папками
-
-        /// <summary>
-        /// Получить папку по ее ID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public FolderChancelleryDTO FolderGet(int id)
-        {
-            return FolderChancelleryService.GetFolderChancellery(id);
-        }
-
-        /// <summary>
-        /// Получить все папки
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<FolderChancelleryDTO> GetAllFolders()
-        {
-            return FolderChancelleryService.GetFoldersChancellery();
-        }
-
-
-        #endregion
-
-        #region работа с журналами регистраций
-        /// <summary>
-        /// Получить журнал канцелярии
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public JournalRegistrationsChancelleryDTO GetJournalRegistrations(int id)
-        {
-            return JournalRegistrationsChancelleryService.GetJournal(id);
-        }
-
-        /// <summary>
-        /// все журналы канцелярии
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<JournalRegistrationsChancelleryDTO> GetAllJournalesRegistrations()
-        {
-            return JournalRegistrationsChancelleryService.GetJournalsChancellery();
-        }
-        #endregion
-
-        #region от кого/кому
-
-        public FromChancelleryDTO GetFromWhom(int id)
-        {
-            //if (id == null)
-            //    throw new ValidationException("Не установлено id  ", "");
-
-            var from = Database.FromChancelleries.Find(id);
-
-            if (from == null)
-                throw new ValidationException("Отсутствуют данные от кого", "");
-
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<FromChancellery, FromChancelleryDTO>()).CreateMapper();
-            return MapDALBLL.GetMapp().Map<FromChancellery, FromChancelleryDTO>(from);
-        }
-
-        /// <summary>
-        /// Кому (список)
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<ToChancelleryDTO> GetToList()
-        {
-            // применяем автомаппер для проекции одной коллекции на другую
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToChancellery, ToChancelleryDTO>()).CreateMapper();
-            return MapDALBLL.GetMapp().Map<IEnumerable<ToChancellery>, List<ToChancelleryDTO>>(Database.ToChancelleries.GetAll());
-        }
-
-        #endregion
-
-        #endregion
-
-        #region работа с файлами 
-
-        public IEnumerable<FileRecordChancelleryDTO> AttachFiles(IEnumerable<HttpPostedFileBase> httpPostedFileBases)
-        {
-            return FileRecordChancelleryService.AddFiles(httpPostedFileBases);
-        }
-
-        /// <summary>
-        /// Получить данные о файле по id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public FileRecordChancelleryDTO GetFile(int FileId)
-        {
-            return FileRecordChancelleryService.GetFileRecord(FileId);
-        }
-
-        /// <summary>
-        /// Получить все файлы
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<FileRecordChancelleryDTO> GetAllFiles()
-        {
-            return FileRecordChancelleryService.GetFilesRecordChancellery();
-        }
-
-
-        /// <summary>
-        /// Получить связанный с канцелярией файл по его пути
-        /// </summary>
-        /// <param name="Path"></param>
-        /// <returns></returns>
-        public FileRecordChancelleryDTO GetFileChancellerByPath(string Path, int ChancelleryId)
-        {
-            return FileRecordChancelleryService.GetFileChancellerByPath(Path, ChancelleryId);
-        }
-
-
-        public IEnumerable<FileRecordChancelleryDTO> GetAllFilesChancellery(ChancelleryDTO Chancellery)
-        {
-            return FileRecordChancelleryService.GetAllFilesChancellery(Chancellery);
+            return FilesService.AddFiles(httpPostedFileBases);
         }
 
         public int AttachFiles(IEnumerable<HttpPostedFileBase> files, int ChancelleryId, string authorEmail)
@@ -614,33 +44,31 @@ namespace ACS.BLL.Services
                 if (file != null)
                 {
 
-                    string pathForSave = BusinessModels.Chancellery.Constants.FolderPath;
+                    string pathForSave = BusinessModels.Constants.FolderPath;
 
                     //Возвращает имя файла указанной строки пути без расширения.
-                    string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                    string fileName = System.IO.Path.GetFileNameWithoutExtension(file.FileName);
                     //fileVM.Name = fileName;
 
                     //Возвращает расширение указанной строки пути.
-                    string extension = Path.GetExtension(file.FileName);
+                    string extension = System.IO.Path.GetExtension(file.FileName);
 
                     //fileVM.Format = extension;
 
                     //fileVM.Path = @"X:/Подразделения/СВиССА/Файлы канцелярии/" + fileName;
-                    string path = Path.Combine(pathForSave, fileName + extension);
+                    string path = System.IO.Path.Combine(pathForSave, fileName + extension);
 
-                    FileRecordChancelleryDTO fileDTO = null;/* = this.GetFileChancellerByPath(path, ChancelleryId);*/
+                    FilesDTO fileDTO = null;/* = this.GetFileChancellerByPath(path, ChancelleryId);*/
 
                     if (fileDTO == null)
                     {
-                        fileDTO = new FileRecordChancelleryDTO();
-                        fileDTO.Name = fileName;
+                        fileDTO = new FilesDTO();
+                        fileDTO.FileName = fileName;
                         fileDTO.Path = path;
-                        fileDTO.Format = extension;
-                        fileDTO.DataString = DateTime.Now.ToString("ddMMyyyyhhmmssfff");
-
+                        fileDTO.Extension = extension;
                     }
 
-                    path = Path.Combine(pathForSave, fileDTO.Name + fileDTO.DataString + extension);
+                    path = Path.Combine(pathForSave, fileDTO.FileName + fileDTO.DataString + extension);
 
                     file.SaveAs(path);
                     return this.AttachOrDetachFile(fileDTO, authorEmail, ChancelleryId, true);
@@ -649,40 +77,40 @@ namespace ACS.BLL.Services
             return 0;
         }
 
-        public int AttachOrDetachFile(FileRecordChancelleryDTO fileDTO, string authorEmail, int ChancelleryId, bool attach)
+        public int AttachOrDetachFile(FilesDTO fileDTO, string authorEmail, int ChancelleryId, bool attach)
         {
             int AuthorID = 0;
             try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
             catch (Exception ex) { throw ex; }
 
-            FileRecordChancellery file = Database.FileRecordChancelleries.Find(fileDTO.id);
+            DAL.Entities.Files file = Database.Files.Find(fileDTO.Id);
 
             if (file == null)//файла нет, создать нужно
             {
-                FileRecordChancellery newFile = MapDALBLL.GetMapp().Map<FileRecordChancelleryDTO, FileRecordChancellery>(fileDTO);
+                file = MapFile.FileDTOToFile(fileDTO);
 
-                var Chanc = Database.Chancelleries.Find(ChancelleryId);
+                var Chancy = Database.Chancelleries.Find(ChancelleryId);
 
-                Chanc.FileRecordChancelleries.Add(newFile);
+                Chancy.FileRecordChancelleries.Add(file);
 
-                Database.Chancelleries.Update(Chanc, AuthorID);
+                Database.Chancelleries.AddOrUpdate(Chancy, AuthorID);
 
             }
             else // файл есть
             {
                 try
                 {
-                    file.Format = file.Format; file.Name = file.Name; file.Path = file.Path;
+                    file = MapFile.FileDTOToFile(fileDTO);
 
                     if (attach) // прикрепить
                         file.s_InBasket = false;
                     else
                     {
-                        file.Name += "_dtch";
+                        file.FileName += "_dtch";
                         file.s_InBasket = true;// открепить
                     }
 
-                    return Database.FileRecordChancelleries.Update(file, AuthorID);
+                    return Database.Files.AddOrUpdate(file, AuthorID);
 
                 }
                 catch (Exception e)
@@ -694,22 +122,326 @@ namespace ACS.BLL.Services
             return 0;
         }
 
-        public int AttachOrDetachFiles(IEnumerable<FileRecordChancelleryDTO> filesDTO, string authorEmail, int ChancelleryId, bool attach)
+        public int AttachOrDetachFiles(IEnumerable<FilesDTO> filesDto, string authorEmail, int ChancelleryId, bool attach)
         {
             int result = 0;
-            foreach (var fileDTO in filesDTO)
+            foreach (var fileDTO in filesDto)
             {
                 result += AttachOrDetachFile(fileDTO, authorEmail, ChancelleryId, attach);
             }
             return result;
         }
 
-        public int DeletedFile(FileRecordChancelleryDTO fileRecordChancelleryDTO)
+        #endregion
+
+        #region  Search
+
+        private bool SearchOnBaseParam(ChancellerySearchModel searchModel, Chancellery chancellery, ref bool boolResult)
+        {
+            if (searchModel.Id.HasValue)
+            {
+                boolResult = (chancellery.Id == searchModel.Id);
+                if (!boolResult) return boolResult;
+            }
+            if (searchModel.TypeRecordId.HasValue)
+            {
+                boolResult = (chancellery.TypeRecordChancellery.Id == searchModel.TypeRecordId);
+                if (!boolResult) return boolResult;
+            }
+            if (searchModel.RegistryDateFrom.HasValue)
+            {
+                boolResult = chancellery.DateRegistration >= searchModel.RegistryDateFrom;
+                if (!boolResult) return boolResult;
+            }
+            if (searchModel.RegistryDateTo.HasValue)
+            {
+                boolResult = chancellery.DateRegistration <= searchModel.RegistryDateTo;
+                if (!boolResult) return boolResult;
+            }
+            if (searchModel.FolderId.HasValue)
+            {
+                boolResult = (chancellery.FolderChancellery != null && chancellery.FolderChancellery.Id == searchModel.FolderId);
+                if (!boolResult) return boolResult;
+            }
+            if (!string.IsNullOrWhiteSpace(searchModel.ResponsibleContains))
+            {
+                string toInLower = searchModel.ResponsibleContains.ToLower();
+                bool isContainString = false;
+                foreach (var item in chancellery.ResponsibleEmployees)
+                {
+                    if (isContainString) break;
+                    if (item != null)
+                    {
+                        string fullNameInLower = item.FullName.ToLower();
+                        isContainString = fullNameInLower.Contains(toInLower);
+                    }
+                }
+                boolResult = isContainString;
+                if (!boolResult) return boolResult;
+            }
+            return boolResult;
+        }
+        private bool SearchOnIncomingParam(ChancellerySearchModel searchModel, Chancellery chancellery, ref bool boolResult)
+        {
+            if (!string.IsNullOrWhiteSpace(searchModel.FromContains))
+            {
+                string fromInLower = searchModel.FromContains.ToLower();
+
+                boolResult = Database.FromExtlOrgsChancellery.Any(f =>
+                chancellery.Id == f.ChancelleryId &&
+                f.ExternalOrganization.Name.ToLower().Contains(fromInLower));
+
+                if (!boolResult) return boolResult;
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchModel.ToContains))
+            {
+                string toInLower = searchModel.ToContains.ToLower();
+
+                boolResult = Database.ToEmplsChancellery.Any(f =>
+                chancellery.Id == f.ChancelleryId &&
+                f.Employee.FullName.ToLower().Contains(toInLower));
+
+                if (!boolResult) return boolResult;
+            }
+
+            return boolResult;
+        }
+        private bool SearchOnOutgoingParam(ChancellerySearchModel searchModel, Chancellery chancellery, ref bool boolResult)
+        {
+            if (!string.IsNullOrWhiteSpace(searchModel.FromContains))
+            {
+                string fromInLower = searchModel.FromContains.ToLower();
+
+                boolResult = Database.FromEmplsChancellery.Any(f =>
+                chancellery.Id == f.ChancelleryId &&
+                f.Employee.FullName.ToLower().Contains(fromInLower));
+
+                if (!boolResult) return boolResult;
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchModel.ToContains))
+            {
+                string toInLower = searchModel.ToContains.ToLower();
+
+                boolResult = Database.ToExtlOrgsChancellery.Any(f =>
+                chancellery.Id == f.ChancelleryId &&
+                f.ExternalOrganization.Name.ToLower().Contains(toInLower));
+
+                if (!boolResult) return boolResult;
+            }
+
+            return boolResult;
+        }
+        private bool SearchOnInternalParam(ChancellerySearchModel searchModel, Chancellery chancellery, ref bool boolResult)
+        {
+            if (!string.IsNullOrWhiteSpace(searchModel.FromContains))
+            {
+                string fromInLower = searchModel.FromContains.ToLower();
+
+                boolResult = Database.FromEmplsChancellery.Any(f =>
+                chancellery.Id == f.ChancelleryId &&
+                f.Employee.FullName.ToLower().Contains(fromInLower));
+
+                if (!boolResult) return boolResult;
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchModel.ToContains))
+            {
+                string toInLower = searchModel.ToContains.ToLower();
+
+                boolResult = Database.ToEmplsChancellery.Any(f =>
+                chancellery.Id == f.ChancelleryId &&
+                f.Employee.FullName.ToLower().Contains(toInLower));
+
+                if (!boolResult) return boolResult;
+            }
+
+            return boolResult;
+        }
+
+        public IEnumerable<Chancellery> GetIncomingAllOnSearch(ChancellerySearchModel searchModel)
+        {
+            Func<Chancellery, Boolean> predicate = (chancellery) =>
+            {
+                bool boolResult = false;
+                if (searchModel != null)
+                {
+                    if (!boolResult) return SearchOnBaseParam(searchModel, chancellery, ref boolResult);
+                    if (!boolResult) return SearchOnIncomingParam(searchModel, chancellery, ref boolResult);
+                }
+                return boolResult;
+            };
+            return Database.Chancelleries.Find(predicate);
+        }
+
+
+        public IEnumerable<Chancellery> GetOutgoingAllOnSearch(ChancellerySearchModel searchModel)
+        {
+            Func<Chancellery, Boolean> predicate = (chancellery) =>
+            {
+                bool boolResult = false;
+                if (searchModel != null)
+                {
+                    if (!boolResult) return SearchOnBaseParam(searchModel, chancellery, ref boolResult);
+                    if (!boolResult) return SearchOnOutgoingParam(searchModel, chancellery, ref boolResult);
+                }
+                return boolResult;
+            };
+            return Database.Chancelleries.Find(predicate);
+        }
+
+
+
+        public IEnumerable<Chancellery> GetInternalAllOnSearch(ChancellerySearchModel searchModel)
+        {
+            Func<Chancellery, Boolean> predicate = (chancellery) =>
+            {
+                bool boolResult = false;
+                if (searchModel != null)
+                {
+                    if (!boolResult) return SearchOnBaseParam(searchModel, chancellery, ref boolResult);
+                    if (!boolResult) return SearchOnInternalParam(searchModel, chancellery, ref boolResult);
+                }
+                return boolResult;
+            };
+            return Database.Chancelleries.Find(predicate);
+        }
+
+        /// <summary>
+        /// поиск по всем типам
+        /// </summary>
+        /// <param name="searchModel"></param>
+        /// <returns></returns>
+        public IEnumerable<Chancellery> GetAllOnSearch(ChancellerySearchModel searchModel)
+        {
+            Func<Chancellery, Boolean> predicate = (chancellery) =>
+            {
+                bool boolResult = false;
+                if (searchModel != null)
+                {
+                    if (!boolResult) return SearchOnBaseParam(searchModel, chancellery, ref boolResult);
+                    if (!boolResult) return SearchOnIncomingParam(searchModel, chancellery, ref boolResult);
+                    if (!boolResult) return SearchOnInternalParam(searchModel, chancellery, ref boolResult);
+                    if (!boolResult) return SearchOnOutgoingParam(searchModel, chancellery, ref boolResult);
+                }
+                return boolResult;
+            };
+            //Expression<Func<Chancellery, bool>> expr = mc => predicate(mc);
+            return Database.Chancelleries.Find(predicate);
+        }
+
+        #endregion
+
+        public async Task<IEnumerable<IncomingCorrespondencyDTO>> ChancelleryGetAllIncomingAsync(ChancellerySearchModel searchModel)
+        {
+            searchModel.TypeRecordId = (byte)Constants.CorrespondencyType.Incoming;
+            var chancelleries = GetIncomingAllOnSearch(searchModel);
+            return await MapChancellery.ListChancelleryToListIncomingDTOAsync(chancelleries);
+        }
+
+        public async Task<IEnumerable<InternalCorrespondencyDTO>> ChancelleryGetAllInternalAsync(ChancellerySearchModel searchModel)
+        {
+            searchModel.TypeRecordId = (byte)Constants.CorrespondencyType.Internal;
+            var chancelleries = GetInternalAllOnSearch(searchModel);
+            return await MapChancellery.ListChancelleryToListInternalDTOAsync(chancelleries);
+        }
+
+        public async Task<IEnumerable<OutgoingCorrespondencyDTO>> ChancelleryGetAllOutgoingAsync(ChancellerySearchModel searchModel)
+        {
+            searchModel.TypeRecordId = (byte)Constants.CorrespondencyType.Outgoing;
+            var chancelleries = GetOutgoingAllOnSearch(searchModel);
+            return await MapChancellery.ListChancelleryToListOutgoingDTOAsync(chancelleries);
+        }
+
+        //TODO: проверить возможность создания объектов from и to при добавлении в базу данных канцелярской записи
+        public async Task<int> ChancelleryCreateOrUpdateIncomingAsync(IncomingCorrespondencyDTO incomingCorrespondencyDto, string authorEmail)
+        {
+            int AuthorID = 0;
+            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+            catch (Exception ex) { throw ex; }
+
+            FromExtlOrgChancellery fromExtlOrgChancellery = null;
+            ToEmplChancellery toEmplChancellery = null;
+
+            try
+            {
+                var chancellery = Database.Chancelleries.Find(incomingCorrespondencyDto.Id);
+                chancellery = await MapChancellery.IncomingToChancelleryAsync(incomingCorrespondencyDto, fromExtlOrgChancellery, toEmplChancellery);
+                return await Database.Chancelleries.AddOrUpdateAsync(chancellery, AuthorID);
+
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
+
+            return 0;
+        }
+
+        public async Task<int> ChancelleryCreateOrUpdateInternalAsync(InternalCorrespondencyDTO internalCorrespondencyDto, string authorEmail)
+        {
+            int AuthorID = 0;
+            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+            catch (Exception ex) { throw ex; }
+
+            FromEmplChancellery fromEmplChancellery = null;
+            List<ToEmplChancellery> toEmplChancelleryList = null;
+
+            try
+            {
+                var chancellery = Database.Chancelleries.Find(internalCorrespondencyDto.Id);
+                chancellery = await MapChancellery.InternalToChancelleryAsync(internalCorrespondencyDto, fromEmplChancellery, toEmplChancelleryList);
+                return await Database.Chancelleries.AddOrUpdateAsync(chancellery, AuthorID);
+
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
+
+            return 0;
+        }
+
+        public async Task<int> ChancelleryCreateOrUpdateOutgoingAsync(OutgoingCorrespondencyDTO outgoingCorrespondencyDto, string authorEmail)
+        {
+            int AuthorID = 0;
+            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+            catch (Exception ex) { throw ex; }
+
+            FromEmplChancellery fromEmplChancellery = null;
+            List<ToExtlOrgChancellery> toExtlOrgChancelleryList = null;
+
+            try
+            {
+                var chancellery = Database.Chancelleries.Find(outgoingCorrespondencyDto.Id);
+                chancellery = await MapChancellery.OutgoingToChancelleryAsync(outgoingCorrespondencyDto, fromEmplChancellery, toExtlOrgChancelleryList);
+                return await Database.Chancelleries.AddOrUpdateAsync(chancellery, AuthorID);
+            }
+            catch (Exception e)
+            {
+                CatchError(e);
+            }
+
+            return 0;
+        }
+
+        public async Task<int> CreateOrUpdate_TypeChancellery(TypeRecordCorrespondencesDTO typeDTO, string authorEmail)
+        {
+            return await TypeRecordChancelleryService.CreateOrUpdateAsync(typeDTO, authorEmail);
+        }
+
+        public async Task<int> DeleteAsync(int id)
+        {
+            return await Database.Chancelleries.DeleteAsync(id);
+        }
+
+        public int DeletedFile(FilesDTO fileDTO)
         {
             int result = 0;
             try
             {
-                File.Delete(fileRecordChancelleryDTO.Path);
+                File.Delete(fileDTO.Path);
                 result++;
             }
             catch (Exception ex)
@@ -720,10 +452,10 @@ namespace ACS.BLL.Services
             return result;
         }
 
-        public int DeletedFiles(IEnumerable<FileRecordChancelleryDTO> files)
+        public int DeletedFiles(IEnumerable<FilesDTO> filesDto)
         {
             int result = 0;
-            foreach (var file in files)
+            foreach (var file in filesDto)
             {
                 result += DeletedFile(file);
             }
@@ -731,41 +463,139 @@ namespace ACS.BLL.Services
             return result;
         }
 
-
-        #endregion
-
-        #region обращения к работникам
-
-        /// <summary>
-        /// Получить работника
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public EmployeeDTO GetEmployee(int id)
+        public Task<int> DeleteTypeChancellery(int typeId)
         {
-            return EmployeeService.GetEmployee(id);
+            return TypeRecordChancelleryService.DeleteAsync(typeId);
         }
 
-        /// <summary>
-        /// Получить всех пользователей
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<EmployeeDTO> GetEmployees()
+        public async Task<IncomingCorrespondencyDTO> FindIncomingAsync(int id)
         {
-            return EmployeeService.GetEmployees();
+            var result = await Database.Chancelleries.FindAsync(id);
+            return await MapChancellery.ChancelleryToIncomingDTOAsync(result);
+        }
+        public async Task<OutgoingCorrespondencyDTO> FindOutgoingAsync(int id)
+        {
+            var result = await Database.Chancelleries.FindAsync(id);
+            return await MapChancellery.ChancelleryToOutgoingDTOAsync(result);
+        }
+        public async Task<InternalCorrespondencyDTO> FindInternalAsync(int id)
+        {
+            var result = await Database.Chancelleries.FindAsync(id);
+            return await MapChancellery.ChancelleryToInternalDTOAsync(result);
         }
 
-        #endregion
+        public async Task<EmployeeDTO> FindEmplAsync(int id)
+        {
+            return await EmployeeService.FindAsync(id);
+        }
+
+        public async Task<ExternalOrganizationDTO> FindExtlOrgAsync(int id)
+        {
+            return await ExternalOrganizationService.FindAsync(id);
+
+        }
+
+        public async Task<FilesDTO> FindFileAsync(int FileId)
+        {
+            return await FilesService.FindAsync(FileId);
+        }
+
+        public async Task<FolderCorrespondencesDTO> FindFolderAsync(int id)
+        {
+            return await FolderChancelleryService.FindAsync(id);
+        }
+
+        public async Task<JournalRegistrationsCorrespondencesDTO> FindJournalAsync(int id)
+        {
+            return await JournalRegistrationsChancelleryService.FindAsync(id);
+        }
+
+        public async Task<TypeRecordCorrespondencesDTO> FindTypeChancelleryAsync(int id)
+        {
+            return await TypeRecordChancelleryService.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<EmployeeDTO>> GetAllEmployeesAsync()
+        {
+            return await EmployeeService.GetAllAsync();
+        }
+
+        public async Task<IEnumerable<ExternalOrganizationDTO>> GetAllExternalOrganizationsAsync()
+        {
+            return await ExternalOrganizationService.GetAllAsync();
+        }
+
+
+        public async Task<IEnumerable<FilesDTO>> GetAllFilesChancelleryAsync(CorrespondencesBaseDTO CorrespondencesDTO)
+        {
+            return await FilesService.GetAllFilesChancelleryAsync(CorrespondencesDTO);
+        }
+        public async Task<IEnumerable<EmployeeDTO>> GetAllResponsiblesChancelleryAsync(CorrespondencesBaseDTO CorrespondencesDTO)
+        {
+            return await EmployeeService.GetAllResponsiblesChancelleryAsync(CorrespondencesDTO); 
+        }
+
+        public async Task<IEnumerable<FolderCorrespondencesDTO>> GetAllFolders()
+        {
+            return await FolderChancelleryService.GetAllAsync();
+        }
+
+        public async Task<IEnumerable<JournalRegistrationsCorrespondencesDTO>> GetAllJournalesRegistrationsAsync()
+        {
+            return await JournalRegistrationsChancelleryService.GetAllAsync();
+        }
+
+        public async Task<IEnumerable<TypeRecordCorrespondencesDTO>> GetAllTypesChancelleryAsync()
+        {
+            return await TypeRecordChancelleryService.GetAllAsync();
+        }
+
+        public async Task<FilesDTO> GetFileChancellerByPathAsync(string Path, int ChancelleryId)
+        {
+            FilesDTO result = null;
+            var files = Database.Files.Query(filter: f => f.Path == Path);
+
+            var Chancelleries = await Database.Chancelleries.ToListAsync();
+
+            foreach (var file in files)
+            {
+                if (result != null) break;
+
+                var chancellery = (from ch in Chancelleries
+                                   from f in ch.FileRecordChancelleries.ToList()
+                                   where f.Id == file.Id
+                                   select ch).FirstOrDefault();
+
+                if (chancellery != null)
+                {
+                    result = MapFile.FileToFileDTO(file);
+                }
+            }
+            return result;
+        }
+
 
         public void Dispose()
         {
-            Database.Dispose();
-            ExternalOrganizationChancelleryService.Dispose();
+            ExternalOrganizationService.Dispose();
             EmployeeService.Dispose();
             JournalRegistrationsChancelleryService.Dispose();
             FolderChancelleryService.Dispose();
             TypeRecordChancelleryService.Dispose();
-            FileRecordChancelleryService.Dispose();
+            FilesService.Dispose();
+            Dispose();
+        }
+
+        public async Task<ChancelleryDTO> FindAsync(int id)
+        {
+            var result = await Database.Chancelleries.FindAsync(id);
+            return MapChancellery.chancelleryToChancelleryDTO(result);
+        }
+
+        public async Task<IEnumerable<ChancelleryDTO>> GetAllAsync()
+        {
+            var resultList = await Database.Chancelleries.GetAllAsync();
+            return MapChancellery.ListChancelleryToListChancelleryDto(resultList);
         }
 
 

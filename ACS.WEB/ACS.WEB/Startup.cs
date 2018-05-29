@@ -1,9 +1,7 @@
 ﻿
 using Microsoft.Owin;
-using Microsoft.Owin.Security.Cookies;
 using Owin;
 using ACS.BLL.Services;
-using Microsoft.AspNet.Identity;
 using ACS.BLL.Interfaces;
 using ACS.BLL;
 /*
@@ -17,15 +15,15 @@ namespace ACS.WEB.App_Start
 {
     public partial class Startup
     {
-
+        
         /// <summary>
         /// С помощью фабрики сервисов здесь создается сервис для работы с сервисами
         /// </summary>
         /// 
-        IServiceCreator serviceCreator = new ServiceCreator();
+        //IServiceCreator serviceCreator = new ServiceCreator();
         public void Configuration(IAppBuilder app)
         {
-            
+           // AutoMapperConfiguration.Configure();
             //return;
             //Потом сервис региструется контекстом OWIN:
             ConfigureAuth(app);
@@ -37,11 +35,11 @@ namespace ACS.WEB.App_Start
             //});
         }
 
-        private IAccountAppUserService CreateAccountUserService()
-        {
-            //здесь предполагается, что в файле web.config имеется строка подключения DefaultConnection, которая передается в метод 
-            return serviceCreator.CreateAccountUserService(Сonnection.@string);
-        }
+        //private IAccountAppUserService CreateAccountUserService()
+        //{
+        //    //здесь предполагается, что в файле web.config имеется строка подключения DefaultConnection, которая передается в метод 
+        //    return serviceCreator.CreateAccountUserService(Сonnection.@string);
+        //}
     }
 
     //public partial class Startup

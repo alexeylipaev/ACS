@@ -1,8 +1,11 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ACS.WEB.Controllers;
-using System.Web;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Web.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ACS.WEB;
+using ACS.WEB.Controllers;
 
 namespace ACS.WEB.Tests.Controllers
 {
@@ -35,17 +38,17 @@ namespace ACS.WEB.Tests.Controllers
             Assert.AreEqual("Your application description page.", result.ViewBag.Message);
         }
 
-        //[TestMethod]
-        //public void Contact()
-        //{
-        //    // Arrange
-        //    HomeController controller = new HomeController();
+        [TestMethod]
+        public void Contact()
+        {
+            // Arrange
+            HomeController controller = new HomeController();
 
-        //    // Act
-        //    ViewResult result = controller.Contact() as ViewResult;
+            // Act
+            ViewResult result = controller.Contact() as ViewResult;
 
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //}
+            // Assert
+            Assert.IsNotNull(result);
+        }
     }
 }

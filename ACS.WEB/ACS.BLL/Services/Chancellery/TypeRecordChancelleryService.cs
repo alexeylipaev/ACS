@@ -1,16 +1,11 @@
 ﻿using ACS.BLL.Interfaces;
+using ACS.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ACS.BLL.DTO;
-using ACS.DAL.Interfaces;
-using AutoMapper;
-using ACS.DAL.Entities;
-using ACS.BLL.Infrastructure;
-using System.Diagnostics;
-using System.Collections;
 
 namespace ACS.BLL.Services
 {
@@ -18,7 +13,7 @@ namespace ACS.BLL.Services
     {
         public TypeRecordChancelleryService(IUnitOfWork uow) : base(uow) { }
 
-        public int CreateOrUpdateTypeRecordChancellery(TypeRecordChancelleryDTO TypeRecordChancelleryDTO, string authorEmail)
+        public async Task<int> CreateOrUpdateAsync(TypeRecordCorrespondencesDTO typeDTO, string authorEmail)
         {
             int AuthorID = 0;
             try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
@@ -26,20 +21,9 @@ namespace ACS.BLL.Services
 
             try
             {
-                var typeRecord = MapDALBLL.GetMapp().Map<TypeRecordChancelleryDTO , TypeRecordChancellery>(TypeRecordChancelleryDTO);
-
-                var TypeRecord = Database.TypeRecordChancelleries.Find(TypeRecordChancelleryDTO.id);
-
-                if (TypeRecord != null && TypeRecord.Name != typeRecord.Name)
-                {
-                    TypeRecord.Name = typeRecord.Name;
-                    return Database.TypeRecordChancelleries.Update(TypeRecord, AuthorID);
-                }
-
-                else if (TypeRecord == null)
-                {
-                    return Database.TypeRecordChancelleries.Add(typeRecord, AuthorID);
-                }
+                var type = Database.TypeRecordChancelleries.Find(typeDTO.Id);
+                type = await MapChancellery.TypeDTOToType(typeDTO);
+                return await Database.TypeRecordChancelleries.AddOrUpdateAsync(type, AuthorID);
             }
             catch (Exception e)
             {
@@ -49,11 +33,28 @@ namespace ACS.BLL.Services
             return 0;
         }
 
-       
-
-        public int DeleteTypeRecordChancellery(int id)
+        public async Task<int> DeleteAsync(int id)
         {
-            return Database.TypeRecordChancelleries.Delete(id);
+            return await Database.TypeRecordChancelleries.DeleteAsync(id);
+        }
+
+
+        public async Task<TypeRecordCorrespondencesDTO> FindAsync(int id)
+        {
+            var result = await Database.TypeRecordChancelleries.FindAsync(id);
+
+            return MapChancellery.TypeToTypeDTO(result);
+        }
+
+        public async Task<IEnumerable<TypeRecordCorrespondencesDTO>> GetAllAsync()
+        {
+            var resultList = await Database.TypeRecordChancelleries.GetAllAsync();
+            return MapChancellery.ListTypeToListTypeDto(resultList);
+        }
+
+        public Task<IEnumerable<CorrespondencesBaseDTO>> GetChancelleriesByTypeAsync(int typeId)
+        {
+            throw new NotImplementedException();
         }
 
         public void Dispose()
@@ -61,33 +62,5 @@ namespace ACS.BLL.Services
             Database.Dispose();
         }
 
-        public IEnumerable<ChancelleryDTO> GetChancelleriesByType(int TypeRecordChancelleryId)
-        {
-            var chancy = Database.Chancelleries.Query(filter: ch => ch.TypeRecordChancellery.id == TypeRecordChancelleryId).ToList();
-        
-            return MapDALBLL.GetMapp().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(chancy);
-        }
-
-
-        public TypeRecordChancelleryDTO GetTypeRecordChancellery(int id)
-        {
-            var type = Database.TypeRecordChancelleries.Find(id);
-
-            if (type == null)
-                throw new ValidationException("Отсутствует тип", "");
-
-            return MapDALBLL.GetMapp().Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(type);
-        }
-
-        public TypeRecordChancelleryDTO GetTypeRecordByName(string nameType)
-        {
-            TypeRecordChancellery result = Database.TypeRecordChancelleries.Query(filter: t => t.Name == nameType).FirstOrDefault();
-            return MapDALBLL.GetMapp().Map<TypeRecordChancellery, TypeRecordChancelleryDTO>(result);
-        }
-
-        public IEnumerable<TypeRecordChancelleryDTO> GetTypesRecordChancellery()
-        {
-            return MapDALBLL.GetMapp().Map<IEnumerable<TypeRecordChancellery>, List<TypeRecordChancelleryDTO >>(Database.TypeRecordChancelleries.GetAll());
-        }
     }
 }

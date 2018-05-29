@@ -1,24 +1,19 @@
 ﻿using ACS.BLL.Interfaces;
+using ACS.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ACS.BLL.DTO;
-using ACS.DAL.Interfaces;
-using AutoMapper;
-using ACS.BLL.Infrastructure;
-using ACS.DAL.Entities;
-using System.Diagnostics;
-using System.Collections;
 
 namespace ACS.BLL.Services
 {
-    public class JournalRegistrationsChancelleryService :ServiceBase, IJournalRegistrationsChancelleryService
+    public class JournalRegistrationsChancelleryService : ServiceBase, IJournalRegistrationsChancelleryService
     {
         public JournalRegistrationsChancelleryService(IUnitOfWork uow) : base(uow) { }
 
-        public int CreateOrUpdateJournal(JournalRegistrationsChancelleryDTO JournalRegistrationsChancelleryDTO, string authorEmail)
+        public async Task<int> CreateOrUpdateAsync(JournalRegistrationsCorrespondencesDTO journalCorrespondencesDTO, string authorEmail)
         {
             int AuthorID = 0;
             try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
@@ -26,21 +21,9 @@ namespace ACS.BLL.Services
 
             try
             {
-              
-
-                var Journal = Database.JournalRegistrationsChancelleries.Find(JournalRegistrationsChancelleryDTO.id);
-
-                if (Journal != null && Journal.Name != JournalRegistrationsChancelleryDTO.Name)
-                {
-                    Journal.Name = JournalRegistrationsChancelleryDTO.Name;
-                    return Database.JournalRegistrationsChancelleries.Update(Journal, AuthorID);
-                }
-
-                else if (Journal == null)
-                {
-                    var journal = MappJournalDTOToJournal(JournalRegistrationsChancelleryDTO);
-                    return Database.JournalRegistrationsChancelleries.Add(journal, AuthorID);
-                }
+                var journal = Database.JournalRegistrationsChancelleries.Find(journalCorrespondencesDTO.Id);
+                journal = await MapChancellery.JournalDTOToJournal(journalCorrespondencesDTO);
+                return await Database.JournalRegistrationsChancelleries.AddOrUpdateAsync(journal, AuthorID);
             }
             catch (Exception e)
             {
@@ -50,68 +33,35 @@ namespace ACS.BLL.Services
             return 0;
         }
 
-        public int DeleteJournal(int id)
+        public async Task<int> DeleteAsync(int id)
         {
-            return Database.JournalRegistrationsChancelleries.Delete(id);
+            return await Database.JournalRegistrationsChancelleries.DeleteAsync(id);
         }
 
-        public IEnumerable<ChancelleryDTO> GetChancelleriesInJournal(int journalId)
-        {
-            var chancy = Database.Chancelleries.Query(filter: ch => ch.JournalRegistrationsChancellery.id == journalId).ToList();
 
-            //var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Chancellery, ChancelleryDTO>()).CreateMapper();
-            return MapDALBLL.GetMapp().Map<IEnumerable<Chancellery>, List<ChancelleryDTO>>(chancy);
+
+        public async Task<JournalRegistrationsCorrespondencesDTO> FindAsync(int id)
+        {
+            var result = await Database.JournalRegistrationsChancelleries.FindAsync(id);
+
+            return MapChancellery.JournalToJournalDTO(result);
         }
 
-        public JournalRegistrationsChancelleryDTO GetJournal(int id)
+        public async Task<IEnumerable<JournalRegistrationsCorrespondencesDTO>> GetAllAsync()
         {
-            var Journal = Database.JournalRegistrationsChancelleries.Find(id);
-
-            if (Journal == null)
-                throw new ValidationException("Отсутствует папка", "");
-
-            return MappJournalToJournalDTO(Journal);
-     
+            var resultList = await Database.JournalRegistrationsChancelleries.GetAllAsync();
+            return MapChancellery.ListJournalToListJournalDto(resultList);
         }
 
-        public IEnumerable<JournalRegistrationsChancelleryDTO> GetJournalsChancellery()
-        {
-            return MapDALBLL.GetMapp().Map<IEnumerable<JournalRegistrationsChancellery>, List<JournalRegistrationsChancelleryDTO>>(Database.JournalRegistrationsChancelleries.GetAll().ToList());
-        }
 
-        //IMapper mapTemplournalToJournalDTO()
-        //{
-        //   return new MapperConfiguration(cfg =>
-        //    {
-        //        cfg.CreateMap<Chancellery, ChancelleryDTO>();
-        //        cfg.CreateMap<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>();
-
-        //    }).CreateMapper();
-        //}
-
-        JournalRegistrationsChancelleryDTO MappJournalToJournalDTO(JournalRegistrationsChancellery Journal)
-        {
-            return MapDALBLL.GetMapp().Map<JournalRegistrationsChancellery, JournalRegistrationsChancelleryDTO>(Journal);
-        }
-
-        JournalRegistrationsChancellery MappJournalDTOToJournal(JournalRegistrationsChancelleryDTO JournalDto)
-        {
-            var mapper = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ChancelleryDTO , Chancellery>();
-                cfg.CreateMap<JournalRegistrationsChancelleryDTO , JournalRegistrationsChancellery>();
-
-            }).CreateMapper();
-
-           // var mapper = new MapperConfiguration(cfg => cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>()).CreateMapper();
-            return MapDALBLL.GetMapp().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancellery>(JournalDto);
-        }
-
-        
         public void Dispose()
         {
             Database.Dispose();
         }
 
+        public async Task<IEnumerable<CorrespondencesBaseDTO>> GetChancelleriesInJournalAsync(int journalId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

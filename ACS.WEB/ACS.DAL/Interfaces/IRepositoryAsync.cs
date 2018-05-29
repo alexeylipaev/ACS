@@ -1,5 +1,5 @@
 ﻿using ACS.DAL.Entities;
-using JetBrains.Annotations;
+
 //using PagedList;
 using System;
 using System.Collections.Generic;
@@ -16,12 +16,15 @@ namespace ACS.DAL.Interfaces
     public interface IRepositoryAsync<T> : IRepository<T>
         where T : class
     {
+
+        Task<List<T>> ToListAsync(bool noTracking = false);
+
         /// <summary>
         /// Асинхронно получить все сущности
         /// </summary>
         /// <param name="noTracking">Возвращаемые сущности не привязаны к сессии</param>
         /// <returns>Задача, возвращающая все сущности</returns>
-       
+
         Task<List<T>> GetAllAsync(bool noTracking = false);
 
         /// <summary>
@@ -32,12 +35,17 @@ namespace ACS.DAL.Interfaces
        
         Task<T> FindAsync(params object[] id);
 
+   
+        Task<int> AddAsync(T entity, int EditorId);
+
         /// <summary>
         /// Асинхронно добавить заданную коллекцию сущностей к контексту
         /// </summary>
         /// <param name="entities">Коллекция сущностей для добавления</param>
         /// <returns>Задача, возвращающая количество измененных/сохраненных объектов</returns>
-        Task<int> AddRangeAsync( IEnumerable<T> entities);
+        Task<int> AddRangeAsync( IEnumerable<T> entities, int EditorId);
+
+        Task<int> AddOrUpdateAsync(T entity, int EditorId);
 
         /// <summary>
         /// Асинхронно добавить заданную коллекцию сущностей к контексту. 
@@ -45,8 +53,8 @@ namespace ACS.DAL.Interfaces
         /// </summary>
         /// <param name="entities">Коллекция сущностей для добавления/обновления</param>
         /// <returns>Задача, возвращающая количество добавленных/измененных объектов</returns>
-       
-        Task<int> AddOrUpdateAsync( T[] entities);
+
+        Task<int> AddOrUpdateAsync( T[] entities, int EditorId);
 
         /// <summary>
         /// Добавить заданную коллекцию сущностей к контексту. 
@@ -56,15 +64,19 @@ namespace ACS.DAL.Interfaces
         /// <param name="identifier">Выражение, определяющее свойства, которые должны быть использованы при определении 
         /// надо ли провести операцию добавления или обновления.</param>
         /// <returns>Задача, возвращающая количество добавленных/измененных объектов</returns>
-       
-        Task<int> AddOrUpdateAsync( T[] entities, Expression<Func<T, object>> identifier);
 
+        Task<int> AddOrUpdateAsync( T[] entities, Expression<Func<T, object>> identifier, int EditorId);
+
+        Task<int> UpdateAsync(T entity, int EditorId);
+
+        Task<int> DeleteAsync(T entity);
+        Task<int> DeleteAsync(int id);
         /// <summary>
         /// Асинхронно удалить сущности по условию в контексте
         /// </summary>
         /// <param name="filter">Условие отбора сущностей для удаления</param>
         /// <returns>Задача, удаляющая сущности по условию, возвращающая количество удаленных объектов</returns>
-       
+
         Task<int> DeleteAllAsync( Expression<Func<T, bool>> filter);
 
         /// <summary>
@@ -161,27 +173,27 @@ namespace ACS.DAL.Interfaces
         //    Func<IQueryable<T>, IOrderedQueryable<T>> orderBy,
         //    params Expression<Func<T, object>>[] include);
 
-        #region Methods immediately executed, pass by tracking system
+        //#region Methods immediately executed, pass by tracking system
 
-        /// <summary>
-        /// Асинхронно удалить сущности по условию в контексте.
-        /// Метод выполняется немедленно, минуя систему трекинга.
-        /// Изменения не будут отражаться на сущностях в текущем контексте.
-        /// </summary>
-        /// <param name="filter">Условие отбора сущностей для удаления</param>
-        /// <returns>Задача, возвращающая количество удаленных объектов</returns>
-        Task<int> DeleteImmediatelyAsync( Expression<Func<T, bool>> filter);
+        ///// <summary>
+        ///// Асинхронно удалить сущности по условию в контексте.
+        ///// Метод выполняется немедленно, минуя систему трекинга.
+        ///// Изменения не будут отражаться на сущностях в текущем контексте.
+        ///// </summary>
+        ///// <param name="filter">Условие отбора сущностей для удаления</param>
+        ///// <returns>Задача, возвращающая количество удаленных объектов</returns>
+        //Task<int> DeleteImmediatelyAsync( Expression<Func<T, bool>> filter);
 
-        /// <summary>
-        /// Асинхронно обновить сущности по условию в контексте.
-        /// Метод выполняется немедленно, минуя систему трекинга.
-        /// Изменения не будут отражаться на сущностях в текущем контексте.
-        /// </summary>
-        /// <param name="filter">Условие отбора сущностей для обновления</param>
-        /// <param name="updater">Выражение указывает, какие поля необходимо обновить</param>
-        /// <returns>Задача, возвращающая количество обновленных объектов</returns>
-        Task<int> UpdateImmediatelyAsync( Expression<Func<T, bool>> filter, Expression<Func<T, T>> updater);
+        ///// <summary>
+        ///// Асинхронно обновить сущности по условию в контексте.
+        ///// Метод выполняется немедленно, минуя систему трекинга.
+        ///// Изменения не будут отражаться на сущностях в текущем контексте.
+        ///// </summary>
+        ///// <param name="filter">Условие отбора сущностей для обновления</param>
+        ///// <param name="updater">Выражение указывает, какие поля необходимо обновить</param>
+        ///// <returns>Задача, возвращающая количество обновленных объектов</returns>
+        //Task<int> UpdateImmediatelyAsync( Expression<Func<T, bool>> filter, Expression<Func<T, T>> updater);
 
-        #endregion
+        //#endregion
     }
 }

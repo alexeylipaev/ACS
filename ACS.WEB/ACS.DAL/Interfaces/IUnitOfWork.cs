@@ -22,25 +22,31 @@ namespace ACS.DAL.Interfaces
 
         ApplicationRoleManager RoleManager { get; }
 
-        IRepository<Employee> Employees { get; }
-        IRepository<Access> Accesses { get; }
-        IRepository<Chancellery> Chancelleries { get; }
-        IRepository<DataEntity> DataEntityis { get; }
-        IRepository<Department> Departments { get; }
-        IRepository<ExternalOrganizationChancellery> ExternalOrganizationChancelleries { get; }
-        IRepository<FileRecordChancellery> FileRecordChancelleries { get; }
-        IRepository<FolderChancellery> FolderChancelleries { get; }
-        IRepository<FromChancellery> FromChancelleries { get; }
-        IRepository<JournalRegistrationsChancellery> JournalRegistrationsChancelleries { get; }
-        IRepository<PostNameEmployee> PostsEmployees { get; }
-        IRepository<PostEmployeeСode1С> PostsEmployeesСode1С { get; }
-        IRepository<ToChancellery> ToChancelleries { get; }
-        IRepository<TypeAccess> TypesAccesses { get; }
-        IRepository<TypeRecordChancellery> TypeRecordChancelleries { get; }
+       
+        #region Chancellery
 
-        IRepository<WorkHistory> WorkHistories { get; }
-        IRepository<EmployeePassport> EmployeesPassports { get; }
-        IRepository<ProjectRegistry> ProjectsRegistry { get; }
+        IRepositoryAsync<Chancellery> Chancelleries { get; }
+
+        IRepositoryAsync<FolderChancellery> FolderChancelleries { get; }
+        IRepositoryAsync<JournalRegistrationsChancellery> JournalRegistrationsChancelleries { get; }
+        IRepositoryAsync<TypeRecordChancellery> TypeRecordChancelleries { get; }
+
+        #region To
+        IRepositoryAsync<ToEmplChancellery> ToEmplsChancellery { get; }
+        IRepositoryAsync<ToExtlOrgChancellery> ToExtlOrgsChancellery { get; }
+        #endregion
+
+        #region From
+        IRepositoryAsync<FromEmplChancellery> FromEmplsChancellery { get; }
+        IRepositoryAsync<FromExtlOrgChancellery> FromExtlOrgsChancellery { get; }
+        #endregion
+
+        #endregion
+
+        IRepositoryAsync<ExternalOrganization> ExternalOrganization { get; }
+        IRepositoryAsync<Files> Files { get; }
+        IRepositoryAsync<Employee> Employees { get; }
+
         void Save();
 
         Task SaveAsync();

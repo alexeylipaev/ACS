@@ -10,18 +10,14 @@ using System.Threading.Tasks;
 
 namespace ACS.BLL.Services
 {
-     
-   /// <summary>
-   /// Абстрактный базовый класс сервиса
-   /// </summary>
-    public abstract class ServiceBase
+    public class ServiceBase
     {
         private IUnitOfWork db;
 
         public ServiceBase(IUnitOfWork uow)
         {
             this.db = uow;
-            MapDALBLL.Init(uow);
+            MapDB.Init(uow);
         }
 
         protected virtual IUnitOfWork Database
@@ -51,7 +47,7 @@ namespace ACS.BLL.Services
             if (Author == null && AuthorUser == null)
                 throw new ValidationException("Невозможно идентифицировать текущего пользователя по почте", authorEmail);
 
-            return Author != null ? Author.id : AuthorUser.Id;
+            return Author != null ? Author.Id : AuthorUser.Id;
         }
 
     }

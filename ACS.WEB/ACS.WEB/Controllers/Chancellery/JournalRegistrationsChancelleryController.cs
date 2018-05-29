@@ -2,11 +2,12 @@
 using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
 using ACS.WEB.Util;
-using ACS.WEB.ViewModel;
-using AutoMapper;
+using ACS.WEB.ViewModels;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 namespace ACS.WEB.Controllers.Chancellery
@@ -20,20 +21,23 @@ namespace ACS.WEB.Controllers.Chancellery
             JournalRegistrationsChancelleryService = journalRegistrationsChancelleryService;
         }
         // GET: JournalRegistrationsChancellery
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var journaldVM = mapTempJournalDTOToJournalVM().Map<IEnumerable<JournalRegistrationsChancelleryDTO>, List<JournalRegistrationsChancelleryViewModel>>(JournalRegistrationsChancelleryService.GetJournalsChancellery());
-            return View(journaldVM);
+            var journalsDto = await JournalRegistrationsChancelleryService.GetAllAsync();
+            journalsDto = journalsDto.Where(ch => ch.s_InBasket == false);
+
+            var journalsVM = MapChancelleryWEB.ListJournalDTOToListJournalVM(journalsDto.ToList()); /*(chancelleryDTOs.ToList());*/
+            return View(journalsVM);
         }
 
         // GET: JournalRegistrationsChancellery/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
             try
             {
-                var journalDTO = JournalRegistrationsChancelleryService.GetJournal(id);
+                var journalDTO = await JournalRegistrationsChancelleryService.FindAsync(id);
 
-                var journalVM = MappJournalDTOToJournalVM(journalDTO);
+                var journalVM = MapChancelleryWEB.JournalDtoToJournalVM(journalDTO);
                 return View(journalVM);
             }
             catch (ValidationException ex)
@@ -50,67 +54,67 @@ namespace ACS.WEB.Controllers.Chancellery
 
         // POST: JournalRegistrationsChancellery/Create
         [HttpPost]
-        public ActionResult Create(JournalRegistrationsChancelleryViewModel journalVM)
+        public async Task<ActionResult> Create(JournalCorrespondencesInput JournalInput)
         {
-            return CreateOrUpdateOrDel(journalVM);
+            return await CreateOrUpdateOrDelAsync(JournalInput);
         }
 
         // GET: JournalRegistrationsChancellery/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            var VM = GetJournalVM(id);
-            return View(VM);
+            var journalDTO = await JournalRegistrationsChancelleryService.FindAsync(id);
+            if (journalDTO == null) { throw new Exception("Папка не найдена"); }
+            return View(MapChancelleryWEB.JournalDtoToJournalVM(journalDTO));
         }
 
         // POST: JournalRegistrationsChancellery/Edit/5
         [HttpPost]
-        public ActionResult Edit(JournalRegistrationsChancelleryViewModel journalVM)
+        public async Task<ActionResult> Edit(JournalCorrespondencesInput JournalInput)
         {
-            return CreateOrUpdateOrDel(journalVM);
+            return await CreateOrUpdateOrDelAsync(JournalInput);
         }
 
         // GET: JournalRegistrationsChancellery/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var vm = GetJournalVM(id);
-            ActionResult action = this.DeleteConfirmed(id);
+            ActionResult action = await this.DeleteConfirmed(id);
             return action;
         }
 
         // POST: JournalRegistrationsChancellery/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            var journalDTO = JournalRegistrationsChancelleryService.GetJournal(id);
-            var journalVM = MappJournalDTOToJournalVM(journalDTO);
-            return CreateOrUpdateOrDel(journalVM, true);
+            var journalDTO = await JournalRegistrationsChancelleryService.FindAsync(id);
+            if (journalDTO == null) { throw new Exception("Папка не найдена"); }
+            return await CreateOrUpdateOrDelAsync(MapChancelleryWEB.JournalDtoToJournalInput(journalDTO), true);
         }
 
-        ActionResult CreateOrUpdateOrDel(/*[Bind(Include = "Id,Name")]*/ JournalRegistrationsChancelleryViewModel journalVM, bool del = false)
+      async Task <ActionResult> CreateOrUpdateOrDelAsync(/*[Bind(Include = "Id,Name")]*/ JournalCorrespondencesInput JournalInput, bool del = false)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     string currentUserEmail = this.User.Identity.Name;
-                    var journalDto = MappJournalVMToJournalDTO(journalVM);
+                    var journalDto = MapChancelleryWEB.JournalInputToJournalDto(JournalInput);
 
                     int result = 0;
 
                     if (del)
                     {
-                        result = JournalRegistrationsChancelleryService.DeleteJournal(journalDto.id);
+                        result = await JournalRegistrationsChancelleryService.DeleteAsync(journalDto.Id);
                         if (result > 0)
                             ViewBag.EditResult = "Данные успешно удалены";
                         return RedirectToAction("Index");
                     }
                     else
                     {
-                        result = JournalRegistrationsChancelleryService.CreateOrUpdateJournal(journalDto, currentUserEmail);
+                        result = await JournalRegistrationsChancelleryService.CreateOrUpdateAsync(journalDto, currentUserEmail);
                         if (result > 0)
                             ViewBag.EditResult = "Данные успешно обновлены";
-                        return View(journalVM);
+                        return View(JournalInput);
                     }
 
                 }
@@ -119,45 +123,9 @@ namespace ACS.WEB.Controllers.Chancellery
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
             }
-            return View(journalVM);
+            return View(JournalInput);
         }
 
-        JournalRegistrationsChancelleryViewModel GetJournalVM(int id)
-        {
-            var journalDTO = JournalRegistrationsChancelleryService.GetJournal(id);
-            if (journalDTO == null) { throw new Exception("Папка не найдена"); }
-            return MappJournalDTOToJournalVM(journalDTO);
-        }
-
-        IMapper mapTempJournalDTOToJournalVM()
-        {
-            return new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<ChancelleryDTO, ChancelleryViewModel>();
-                cfg.CreateMap<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>();
-
-            }).CreateMapper();
-        }
-
-
-        JournalRegistrationsChancelleryViewModel MappJournalDTOToJournalVM(JournalRegistrationsChancelleryDTO JournalDTO)
-        {
-            return mapTempJournalDTOToJournalVM().Map<JournalRegistrationsChancelleryDTO, JournalRegistrationsChancelleryViewModel>(JournalDTO);
-        }
-
-
-        JournalRegistrationsChancelleryDTO MappJournalVMToJournalDTO(JournalRegistrationsChancelleryViewModel JournalVM)
-        {
-            //var mapper = new MapperConfiguration(cfg =>
-            //{
-            //    cfg.CreateMap<ChancelleryViewModel, ChancelleryDTO  > ();
-            //    cfg.CreateMap<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO  > ();
-
-            //}).CreateMapper();
-            return MapBLLPresenter.GetMap().Map<JournalRegistrationsChancelleryViewModel, JournalRegistrationsChancelleryDTO>(JournalVM);
-        }
-
-        //private bool disposed = false;
 
         protected override void Dispose(bool disposing)
         {
