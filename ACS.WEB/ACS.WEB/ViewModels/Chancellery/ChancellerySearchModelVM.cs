@@ -8,6 +8,12 @@ namespace ACS.WEB.ViewModels
 {
     public class ChancellerySearchModelVM : ChancellerySearchModel/*<T> where T:class*/
     {
+        public ChancellerySearchModelVM() : base()
+        {
+            DateTime today = DateTime.Today;
+            this.RegistryDateFrom = today;
+            this.RegistryDateTo = today.AddDays(1);
+        }
         //public ChancellerySearchModel ChancellerySearchModel { get; set; }
 
         public IEnumerable<object> Chancelleries { get; set; }

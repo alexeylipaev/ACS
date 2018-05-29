@@ -9,6 +9,7 @@ using System.Web;
 using System.IO;
 using ACS.DAL.Entities;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace ACS.BLL.Services
 {
@@ -272,7 +273,20 @@ namespace ACS.BLL.Services
                 }
                 return boolResult;
             };
-            return Database.Chancelleries.Find(predicate);
+            ParameterExpression registryDateLess = Expression.Parameter(typeof(DateTime), "registryDate");
+            ConstantExpression regDateLess = Expression.Constant(searchModel.RegistryDateFrom, typeof(DateTime));
+            BinaryExpression registryDateLessThanFive = Expression.LessThan(registryDateLess, regDateLess);
+            Expression<Func<Chancellery, bool>> searchExpression = c =>
+             searchModel.RegistryDateFrom != null ? c.DateRegistration >= searchModel.RegistryDateFrom : c.Id > 0 &&
+             searchModel.RegistryDateTo != null ? c.DateRegistration <= searchModel.RegistryDateTo : c.Id > 0 &&
+             searchModel.TypeRecordId != null ? c.TypeRecordChancelleryId >= searchModel.TypeRecordId : c.Id > 0 &&
+             searchModel.FolderId != null ? c.FolderChancelleryId >= searchModel.FolderId : c.Id > 0;
+
+                //Expression.Lambda<Func<Chancellery, bool>>(
+                //    registryDateLessThanFive,
+                //    new ParameterExpression[] { registryDateLess });
+            //Expression<Func<Chancellery, bool>> expr = mc => predicate(mc);
+            return Database.Chancelleries.Query(searchExpression);
         }
 
 

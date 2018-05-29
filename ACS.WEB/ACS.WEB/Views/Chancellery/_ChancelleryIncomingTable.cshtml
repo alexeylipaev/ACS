@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ACS.WEB.ViewModel.IncomingCorrespondencyViewModel>
+﻿@model IEnumerable<ACS.WEB.ViewModels.ChancelleryViewModel>
 
 <table id="baseCorTable" class="stripe">
     <thead >
@@ -17,25 +17,25 @@
                 @Html.DisplayNameFor(model => model.Notice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FolderChancellery)
+                @Html.DisplayNameFor(model => model.Folder)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.JournalRegistrationsChancellery)
+                @Html.DisplayNameFor(model => model.JournalRegistrations)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TypeRecordChancellery)
+                @Html.DisplayNameFor(model => model.Type)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ResponsibleEmployees)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ToStringValue)
+                @Html.DisplayNameFor(model => model.To)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FromStringValue)
+                @Html.DisplayNameFor(model => model.From)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FileRecordChancelleries)
+                @Html.DisplayNameFor(model => model.Files)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.s_Guid)
@@ -79,39 +79,36 @@
             @Html.DisplayFor(modelItem => item.Notice)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FolderChancellery.Name)
+            @Html.DisplayFor(modelItem => item.Folder)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.JournalRegistrationsChancellery.Name)
+            @Html.DisplayFor(modelItem => item.JournalRegistrations)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TypeRecordChancellery.Name)
+            @Html.DisplayFor(modelItem => item.Type)
         </td>
         <td>
-            @foreach (var file in item.ResponsibleEmployees)
+            @foreach (var respName in item.ResponsibleEmployees)
                 {
                 <div style="display:inline-flex;">
-                    @file.FullName
+                    @respName
                 </div>
             }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ToStringValue)
+            @Html.DisplayFor(modelItem => item.To)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FromStringValue)
+            @Html.DisplayFor(modelItem => item.From)
         </td>
         <td style="font-size:12px;">
 
-            @foreach (var file in item.FileRecordChancelleries)
+            @foreach (var file in item.Files)
                 {
-                <div style="display:inline-flex; line-height:25px">
-                    <a data-fancybox-type="iframe" style="padding-right:5px" class="fancybox" href="@Url.Action("DownloadFile", "Chancellery", new { id = file.id })" title="открыть" @*class="btn btn-primary"*@>
-                        @string.Format("{0}{1}", @file.Name, @file.Format)
-                    </a>
+                <div style="display:inline-flex;">
+                        @file
                 </div>
             }
-
         </td>
 
         <td>
@@ -140,9 +137,9 @@
         </td>
         
         <td>
-            @Html.ActionLink("Edit", "EditIncoming", new { id=item.id }) |
-            @Html.ActionLink("Details", "DetailsIncoming", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Edit", "EditIncoming", new { id=item.Id }) |
+            @Html.ActionLink("Details", "DetailsIncoming", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
 }
