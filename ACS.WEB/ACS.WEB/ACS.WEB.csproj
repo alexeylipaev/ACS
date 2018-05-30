@@ -277,6 +277,7 @@
     <Content Include="Content\Font-awesome\font-awesome.min.css" />
     <Content Include="Content\Images\loading_spinner.gif" />
     <Content Include="Content\Images\slide_button.png" />
+    <Content Include="Content\Images\slide_button_FilterConfig.png" />
     <Content Include="Content\slide_panel.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
