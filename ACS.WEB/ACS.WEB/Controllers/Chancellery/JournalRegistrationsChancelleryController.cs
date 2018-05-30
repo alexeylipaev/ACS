@@ -49,7 +49,8 @@ namespace ACS.WEB.Controllers.Chancellery
         // GET: JournalRegistrationsChancellery/Create
         public ActionResult Create()
         {
-            return View();
+            JournalCorrespondencesInput newJournal = new JournalCorrespondencesInput();
+            return View(newJournal);
         }
 
         // POST: JournalRegistrationsChancellery/Create

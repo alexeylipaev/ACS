@@ -26,7 +26,7 @@ namespace ACS.WEB.Controllers
         public async Task<ActionResult> Index()
         {
             var foldersDto = await FolderChancelleryService.GetAllAsync();
-            foldersDto = foldersDto.Where(ch => ch.s_InBasket == false);
+            foldersDto = foldersDto;
 
             var ExternalOrganizationsVM = MapChancelleryWEB.ListFolderDTOToListFolderVM(foldersDto.ToList()); /*(chancelleryDTOs.ToList());*/
             return View(ExternalOrganizationsVM);
@@ -54,7 +54,8 @@ namespace ACS.WEB.Controllers
         // GET: FoldersChancellery/Create
         public ActionResult Create()
         {
-            return View(/*GetFolderVM(id)*/);
+            FolderCorrespondencesInput newFolder = new ViewModels.FolderCorrespondencesInput();
+            return View(newFolder);
         }
 
         // POST: FoldersChancellery/Create
