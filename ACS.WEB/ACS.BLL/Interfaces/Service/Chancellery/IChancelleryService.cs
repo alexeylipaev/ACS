@@ -31,7 +31,7 @@ namespace ACS.BLL.Interfaces
 
         IEnumerable<Chancellery> GetInternalAllOnSearch(ChancellerySearchModel searchModel);
 
-        IEnumerable<Chancellery> GetIncomingAllOnSearch(ChancellerySearchModel searchModel);
+        Task<IEnumerable<Chancellery>> GetIncomingAllOnSearchAsync(ChancellerySearchModel searchModel);
 
         #region Incoming 
 
@@ -126,7 +126,7 @@ namespace ACS.BLL.Interfaces
 
         #region работа с файлами 
 
-       int AttachFiles(IEnumerable<HttpPostedFileBase> files, int ChancelleryId, string authorEmail);
+        int AttachFiles(IEnumerable<HttpPostedFileBase> files, int ChancelleryId, string authorEmail);
 
         IEnumerable<FilesDTO> AttachFiles(IEnumerable<HttpPostedFileBase> httpPostedFileBases, string authorEmail);
 

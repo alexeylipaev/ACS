@@ -13,5 +13,6 @@ C:\Users\lipaev\Source\Repos\Git\ACS\ACS.WEB\ActiveDirectory\obj\Debug\ActiveDir
 C:\Users\lipaev\Source\Repos\Git\ACS\ACS.WEB\ActiveDirectory\obj\Debug\ActiveDirectory.pdb
 C:\Users\Kachkov\Source\Repos\ACS\ACS.WEB\ActiveDirectory\bin\Debug\ActiveDirectory.dll
 C:\Users\Kachkov\Source\Repos\ACS\ACS.WEB\ActiveDirectory\bin\Debug\ActiveDirectory.pdb
+C:\Users\Kachkov\Source\Repos\ACS\ACS.WEB\ActiveDirectory\obj\Debug\ActiveDirectory.csprojResolveAssemblyReference.cache
 C:\Users\Kachkov\Source\Repos\ACS\ACS.WEB\ActiveDirectory\obj\Debug\ActiveDirectory.dll
 C:\Users\Kachkov\Source\Repos\ACS\ACS.WEB\ActiveDirectory\obj\Debug\ActiveDirectory.pdb

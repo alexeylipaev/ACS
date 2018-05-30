@@ -261,7 +261,7 @@ namespace ACS.BLL.Services
             return boolResult;
         }
 
-        public IEnumerable<Chancellery> GetIncomingAllOnSearch(ChancellerySearchModel searchModel)
+        public  async Task<IEnumerable<Chancellery>> GetIncomingAllOnSearchAsync(ChancellerySearchModel searchModel)
         {
             Func<Chancellery, Boolean> predicate = (chancellery) =>
             {
@@ -274,7 +274,7 @@ namespace ACS.BLL.Services
                 return boolResult;
             };
 
-            var chies = Database.Chancelleries.ToList();
+            var chies = await Database.Chancelleries.ToListAsync();
 
             return chies.Where(predicate);
 
@@ -357,8 +357,8 @@ namespace ACS.BLL.Services
         public async Task<IEnumerable<IncomingCorrespondencyDTO>> ChancelleryGetAllIncomingAsync(ChancellerySearchModel searchModel)
         {
             searchModel.TypeRecordId = (byte)Constants.CorrespondencyType.Incoming;
-            var chancelleries = GetIncomingAllOnSearch(searchModel);
-            return await MapChancellery.ListChancelleryToListIncomingDTOAsync(chancelleries);
+            var chancelleries = await GetIncomingAllOnSearchAsync(searchModel);
+            return await MapChancellery.ListChancelleryToListIncomingDTOAsync(chancelleries); 
         }
 
         public async Task<IEnumerable<InternalCorrespondencyDTO>> ChancelleryGetAllInternalAsync(ChancellerySearchModel searchModel)

@@ -24,6 +24,8 @@ namespace ACS.WEB
     {
         public static void FillParamDTO(DTO entityDTO, ref VM entityVM)
         {
+            entityVM.s_Guid = entityDTO.s_Guid;
+            entityVM.s_DateCreation = entityDTO.s_DateCreation;
             entityVM.s_AuthorId = entityDTO.s_AuthorId;
             entityVM.s_EditDate = entityDTO.s_EditDate;
             entityVM.s_EditorId = entityDTO.s_EditorId;

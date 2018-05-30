@@ -106,28 +106,28 @@ namespace ACS.WEB.Controllers
             return View(chancelleriesVM);
         }
 
-        async Task<IEnumerable<EmployeeViewModel>> GetEmplCollection()
+        async Task<IEnumerable<EmployeeViewModel>> GetEmplCollectionAsync()
         {
             var empls = await ChancelleryService.GetAllEmployeesAsync();
             List<EmployeeViewModel> collection = new List<EmployeeViewModel>() { null };
             collection.AddRange(MapEmplWEB.ListEmplToListemplVM(empls).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.LName));
             return collection;
         }
-        async Task<IEnumerable<FolderChancelleryViewModel>> GetFoldersCollection()
+        async Task<IEnumerable<FolderChancelleryViewModel>> GetFoldersCollectionAsync()
         {
             var folders = await ChancelleryService.GetAllFolders();
             List<FolderChancelleryViewModel> collection = new List<FolderChancelleryViewModel>() { null };
             collection.AddRange(MapChancelleryWEB.ListFolderDTOToListFolderVM(folders).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.Name));
             return collection;
         }
-        async Task<IEnumerable<JournalRegistrationsViewModel>> GetJournalsCollection()
+        async Task<IEnumerable<JournalRegistrationsViewModel>> GetJournalsCollectionAsync()
         {
             var journals = await ChancelleryService.GetAllJournalesRegistrationsAsync();
             List<JournalRegistrationsViewModel> collection = new List<JournalRegistrationsViewModel>() { null };
             collection.AddRange(MapChancelleryWEB.ListJournalDTOToListJournalVM(journals).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.Name));
             return collection;
         }
-        async Task<IEnumerable<ExternalOrganizationViewModel>> GetExtOrgsCollection()
+        async Task<IEnumerable<ExternalOrganizationViewModel>> GetExtOrgsCollectionAsync()
         {
             var extOrgs = await ChancelleryService.GetAllExternalOrganizationsAsync();
             List<ExternalOrganizationViewModel> collection = new List<ExternalOrganizationViewModel>() { null };
@@ -135,19 +135,19 @@ namespace ACS.WEB.Controllers
             return collection;
         }
 
-        async Task FillViewBagCollection()
+        async Task FillViewBagCollectionAsync()
         {
-            ViewBag.FolderCollection = await GetFoldersCollection();
-            ViewBag.EmplCollection = await GetEmplCollection();
-            ViewBag.JournalCollection = await GetJournalsCollection();
-            ViewBag.ExtOrgsCollection = await GetExtOrgsCollection();
+            ViewBag.FolderCollection = await GetFoldersCollectionAsync();
+            ViewBag.EmplCollection = await GetEmplCollectionAsync();
+            ViewBag.JournalCollection = await GetJournalsCollectionAsync();
+            ViewBag.ExtOrgsCollection = await GetExtOrgsCollectionAsync();
         }
 
         #region Входящая канцелярия
         const string SearchSessionName = "chancellerySearch";
         public async Task<ActionResult> Incoming(ChancellerySearchModelVM searchModelVM, int? page)
         {
-            ViewBag.FolderCollection = GetFoldersCollection();
+            await FillViewBagCollectionAsync();
             ChancellerySearchModel searchModel;
 
             if (Request.HttpMethod == "POST")
@@ -180,7 +180,7 @@ namespace ACS.WEB.Controllers
 
         public async Task<ActionResult> EditIncoming(int id)
         {
-           await  FillViewBagCollection();
+            await FillViewBagCollectionAsync();
 
             //ChancellerySearchModel searchModel = new ChancellerySearchModel { Id = id };
 
@@ -232,7 +232,7 @@ namespace ACS.WEB.Controllers
         }
         public async Task<ActionResult> CreateIncoming()
         {
-            await FillViewBagCollection();
+            await FillViewBagCollectionAsync();
 
             ViewBag.NameBtn = "Создать";
             var IncomingInput = new IncomingCorrespondencyInput();
@@ -311,7 +311,7 @@ namespace ACS.WEB.Controllers
 
         public async Task<ActionResult> EditOutgoing(int id)
         {
-           await  FillViewBagCollection();
+            await FillViewBagCollectionAsync();
 
             //ChancellerySearchModel searchModel = new ChancellerySearchModel { Id = id };
 
@@ -337,7 +337,7 @@ namespace ACS.WEB.Controllers
         }
         public async Task<ActionResult> CreateOutgoing()
         {
-            await FillViewBagCollection();
+            await FillViewBagCollectionAsync();
 
             ViewBag.NameBtn = "Создать";
             var OutgoingInput = new OutgoingCorrespondencyInput();
@@ -415,7 +415,7 @@ namespace ACS.WEB.Controllers
 
         public async Task<ActionResult> EditInternal(int id)
         {
-            await FillViewBagCollection();
+            await FillViewBagCollectionAsync();
 
             InternalCorrespondencyDTO InternalDTO = await ChancelleryService.FindInternalAsync(id);
 
@@ -439,7 +439,7 @@ namespace ACS.WEB.Controllers
         }
         public async Task<ActionResult> CreateInternal()
         {
-            await FillViewBagCollection();
+            await FillViewBagCollectionAsync();
 
             ViewBag.NameBtn = "Создать";
             var InternalInput = new InternalCorrespondencyInput();

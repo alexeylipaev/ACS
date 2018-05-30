@@ -46,7 +46,7 @@ namespace ACS.DAL.Migrations
         {
             base.Seed(db);
 #warning раскомментить для разового заполнения БД
-            //PublicSeed(db);
+           // PublicSeed(db);
 
         }
 

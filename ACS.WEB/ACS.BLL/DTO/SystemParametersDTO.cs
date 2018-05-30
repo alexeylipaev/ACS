@@ -8,11 +8,11 @@ namespace ACS.BLL.DTO
 {
     public class SystemParametersDTO
     {
-        public Guid s_Guid { get; private set; } 
+        public Guid s_Guid { get;  set; } 
 
         public int s_AuthorId { get; set; } 
 
-        public DateTime s_DateCreation { get; private set; } 
+        public DateTime s_DateCreation { get;  set; } 
 
         public int s_EditorId { get; set; }
 
