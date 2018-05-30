@@ -136,8 +136,9 @@
                 }
             </td>
             <td style="font-size:12px;">
-
-                @foreach (var file in item.Files)
+                @if (item.Files != null)
+                {
+                foreach (var file in item.Files)
                 {
                     <div style="display:inline-flex; line-height:25px">
                         <a data-fancybox-type="iframe" style="padding-right:5px" class="fancybox" href="@Url.Action("DownloadFile", "Chancellery", new { id = file })" title="открыть" @*class="btn btn-primary"*@>
@@ -145,6 +146,7 @@
                         </a>
                         @Html.ActionLink("x", "DettachFile", new { ChancelleryId = item.Id, FileId = file }, new { @class = "close" })
                     </div>
+                }
                 }
 
             </td>

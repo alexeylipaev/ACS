@@ -3,6 +3,7 @@ using ACS.BLL.DTO;
 using ACS.DAL.Entities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -285,12 +286,12 @@ namespace ACS.BLL
             chancelleryDTO.Summary = chancellery.Summary;
             chancelleryDTO.Notice = chancellery.Notice;
             chancelleryDTO.Status = chancellery.Status;
-            chancelleryDTO.Folder = chancellery.FolderChancellery.Name;
-            chancelleryDTO.JournalRegistrations = chancellery.JournalRegistrationsChancellery.Name;
-            chancelleryDTO.ResponsibleEmployees = chancellery.ResponsibleEmployees.Select(m => m.FullName);
-            chancelleryDTO.Type = chancellery.TypeRecordChancellery.Name;
+            chancelleryDTO.Folder = chancellery.FolderChancellery!=null ? chancellery.FolderChancellery.Name : null;
+            chancelleryDTO.JournalRegistrations = chancellery.JournalRegistrationsChancellery != null ? chancellery.JournalRegistrationsChancellery.Name : null; 
+            chancelleryDTO.ResponsibleEmployees = chancellery.ResponsibleEmployees != null ? chancellery.ResponsibleEmployees.Select(m => m.FullName) : new Collection<string>(); 
+            chancelleryDTO.Type = chancellery.TypeRecordChancellery != null ? chancellery.TypeRecordChancellery.Name : null;
 
-            chancelleryDTO.Files = chancellery.FileRecordChancelleries.Select(o => o.FileName + o.Extension);
+            chancelleryDTO.Files = chancellery.FileRecordChancelleries != null ? chancellery.FileRecordChancelleries.Select(o => o.FileName + o.Extension) : new Collection<string>(); 
 
             chancelleryDTO.From = MapFrom(chancellery);
             chancelleryDTO.To = MapTo(chancellery);

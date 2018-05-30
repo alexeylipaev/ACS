@@ -277,6 +277,7 @@
     <Content Include="Content\Font-awesome\font-awesome.min.css" />
     <Content Include="Content\Images\loading_spinner.gif" />
     <Content Include="Content\Images\slide_button.png" />
+    <Content Include="Content\Images\slide_button_FilterConfig.png" />
     <Content Include="Content\slide_panel.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -641,11 +642,14 @@
     <Content Include="Scripts\kartik-v-bootstrap-fileinput-e03b535\scss\themes\explorer-fas\theme.scss" />
     <Content Include="Scripts\kartik-v-bootstrap-fileinput-e03b535\scss\themes\explorer-fa\theme.scss" />
     <Content Include="Scripts\kartik-v-bootstrap-fileinput-e03b535\scss\themes\explorer\theme.scss" />
+    <Content Include="Views\FoldersChancellery\Index.cshtml" />
+    <Content Include="Views\FoldersChancellery\Create.cshtml" />
+    <Content Include="Views\JournalRegistrationsChancellery\Index.cshtml" />
+    <Content Include="Views\JournalRegistrationsChancellery\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\JournalRegistrationsChancellery\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
