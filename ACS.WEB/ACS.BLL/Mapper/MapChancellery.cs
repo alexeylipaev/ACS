@@ -403,17 +403,18 @@ namespace ACS.BLL
             #region from
 
             var FromExtlOrgsChancelleryDB_List = await MapDB.Db.FromExtlOrgsChancellery.QueryAsync(filter: f => chancellery.Id == f.ChancelleryId);
+            if (FromExtlOrgsChancelleryDB_List != null && FromExtlOrgsChancelleryDB_List.Count > 0)
+            {
+                var ExtOrgId = FromExtlOrgsChancelleryDB_List.FirstOrDefault().ExternalOrganizationId;
 
-            var ExtOrgId = FromExtlOrgsChancelleryDB_List.FirstOrDefault().ExternalOrganizationId;
-
-            incomingCorrespondencyDTO.From_ExternalOrganizationChancelleryId = ExtOrgId;
-
+                incomingCorrespondencyDTO.From_ExternalOrganizationChancelleryId = ExtOrgId;
+            }
             #endregion
 
             #region to
 
             var ToEmplsDB_List = await MapDB.Db.ToEmplsChancellery.QueryAsync(filter: f => chancellery.Id == f.ChancelleryId);
-
+            if(ToEmplsDB_List != null && ToEmplsDB_List.Count > 0)
             incomingCorrespondencyDTO.To_EmployeeId = ToEmplsDB_List.FirstOrDefault().EmployeeId;
 
             #endregion

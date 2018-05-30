@@ -268,25 +268,33 @@ namespace ACS.BLL.Services
                 bool boolResult = false;
                 if (searchModel != null)
                 {
-                    if (!boolResult) return SearchOnBaseParam(searchModel, chancellery, ref boolResult);
-                    if (!boolResult) return SearchOnIncomingParam(searchModel, chancellery, ref boolResult);
+                    boolResult = SearchOnBaseParam(searchModel, chancellery, ref boolResult) &&
+                  SearchOnIncomingParam(searchModel, chancellery, ref boolResult);
+
+
+         
                 }
                 return boolResult;
             };
-            ParameterExpression registryDateLess = Expression.Parameter(typeof(DateTime), "registryDate");
-            ConstantExpression regDateLess = Expression.Constant(searchModel.RegistryDateFrom, typeof(DateTime));
-            BinaryExpression registryDateLessThanFive = Expression.LessThan(registryDateLess, regDateLess);
-            Expression<Func<Chancellery, bool>> searchExpression = c =>
-             searchModel.RegistryDateFrom != null ? c.DateRegistration >= searchModel.RegistryDateFrom : c.Id > 0 &&
-             searchModel.RegistryDateTo != null ? c.DateRegistration <= searchModel.RegistryDateTo : c.Id > 0 &&
-             searchModel.TypeRecordId != null ? c.TypeRecordChancelleryId >= searchModel.TypeRecordId : c.Id > 0 &&
-             searchModel.FolderId != null ? c.FolderChancelleryId >= searchModel.FolderId : c.Id > 0;
 
-                //Expression.Lambda<Func<Chancellery, bool>>(
-                //    registryDateLessThanFive,
-                //    new ParameterExpression[] { registryDateLess });
-            //Expression<Func<Chancellery, bool>> expr = mc => predicate(mc);
-            return Database.Chancelleries.Query(searchExpression);
+            var chies = Database.Chancelleries.ToList();
+
+            return chies.Where(predicate);
+
+            //ParameterExpression registryDateLess = Expression.Parameter(typeof(DateTime), "registryDate");
+            //ConstantExpression regDateLess = Expression.Constant(searchModel.RegistryDateFrom, typeof(DateTime));
+            //BinaryExpression registryDateLessThanFive = Expression.LessThan(registryDateLess, regDateLess);
+            //Expression<Func<Chancellery, bool>> searchExpression = c =>
+            // searchModel.RegistryDateFrom != null ? c.DateRegistration >= searchModel.RegistryDateFrom : c.Id > 0 &&
+            // searchModel.RegistryDateTo != null ? c.DateRegistration <= searchModel.RegistryDateTo : c.Id > 0 &&
+            // searchModel.TypeRecordId != null ? c.TypeRecordChancelleryId >= searchModel.TypeRecordId : c.Id > 0 &&
+            // searchModel.FolderId != null ? c.FolderChancelleryId >= searchModel.FolderId : c.Id > 0;
+
+            //    //Expression.Lambda<Func<Chancellery, bool>>(
+            //    //    registryDateLessThanFive,
+            //    //    new ParameterExpression[] { registryDateLess });
+            ////Expression<Func<Chancellery, bool>> expr = mc => predicate(mc);
+            //return Database.Chancelleries.Query(searchExpression);
         }
 
 
@@ -546,7 +554,7 @@ namespace ACS.BLL.Services
         }
         public async Task<IEnumerable<EmployeeDTO>> GetAllResponsiblesChancelleryAsync(CorrespondencesBaseDTO CorrespondencesDTO)
         {
-            return await EmployeeService.GetAllResponsiblesChancelleryAsync(CorrespondencesDTO); 
+            return await EmployeeService.GetAllResponsiblesChancelleryAsync(CorrespondencesDTO);
         }
 
         public async Task<IEnumerable<FolderCorrespondencesDTO>> GetAllFolders()

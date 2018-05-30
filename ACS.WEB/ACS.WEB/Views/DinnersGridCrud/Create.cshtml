@@ -1,0 +1,17 @@
+﻿@model ACS.WEB.ViewModels.Input.ChancelleryInput
+@using (Html.BeginForm())
+{
+    using (Html.Awe().BeginContext())
+    {
+        @Html.EditorFor(o => o.RegistrationNumber)
+        @Html.EditorFor(o => o.DateRegistration)
+        @Html.EditorFor(o => o.Summary)
+        @Html.EditorFor(o => o.Notice)
+        @Html.EditorFor(o => o.Journal)
+        @Html.EditorFor(o => o.Folder)
+        @Html.EditorFor(o => o.Type)
+        @Html.EditorFor(o => o.RegistrationNumber)
+        @Html.EditorFor(o => o.Responsible)
+        @*@Html.EditorFor(o => o.BonusMealId)*@
+    }
+}

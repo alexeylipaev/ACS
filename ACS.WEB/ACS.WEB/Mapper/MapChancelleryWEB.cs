@@ -157,7 +157,7 @@ namespace ACS.WEB
             var FolderId = CorrespondencesBaseDTO.FolderChancelleryId;
             FolderCorrespondencesDTO folder = null;
             folder = CorrespondencesBaseDTO.FolderChancelleryId != null ? await ChancelleryService.FindFolderAsync(FolderId.Value) : null;
-            chancelleryViewModel.Folder = folder.Name;
+            chancelleryViewModel.Folder = folder != null? folder.Name: null;
 
             var files = await ChancelleryService.GetAllFilesChancelleryAsync(CorrespondencesBaseDTO);
             chancelleryViewModel.Files = from file in files
