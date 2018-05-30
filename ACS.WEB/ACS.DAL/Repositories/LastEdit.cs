@@ -13,8 +13,15 @@ namespace ACS.DAL
             var sysparam = (entity as Entities.SystemParameters);
             if (sysparam != null)
             {
+                DateTime editDate = DateTime.Now;
+                if (sysparam.s_AuthorId == 0)
+                {
+                    sysparam.s_AuthorId = EditorId;
+                    sysparam.s_DateCreation = editDate;
+                }
                 sysparam.s_EditorId = EditorId;
-                sysparam.s_EditDate = DateTime.Now;
+                
+                sysparam.s_EditDate = editDate;
             }
 
         }

@@ -89,7 +89,7 @@ namespace ACS.DAL.Repositories
         {
             LastEdit<T>.SetData(ref entity, EditorId);
             DbSet.AddOrUpdate(entity);
-
+            int i = entity.GetHashCode();
             return await SaveAsync(DbContext);
         }
 
