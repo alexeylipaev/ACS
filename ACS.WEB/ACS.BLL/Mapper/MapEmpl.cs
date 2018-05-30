@@ -37,7 +37,7 @@ namespace ACS.BLL
             emplDto.Email = Empl.Email;
 
             emplDto.ApplicationUserId = Empl.ApplicationUserId;
-            BLL.MapSystemParam<DAL.Entities.Employee, DTO.EmployeeDTO>.FillParamDTO(Empl, ref emplDto);
+            BLL.MapSystemParamBLL<DAL.Entities.Employee, DTO.EmployeeDTO>.FillParamDTO(Empl, ref emplDto);
             return emplDto;
         }
         public static List<DTO.EmployeeDTO> ListEmplToListEmplDTO(IEnumerable<DAL.Entities.Employee> empls)

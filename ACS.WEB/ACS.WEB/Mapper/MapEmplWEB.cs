@@ -35,7 +35,7 @@ namespace ACS.WEB
             emplVM.Email = EmplDto.Email;
 
             emplVM.ApplicationUserId = EmplDto.ApplicationUserId;
-            BLL.MapSystemParam<EmployeeDTO, EmployeeViewModel>.FillParamDTO(EmplDto, ref emplVM);
+            MapSystemParamDTO_to_VM<EmployeeDTO, EmployeeViewModel>.FillParamDTO(EmplDto, ref emplVM);
             return emplVM;
         }
         public static List<EmployeeViewModel> ListEmplToListemplVM(IEnumerable<EmployeeDTO> emplsDto)

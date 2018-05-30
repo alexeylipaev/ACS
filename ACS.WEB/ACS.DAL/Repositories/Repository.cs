@@ -78,6 +78,7 @@ namespace ACS.DAL.Repositories
         {
             return DbSet.Where(predicate).ToList();
         }
+
         public bool Any(Func<T, bool> predicate)
         {
             return DbSet.Any(predicate);

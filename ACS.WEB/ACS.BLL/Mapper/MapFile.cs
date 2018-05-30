@@ -26,7 +26,7 @@ namespace ACS.BLL
             fileDTO.Extension = file.Extension;
             fileDTO.FileName = file.FileName;
             fileDTO.Path = file.Path;
-            BLL.MapSystemParam<DAL.Entities.Files, DTO.FilesDTO>.FillParamDTO(file, ref fileDTO);
+            BLL.MapSystemParamBLL<DAL.Entities.Files, DTO.FilesDTO>.FillParamDTO(file, ref fileDTO);
             return fileDTO;
         }
         public static List<DTO.FilesDTO> ListFileToListFileDto(IEnumerable<DAL.Entities.Files> Files)

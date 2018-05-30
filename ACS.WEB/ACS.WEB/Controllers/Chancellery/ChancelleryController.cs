@@ -106,28 +106,28 @@ namespace ACS.WEB.Controllers
             return View(chancelleriesVM);
         }
 
-        async Task<List<EmployeeViewModel>> GetEmplCollection()
+        async Task<IEnumerable<EmployeeViewModel>> GetEmplCollection()
         {
             var empls = await ChancelleryService.GetAllEmployeesAsync();
             List<EmployeeViewModel> collection = new List<EmployeeViewModel>() { null };
             collection.AddRange(MapEmplWEB.ListEmplToListemplVM(empls).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.LName));
             return collection;
         }
-        async Task<List<FolderChancelleryViewModel>> GetFoldersCollection()
+        async Task<IEnumerable<FolderChancelleryViewModel>> GetFoldersCollection()
         {
             var folders = await ChancelleryService.GetAllFolders();
             List<FolderChancelleryViewModel> collection = new List<FolderChancelleryViewModel>() { null };
             collection.AddRange(MapChancelleryWEB.ListFolderDTOToListFolderVM(folders).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.Name));
             return collection;
         }
-        async Task<List<JournalRegistrationsViewModel>> GetJournalsCollection()
+        async Task<IEnumerable<JournalRegistrationsViewModel>> GetJournalsCollection()
         {
             var journals = await ChancelleryService.GetAllJournalesRegistrationsAsync();
             List<JournalRegistrationsViewModel> collection = new List<JournalRegistrationsViewModel>() { null };
             collection.AddRange(MapChancelleryWEB.ListJournalDTOToListJournalVM(journals).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.Name));
             return collection;
         }
-        async Task<List<ExternalOrganizationViewModel>> GetExtOrgsCollection()
+        async Task<IEnumerable<ExternalOrganizationViewModel>> GetExtOrgsCollection()
         {
             var extOrgs = await ChancelleryService.GetAllExternalOrganizationsAsync();
             List<ExternalOrganizationViewModel> collection = new List<ExternalOrganizationViewModel>() { null };
@@ -135,12 +135,12 @@ namespace ACS.WEB.Controllers
             return collection;
         }
 
-        void FillViewBagCollection()
+        async Task FillViewBagCollection()
         {
-            ViewBag.FolderCollection = GetFoldersCollection();
-            ViewBag.EmplCollection = GetEmplCollection();
-            ViewBag.JournalCollection = GetJournalsCollection();
-            ViewBag.ExtOrgsCollection = GetExtOrgsCollection();
+            ViewBag.FolderCollection = await GetFoldersCollection();
+            ViewBag.EmplCollection = await GetEmplCollection();
+            ViewBag.JournalCollection = await GetJournalsCollection();
+            ViewBag.ExtOrgsCollection = await GetExtOrgsCollection();
         }
 
         #region Входящая канцелярия
@@ -180,7 +180,7 @@ namespace ACS.WEB.Controllers
 
         public async Task<ActionResult> EditIncoming(int id)
         {
-            FillViewBagCollection();
+           await  FillViewBagCollection();
 
             //ChancellerySearchModel searchModel = new ChancellerySearchModel { Id = id };
 
@@ -230,9 +230,9 @@ namespace ACS.WEB.Controllers
         {
             return IncomingCreateOrUpdate(IncomingInput, Files);
         }
-        public ActionResult CreateIncoming()
+        public async Task<ActionResult> CreateIncoming()
         {
-            FillViewBagCollection();
+            await FillViewBagCollection();
 
             ViewBag.NameBtn = "Создать";
             var IncomingInput = new IncomingCorrespondencyInput();
@@ -311,7 +311,7 @@ namespace ACS.WEB.Controllers
 
         public async Task<ActionResult> EditOutgoing(int id)
         {
-            FillViewBagCollection();
+           await  FillViewBagCollection();
 
             //ChancellerySearchModel searchModel = new ChancellerySearchModel { Id = id };
 
@@ -335,9 +335,9 @@ namespace ACS.WEB.Controllers
         {
             return OutgoingCreateOrUpdate(OutgoingInput, Files);
         }
-        public ActionResult CreateOutgoing()
+        public async Task<ActionResult> CreateOutgoing()
         {
-            FillViewBagCollection();
+            await FillViewBagCollection();
 
             ViewBag.NameBtn = "Создать";
             var OutgoingInput = new OutgoingCorrespondencyInput();
@@ -415,7 +415,7 @@ namespace ACS.WEB.Controllers
 
         public async Task<ActionResult> EditInternal(int id)
         {
-            FillViewBagCollection();
+            await FillViewBagCollection();
 
             InternalCorrespondencyDTO InternalDTO = await ChancelleryService.FindInternalAsync(id);
 
@@ -437,9 +437,9 @@ namespace ACS.WEB.Controllers
         {
             return InternalCreateOrUpdate(InternalInput, Files);
         }
-        public ActionResult CreateInternal()
+        public async Task<ActionResult> CreateInternal()
         {
-            FillViewBagCollection();
+            await FillViewBagCollection();
 
             ViewBag.NameBtn = "Создать";
             var InternalInput = new InternalCorrespondencyInput();
@@ -458,7 +458,7 @@ namespace ACS.WEB.Controllers
         #endregion
 
 
-        public ActionResult Create(int TypeRecordId)
+        public async Task<ActionResult> Create(int TypeRecordId)
         {
 
             ViewBag.NameBtn = "Создать";
@@ -467,19 +467,19 @@ namespace ACS.WEB.Controllers
             {
                 case (byte)Constants.CorrespondencyType.Incoming:
                     {
-                        ActionResult action = this.CreateIncoming();
+                        ActionResult action = await this.CreateIncoming();
                         return action;
                     }
 
                 case (byte)Constants.CorrespondencyType.Outgoing:
                     {
-                        ActionResult action = this.CreateOutgoing();
+                        ActionResult action = await this.CreateOutgoing();
                         return action;
                     }
 
                 case (byte)Constants.CorrespondencyType.Internal:
                     {
-                        ActionResult action = this.CreateInternal();
+                        ActionResult action = await this.CreateInternal();
                         return action;
                     }
 

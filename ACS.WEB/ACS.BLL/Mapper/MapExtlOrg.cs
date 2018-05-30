@@ -36,7 +36,7 @@ namespace ACS.BLL
             extlOrgDto.Name = ExtlOrg.Name;
             extlOrgDto.Phone = ExtlOrg.Phone;
 
-            BLL.MapSystemParam<DAL.Entities.ExternalOrganization, DTO.ExternalOrganizationDTO>.FillParamDTO(ExtlOrg, ref extlOrgDto);
+            BLL.MapSystemParamBLL<DAL.Entities.ExternalOrganization, DTO.ExternalOrganizationDTO>.FillParamDTO(ExtlOrg, ref extlOrgDto);
             return extlOrgDto;
         }
         public static List<DTO.ExternalOrganizationDTO> ListExtlOrgToListextlOrgDto(List<DAL.Entities.ExternalOrganization> ExtlOrgs)

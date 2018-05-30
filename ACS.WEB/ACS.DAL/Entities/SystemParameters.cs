@@ -10,8 +10,8 @@ namespace ACS.DAL.Entities
 {
     public partial class SystemParameters 
     {
-        //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        //[DefaultValue("newsequentialid()")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [DefaultValue("newsequentialid()")]
         public Guid s_Guid { get; private set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

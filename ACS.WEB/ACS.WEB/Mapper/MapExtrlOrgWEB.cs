@@ -56,7 +56,7 @@ namespace ACS.WEB
             extlOrgVM.Name = extlOrgDTO.Name;
             extlOrgVM.Phone = extlOrgDTO.Phone;
 
-            MapSystemParam<ExternalOrganizationDTO, ExternalOrganizationViewModel>.FillParamDTO(extlOrgDTO, ref extlOrgVM);
+            MapSystemParamDTO_to_VM<ExternalOrganizationDTO, ExternalOrganizationViewModel>.FillParamDTO(extlOrgDTO, ref extlOrgVM);
             return extlOrgVM;
         }
         public static List<ExternalOrganizationViewModel> ListExtlOrgDTOToListextlOrgVM(IEnumerable<ExternalOrganizationDTO> ExtlOrgsDto)

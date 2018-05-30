@@ -270,9 +270,6 @@ namespace ACS.BLL.Services
                 {
                     boolResult = SearchOnBaseParam(searchModel, chancellery, ref boolResult) &&
                   SearchOnIncomingParam(searchModel, chancellery, ref boolResult);
-
-
-         
                 }
                 return boolResult;
             };
@@ -305,12 +302,13 @@ namespace ACS.BLL.Services
                 bool boolResult = false;
                 if (searchModel != null)
                 {
-                    if (!boolResult) return SearchOnBaseParam(searchModel, chancellery, ref boolResult);
-                    if (!boolResult) return SearchOnOutgoingParam(searchModel, chancellery, ref boolResult);
+                    boolResult = SearchOnBaseParam(searchModel, chancellery, ref boolResult) &&
+                    SearchOnOutgoingParam(searchModel, chancellery, ref boolResult);
                 }
                 return boolResult;
             };
-            return Database.Chancelleries.Find(predicate);
+            var chies = Database.Chancelleries.ToList();
+            return chies.Where(predicate);
         }
 
 
@@ -322,12 +320,13 @@ namespace ACS.BLL.Services
                 bool boolResult = false;
                 if (searchModel != null)
                 {
-                    if (!boolResult) return SearchOnBaseParam(searchModel, chancellery, ref boolResult);
-                    if (!boolResult) return SearchOnInternalParam(searchModel, chancellery, ref boolResult);
+                    boolResult = SearchOnBaseParam(searchModel, chancellery, ref boolResult) &&
+                     SearchOnInternalParam(searchModel, chancellery, ref boolResult);
                 }
                 return boolResult;
             };
-            return Database.Chancelleries.Find(predicate);
+            var chies = Database.Chancelleries.ToList();
+            return chies.Where(predicate);
         }
 
         /// <summary>
@@ -342,10 +341,10 @@ namespace ACS.BLL.Services
                 bool boolResult = false;
                 if (searchModel != null)
                 {
-                    if (!boolResult) return SearchOnBaseParam(searchModel, chancellery, ref boolResult);
-                    if (!boolResult) return SearchOnIncomingParam(searchModel, chancellery, ref boolResult);
-                    if (!boolResult) return SearchOnInternalParam(searchModel, chancellery, ref boolResult);
-                    if (!boolResult) return SearchOnOutgoingParam(searchModel, chancellery, ref boolResult);
+                    boolResult = SearchOnBaseParam(searchModel, chancellery, ref boolResult) &&
+                    SearchOnIncomingParam(searchModel, chancellery, ref boolResult) &&
+                    SearchOnInternalParam(searchModel, chancellery, ref boolResult) &&
+                    SearchOnOutgoingParam(searchModel, chancellery, ref boolResult);
                 }
                 return boolResult;
             };

@@ -295,7 +295,7 @@ namespace ACS.BLL
             chancelleryDTO.From = MapFrom(chancellery);
             chancelleryDTO.To = MapTo(chancellery);
 
-            BLL.MapSystemParam<DAL.Entities.Chancellery, DTO.ChancelleryDTO>.FillParamDTO(chancellery, ref chancelleryDTO);
+            BLL.MapSystemParamBLL<DAL.Entities.Chancellery, DTO.ChancelleryDTO>.FillParamDTO(chancellery, ref chancelleryDTO);
 
             return chancelleryDTO;
         }
@@ -317,7 +317,7 @@ namespace ACS.BLL
             typeDto.Name = type.Name;
             typeDto.Chancelleries = type.Chancelleries.Select(j => j.Id);
 
-            BLL.MapSystemParam<DAL.Entities.TypeRecordChancellery, DTO.TypeRecordCorrespondencesDTO>.FillParamDTO(type, ref typeDto);
+            BLL.MapSystemParamBLL<DAL.Entities.TypeRecordChancellery, DTO.TypeRecordCorrespondencesDTO>.FillParamDTO(type, ref typeDto);
             return typeDto;
         }
         public static List<DTO.TypeRecordCorrespondencesDTO> ListTypeToListTypeDto(IEnumerable<DAL.Entities.TypeRecordChancellery> types)
@@ -343,7 +343,7 @@ namespace ACS.BLL
             folderDto.Name = folder.Name;
             folderDto.Chancelleries = folder.Chancelleries.Select(j => j.Id);
 
-            BLL.MapSystemParam<DAL.Entities.FolderChancellery, DTO.FolderCorrespondencesDTO>.FillParamDTO(folder, ref folderDto);
+            BLL.MapSystemParamBLL<DAL.Entities.FolderChancellery, DTO.FolderCorrespondencesDTO>.FillParamDTO(folder, ref folderDto);
             return folderDto;
         }
 
@@ -368,7 +368,7 @@ namespace ACS.BLL
             journalDto.Name = journal.Name;
             journalDto.Chancelleries = journal.Chancelleries.Select(j => j.Id);
 
-            BLL.MapSystemParam<DAL.Entities.JournalRegistrationsChancellery, DTO.JournalRegistrationsCorrespondencesDTO>.FillParamDTO(journal, ref journalDto);
+            BLL.MapSystemParamBLL<DAL.Entities.JournalRegistrationsChancellery, DTO.JournalRegistrationsCorrespondencesDTO>.FillParamDTO(journal, ref journalDto);
             return journalDto;
         }
 
@@ -419,7 +419,7 @@ namespace ACS.BLL
 
             #endregion
 
-            BLL.MapSystemParam<Chancellery, DTO.IncomingCorrespondencyDTO>.FillParamDTO(chancellery, ref incomingCorrespondencyDTO);
+            BLL.MapSystemParamBLL<Chancellery, DTO.IncomingCorrespondencyDTO>.FillParamDTO(chancellery, ref incomingCorrespondencyDTO);
 
             return incomingCorrespondencyDTO;
         }
@@ -456,7 +456,7 @@ namespace ACS.BLL
 
             #endregion
 
-            BLL.MapSystemParam<Chancellery, DTO.OutgoingCorrespondencyDTO>.FillParamDTO(chancellery, ref outgoingCorrespondencyDTO);
+            BLL.MapSystemParamBLL<Chancellery, DTO.OutgoingCorrespondencyDTO>.FillParamDTO(chancellery, ref outgoingCorrespondencyDTO);
 
             return outgoingCorrespondencyDTO;
         }
@@ -492,7 +492,7 @@ namespace ACS.BLL
 
             #endregion
 
-            BLL.MapSystemParam<Chancellery, DTO.InternalCorrespondencyDTO>.FillParamDTO(chancellery, ref internalCorrespondencyDTO);
+            BLL.MapSystemParamBLL<Chancellery, DTO.InternalCorrespondencyDTO>.FillParamDTO(chancellery, ref internalCorrespondencyDTO);
 
             return internalCorrespondencyDTO;
         }

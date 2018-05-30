@@ -173,7 +173,7 @@ namespace ACS.WEB
             chancelleryViewModel.From = await MapFrom(CorrespondencesBaseDTO);
             chancelleryViewModel.To = await MapTo(CorrespondencesBaseDTO);
 
-            MapSystemParam<T, ChancelleryViewModel>.FillParamDTO(CorrespondencesBaseDTO, ref chancelleryViewModel);
+            MapSystemParamDTO_to_VM<T, ChancelleryViewModel>.FillParamDTO(CorrespondencesBaseDTO, ref chancelleryViewModel);
 
             return chancelleryViewModel;
         }
@@ -209,7 +209,7 @@ namespace ACS.WEB
             OutgoingCorrespondencyInput.From_EmployeeId = OutgoingCorrespondencyDTO.From_EmployeeId;
             OutgoingCorrespondencyInput.To_ExtOrgns = OutgoingCorrespondencyDTO.To_ExtOrgns;
 
-            MapSystemParam<OutgoingCorrespondencyDTO, OutgoingCorrespondencyInput>.FillParamDTO(OutgoingCorrespondencyDTO, ref OutgoingCorrespondencyInput);
+            MapSystemParamDTO_to_VM<OutgoingCorrespondencyDTO, OutgoingCorrespondencyInput>.FillParamDTO(OutgoingCorrespondencyDTO, ref OutgoingCorrespondencyInput);
 
             return OutgoingCorrespondencyInput;
         }
@@ -248,7 +248,7 @@ namespace ACS.WEB
             InternalCorrespondencyInput.From_EmployeeId = InternalCorrespondencyDTO.From_EmployeeId;
             InternalCorrespondencyInput.To_Employees = InternalCorrespondencyDTO.To_Employees;
 
-            MapSystemParam<InternalCorrespondencyDTO, InternalCorrespondencyInput>.FillParamDTO(InternalCorrespondencyDTO, ref InternalCorrespondencyInput);
+            MapSystemParamDTO_to_VM<InternalCorrespondencyDTO, InternalCorrespondencyInput>.FillParamDTO(InternalCorrespondencyDTO, ref InternalCorrespondencyInput);
 
             return InternalCorrespondencyInput;
         }
@@ -286,7 +286,7 @@ namespace ACS.WEB
             incomingCorrespondencyInput.From_ExternalOrganizationChancelleryId = IncomingCorrespondencyDTO.From_ExternalOrganizationChancelleryId;
             incomingCorrespondencyInput.To_EmployeeId = IncomingCorrespondencyDTO.To_EmployeeId;
 
-            MapSystemParam<IncomingCorrespondencyDTO, IncomingCorrespondencyInput>.FillParamDTO(IncomingCorrespondencyDTO, ref incomingCorrespondencyInput);
+            MapSystemParamDTO_to_VM<IncomingCorrespondencyDTO, IncomingCorrespondencyInput>.FillParamDTO(IncomingCorrespondencyDTO, ref incomingCorrespondencyInput);
 
             return incomingCorrespondencyInput;
         }
@@ -324,7 +324,7 @@ namespace ACS.WEB
             chancelleryViewModel.From = chancelleryDTO.From;
             chancelleryViewModel.To = chancelleryDTO.To;
 
-            MapSystemParam<ChancelleryDTO, ChancelleryViewModel>.FillParamDTO(chancelleryDTO, ref chancelleryViewModel);
+            MapSystemParamDTO_to_VM<ChancelleryDTO, ChancelleryViewModel>.FillParamDTO(chancelleryDTO, ref chancelleryViewModel);
 
             return chancelleryViewModel;
         }
@@ -381,7 +381,7 @@ namespace ACS.WEB
             FolderChancelleryInput.Id = FolderChancelleryDTO.Id;
             FolderChancelleryInput.Name = FolderChancelleryDTO.Name;
 
-            MapSystemParam<FolderCorrespondencesDTO, FolderCorrespondencesInput>.FillParamDTO(FolderChancelleryDTO, ref FolderChancelleryInput);
+            MapSystemParamDTO_to_VM<FolderCorrespondencesDTO, FolderCorrespondencesInput>.FillParamDTO(FolderChancelleryDTO, ref FolderChancelleryInput);
 
             return FolderChancelleryInput;
         }
@@ -393,7 +393,7 @@ namespace ACS.WEB
             journalVM.Name = folderDto.Name;
             journalVM.Chancelleries = string.Join(", ", folderDto.Chancelleries.Select(m => m.ToString()));
 
-            MapSystemParam<FolderCorrespondencesDTO, FolderChancelleryViewModel>.FillParamDTO(folderDto, ref journalVM);
+            MapSystemParamDTO_to_VM<FolderCorrespondencesDTO, FolderChancelleryViewModel>.FillParamDTO(folderDto, ref journalVM);
             return journalVM;
         }
         public static List<FolderChancelleryViewModel> ListFolderDTOToListFolderVM(IEnumerable<FolderCorrespondencesDTO> foldersDto)
@@ -424,7 +424,7 @@ namespace ACS.WEB
             JournalCorrespondencesInput.Id = journalDto.Id;
             JournalCorrespondencesInput.Name = journalDto.Name;
            
-            MapSystemParam<JournalRegistrationsCorrespondencesDTO, JournalCorrespondencesInput>.FillParamDTO(journalDto, ref JournalCorrespondencesInput);
+            MapSystemParamDTO_to_VM<JournalRegistrationsCorrespondencesDTO, JournalCorrespondencesInput>.FillParamDTO(journalDto, ref JournalCorrespondencesInput);
             return JournalCorrespondencesInput;
         }
         public static JournalRegistrationsViewModel JournalDtoToJournalVM(JournalRegistrationsCorrespondencesDTO journalDto)         {
@@ -434,7 +434,7 @@ namespace ACS.WEB
             journalVM.Name = journalDto.Name;
             journalVM.Chancelleries = string.Join(", ", journalDto.Chancelleries.Select(m => m.ToString()));
 
-            MapSystemParam<JournalRegistrationsCorrespondencesDTO, JournalRegistrationsViewModel>.FillParamDTO(journalDto, ref journalVM);
+            MapSystemParamDTO_to_VM<JournalRegistrationsCorrespondencesDTO, JournalRegistrationsViewModel>.FillParamDTO(journalDto, ref journalVM);
             return journalVM;
         }
         public static List<JournalRegistrationsViewModel> ListJournalDTOToListJournalVM(IEnumerable<JournalRegistrationsCorrespondencesDTO> journalsDto)
@@ -458,7 +458,7 @@ namespace ACS.WEB
             typeVM.Name = typeDto.Name;
             typeVM.Chancelleries = string.Join(", ", typeDto.Chancelleries.Select(m => m.ToString()));
 
-            MapSystemParam<TypeRecordCorrespondencesDTO, TypeRecordChancelleryViewModel>.FillParamDTO(typeDto, ref typeVM);
+            MapSystemParamDTO_to_VM<TypeRecordCorrespondencesDTO, TypeRecordChancelleryViewModel>.FillParamDTO(typeDto, ref typeVM);
             return typeVM;
         }
         public static List<TypeRecordChancelleryViewModel> ListTypeDTOToListTypeVM(IEnumerable<TypeRecordCorrespondencesDTO> typesDto)
