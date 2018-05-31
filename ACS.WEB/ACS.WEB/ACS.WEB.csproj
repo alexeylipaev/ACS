@@ -226,6 +226,7 @@
     <Compile Include="Mapper\MapEmplWEB.cs" />
     <Compile Include="Mapper\MapExtrlOrgWEB.cs" />
     <Compile Include="Mapper\MapSystemParam.cs" />
+    <Compile Include="Models\Collections.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ACSRoleProvider.cs" />
     <Compile Include="Startup.cs" />
@@ -651,7 +652,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

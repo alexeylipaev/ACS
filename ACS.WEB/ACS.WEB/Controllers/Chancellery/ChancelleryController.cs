@@ -3,7 +3,7 @@ using ACS.BLL.BusinessModels;
 using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
 using ACS.BLL.Interfaces;
-
+using ACS.WEB.Models;
 using ACS.WEB.Util;
 using ACS.WEB.ViewModels;
 
@@ -137,10 +137,10 @@ namespace ACS.WEB.Controllers
 
         async Task FillViewBagCollectionAsync()
         {
-            ViewBag.FolderCollection = await GetFoldersCollectionAsync();
-            ViewBag.EmplCollection = await GetEmplCollectionAsync();
-            ViewBag.JournalCollection = await GetJournalsCollectionAsync();
-            ViewBag.ExtOrgsCollection = await GetExtOrgsCollectionAsync();
+            Collections.Folders = await GetFoldersCollectionAsync();
+            Collections.Empls = await GetEmplCollectionAsync();
+            Collections.Journals = await GetJournalsCollectionAsync();
+            Collections.ExtlOrgs = await GetExtOrgsCollectionAsync();
         }
 
         #region Входящая канцелярия

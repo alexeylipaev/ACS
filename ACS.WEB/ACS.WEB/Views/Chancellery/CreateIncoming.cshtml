@@ -46,7 +46,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ResponsibleEmployees, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.ListBoxFor(model => model.ResponsibleEmployees, new MultiSelectList(ViewBag.EmplCollection, "id", "FullName"), new { @class = "chosen", multiple = "multiple", data_placeholder = "Выберите ответственного" })
+                @Html.ListBoxFor(model => model.ResponsibleEmployees, new MultiSelectList(ACS.WEB.Models.Collections.Empls, "Id", "FullName"), new { @class = "chosen", multiple = "multiple", data_placeholder = "Выберите ответственного" })
               
             </div>
         </div>
@@ -54,7 +54,7 @@
             @Html.LabelFor(model => model.JournalRegistrationsChancelleryId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <abbr class="search-choice-close"></abbr>
-                @Html.DropDownListFor(model => model.JournalRegistrationsChancelleryId, new SelectList(ViewBag.JournalCollection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите журнал" })
+                @Html.DropDownListFor(model => model.JournalRegistrationsChancelleryId, new SelectList(ACS.WEB.Models.Collections.Journals, "Id", "Name"), new { @class = "chosen", data_placeholder = "Выберите журнал" })
         
                 @Html.ValidationMessageFor(model => model.JournalRegistrationsChancelleryId, "", new { @class = "text-danger" })
 
@@ -64,7 +64,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FolderChancelleryId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.FolderChancelleryId, new SelectList(ViewBag.FolderCollection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите папку" })
+                @Html.DropDownListFor(model => model.FolderChancelleryId, new SelectList(ACS.WEB.Models.Collections.Folders, "Id", "Name"), new { @class = "chosen", data_placeholder = "Выберите папку" })
            
                 @Html.ValidationMessageFor(model => model.FolderChancelleryId, "", new { @class = "text-danger" })
             </div>
@@ -72,14 +72,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.To_EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.To_EmployeeId, new SelectList(ViewBag.EmplCollection, "id", "FullName"), new { @class = "chosen", data_placeholder = "Выберите работника" })
+                @Html.DropDownListFor(model => model.To_EmployeeId, new SelectList(ACS.WEB.Models.Collections.Empls, "Id", "FullName"), new { @class = "chosen", data_placeholder = "Выберите работника" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.From_ExternalOrganizationChancelleryId, htmlAttributes: new { @class = "control-label col-md-2" })
 
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.From_ExternalOrganizationChancelleryId, new SelectList(ViewBag.ExtOrgsCollection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите организацию" })
+                @Html.DropDownListFor(model => model.From_ExternalOrganizationChancelleryId, new SelectList(ACS.WEB.Models.Collections.ExtlOrgs, "Id", "Name"), new { @class = "chosen", data_placeholder = "Выберите организацию" })
             </div>
         </div>
 
