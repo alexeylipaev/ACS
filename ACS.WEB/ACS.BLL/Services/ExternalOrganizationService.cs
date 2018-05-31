@@ -23,6 +23,8 @@ namespace ACS.BLL.Services
             {
                 var extlOrg = Database.ExternalOrganization.Find(externalOrganizationDTO.Id);
                 extlOrg =  MapExtlOrg.ExtlOrgDTOToExtlOrg(externalOrganizationDTO);
+                extlOrg.s_EditorId = AuthorID;
+                extlOrg.s_EditDate = DateTime.Now;
                 return await Database.ExternalOrganization.AddOrUpdateAsync(extlOrg, AuthorID);
             }
             catch (Exception e)

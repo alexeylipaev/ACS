@@ -14,30 +14,18 @@ namespace ACS.DAL.Entities
         [DefaultValue("newsequentialid()")]
         public Guid s_Guid { get; private set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        [DefaultValue(1)]
         public int s_AuthorId { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        [DefaultValue("getdate()")]
-        public DateTime s_DateCreation { get; private set; }
+        public DateTime s_DateCreation { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        [DefaultValue(1)]
         public int s_EditorId { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        [DefaultValue("getdate()")]
         public DateTime s_EditDate { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        [DefaultValue(0)]
         public bool? s_IsLocked { get; set; }
 
         public int? s_LockedBy_Id { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        [DefaultValue(0)]
         public bool s_InBasket { get; set; }
     }
 }

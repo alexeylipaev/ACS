@@ -16,7 +16,8 @@ namespace ACS.BLL
 
 
         #region journal
-        public static async Task<DAL.Entities.JournalRegistrationsChancellery> JournalDTOToJournal(DTO.JournalRegistrationsCorrespondencesDTO journalDto)         {
+        public static async Task<DAL.Entities.JournalRegistrationsChancellery> JournalDTOToJournal(DTO.JournalRegistrationsCorrespondencesDTO journalDto)
+        {
             DAL.Entities.JournalRegistrationsChancellery journal = MapDB.Db.JournalRegistrationsChancelleries.Find(journalDto.Id);
             if (journal == null) journal = new DAL.Entities.JournalRegistrationsChancellery();
             journal.Id = journalDto.Id;
@@ -31,7 +32,8 @@ namespace ACS.BLL
 
         #region folder
 
-        public static async Task<DAL.Entities.FolderChancellery> FolderDTOToFolder(DTO.FolderCorrespondencesDTO folderDto)         {
+        public static async Task<DAL.Entities.FolderChancellery> FolderDTOToFolder(DTO.FolderCorrespondencesDTO folderDto)
+        {
             DAL.Entities.FolderChancellery folder = MapDB.Db.FolderChancelleries.Find(folderDto.Id);
             if (folder == null) folder = new DAL.Entities.FolderChancellery();
             folder.Id = folderDto.Id;
@@ -46,7 +48,8 @@ namespace ACS.BLL
         #endregion
 
         #region typeChancellery
-        public static async Task<DAL.Entities.TypeRecordChancellery> TypeDTOToType(DTO.TypeRecordCorrespondencesDTO typeDTO)         {
+        public static async Task<DAL.Entities.TypeRecordChancellery> TypeDTOToType(DTO.TypeRecordCorrespondencesDTO typeDTO)
+        {
             DAL.Entities.TypeRecordChancellery type = MapDB.Db.TypeRecordChancelleries.Find(typeDTO.Id);
             if (type == null) type = new DAL.Entities.TypeRecordChancellery();
             type.Id = typeDTO.Id;
@@ -80,7 +83,8 @@ namespace ACS.BLL
             return chancellery;
         }
 
-        public static async Task<DAL.Entities.Chancellery> IncomingToChancelleryAsync(DTO.IncomingCorrespondencyDTO incomingDTO, FromExtlOrgChancellery fromExtlOrgChancellery, ToEmplChancellery toEmplChancellery)         {
+        public static async Task<DAL.Entities.Chancellery> IncomingToChancelleryAsync(DTO.IncomingCorrespondencyDTO incomingDTO, FromExtlOrgChancellery fromExtlOrgChancellery, ToEmplChancellery toEmplChancellery)
+        {
             Chancellery chancellery = null;
 
             chancellery = await MappingDataChancelleryAsync(chancellery, incomingDTO);
@@ -277,7 +281,8 @@ namespace ACS.BLL
 
             return result;
         }
-        public static ChancelleryDTO chancelleryToChancelleryDTO(Chancellery chancellery)         {
+        public static ChancelleryDTO chancelleryToChancelleryDTO(Chancellery chancellery)
+        {
             DTO.ChancelleryDTO chancelleryDTO = new DTO.ChancelleryDTO();
 
             chancelleryDTO.Id = chancellery.Id;
@@ -311,7 +316,8 @@ namespace ACS.BLL
         }
 
         #region typeChancellery
-        public static TypeRecordCorrespondencesDTO TypeToTypeDTO(TypeRecordChancellery type)         {
+        public static TypeRecordCorrespondencesDTO TypeToTypeDTO(TypeRecordChancellery type)
+        {
             DTO.TypeRecordCorrespondencesDTO typeDto = new DTO.TypeRecordCorrespondencesDTO();
 
             typeDto.Id = type.Id;
@@ -337,7 +343,8 @@ namespace ACS.BLL
         #region folder
 
 
-        public static FolderCorrespondencesDTO FolderToFolderDTO(FolderChancellery folder)         {
+        public static FolderCorrespondencesDTO FolderToFolderDTO(FolderChancellery folder)
+        {
             DTO.FolderCorrespondencesDTO folderDto = new DTO.FolderCorrespondencesDTO();
 
             folderDto.Id = folder.Id;
@@ -362,7 +369,8 @@ namespace ACS.BLL
         #region journal
 
 
-        public static JournalRegistrationsCorrespondencesDTO JournalToJournalDTO(JournalRegistrationsChancellery journal)         {
+        public static JournalRegistrationsCorrespondencesDTO JournalToJournalDTO(JournalRegistrationsChancellery journal)
+        {
             DTO.JournalRegistrationsCorrespondencesDTO journalDto = new DTO.JournalRegistrationsCorrespondencesDTO();
 
             journalDto.Id = journal.Id;
@@ -387,7 +395,8 @@ namespace ACS.BLL
 
         public static async Task<IEnumerable<IncomingCorrespondencyDTO>> ListChancelleryToListIncomingDTOAsync(IEnumerable<DAL.Entities.Chancellery> chancelleries)
         {
-            List<DTO.IncomingCorrespondencyDTO> result = new List<DTO.IncomingCorrespondencyDTO>();             foreach (var chancellery in chancelleries)
+            List<DTO.IncomingCorrespondencyDTO> result = new List<DTO.IncomingCorrespondencyDTO>();
+            foreach (var chancellery in chancelleries)
             {
                 var dto = await ChancelleryToIncomingDTOAsync(chancellery);
                 result.Add(dto);
@@ -396,7 +405,8 @@ namespace ACS.BLL
             return result;
         }
 
-        public static async Task<IncomingCorrespondencyDTO> ChancelleryToIncomingDTOAsync(Chancellery chancellery)         {
+        public static async Task<IncomingCorrespondencyDTO> ChancelleryToIncomingDTOAsync(Chancellery chancellery)
+        {
             IncomingCorrespondencyDTO incomingCorrespondencyDTO = new IncomingCorrespondencyDTO();
 
             incomingCorrespondencyDTO = MappingDataChancelleryToCorrespondencesDTO(incomingCorrespondencyDTO, chancellery);
@@ -427,7 +437,8 @@ namespace ACS.BLL
 
         public static async Task<IEnumerable<OutgoingCorrespondencyDTO>> ListChancelleryToListOutgoingDTOAsync(IEnumerable<DAL.Entities.Chancellery> chancelleries)
         {
-            List<DTO.OutgoingCorrespondencyDTO> result = new List<DTO.OutgoingCorrespondencyDTO>();             foreach (var chancellery in chancelleries)
+            List<DTO.OutgoingCorrespondencyDTO> result = new List<DTO.OutgoingCorrespondencyDTO>();
+            foreach (var chancellery in chancelleries)
             {
                 var dto = await ChancelleryToOutgoingDTOAsync(chancellery);
                 result.Add(dto);
@@ -436,7 +447,8 @@ namespace ACS.BLL
             return result;
         }
 
-        public static async Task<OutgoingCorrespondencyDTO> ChancelleryToOutgoingDTOAsync(Chancellery chancellery)         {
+        public static async Task<OutgoingCorrespondencyDTO> ChancelleryToOutgoingDTOAsync(Chancellery chancellery)
+        {
             OutgoingCorrespondencyDTO outgoingCorrespondencyDTO = new OutgoingCorrespondencyDTO();
 
             outgoingCorrespondencyDTO = MappingDataChancelleryToCorrespondencesDTO(outgoingCorrespondencyDTO, chancellery);
@@ -463,7 +475,8 @@ namespace ACS.BLL
         }
         public static async Task<IEnumerable<InternalCorrespondencyDTO>> ListChancelleryToListInternalDTOAsync(IEnumerable<DAL.Entities.Chancellery> chancelleries)
         {
-            List<DTO.InternalCorrespondencyDTO> result = new List<DTO.InternalCorrespondencyDTO>();             foreach (var chancellery in chancelleries)
+            List<DTO.InternalCorrespondencyDTO> result = new List<DTO.InternalCorrespondencyDTO>();
+            foreach (var chancellery in chancelleries)
             {
                 var dto = await ChancelleryToInternalDTOAsync(chancellery);
                 result.Add(dto);
@@ -472,7 +485,8 @@ namespace ACS.BLL
             return result;
         }
 
-        public static async Task<InternalCorrespondencyDTO> ChancelleryToInternalDTOAsync(Chancellery chancellery)         {
+        public static async Task<InternalCorrespondencyDTO> ChancelleryToInternalDTOAsync(Chancellery chancellery)
+        {
             InternalCorrespondencyDTO internalCorrespondencyDTO = new InternalCorrespondencyDTO();
 
             internalCorrespondencyDTO = MappingDataChancelleryToCorrespondencesDTO(internalCorrespondencyDTO, chancellery);
