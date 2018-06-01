@@ -13,9 +13,9 @@ namespace ACS.DAL.Migrations
     {
         public Configuration()
         {
-
-            AutomaticMigrationsEnabled = true;//автоматическое обновление бд
-            AutomaticMigrationDataLossAllowed = true;//обновлять бд даже если при этом будут утеряны данные
+            //только ручное обновление БД
+            AutomaticMigrationsEnabled = false;//автоматическое обновление бд
+            AutomaticMigrationDataLossAllowed = false;//обновлять бд даже если при этом будут утеряны данные
             // DefaultValue Sql Generator
             SetSqlGenerator("System.Data.SqlClient", new DefaultValueSqlServerMigrationSqlGenerator());
         }
@@ -46,7 +46,7 @@ namespace ACS.DAL.Migrations
         {
             base.Seed(db);
 #warning раскомментить для разового заполнения БД
-           // PublicSeed(db);
+            //PublicSeed(db);
 
         }
 

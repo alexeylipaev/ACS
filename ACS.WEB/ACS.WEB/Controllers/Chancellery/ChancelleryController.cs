@@ -109,8 +109,8 @@ namespace ACS.WEB.Controllers
         async Task<IEnumerable<EmployeeViewModel>> GetEmplCollectionAsync()
         {
             var empls = await ChancelleryService.GetAllEmployeesAsync();
-            List<EmployeeViewModel> collection = new List<EmployeeViewModel>() { null };
-            collection.AddRange(MapEmplWEB.ListEmplToListemplVM(empls).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.LName));
+            List<EmployeeViewModel> collection = new List<EmployeeViewModel>() /*{ null }*/;
+            collection.AddRange(MapEmplWEB.ListEmplToListemplVM(empls)/*.Where(ch => ch.s_InBasket == false)*/.OrderBy(emp => emp.LName));
             return collection;
         }
         async Task<IEnumerable<FolderChancelleryViewModel>> GetFoldersCollectionAsync()
@@ -138,7 +138,9 @@ namespace ACS.WEB.Controllers
         async Task FillViewBagCollectionAsync()
         {
             ViewBag.FolderCollection = await GetFoldersCollectionAsync();
-            ViewBag.EmplCollection = await GetEmplCollectionAsync();
+            var emplCol = await GetEmplCollectionAsync();
+            var emplSelectList = emplCol.Select(e => new { FullName = e.FullName, id = e.Id }).ToList();
+            ViewBag.EmplCollection = emplSelectList;
             ViewBag.JournalCollection = await GetJournalsCollectionAsync();
             ViewBag.ExtOrgsCollection = await GetExtOrgsCollectionAsync();
         }

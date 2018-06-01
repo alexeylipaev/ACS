@@ -20,8 +20,8 @@ namespace ACS.BLL.DTO
             get
             {
                 string fullName = LName != null ? LName : string.Empty;
-                fullName = FName != null ? string.IsNullOrWhiteSpace(fullName) ? FName : " " + FName : string.Empty;
-                fullName = MName != null ? string.IsNullOrWhiteSpace(fullName) ? MName : " " + MName : string.Empty;
+                fullName = FName != null ? string.IsNullOrWhiteSpace(fullName) ? FName : fullName + " " + FName : fullName;
+                fullName = MName != null ? string.IsNullOrWhiteSpace(fullName) ? MName : fullName + " " + MName : fullName;
                 return fullName;
             }
         }
