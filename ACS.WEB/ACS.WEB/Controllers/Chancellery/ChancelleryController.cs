@@ -116,22 +116,22 @@ namespace ACS.WEB.Controllers
         async Task<IEnumerable<FolderChancelleryViewModel>> GetFoldersCollectionAsync()
         {
             var folders = await ChancelleryService.GetAllFolders();
-            List<FolderChancelleryViewModel> collection = new List<FolderChancelleryViewModel>() { null };
-            collection.AddRange(MapChancelleryWEB.ListFolderDTOToListFolderVM(folders).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.Name));
+            List<FolderChancelleryViewModel> collection = new List<FolderChancelleryViewModel>()/* { null }*/;
+            collection.AddRange(MapChancelleryWEB.ListFolderDTOToListFolderVM(folders)/*.Where(ch => ch.s_InBasket == false)*/.OrderBy(emp => emp.Name));
             return collection;
         }
         async Task<IEnumerable<JournalRegistrationsViewModel>> GetJournalsCollectionAsync()
         {
             var journals = await ChancelleryService.GetAllJournalesRegistrationsAsync();
-            List<JournalRegistrationsViewModel> collection = new List<JournalRegistrationsViewModel>() { null };
-            collection.AddRange(MapChancelleryWEB.ListJournalDTOToListJournalVM(journals).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.Name));
+            List<JournalRegistrationsViewModel> collection = new List<JournalRegistrationsViewModel>()/* { null }*/;
+            collection.AddRange(MapChancelleryWEB.ListJournalDTOToListJournalVM(journals)/*.Where(ch => ch.s_InBasket == false)*/.OrderBy(emp => emp.Name));
             return collection;
         }
         async Task<IEnumerable<ExternalOrganizationViewModel>> GetExtOrgsCollectionAsync()
         {
             var extOrgs = await ChancelleryService.GetAllExternalOrganizationsAsync();
-            List<ExternalOrganizationViewModel> collection = new List<ExternalOrganizationViewModel>() { null };
-            collection.AddRange(MapExtrlOrgWEB.ListExtlOrgDTOToListextlOrgVM(extOrgs).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.Name));
+            List<ExternalOrganizationViewModel> collection = new List<ExternalOrganizationViewModel>() /*{ null }*/;
+            collection.AddRange(MapExtrlOrgWEB.ListExtlOrgDTOToListextlOrgVM(extOrgs)/*.Where(ch => ch.s_InBasket == false)*/.OrderBy(emp => emp.Name));
             return collection;
         }
 

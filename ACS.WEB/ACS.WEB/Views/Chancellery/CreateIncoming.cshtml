@@ -54,7 +54,7 @@
             @Html.LabelFor(model => model.JournalRegistrationsChancelleryId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <abbr class="search-choice-close"></abbr>
-                @Html.DropDownListFor(model => model.JournalRegistrationsChancelleryId, new SelectList(ViewBag.JournalCollection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите журнал" })
+                @Html.DropDownListFor(model => model.JournalRegistrationsChancelleryId, new SelectList(ViewBag.JournalCollection, "id", "Name"), "Выберите журнал", new { @class = "chosen", data_placeholder = "Выберите журнал" })
         
                 @Html.ValidationMessageFor(model => model.JournalRegistrationsChancelleryId, "", new { @class = "text-danger" })
 
@@ -64,7 +64,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FolderChancelleryId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.FolderChancelleryId, new SelectList(ViewBag.FolderCollection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите папку" })
+                @Html.DropDownListFor(model => model.FolderChancelleryId, new SelectList(ViewBag.FolderCollection, "id", "Name"), "Выберите папку", new { @class = "chosen", data_placeholder = "Выберите папку" })
            
                 @Html.ValidationMessageFor(model => model.FolderChancelleryId, "", new { @class = "text-danger" })
             </div>
@@ -79,7 +79,7 @@
             @Html.LabelFor(model => model.From_ExternalOrganizationChancelleryId, htmlAttributes: new { @class = "control-label col-md-2" })
 
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.From_ExternalOrganizationChancelleryId, new SelectList(ViewBag.ExtOrgsCollection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите организацию" })
+                @Html.DropDownListFor(model => model.From_ExternalOrganizationChancelleryId, new SelectList(ViewBag.ExtOrgsCollection, "id", "Name"), "Выберите организацию", new { @class = "chosen", data_placeholder = "Выберите организацию" })
             </div>
         </div>
 
