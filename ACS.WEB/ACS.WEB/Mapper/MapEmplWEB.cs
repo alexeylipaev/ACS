@@ -28,7 +28,7 @@ namespace ACS.WEB
             EmployeeViewModel emplVM = new EmployeeViewModel();
 
             emplVM.Id = EmplDto.Id;
-
+            emplVM.FullName = EmplDto.FullName;
             emplVM.LName = EmplDto.LName;
             emplVM.MName = EmplDto.MName;
             emplVM.FName = EmplDto.FName;
