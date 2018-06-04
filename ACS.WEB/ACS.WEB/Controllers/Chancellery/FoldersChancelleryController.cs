@@ -62,7 +62,8 @@ namespace ACS.WEB.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(FolderCorrespondencesInput folderInput)
         {
-            return await CreateOrUpdateOrDelAsync(folderInput);
+            await CreateOrUpdateOrDelAsync(folderInput);
+            return RedirectToAction("Index");
         }
 
         // GET: FoldersChancellery/Edit/5
@@ -79,7 +80,8 @@ namespace ACS.WEB.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(/*[Bind(Include = "Name")]*/ FolderCorrespondencesInput folderInput)
         {
-            return await CreateOrUpdateOrDelAsync(folderInput);
+            await CreateOrUpdateOrDelAsync(folderInput);
+            return RedirectToAction("Index");
         }
 
        async Task<ActionResult> CreateOrUpdateOrDelAsync(/*[Bind(Include = "Id,Name")]*/ FolderCorrespondencesInput folderInput, bool del = false)

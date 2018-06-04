@@ -57,7 +57,8 @@ namespace ACS.WEB.Controllers.Chancellery
         [HttpPost]
         public async Task<ActionResult> Create(JournalCorrespondencesInput JournalInput)
         {
-            return await CreateOrUpdateOrDelAsync(JournalInput);
+            await CreateOrUpdateOrDelAsync(JournalInput);
+            return RedirectToAction("Index");
         }
 
         // GET: JournalRegistrationsChancellery/Edit/5
@@ -72,7 +73,8 @@ namespace ACS.WEB.Controllers.Chancellery
         [HttpPost]
         public async Task<ActionResult> Edit(JournalCorrespondencesInput JournalInput)
         {
-            return await CreateOrUpdateOrDelAsync(JournalInput);
+            await CreateOrUpdateOrDelAsync(JournalInput);
+            return RedirectToAction("Index");
         }
 
         // GET: JournalRegistrationsChancellery/Delete/5
@@ -89,7 +91,8 @@ namespace ACS.WEB.Controllers.Chancellery
         {
             var journalDTO = await JournalRegistrationsChancelleryService.FindAsync(id);
             if (journalDTO == null) { throw new Exception("Папка не найдена"); }
-            return await CreateOrUpdateOrDelAsync(MapChancelleryWEB.JournalDtoToJournalInput(journalDTO), true);
+            await CreateOrUpdateOrDelAsync(MapChancelleryWEB.JournalDtoToJournalInput(journalDTO), true);
+            return RedirectToAction("Index");
         }
 
       async Task <ActionResult> CreateOrUpdateOrDelAsync(/*[Bind(Include = "Id,Name")]*/ JournalCorrespondencesInput JournalInput, bool del = false)

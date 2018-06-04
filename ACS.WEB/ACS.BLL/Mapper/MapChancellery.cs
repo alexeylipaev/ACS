@@ -62,23 +62,23 @@ namespace ACS.BLL
         }
         #endregion
 
-        private static async Task<DAL.Entities.Chancellery> MappingDataChancelleryAsync(Chancellery chancellery, DTO.CorrespondencesBaseDTO CorrespondencesDTO)
+        private static async Task<DAL.Entities.Chancellery> MappingDataChancelleryAsync(Chancellery chancellery, DTO.CorrespondencesBaseDTO correspondencesDTO)
         {
-            chancellery = await MapDB.Db.Chancelleries.FindAsync(CorrespondencesDTO.Id);
+            chancellery = await MapDB.Db.Chancelleries.FindAsync(correspondencesDTO.Id);
             if (chancellery == null) chancellery = new DAL.Entities.Chancellery();
 
-            chancellery.Id = CorrespondencesDTO.Id;
-            chancellery.DateRegistration = CorrespondencesDTO.DateRegistration;
-            chancellery.RegistrationNumber = CorrespondencesDTO.RegistrationNumber;
-            chancellery.Summary = CorrespondencesDTO.Summary;
-            chancellery.Notice = CorrespondencesDTO.Notice;
-            chancellery.Status = CorrespondencesDTO.Status;
-            chancellery.TypeRecordChancelleryId = CorrespondencesDTO.TypeRecordChancelleryId;
-            chancellery.FolderChancelleryId = CorrespondencesDTO.FolderChancelleryId;
-            chancellery.JournalRegistrationsChancelleryId = CorrespondencesDTO.JournalRegistrationsChancelleryId;
+            chancellery.Id = correspondencesDTO.Id;
+            chancellery.DateRegistration = correspondencesDTO.DateRegistration;
+            chancellery.RegistrationNumber = correspondencesDTO.RegistrationNumber;
+            chancellery.Summary = correspondencesDTO.Summary;
+            chancellery.Notice = correspondencesDTO.Notice;
+            chancellery.Status = correspondencesDTO.Status;
+            chancellery.TypeRecordChancelleryId = correspondencesDTO.TypeRecordChancelleryId;
+            chancellery.FolderChancelleryId = correspondencesDTO.FolderChancelleryId;
+            chancellery.JournalRegistrationsChancelleryId = correspondencesDTO.JournalRegistrationsChancelleryId;
 
-            chancellery.FileRecordChancelleries = MapDB.Db.Files.Find(m => CorrespondencesDTO.FileRecordChancelleries.Contains(m.Id)) as ICollection<Files>;
-            chancellery.ResponsibleEmployees = MapDB.Db.Employees.Find(m => CorrespondencesDTO.ResponsibleEmployees.Contains(m.Id)) as ICollection<Employee>;
+            chancellery.FileRecordChancelleries = MapDB.Db.Files.Find(m => correspondencesDTO.FileRecordChancelleries.Contains(m.Id)) as ICollection<Files>;
+            chancellery.ResponsibleEmployees = MapDB.Db.Employees.Find(m => correspondencesDTO.ResponsibleEmployees.Contains(m.Id)) as ICollection<Employee>;
 
             return chancellery;
         }
@@ -88,31 +88,44 @@ namespace ACS.BLL
             Chancellery chancellery = null;
 
             chancellery = await MappingDataChancelleryAsync(chancellery, incomingDTO);
-
+            #region Type
+            chancellery.TypeRecordChancellery = MapDB.Db.TypeRecordChancelleries.Find(incomingDTO.TypeRecordChancelleryId);
+            #endregion
+            int editorId = incomingDTO.s_EditorId;
+            DateTime editDate = DateTime.Now;
             #region from
+            bool IsCreateFrom = false;
+            fromExtlOrgChancellery = MapDB.Db.FromExtlOrgsChancellery.Query(ex=> ex.ExternalOrganizationId == incomingDTO.From_ExternalOrganizationChancelleryId).FirstOrDefault();
 
-            var from_List = await MapDB.Db.FromExtlOrgsChancellery.ToListAsync();
-
-            fromExtlOrgChancellery = from_List.FirstOrDefault(d => d.Chancellery.Id == incomingDTO.Id);
-
-            if (fromExtlOrgChancellery == null) fromExtlOrgChancellery = new FromExtlOrgChancellery();
+            if (fromExtlOrgChancellery == null)
+            {
+                fromExtlOrgChancellery = new FromExtlOrgChancellery();
+                fromExtlOrgChancellery.s_AuthorId = editorId;
+                fromExtlOrgChancellery.s_DateCreation = editDate;
+                
+                IsCreateFrom = true;
+            }
+            fromExtlOrgChancellery.s_EditDate = editDate;
+            fromExtlOrgChancellery.s_EditorId = editorId;
 
             fromExtlOrgChancellery.Chancellery = chancellery;
             fromExtlOrgChancellery.ExternalOrganizationId = incomingDTO.From_ExternalOrganizationChancelleryId;
+            MapDB.Db.FromExtlOrgsChancellery.Add(fromExtlOrgChancellery, incomingDTO.s_EditorId);
+            //if (!IsCreateFrom)
 
-            #endregion
+                #endregion
 
-            #region to
+                #region to
 
-            var to_List = await MapDB.Db.ToEmplsChancellery.ToListAsync();
+                var to_List = await MapDB.Db.ToEmplsChancellery.ToListAsync();
 
             toEmplChancellery = to_List.FirstOrDefault(d => d.Chancellery.Id == incomingDTO.Id);
 
             if (toEmplChancellery == null) toEmplChancellery = new ToEmplChancellery();
 
             toEmplChancellery.Chancellery = chancellery;
-            toEmplChancellery.EmployeeId = incomingDTO.To_EmployeeId;
-
+            //toEmplChancellery.EmployeeId = incomingDTO.To_EmployeeId;
+            toEmplChancellery.Employee = MapDB.Db.Employees.Find(incomingDTO.To_EmployeeId);
             #endregion
 
             return chancellery;

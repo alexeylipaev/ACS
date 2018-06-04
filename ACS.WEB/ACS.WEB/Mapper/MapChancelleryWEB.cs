@@ -117,12 +117,13 @@ namespace ACS.WEB
             CorrespondencesBaseDTO.Notice = CorrespondencesBaseInput.Notice;
             CorrespondencesBaseDTO.Status = CorrespondencesBaseInput.Status;
 
+            CorrespondencesBaseDTO.JournalRegistrationsChancelleryId = CorrespondencesBaseInput.JournalRegistrationsChancelleryId;
             CorrespondencesBaseDTO.FolderChancelleryId = CorrespondencesBaseInput.FolderChancelleryId;
             CorrespondencesBaseDTO.FileRecordChancelleries = CorrespondencesBaseInput.FileRecordChancelleries;
             CorrespondencesBaseDTO.ResponsibleEmployees = CorrespondencesBaseInput.ResponsibleEmployees;
             CorrespondencesBaseDTO.TypeRecordChancelleryId = CorrespondencesBaseInput.TypeRecordChancelleryId;
-
-            return CorrespondencesBaseDTO;
+            var result = CorrespondencesBaseDTO as DtoBase;
+            return result;
         }
 
         private static InputBase CorrespondencesBaseDTOToCorrespondencesInput<InputBase, DtoBase>(InputBase CorrespondencesBaseInput, DtoBase CorrespondencesBaseDTO) where InputBase : CorrespondencesBaseInput where DtoBase : CorrespondencesBaseDTO
@@ -255,9 +256,11 @@ namespace ACS.WEB
 
         #endregion
         #region Incoming
-        public static IncomingCorrespondencyDTO IncomingInputToIncomingDTO(IncomingCorrespondencyInput IncomingInput)         {
+        public static IncomingCorrespondencyDTO IncomingInputToIncomingDTO(IncomingCorrespondencyInput incomingInput)         {
             IncomingCorrespondencyDTO incomingDTO = new IncomingCorrespondencyDTO();
-            incomingDTO = CorrespondencesInputToCorrespondencesBaseDTO(incomingDTO, IncomingInput);
+            /*incomingDTO = */CorrespondencesInputToCorrespondencesBaseDTO(incomingDTO, incomingInput);
+            incomingDTO.From_ExternalOrganizationChancelleryId = incomingInput.From_ExternalOrganizationChancelleryId;
+            incomingDTO.To_EmployeeId = incomingInput.To_EmployeeId;
             //MapSystemParam<IncomingCorrespondencyInput, IncomingCorrespondencyDTO>.FillParamDTO(IncomingInput, ref incomingDTO);
             return incomingDTO;
 

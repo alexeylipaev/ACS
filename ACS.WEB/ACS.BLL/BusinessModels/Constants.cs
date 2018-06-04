@@ -9,6 +9,6 @@ namespace ACS.BLL.BusinessModels
  public static  class Constants
     {
         public const string FolderPath = @"X:\Подразделения\СВиССА\Файлы канцелярии\";
-        public enum CorrespondencyType:byte { Incoming = 1, Outgoing, Internal }//1	Входящая; 2	Исходящая; 3	Внутреняя
+        public enum CorrespondencyType:byte { Incoming = 3, Outgoing, Internal }//3	Входящая; 4	Исходящая; 5 Внутреняя
     }
 }

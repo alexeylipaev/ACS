@@ -199,7 +199,7 @@ namespace ACS.WEB.Controllers
             return View(chancelleriesIncoming);
         }
 
-        ActionResult IncomingCreateOrUpdate(IncomingCorrespondencyInput IncomingInput, IEnumerable<HttpPostedFileBase> Files)
+        async Task<ActionResult> IncomingCreateOrUpdate(IncomingCorrespondencyInput IncomingInput, IEnumerable<HttpPostedFileBase> Files)
         {
             try
             {
@@ -213,7 +213,7 @@ namespace ACS.WEB.Controllers
                         var files = ChancelleryService.AttachFiles(Files, authorEmail);// Attach(Files, chancelleryDTO);
                         IncomingDto.FileRecordChancelleries = files.Select(f => f.Id);
                     }
-                    ChancelleryService.ChancelleryCreateOrUpdateIncomingAsync(IncomingDto, this.User.Identity.Name);
+                    await ChancelleryService.ChancelleryCreateOrUpdateIncomingAsync(IncomingDto, this.User.Identity.Name);
                     return RedirectToAction("Incoming");
                 }
 
@@ -228,9 +228,9 @@ namespace ACS.WEB.Controllers
         // POST: Chancellery/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditIncoming(IncomingCorrespondencyInput IncomingInput, IEnumerable<HttpPostedFileBase> Files)
+        public async Task<ActionResult> EditIncoming(IncomingCorrespondencyInput IncomingInput, IEnumerable<HttpPostedFileBase> Files)
         {
-            return IncomingCreateOrUpdate(IncomingInput, Files);
+            return await IncomingCreateOrUpdate(IncomingInput, Files);
         }
         public async Task<ActionResult> CreateIncoming()
         {
@@ -246,9 +246,9 @@ namespace ACS.WEB.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         //[Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] 
-        public ActionResult CreateIncoming(IncomingCorrespondencyInput IncomingInput, IEnumerable<HttpPostedFileBase> Files)
+        public async Task<ActionResult> CreateIncoming(IncomingCorrespondencyInput IncomingInput, IEnumerable<HttpPostedFileBase> Files)
         {
-            return IncomingCreateOrUpdate(IncomingInput, Files);
+            return await IncomingCreateOrUpdate(IncomingInput, Files);
         }
         #endregion
 

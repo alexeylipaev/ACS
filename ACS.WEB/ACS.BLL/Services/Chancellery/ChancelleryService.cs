@@ -378,8 +378,8 @@ namespace ACS.BLL.Services
         //TODO: проверить возможность создания объектов from и to при добавлении в базу данных канцелярской записи
         public async Task<int> ChancelleryCreateOrUpdateIncomingAsync(IncomingCorrespondencyDTO incomingCorrespondencyDto, string authorEmail)
         {
-            int AuthorID = 0;
-            try { AuthorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
+            int authorID = 0;
+            try { authorID = CheckAuthorAndGetIndexAuthor(authorEmail); }
             catch (Exception ex) { throw ex; }
 
             FromExtlOrgChancellery fromExtlOrgChancellery = null;
@@ -388,8 +388,9 @@ namespace ACS.BLL.Services
             try
             {
                 var chancellery = Database.Chancelleries.Find(incomingCorrespondencyDto.Id);
+                incomingCorrespondencyDto.s_EditorId = authorID;
                 chancellery = await MapChancellery.IncomingToChancelleryAsync(incomingCorrespondencyDto, fromExtlOrgChancellery, toEmplChancellery);
-                return await Database.Chancelleries.AddOrUpdateAsync(chancellery, AuthorID);
+                return await Database.Chancelleries.AddOrUpdateAsync(chancellery, authorID);
 
             }
             catch (Exception e)

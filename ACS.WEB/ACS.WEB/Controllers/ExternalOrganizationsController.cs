@@ -55,7 +55,8 @@ namespace ACS.WEB.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(ExternalOrganizationInput ExternalOrganizationInput)
         {
-            return await CreateOrUpdateOrDelAsync(ExternalOrganizationInput);
+            await CreateOrUpdateOrDelAsync(ExternalOrganizationInput);
+            return RedirectToAction("Index");
         }
 
         // GET: ExternalOrganizationsChancellery/Edit/5
@@ -69,7 +70,8 @@ namespace ACS.WEB.Controllers
         [HttpPost]
         public async Task<ActionResult> Edit(ExternalOrganizationInput ExternalOrganizationInput)
         {
-            return await CreateOrUpdateOrDelAsync(ExternalOrganizationInput);
+            await CreateOrUpdateOrDelAsync(ExternalOrganizationInput);
+            return RedirectToAction("Index");
         }
 
         // GET: ExternalOrganizationsChancellery/Delete/5
@@ -87,7 +89,8 @@ namespace ACS.WEB.Controllers
         {
             var externalOrganizationDTO = await ExternalOrganizationService.FindAsync(id);
             var externalOrganizationInput = MapExtrlOrgWEB.ExternalOrganizationDTOToExternalOrganizationInput(externalOrganizationDTO);
-            return await CreateOrUpdateOrDelAsync(externalOrganizationInput, true);
+            await CreateOrUpdateOrDelAsync(externalOrganizationInput, true);
+            return RedirectToAction("Index");
         }
 
         async Task<ActionResult> CreateOrUpdateOrDelAsync(/*[Bind(Include = "Id,Name")]*/ ExternalOrganizationInput ExternalOrganizationInput, bool del = false)

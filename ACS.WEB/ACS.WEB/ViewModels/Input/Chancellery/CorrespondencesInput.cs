@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ACS.BLL.BusinessModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,10 @@ namespace ACS.WEB.ViewModels
 {
     public class IncomingCorrespondencyInput : CorrespondencesBaseInput
     {
+        public IncomingCorrespondencyInput() : base()
+        {
+            this.TypeRecordChancelleryId = (int)Constants.CorrespondencyType.Incoming;
+        }
 
         /// <summary>
         /// От кого"
