@@ -56,3 +56,9 @@ InitializingDBFromXML/obj/Debug
 /ACS.WEB/ACS.BLL/bin/Release
 /ACS.WEB/ACS.WEB.Tests/bin/Release
 /ACS.WEB/ACS.WEB.Tests/obj/Release
+
+/ACS.WEB/ConsoleTest/obj/Debug
+/ACS.WEB/ConsoleTest/bin/Debug
+
+/ACS.WEB/ActiveDirectory/bin/Debug
+/ACS.WEB/ActiveDirectory/obj/Debug
