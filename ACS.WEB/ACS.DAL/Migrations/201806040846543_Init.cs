@@ -5,7 +5,7 @@ namespace ACS.DAL.Migrations
     using System.Data.Entity.Infrastructure.Annotations;
     using System.Data.Entity.Migrations;
     
-    public partial class SampleMigrations : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
@@ -31,10 +31,10 @@ namespace ACS.DAL.Migrations
                                 },
                             }),
                         s_AuthorId = c.Int(nullable: false),
-                        s_DateCreation = c.DateTime(nullable: false),
+                        s_DateCreation = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         s_EditorId = c.Int(nullable: false),
-                        s_EditDate = c.DateTime(nullable: false),
-                        s_IsLocked = c.Boolean(),
+                        s_EditDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        s_IsLocked = c.Boolean(nullable: false),
                         s_LockedBy_Id = c.Int(),
                         s_InBasket = c.Boolean(nullable: false),
                     })
@@ -64,10 +64,10 @@ namespace ACS.DAL.Migrations
                                 },
                             }),
                         s_AuthorId = c.Int(nullable: false),
-                        s_DateCreation = c.DateTime(nullable: false),
+                        s_DateCreation = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         s_EditorId = c.Int(nullable: false),
-                        s_EditDate = c.DateTime(nullable: false),
-                        s_IsLocked = c.Boolean(),
+                        s_EditDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        s_IsLocked = c.Boolean(nullable: false),
                         s_LockedBy_Id = c.Int(),
                         s_InBasket = c.Boolean(nullable: false),
                     })
@@ -88,10 +88,10 @@ namespace ACS.DAL.Migrations
                                 },
                             }),
                         s_AuthorId = c.Int(nullable: false),
-                        s_DateCreation = c.DateTime(nullable: false),
+                        s_DateCreation = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         s_EditorId = c.Int(nullable: false),
-                        s_EditDate = c.DateTime(nullable: false),
-                        s_IsLocked = c.Boolean(),
+                        s_EditDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        s_IsLocked = c.Boolean(nullable: false),
                         s_LockedBy_Id = c.Int(),
                         s_InBasket = c.Boolean(nullable: false),
                     })
@@ -113,10 +113,10 @@ namespace ACS.DAL.Migrations
                                 },
                             }),
                         s_AuthorId = c.Int(nullable: false),
-                        s_DateCreation = c.DateTime(nullable: false),
+                        s_DateCreation = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         s_EditorId = c.Int(nullable: false),
-                        s_EditDate = c.DateTime(nullable: false),
-                        s_IsLocked = c.Boolean(),
+                        s_EditDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        s_IsLocked = c.Boolean(nullable: false),
                         s_LockedBy_Id = c.Int(),
                         s_InBasket = c.Boolean(nullable: false),
                     })
@@ -143,17 +143,14 @@ namespace ACS.DAL.Migrations
                                 },
                             }),
                         s_AuthorId = c.Int(nullable: false),
-                        s_DateCreation = c.DateTime(nullable: false),
+                        s_DateCreation = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         s_EditorId = c.Int(nullable: false),
-                        s_EditDate = c.DateTime(nullable: false),
-                        s_IsLocked = c.Boolean(),
+                        s_EditDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        s_IsLocked = c.Boolean(nullable: false),
                         s_LockedBy_Id = c.Int(),
                         s_InBasket = c.Boolean(nullable: false),
-                        ApplicationUser_Id = c.Int(),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
-                .Index(t => t.ApplicationUser_Id);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -171,9 +168,12 @@ namespace ACS.DAL.Migrations
                         LockoutEnabled = c.Boolean(nullable: false),
                         AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 256),
+                        Employee_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .Index(t => t.UserName, unique: true, name: "UserNameIndex");
+                .ForeignKey("dbo.Employees", t => t.Employee_Id)
+                .Index(t => t.UserName, unique: true, name: "UserNameIndex")
+                .Index(t => t.Employee_Id);
             
             CreateTable(
                 "dbo.AspNetUserClaims",
@@ -228,10 +228,10 @@ namespace ACS.DAL.Migrations
                                 },
                             }),
                         s_AuthorId = c.Int(nullable: false),
-                        s_DateCreation = c.DateTime(nullable: false),
+                        s_DateCreation = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         s_EditorId = c.Int(nullable: false),
-                        s_EditDate = c.DateTime(nullable: false),
-                        s_IsLocked = c.Boolean(),
+                        s_EditDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        s_IsLocked = c.Boolean(nullable: false),
                         s_LockedBy_Id = c.Int(),
                         s_InBasket = c.Boolean(nullable: false),
                     })
@@ -257,10 +257,10 @@ namespace ACS.DAL.Migrations
                                 },
                             }),
                         s_AuthorId = c.Int(nullable: false),
-                        s_DateCreation = c.DateTime(nullable: false),
+                        s_DateCreation = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         s_EditorId = c.Int(nullable: false),
-                        s_EditDate = c.DateTime(nullable: false),
-                        s_IsLocked = c.Boolean(),
+                        s_EditDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        s_IsLocked = c.Boolean(nullable: false),
                         s_LockedBy_Id = c.Int(),
                         s_InBasket = c.Boolean(nullable: false),
                     })
@@ -283,10 +283,10 @@ namespace ACS.DAL.Migrations
                                 },
                             }),
                         s_AuthorId = c.Int(nullable: false),
-                        s_DateCreation = c.DateTime(nullable: false),
+                        s_DateCreation = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         s_EditorId = c.Int(nullable: false),
-                        s_EditDate = c.DateTime(nullable: false),
-                        s_IsLocked = c.Boolean(),
+                        s_EditDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        s_IsLocked = c.Boolean(nullable: false),
                         s_LockedBy_Id = c.Int(),
                         s_InBasket = c.Boolean(nullable: false),
                     })
@@ -312,10 +312,10 @@ namespace ACS.DAL.Migrations
                                 },
                             }),
                         s_AuthorId = c.Int(nullable: false),
-                        s_DateCreation = c.DateTime(nullable: false),
+                        s_DateCreation = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         s_EditorId = c.Int(nullable: false),
-                        s_EditDate = c.DateTime(nullable: false),
-                        s_IsLocked = c.Boolean(),
+                        s_EditDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        s_IsLocked = c.Boolean(nullable: false),
                         s_LockedBy_Id = c.Int(),
                         s_InBasket = c.Boolean(nullable: false),
                     })
@@ -351,10 +351,10 @@ namespace ACS.DAL.Migrations
                                 },
                             }),
                         s_AuthorId = c.Int(nullable: false),
-                        s_DateCreation = c.DateTime(nullable: false),
+                        s_DateCreation = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         s_EditorId = c.Int(nullable: false),
-                        s_EditDate = c.DateTime(nullable: false),
-                        s_IsLocked = c.Boolean(),
+                        s_EditDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        s_IsLocked = c.Boolean(nullable: false),
                         s_LockedBy_Id = c.Int(),
                         s_InBasket = c.Boolean(nullable: false),
                     })
@@ -380,10 +380,10 @@ namespace ACS.DAL.Migrations
                                 },
                             }),
                         s_AuthorId = c.Int(nullable: false),
-                        s_DateCreation = c.DateTime(nullable: false),
+                        s_DateCreation = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         s_EditorId = c.Int(nullable: false),
-                        s_EditDate = c.DateTime(nullable: false),
-                        s_IsLocked = c.Boolean(),
+                        s_EditDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        s_IsLocked = c.Boolean(nullable: false),
                         s_LockedBy_Id = c.Int(),
                         s_InBasket = c.Boolean(nullable: false),
                     })
@@ -435,9 +435,9 @@ namespace ACS.DAL.Migrations
             DropForeignKey("dbo.Chancelleries", "TypeRecordChancelleryId", "dbo.TypeRecordChancelleries");
             DropForeignKey("dbo.ChancelleryEmployees", "Employee_Id", "dbo.Employees");
             DropForeignKey("dbo.ChancelleryEmployees", "Chancellery_Id", "dbo.Chancelleries");
+            DropForeignKey("dbo.AspNetUsers", "Employee_Id", "dbo.Employees");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Employees", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Chancelleries", "JournalRegistrationsChancelleryId", "dbo.JournalRegistrationsChancelleries");
             DropForeignKey("dbo.Chancelleries", "FolderChancelleryId", "dbo.FolderChancelleries");
@@ -462,8 +462,8 @@ namespace ACS.DAL.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
+            DropIndex("dbo.AspNetUsers", new[] { "Employee_Id" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropIndex("dbo.Employees", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.JournalRegistrationsChancelleries", new[] { "Name" });
             DropIndex("dbo.FolderChancelleries", new[] { "Name" });
             DropIndex("dbo.Chancelleries", new[] { "JournalRegistrationsChancelleryId" });

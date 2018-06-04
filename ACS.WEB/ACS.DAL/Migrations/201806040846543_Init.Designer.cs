@@ -7,13 +7,13 @@ namespace ACS.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class SampleMigrations : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SampleMigrations));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805301441101_SampleMigrations"; }
+            get { return "201806040846543_Init"; }
         }
         
         string IMigrationMetadata.Source

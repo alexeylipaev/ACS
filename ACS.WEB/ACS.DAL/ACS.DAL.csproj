@@ -125,9 +125,9 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IRepositoryAsync.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Migrations\201806040648163_changes.cs" />
-    <Compile Include="Migrations\201806040648163_changes.Designer.cs">
-      <DependentUpon>201806040648163_changes.cs</DependentUpon>
+    <Compile Include="Migrations\201806040846543_Init.cs" />
+    <Compile Include="Migrations\201806040846543_Init.Designer.cs">
+      <DependentUpon>201806040846543_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DefaultValueSqlServerMigrationSqlGenerator.cs" />
@@ -152,8 +152,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201806040648163_changes.resx">
-      <DependentUpon>201806040648163_changes.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806040846543_Init.resx">
+      <DependentUpon>201806040846543_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

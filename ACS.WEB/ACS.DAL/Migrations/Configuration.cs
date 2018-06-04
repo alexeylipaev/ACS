@@ -22,12 +22,12 @@ namespace ACS.DAL.Migrations
 
         public void PublicSeed(ACSContext db)
         {
-            //Debug.WriteLine("GenerateAppRolesRepository");
-            //DataLoader1C.GenerateAppRolesRepository(db);
-            //Debug.WriteLine("GenerateApplicationUserSystem");
-            //DataLoader1C.GenerateApplicationUserSystem(db);
-            //Debug.WriteLine("GenerateUserRepository");
-            //DataLoader1C.GenerateUserRepository(db);
+            Debug.WriteLine("GenerateAppRolesRepository");
+            DataLoader1C.GenerateAppRolesRepository(db);
+            Debug.WriteLine("GenerateApplicationUserSystem");
+            DataLoader1C.GenerateApplicationUserSystem(db);
+            Debug.WriteLine("GenerateUserRepository");
+            DataLoader1C.GenerateUserRepository(db);
             //Debug.WriteLine("GenerateDepartmentRepository");
             //DataLoader1C.GenerateDepartmentRepository(db);
             //Debug.WriteLine("GeneratePostRepository");
