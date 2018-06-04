@@ -16,15 +16,14 @@ namespace ACS.BLL
 
 
         #region journal
-        public static async Task<DAL.Entities.JournalRegistrationsChancellery> JournalDTOToJournal(DTO.JournalRegistrationsCorrespondencesDTO journalDto)
+        public static DAL.Entities.JournalRegistrationsChancellery JournalDTOToJournal(DTO.JournalRegistrationsCorrespondencesDTO journalDto)
         {
             DAL.Entities.JournalRegistrationsChancellery journal = MapDB.Db.JournalRegistrationsChancelleries.Find(journalDto.Id);
             if (journal == null) journal = new DAL.Entities.JournalRegistrationsChancellery();
             journal.Id = journalDto.Id;
             journal.Name = journalDto.Name;
 
-            var chancelleriesDB = await MapDB.Db.Chancelleries.ToListAsync();
-            journal.Chancelleries = chancelleriesDB.Select(ch => ch.Id == journal.Id) as ICollection<Chancellery>;
+            journal.Chancelleries = MapDB.Db.Chancelleries.Find(ch => ch.Id == journal.Id).ToList();
 
             return journal;
         }
@@ -32,15 +31,15 @@ namespace ACS.BLL
 
         #region folder
 
-        public static async Task<DAL.Entities.FolderChancellery> FolderDTOToFolder(DTO.FolderCorrespondencesDTO folderDto)
+        public static DAL.Entities.FolderChancellery FolderDTOToFolder(DTO.FolderCorrespondencesDTO folderDto)
         {
             DAL.Entities.FolderChancellery folder = MapDB.Db.FolderChancelleries.Find(folderDto.Id);
             if (folder == null) folder = new DAL.Entities.FolderChancellery();
             folder.Id = folderDto.Id;
             folder.Name = folderDto.Name;
 
-            var chancelleriesDB = await MapDB.Db.Chancelleries.ToListAsync();
-            folder.Chancelleries = chancelleriesDB.Select(ch => ch.Id == folder.Id) as ICollection<Chancellery>;
+
+            folder.Chancelleries = MapDB.Db.Chancelleries.Find(ch => ch.Id == folder.Id).ToList();
 
             return folder;
         }
@@ -48,15 +47,14 @@ namespace ACS.BLL
         #endregion
 
         #region typeChancellery
-        public static async Task<DAL.Entities.TypeRecordChancellery> TypeDTOToType(DTO.TypeRecordCorrespondencesDTO typeDTO)
+        public static DAL.Entities.TypeRecordChancellery TypeDTOToType(DTO.TypeRecordCorrespondencesDTO typeDTO)
         {
             DAL.Entities.TypeRecordChancellery type = MapDB.Db.TypeRecordChancelleries.Find(typeDTO.Id);
             if (type == null) type = new DAL.Entities.TypeRecordChancellery();
             type.Id = typeDTO.Id;
             type.Name = typeDTO.Name;
 
-            var chancelleriesDB = await MapDB.Db.Chancelleries.ToListAsync();
-            type.Chancelleries = chancelleriesDB.Select(ch => ch.Id == type.Id) as ICollection<Chancellery>;
+            type.Chancelleries = MapDB.Db.Chancelleries.Find(ch => ch.Id == type.Id).ToList();
 
             return type;
         }
@@ -77,8 +75,13 @@ namespace ACS.BLL
             chancellery.FolderChancelleryId = correspondencesDTO.FolderChancelleryId;
             chancellery.JournalRegistrationsChancelleryId = correspondencesDTO.JournalRegistrationsChancelleryId;
 
-            chancellery.FileRecordChancelleries = MapDB.Db.Files.Find(m => correspondencesDTO.FileRecordChancelleries.Contains(m.Id)) as ICollection<Files>;
-            chancellery.ResponsibleEmployees = MapDB.Db.Employees.Find(m => correspondencesDTO.ResponsibleEmployees.Contains(m.Id)) as ICollection<Employee>;
+            var files = await MapDB.Db.Files.ToListAsync();
+
+            chancellery.FileRecordChancelleries = files.Where(m => correspondencesDTO.FileRecordChancelleries.Contains(m.Id)).ToList();
+
+            var empls = await MapDB.Db.Employees.ToListAsync();
+
+            chancellery.ResponsibleEmployees = empls.Where(m => correspondencesDTO.ResponsibleEmployees.Contains(m.Id)).ToList();
 
             return chancellery;
         }
@@ -95,14 +98,14 @@ namespace ACS.BLL
             DateTime editDate = DateTime.Now;
             #region from
             bool IsCreateFrom = false;
-            fromExtlOrgChancellery = MapDB.Db.FromExtlOrgsChancellery.Query(ex=> ex.ExternalOrganizationId == incomingDTO.From_ExternalOrganizationChancelleryId).FirstOrDefault();
+            fromExtlOrgChancellery = MapDB.Db.FromExtlOrgsChancellery.Query(ex => ex.ChancelleryId==incomingDTO.Id).FirstOrDefault();
 
             if (fromExtlOrgChancellery == null)
             {
                 fromExtlOrgChancellery = new FromExtlOrgChancellery();
                 fromExtlOrgChancellery.s_AuthorId = editorId;
                 fromExtlOrgChancellery.s_DateCreation = editDate;
-                
+
                 IsCreateFrom = true;
             }
             fromExtlOrgChancellery.s_EditDate = editDate;
@@ -110,22 +113,21 @@ namespace ACS.BLL
 
             fromExtlOrgChancellery.Chancellery = chancellery;
             fromExtlOrgChancellery.ExternalOrganizationId = incomingDTO.From_ExternalOrganizationChancelleryId;
-            MapDB.Db.FromExtlOrgsChancellery.Add(fromExtlOrgChancellery/*, incomingDTO.s_EditorId*/);
+            MapDB.Db.FromExtlOrgsChancellery.AddOrUpdate(fromExtlOrgChancellery/*, incomingDTO.s_EditorId*/);
             //if (!IsCreateFrom)
 
-                #endregion
+            #endregion
 
-                #region to
+            #region to
 
-                var to_List = await MapDB.Db.ToEmplsChancellery.ToListAsync();
-
-            toEmplChancellery = to_List.FirstOrDefault(d => d.Chancellery.Id == incomingDTO.Id);
+            toEmplChancellery = MapDB.Db.ToEmplsChancellery.Query(d => d.Chancellery.Id == incomingDTO.Id).FirstOrDefault();
 
             if (toEmplChancellery == null) toEmplChancellery = new ToEmplChancellery();
 
             toEmplChancellery.Chancellery = chancellery;
             //toEmplChancellery.EmployeeId = incomingDTO.To_EmployeeId;
             toEmplChancellery.Employee = MapDB.Db.Employees.Find(incomingDTO.To_EmployeeId);
+            MapDB.Db.ToEmplsChancellery.AddOrUpdate(toEmplChancellery/*, incomingDTO.s_EditorId*/);
             #endregion
 
             return chancellery;
@@ -243,6 +245,7 @@ namespace ACS.BLL
                 case (byte)Constants.CorrespondencyType.Incoming:
                     {
                         var FromExtOrgs = MapDB.Db.FromExtlOrgsChancellery.Find(f => chancellery.Id == f.Chancellery.Id);
+
                         result = FromExtOrgs.Select(m => m.ExternalOrganization.Name);
                         break;
                     }
@@ -304,12 +307,12 @@ namespace ACS.BLL
             chancelleryDTO.Summary = chancellery.Summary;
             chancelleryDTO.Notice = chancellery.Notice;
             chancelleryDTO.Status = chancellery.Status;
-            chancelleryDTO.Folder = chancellery.FolderChancellery!=null ? chancellery.FolderChancellery.Name : null;
-            chancelleryDTO.JournalRegistrations = chancellery.JournalRegistrationsChancellery != null ? chancellery.JournalRegistrationsChancellery.Name : null; 
-            chancelleryDTO.ResponsibleEmployees = chancellery.ResponsibleEmployees != null ? chancellery.ResponsibleEmployees.Select(m => m.FullName) : new Collection<string>(); 
+            chancelleryDTO.Folder = chancellery.FolderChancellery != null ? chancellery.FolderChancellery.Name : null;
+            chancelleryDTO.JournalRegistrations = chancellery.JournalRegistrationsChancellery != null ? chancellery.JournalRegistrationsChancellery.Name : null;
+            chancelleryDTO.ResponsibleEmployees = chancellery.ResponsibleEmployees != null ? chancellery.ResponsibleEmployees.Select(m => m.FullName) : new Collection<string>();
             chancelleryDTO.Type = chancellery.TypeRecordChancellery != null ? chancellery.TypeRecordChancellery.Name : null;
 
-            chancelleryDTO.Files = chancellery.FileRecordChancelleries != null ? chancellery.FileRecordChancelleries.Select(o => o.FileName + o.Extension) : new Collection<string>(); 
+            chancelleryDTO.Files = chancellery.FileRecordChancelleries != null ? chancellery.FileRecordChancelleries.Select(o => o.FileName + o.Extension) : new Collection<string>();
 
             chancelleryDTO.From = MapFrom(chancellery);
             chancelleryDTO.To = MapTo(chancellery);
@@ -438,8 +441,8 @@ namespace ACS.BLL
             #region to
 
             var ToEmplsDB_List = await MapDB.Db.ToEmplsChancellery.QueryAsync(filter: f => chancellery.Id == f.ChancelleryId);
-            if(ToEmplsDB_List != null && ToEmplsDB_List.Count > 0)
-            incomingCorrespondencyDTO.To_EmployeeId = ToEmplsDB_List.FirstOrDefault().EmployeeId;
+            if (ToEmplsDB_List != null && ToEmplsDB_List.Count > 0)
+                incomingCorrespondencyDTO.To_EmployeeId = ToEmplsDB_List.FirstOrDefault().EmployeeId;
 
             #endregion
 

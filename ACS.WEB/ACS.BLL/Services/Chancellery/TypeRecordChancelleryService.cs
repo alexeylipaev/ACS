@@ -23,7 +23,7 @@ namespace ACS.BLL.Services
             try
             {
                 var type = Database.TypeRecordChancelleries.Find(typeDTO.Id);
-                type = await MapChancellery.TypeDTOToType(typeDTO);
+                type =  MapChancellery.TypeDTOToType(typeDTO);
 
                 InitSystemData<TypeRecordChancellery>.Init(ref type, AuthorID);
 

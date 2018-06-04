@@ -23,7 +23,7 @@ namespace ACS.BLL.Services
             try
             {
                 var journal = Database.JournalRegistrationsChancelleries.Find(journalCorrespondencesDTO.Id);
-                journal = await MapChancellery.JournalDTOToJournal(journalCorrespondencesDTO);
+                journal =  MapChancellery.JournalDTOToJournal(journalCorrespondencesDTO);
                 InitSystemData<JournalRegistrationsChancellery>.Init(ref journal, AuthorID);
                 return await Database.JournalRegistrationsChancelleries.AddOrUpdateAsync(journal);
             }

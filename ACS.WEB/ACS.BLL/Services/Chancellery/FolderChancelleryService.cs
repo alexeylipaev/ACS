@@ -22,7 +22,7 @@ namespace ACS.BLL.Services
             try
             {
                 var folder = Database.FolderChancelleries.Find(FolderCorrespondencesDTO.Id);
-                folder = await MapChancellery.FolderDTOToFolder(FolderCorrespondencesDTO);
+                folder =  MapChancellery.FolderDTOToFolder(FolderCorrespondencesDTO);
                 InitSystemData<FolderChancellery>.Init(ref folder, AuthorID);
                 return await Database.FolderChancelleries.AddOrUpdateAsync(folder);
             }

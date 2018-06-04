@@ -26,7 +26,7 @@ namespace ACS.WEB.Controllers
         public async Task<ActionResult> Index()
         {
             var foldersDto = await FolderChancelleryService.GetAllAsync();
-            foldersDto = foldersDto;
+           
 
             var ExternalOrganizationsVM = MapChancelleryWEB.ListFolderDTOToListFolderVM(foldersDto.ToList()); /*(chancelleryDTOs.ToList());*/
             return View(ExternalOrganizationsVM);
