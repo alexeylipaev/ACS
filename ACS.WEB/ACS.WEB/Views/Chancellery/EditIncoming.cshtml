@@ -1,8 +1,8 @@
-﻿@model ACS.WEB.ViewModel.IncomingCorrespondencyViewModel
+﻿@model ACS.WEB.ViewModels.IncomingCorrespondencyInput
 
 @{
 
-    Layout = "~/Views/Shared/_LayoutCancelaria.cshtml";
+    Layout = "~/Views/Shared/_LayoutChancellery.cshtml";
 }
 @*<!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
@@ -59,7 +59,7 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        @Html.HiddenFor(model => model.id)
+        @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
             @Html.LabelFor(model => model.RegistrationNumber, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -96,7 +96,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ResponsibleEmployees, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.ListBoxFor(model => model.Selected_Responsible_Empl.SelectedId, new MultiSelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { @class = "chosen", multiple = "multiple", data_placeholder = "Выберите ответственного" })
+                @Html.ListBoxFor(model => model.ResponsibleEmployees, new MultiSelectList(ACS.WEB.Models.Collections.Empls, "Id", "FullName"), new { @class = "chosen", multiple = "multiple", data_placeholder = "Выберите ответственного" })
                 @*@Html.ListBoxFor(model => model.Selected_Responsible_Empl.SelectedId, new MultiSelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { multiple = "multiple"}, new { @class = "chosen", data_placeholder = "Выберите ответственного" })*@
                 @*@Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })*@
 
@@ -104,33 +104,33 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.JournalRegistrationsChancellery, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.JournalRegistrationsChancelleryId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <abbr class="search-choice-close"></abbr>
-                @Html.DropDownListFor(model => model.JournalRegistrationsChancelleryId, new SelectList(ACS.WEB.ViewModel.SelectedJournalRegChancellery.Collection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите журнал" })
+                @Html.DropDownListFor(model => model.JournalRegistrationsChancelleryId, new SelectList(ACS.WEB.Models.Collections.Journals, "Id", "Name"), new { @class = "chosen", data_placeholder = "Выберите журнал" })
                 @Html.ValidationMessageFor(model => model.JournalRegistrationsChancelleryId, "", new { @class = "text-danger" })
 
             </div>
 
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.FolderChancellery, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FolderChancelleryId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.FolderChancelleryId, new SelectList(ACS.WEB.ViewModel.SelectedFolderChancellery.Collection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите папку" })
+                @Html.DropDownListFor(model => model.FolderChancelleryId, new SelectList(ACS.WEB.Models.Collections.Folders, "Id", "Name"), new { @class = "chosen", data_placeholder = "Выберите папку" })
                 @Html.ValidationMessageFor(model => model.FolderChancelleryId, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.To, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.To_EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Selected_To_Empl.SingleSelectedId, new SelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { @class = "chosen", data_placeholder = "Выберите работника" })
+                @Html.DropDownListFor(model => model.To_EmployeeId, new SelectList(ACS.WEB.Models.Collections.Empls, "Id", "FullName"), new { @class = "chosen", data_placeholder = "Выберите работника" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.From, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.From_ExternalOrganizationChancelleryId, htmlAttributes: new { @class = "control-label col-md-2" })
 
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Selected_ExtOrg.SingleSelectedId, new SelectList(ACS.WEB.ViewModel.SelectedExternalOrgViewModel.Collection, "id", "Name"), new { @class = "chosen", data_placeholder = "Выберите организацию" })
+                @Html.DropDownListFor(model => model.From_ExternalOrganizationChancelleryId, new SelectList(ACS.WEB.Models.Collections.ExtlOrgs, "Id", "Name"), new { @class = "chosen", data_placeholder = "Выберите организацию" })
             </div>
         </div>
 
@@ -138,9 +138,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FileRecordChancelleries, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.ListBoxFor(model => model.Selected_FileRecords.SelectedId, new MultiSelectList(ACS.WEB.ViewModel.SelectedFileRecordViewModel.Collection, "id", "Name"), new { @class = "chosen", multiple = "multiple", data_placeholder = "Нет сохранённых файлов" })
-                @*@Html.ListBoxFor(model => model.Selected_Responsible_Empl.SelectedId, new MultiSelectList(ACS.WEB.ViewModel.SelectedEmployeeViewModel.Collection, "id", "FullName"), new { multiple = "multiple"}, new { @class = "chosen", data_placeholder = "Выберите ответственного" })*@
-                @*@Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })*@
+                @Html.ListBoxFor(model => model.FileRecordChancelleries, new MultiSelectList(ACS.WEB.Models.Collections.Files, "Id  ", "Name"), new { @class = "chosen", multiple = "multiple", data_placeholder = "Нет сохранённых файлов" })
+
 
             </div>
         </div>

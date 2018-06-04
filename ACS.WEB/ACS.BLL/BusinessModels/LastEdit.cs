@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACS.DAL
+namespace ACS.BLL
 {
-    static public class LastEdit<T> where T : class
+    static public class InitSystemData<T> where T : class
     {
-        static public void SetData(ref T entity, int EditorId)
+        static public void Init(ref T entity, int EditorId)
         {
-            var sysparam = (entity as Entities.SystemParameters);
+            var sysparam = (entity as DAL.Entities.SystemParameters);
             if (sysparam != null)
             {
                 DateTime editDate = DateTime.Now;
@@ -25,20 +25,20 @@ namespace ACS.DAL
             }
 
         }
-        static public void SetData(ref IEnumerable<T> entities, int EditorId)
+        static public void Init(ref IEnumerable<T> entities, int EditorId)
         {
             foreach (var Entity in entities)
             {
                 var entity = Entity;
-                SetData(ref entity, EditorId);
+                Init(ref entity, EditorId);
             }
         }
-        static public void SetData(ref T[] entities, int EditorId)
+        static public void Init(ref T[] entities, int EditorId)
         {
             foreach (var Entity in entities)
             {
                 var entity = Entity;
-                SetData(ref entity, EditorId);
+                Init(ref entity, EditorId);
             }
         }
     }

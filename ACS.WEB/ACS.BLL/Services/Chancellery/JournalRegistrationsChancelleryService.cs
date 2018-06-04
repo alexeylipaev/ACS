@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ACS.BLL.DTO;
+using ACS.DAL.Entities;
 
 namespace ACS.BLL.Services
 {
@@ -23,7 +24,8 @@ namespace ACS.BLL.Services
             {
                 var journal = Database.JournalRegistrationsChancelleries.Find(journalCorrespondencesDTO.Id);
                 journal = await MapChancellery.JournalDTOToJournal(journalCorrespondencesDTO);
-                return await Database.JournalRegistrationsChancelleries.AddOrUpdateAsync(journal, AuthorID);
+                InitSystemData<JournalRegistrationsChancellery>.Init(ref journal, AuthorID);
+                return await Database.JournalRegistrationsChancelleries.AddOrUpdateAsync(journal);
             }
             catch (Exception e)
             {

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ACS.BLL.DTO;
 using ACS.DAL.Interfaces;
+using ACS.DAL.Entities;
 
 namespace ACS.BLL.Services
 {
@@ -22,7 +23,8 @@ namespace ACS.BLL.Services
             {
                 var folder = Database.FolderChancelleries.Find(FolderCorrespondencesDTO.Id);
                 folder = await MapChancellery.FolderDTOToFolder(FolderCorrespondencesDTO);
-                return await Database.FolderChancelleries.AddOrUpdateAsync(folder, AuthorID);
+                InitSystemData<FolderChancellery>.Init(ref folder, AuthorID);
+                return await Database.FolderChancelleries.AddOrUpdateAsync(folder);
             }
             catch (Exception e)
             {

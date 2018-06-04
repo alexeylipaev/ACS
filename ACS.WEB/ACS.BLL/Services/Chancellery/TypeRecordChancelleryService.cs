@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ACS.BLL.DTO;
+using ACS.DAL.Entities;
 
 namespace ACS.BLL.Services
 {
@@ -23,7 +24,10 @@ namespace ACS.BLL.Services
             {
                 var type = Database.TypeRecordChancelleries.Find(typeDTO.Id);
                 type = await MapChancellery.TypeDTOToType(typeDTO);
-                return await Database.TypeRecordChancelleries.AddOrUpdateAsync(type, AuthorID);
+
+                InitSystemData<TypeRecordChancellery>.Init(ref type, AuthorID);
+
+                return await Database.TypeRecordChancelleries.AddOrUpdateAsync(type);
             }
             catch (Exception e)
             {

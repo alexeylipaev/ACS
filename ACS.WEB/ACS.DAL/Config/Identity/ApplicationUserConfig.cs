@@ -21,8 +21,7 @@ namespace ACS.DAL.Config
             Property(e => e.Email)
                 .IsUnicode(true).IsRequired();
 
-            HasOptional(o => o.Employee)
-            .WithOptionalPrincipal(o => o.ApplicationUser);
+
 
             //HasMany(p => p.Roles).WithRequired().HasForeignKey(p => p.UserId);
         }

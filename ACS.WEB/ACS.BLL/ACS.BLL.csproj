@@ -65,6 +65,7 @@
     <Compile Include="BusinessModels\ChancellerySearchModel.cs" />
     <Compile Include="BusinessModels\Constants.cs" />
     <Compile Include="BusinessModels\Helper.cs" />
+    <Compile Include="BusinessModels\LastEdit.cs" />
     <Compile Include="DTO\Chancellery\ChancelleryDTO.cs" />
     <Compile Include="DTO\Chancellery\EntitiesCorrespondencesDTO.cs" />
     <Compile Include="DTO\EmployeeDTO.cs" />

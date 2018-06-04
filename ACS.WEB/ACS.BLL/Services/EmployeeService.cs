@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ACS.BLL.DTO;
 using ACS.BLL.Infrastructure;
+using ACS.DAL.Entities;
 
 namespace ACS.BLL.Services
 {
@@ -37,7 +38,8 @@ namespace ACS.BLL.Services
             {
                 var empl = Database.Employees.Find(EmplDto.Id);
                 empl = MapEmpl.EmplDTOToEmpl(EmplDto);
-                return await Database.Employees.AddOrUpdateAsync(empl, AuthorID);
+                InitSystemData<Employee>.Init(ref empl, AuthorID);
+                return await Database.Employees.AddOrUpdateAsync(empl);
             }
             catch (Exception e)
             {

@@ -19,7 +19,7 @@ namespace ACS.DAL.Repositories
     /// Класс асинхронного репозитория для сущности типа {T}
     /// </summary>
     /// <typeparam name="T">Cущность доменной модели</typeparam>
-    public class RepositoryAsync<T> : Repository<T>, IRepositoryAsync<T>
+    public class RepositoryAsync<T> : Repository<T>, IRepositoryAsync<T> 
         where T : class
     {
 
@@ -70,56 +70,52 @@ namespace ACS.DAL.Repositories
             return await DbSet.FindAsync(id);
         }
 
-        public async Task<int> AddAsync(T entity, int EditorId)
+        public async Task<int> AddAsync(T entity)
         {
-            LastEdit<T>.SetData(ref entity, EditorId);
+            //LastEdit<T>.SetData(ref entity, EditorId);
             DbSet.Add(entity);
 
             return await SaveAsync(DbContext);
         }
-        public async Task<int> AddRangeAsync(IEnumerable<T> entities, int EditorId)
+        public async Task<int> AddRangeAsync(IEnumerable<T> entities)
         {
-            LastEdit<T>.SetData(ref entities, EditorId);
+            //LastEdit<T>.SetData(ref entities, EditorId);
             DbSet.AddRange(entities);
 
             return await SaveAsync(DbContext);
         }
 
-        public async Task<int> AddOrUpdateAsync(T entity, int EditorId)
+        public async Task<int> AddOrUpdateAsync(T entity)
         {
-            LastEdit<T>.SetData(ref entity, EditorId);
+            //LastEdit<T>.SetData(ref entity, EditorId);
             DbSet.AddOrUpdate(entity);
-            int i = entity.GetHashCode();
+       
             return await SaveAsync(DbContext);
         }
 
-        public async Task<int> AddOrUpdateAsync(T[] entities, int EditorId)
+        public async Task<int> AddOrUpdateAsync(T[] entities)
         {
-            LastEdit<T>.SetData(ref entities, EditorId);
+
             DbSet.AddOrUpdate(entities);
 
           return await SaveAsync(DbContext);
         }
 
-        public async Task<int> AddOrUpdateAsync(T[] entities, Expression<Func<T, object>> identifier, int EditorId)
+        public async Task<int> AddOrUpdateAsync(T[] entities, Expression<Func<T, object>> identifier)
         {
-            LastEdit<T>.SetData(ref entities, EditorId);
+
             DbSet.AddOrUpdate(identifier, entities);
 
             return await SaveAsync(DbContext);
         }
-        public async Task<int> UpdateAsync(T entity, int EditorId)
+        public async Task<int> UpdateAsync(T entity)
         {
-
-            LastEdit<T>.SetData(ref entity, EditorId);
-
             DbContext.Entry(entity).State = EntityState.Modified;
 
             return await SaveAsync(DbContext);
         }
         public async Task<int> DeleteAsync(int id)
         {
-        
             DbSet.Remove(await DbSet.FindAsync(id));
 
             return await SaveAsync(DbContext);

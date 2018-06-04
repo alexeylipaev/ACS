@@ -18,7 +18,7 @@ namespace ACS.WEB
             EmplDto.MName = emplVM.MName;
             EmplDto.FName = emplVM.FName;
             EmplDto.Email = emplVM.Email;
-
+     
             EmplDto.ApplicationUserId = emplVM.ApplicationUserId;
          
             return EmplDto;
@@ -33,7 +33,7 @@ namespace ACS.WEB
             emplVM.MName = EmplDto.MName;
             emplVM.FName = EmplDto.FName;
             emplVM.Email = EmplDto.Email;
-
+            emplVM.FullName = EmplDto.FullName;
             emplVM.ApplicationUserId = EmplDto.ApplicationUserId;
             MapSystemParamDTO_to_VM<EmployeeDTO, EmployeeViewModel>.FillParamDTO(EmplDto, ref emplVM);
             return emplVM;
