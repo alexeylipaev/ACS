@@ -252,7 +252,7 @@ namespace ACS.WEB.Controllers
         public async Task<ActionResult> CreateIncoming(IncomingCorrespondencyInput IncomingInput, IEnumerable<HttpPostedFileBase> Files)
         {
             IncomingInput.TypeRecordChancelleryId = (byte)Constants.CorrespondencyType.Incoming;
-            return IncomingCreateOrUpdate(IncomingInput, Files);
+            return await IncomingCreateOrUpdate(IncomingInput, Files);
         }
         #endregion
 

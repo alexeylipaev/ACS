@@ -144,7 +144,8 @@ namespace ACS.WEB
             return CorrespondencesBaseInput;
         }
 
-        public static async Task<ChancelleryViewModel> CorrespondencesBaseDTOToChancelleryVM<T>(T CorrespondencesBaseDTO) where T : CorrespondencesBaseDTO         {
+        public static async Task<ChancelleryViewModel> CorrespondencesBaseDTOToChancelleryVM<T>(T CorrespondencesBaseDTO) where T : CorrespondencesBaseDTO
+        {
 
             ChancelleryViewModel chancelleryViewModel = new ChancelleryViewModel();
 
@@ -181,13 +182,15 @@ namespace ACS.WEB
 
         #region outgoing
 
-        public static OutgoingCorrespondencyDTO OutgoingInputToOutgoingDTO(OutgoingCorrespondencyInput OutgoingInput)         {
+        public static OutgoingCorrespondencyDTO OutgoingInputToOutgoingDTO(OutgoingCorrespondencyInput OutgoingInput)
+        {
             OutgoingCorrespondencyDTO OutgoingDTO = new OutgoingCorrespondencyDTO();
             OutgoingDTO = CorrespondencesInputToCorrespondencesBaseDTO(OutgoingDTO, OutgoingInput);
             //MapSystemParam<OutgoingCorrespondencyInput, OutgoingCorrespondencyDTO>.FillParamDTO(OutgoingInput, ref OutgoingDTO);
             return OutgoingDTO;
         }
-        public static async Task<OutgoingCorrespondencyInput> OutgoingDTOToOutgoingInput(OutgoingCorrespondencyDTO OutgoingCorrespondencyDTO)         {
+        public static async Task<OutgoingCorrespondencyInput> OutgoingDTOToOutgoingInput(OutgoingCorrespondencyDTO OutgoingCorrespondencyDTO)
+        {
             OutgoingCorrespondencyInput OutgoingCorrespondencyInput = new OutgoingCorrespondencyInput();
             OutgoingCorrespondencyInput = CorrespondencesBaseDTOToCorrespondencesInput(OutgoingCorrespondencyInput, OutgoingCorrespondencyDTO);
 
@@ -218,14 +221,16 @@ namespace ACS.WEB
         #endregion
         #region Internal
 
-        public static InternalCorrespondencyDTO InternalInputToInternalDTO(InternalCorrespondencyInput InternalInput)         {
+        public static InternalCorrespondencyDTO InternalInputToInternalDTO(InternalCorrespondencyInput InternalInput)
+        {
             InternalCorrespondencyDTO InternalDTO = new InternalCorrespondencyDTO();
             InternalDTO = CorrespondencesInputToCorrespondencesBaseDTO(InternalDTO, InternalInput);
             //MapSystemParam<InternalCorrespondencyInput, InternalCorrespondencyDTO>.FillParamDTO(InternalInput, ref InternalDTO);
             return InternalDTO;
 
         }
-        public static async Task<InternalCorrespondencyInput> InternalDTOToInternalInput(InternalCorrespondencyDTO InternalCorrespondencyDTO)         {
+        public static async Task<InternalCorrespondencyInput> InternalDTOToInternalInput(InternalCorrespondencyDTO InternalCorrespondencyDTO)
+        {
 
             InternalCorrespondencyInput InternalCorrespondencyInput = new InternalCorrespondencyInput();
             InternalCorrespondencyInput = CorrespondencesBaseDTOToCorrespondencesInput(InternalCorrespondencyInput, InternalCorrespondencyDTO);
@@ -256,17 +261,19 @@ namespace ACS.WEB
 
         #endregion
         #region Incoming
-        public static IncomingCorrespondencyDTO IncomingInputToIncomingDTO(IncomingCorrespondencyInput incomingInput)         {
+        public static IncomingCorrespondencyDTO IncomingInputToIncomingDTO(IncomingCorrespondencyInput incomingInput)
+        {
             IncomingCorrespondencyDTO incomingDTO = new IncomingCorrespondencyDTO();
-            incomingDTO = CorrespondencesInputToCorrespondencesBaseDTO(incomingDTO, IncomingInput);
+            incomingDTO = CorrespondencesInputToCorrespondencesBaseDTO(incomingDTO, incomingInput);
 
-            incomingDTO.From_ExternalOrganizationChancelleryId = IncomingInput.From_ExternalOrganizationChancelleryId;
-            incomingDTO.To_EmployeeId = IncomingInput.To_EmployeeId;
+            incomingDTO.From_ExternalOrganizationChancelleryId = incomingInput.From_ExternalOrganizationChancelleryId;
+            incomingDTO.To_EmployeeId = incomingInput.To_EmployeeId;
             //MapSystemParam<IncomingCorrespondencyInput, IncomingCorrespondencyDTO>.FillParamDTO(IncomingInput, ref incomingDTO);
             return incomingDTO;
 
         }
-        public static async Task<IncomingCorrespondencyInput> IncomingDTOToIncomingInput(IncomingCorrespondencyDTO IncomingCorrespondencyDTO)         {
+        public static async Task<IncomingCorrespondencyInput> IncomingDTOToIncomingInput(IncomingCorrespondencyDTO IncomingCorrespondencyDTO)
+        {
 
             IncomingCorrespondencyInput incomingCorrespondencyInput = new IncomingCorrespondencyInput();
             incomingCorrespondencyInput = CorrespondencesBaseDTOToCorrespondencesInput(incomingCorrespondencyInput, IncomingCorrespondencyDTO);
@@ -311,7 +318,8 @@ namespace ACS.WEB
             return result;
         }
 
-        public static ChancelleryViewModel chancelleryDtoToChancelleryVM(ChancelleryDTO chancelleryDTO)         {
+        public static ChancelleryViewModel chancelleryDtoToChancelleryVM(ChancelleryDTO chancelleryDTO)
+        {
             ChancelleryViewModel chancelleryViewModel = new ChancelleryViewModel();
 
             chancelleryViewModel.Id = chancelleryDTO.Id;
@@ -343,7 +351,8 @@ namespace ACS.WEB
         }
 
         #region journal 
-        public static ChancellerySearchModelVM ChancellerySearchModelToChancellerySearchModelVM(ChancellerySearchModel SearchModel)         {
+        public static ChancellerySearchModelVM ChancellerySearchModelToChancellerySearchModelVM(ChancellerySearchModel SearchModel)
+        {
             ChancellerySearchModelVM SearchModelVM = new ChancellerySearchModelVM();
 
             SearchModelVM.Id = SearchModel.Id;
@@ -372,7 +381,8 @@ namespace ACS.WEB
 
         #region folder 
 
-        public static FolderCorrespondencesDTO FolderInputToFolderDto(FolderCorrespondencesInput FolderInput)         {
+        public static FolderCorrespondencesDTO FolderInputToFolderDto(FolderCorrespondencesInput FolderInput)
+        {
             FolderCorrespondencesDTO FolderDTO = new FolderCorrespondencesDTO();
             FolderDTO.Id = FolderInput.Id;
             FolderDTO.Name = FolderInput.Name;
@@ -380,7 +390,8 @@ namespace ACS.WEB
         }
 
 
-        public static FolderCorrespondencesInput FolderChancelleryDTOToFolderChancelleryInput(FolderCorrespondencesDTO FolderChancelleryDTO)         {
+        public static FolderCorrespondencesInput FolderChancelleryDTOToFolderChancelleryInput(FolderCorrespondencesDTO FolderChancelleryDTO)
+        {
             FolderCorrespondencesInput FolderChancelleryInput = new FolderCorrespondencesInput();
             FolderChancelleryInput.Id = FolderChancelleryDTO.Id;
             FolderChancelleryInput.Name = FolderChancelleryDTO.Name;
@@ -390,7 +401,8 @@ namespace ACS.WEB
             return FolderChancelleryInput;
         }
 
-        public static FolderChancelleryViewModel FolderDtoToFolderVM(FolderCorrespondencesDTO folderDto)         {
+        public static FolderChancelleryViewModel FolderDtoToFolderVM(FolderCorrespondencesDTO folderDto)
+        {
             FolderChancelleryViewModel journalVM = new FolderChancelleryViewModel();
 
             journalVM.Id = folderDto.Id;
@@ -414,7 +426,8 @@ namespace ACS.WEB
         #endregion
 
         #region journal 
-        public static JournalRegistrationsCorrespondencesDTO  JournalInputToJournalDto(JournalCorrespondencesInput JournalCorrespondencesInput)         {
+        public static JournalRegistrationsCorrespondencesDTO  JournalInputToJournalDto(JournalCorrespondencesInput JournalCorrespondencesInput)
+        {
             JournalRegistrationsCorrespondencesDTO JournalRegistrationsCorrespondencesDTO = new JournalRegistrationsCorrespondencesDTO();
 
             JournalRegistrationsCorrespondencesDTO.Id = JournalCorrespondencesInput.Id;
@@ -422,7 +435,8 @@ namespace ACS.WEB
 
             return JournalRegistrationsCorrespondencesDTO;
         }
-        public static JournalCorrespondencesInput JournalDtoToJournalInput(JournalRegistrationsCorrespondencesDTO journalDto)         {
+        public static JournalCorrespondencesInput JournalDtoToJournalInput(JournalRegistrationsCorrespondencesDTO journalDto)
+        {
             JournalCorrespondencesInput JournalCorrespondencesInput = new JournalCorrespondencesInput();
 
             JournalCorrespondencesInput.Id = journalDto.Id;
@@ -431,7 +445,8 @@ namespace ACS.WEB
             MapSystemParamDTO_to_VM<JournalRegistrationsCorrespondencesDTO, JournalCorrespondencesInput>.FillParamDTO(journalDto, ref JournalCorrespondencesInput);
             return JournalCorrespondencesInput;
         }
-        public static JournalRegistrationsViewModel JournalDtoToJournalVM(JournalRegistrationsCorrespondencesDTO journalDto)         {
+        public static JournalRegistrationsViewModel JournalDtoToJournalVM(JournalRegistrationsCorrespondencesDTO journalDto)
+        {
             JournalRegistrationsViewModel journalVM = new JournalRegistrationsViewModel();
 
             journalVM.Id = journalDto.Id;
@@ -455,7 +470,8 @@ namespace ACS.WEB
 
         #region type 
 
-        public static TypeRecordChancelleryViewModel TypeDtoToTypeVM(TypeRecordCorrespondencesDTO typeDto)         {
+        public static TypeRecordChancelleryViewModel TypeDtoToTypeVM(TypeRecordCorrespondencesDTO typeDto)
+        {
             TypeRecordChancelleryViewModel typeVM = new TypeRecordChancelleryViewModel();
 
             typeVM.Id = typeDto.Id;

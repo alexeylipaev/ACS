@@ -110,7 +110,7 @@ namespace ACS.BLL
 
             fromExtlOrgChancellery.Chancellery = chancellery;
             fromExtlOrgChancellery.ExternalOrganizationId = incomingDTO.From_ExternalOrganizationChancelleryId;
-            MapDB.Db.FromExtlOrgsChancellery.Add(fromExtlOrgChancellery, incomingDTO.s_EditorId);
+            MapDB.Db.FromExtlOrgsChancellery.Add(fromExtlOrgChancellery/*, incomingDTO.s_EditorId*/);
             //if (!IsCreateFrom)
 
                 #endregion

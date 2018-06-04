@@ -125,6 +125,10 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IRepositoryAsync.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Migrations\201806040648163_changes.cs" />
+    <Compile Include="Migrations\201806040648163_changes.Designer.cs">
+      <DependentUpon>201806040648163_changes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DefaultValueSqlServerMigrationSqlGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -146,6 +150,11 @@
       <Project>{071C1000-8676-4894-8C95-99B6E4560D43}</Project>
       <Name>ActiveDirectory</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201806040648163_changes.resx">
+      <DependentUpon>201806040648163_changes.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

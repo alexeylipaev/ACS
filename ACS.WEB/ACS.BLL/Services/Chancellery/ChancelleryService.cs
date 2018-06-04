@@ -393,7 +393,7 @@ namespace ACS.BLL.Services
                 incomingCorrespondencyDto.s_EditorId = authorID;
                 chancellery = await MapChancellery.IncomingToChancelleryAsync(incomingCorrespondencyDto, fromExtlOrgChancellery, toEmplChancellery);
 
-                InitSystemData<Chancellery>.Init(ref chancellery, AuthorID);
+                InitSystemData<Chancellery>.Init(ref chancellery, authorID);
 
                 return await Database.Chancelleries.AddOrUpdateAsync(chancellery);
 
