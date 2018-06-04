@@ -76,7 +76,7 @@ namespace ACS.DAL.Repositories
         }
         public IEnumerable<T> Find(Func<T, bool> predicate)
         {
-            return DbSet.Where(predicate).ToList();
+            return DbSet.Where(predicate);
         }
 
         public bool Any(Func<T, bool> predicate)
@@ -84,59 +84,57 @@ namespace ACS.DAL.Repositories
             return DbSet.Any(predicate);
         }
 
-        public int Add(T entity, int EditorId)
+        public int Add(T entity)
         {
-            LastEdit<T>.SetData(ref entity, EditorId);
+  
             DbSet.Add(entity);
-            int i = entity.GetHashCode();
+     
             return Save(DbContext);
         }
 
-        public int AddRange(IEnumerable<T> entities, int EditorId)
+        public int AddRange(IEnumerable<T> entities)
         {
-            LastEdit<T>.SetData(ref entities, EditorId);
+           
             DbSet.AddRange(entities);
 
             return Save(DbContext);
         }
 
-        public int AddOrUpdate(T entity, int EditorId)
+        public int AddOrUpdate(T entity)
         {
-            LastEdit<T>.SetData(ref entity, EditorId);
+   
             DbSet.AddOrUpdate(entity);
 
             return Save(DbContext);
         }
 
-        public int AddOrUpdate(T[] entities, int EditorId)
+        public int AddOrUpdate(T[] entities)
         {
-            LastEdit<T>.SetData(ref entities, EditorId);
+      
             DbSet.AddOrUpdate(entities);
 
             return Save(DbContext);
         }
 
-        public int AddOrUpdate(T entity, Expression<Func<T, object>> identifier, int EditorId)
+        public int AddOrUpdate(T entity, Expression<Func<T, object>> identifier)
         {
-            LastEdit<T>.SetData(ref entity, EditorId);
+  
             DbSet.AddOrUpdate(identifier, entity);
 
             return Save(DbContext);
         }
 
-        public int AddOrUpdate(T[] entities, Expression<Func<T, object>> identifier, int EditorId)
+        public int AddOrUpdate(T[] entities, Expression<Func<T, object>> identifier)
         {
 
-            LastEdit<T>.SetData(ref entities, EditorId);
+
             DbSet.AddOrUpdate(identifier, entities);
 
             return Save(DbContext);
         }
 
-        public int Update(T entity, int EditorId)
+        public int Update(T entity)
         {
-            LastEdit<T>.SetData(ref entity, EditorId);
-
             DbContext.Entry(entity).State = EntityState.Modified;
 
             return Save(DbContext);

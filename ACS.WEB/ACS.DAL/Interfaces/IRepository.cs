@@ -42,14 +42,14 @@ namespace ACS.DAL.Interfaces
         /// </summary>
         /// <param name="entity">Добавляемая сущность</param>
         /// <returns>Количество добавленных объектов</returns>
-        int Add(T entity, int EditorId);
+        int Add(T entity/*, int EditorId*/);
 
         /// <summary>
         /// Добавить заданную коллекцию сущностей к контексту
         /// </summary>
         /// <param name="entities">Коллекция сущностей для добавления</param>
         /// <returns>Количество добавленных объектов</returns>
-        int AddRange( IEnumerable<T> entities, int EditorId);
+        int AddRange( IEnumerable<T> entities/*, int EditorId*/);
 
         /// <summary>
         /// Добавить сущность к контексту.
@@ -57,7 +57,7 @@ namespace ACS.DAL.Interfaces
         /// </summary>
         /// <param name="entity">Добавляемая/обновляемая сущность</param>
         /// <returns>Количество измененных/сохраненных объектов</returns>
-        int AddOrUpdate( T entity, int EditorId);
+        int AddOrUpdate( T entity/*, int EditorId*/);
 
         /// <summary>
         /// Добавить заданную коллекцию сущностей к контексту. 
@@ -65,7 +65,7 @@ namespace ACS.DAL.Interfaces
         /// </summary>
         /// <param name="entities">Коллекция сущностей для добавления/обновления</param>
         /// <returns>Количество измененных/сохраненных объектов</returns>
-        int AddOrUpdate( T[] entities, int EditorId);
+        int AddOrUpdate( T[] entities/*, int EditorId*/);
 
         /// <summary>
         /// Добавить сущность к контексту.
@@ -75,7 +75,7 @@ namespace ACS.DAL.Interfaces
         /// <param name="identifier">Выражение, определяющее свойства, которые должны быть использованы при определении 
         /// надо ли провести операцию добавления или обновления.</param>
         /// <returns>Количество измененных/сохраненных объектов</returns>
-        int AddOrUpdate( T entity, Expression<Func<T, object>> identifier, int EditorId);
+        int AddOrUpdate( T entity, Expression<Func<T, object>> identifier/*, int EditorId*/);
 
         /// <summary>
         /// Добавить заданную коллекцию сущностей к контексту. 
@@ -85,14 +85,14 @@ namespace ACS.DAL.Interfaces
         /// <param name="identifier">Выражение, определяющее свойства, которые должны быть использованы при определении 
         /// надо ли провести операцию добавления или обновления.</param>
         /// <returns>Количество измененных/сохраненных объектов</returns>
-        int AddOrUpdate( T[] entities, Expression<Func<T, object>> identifier, int EditorId);
+        int AddOrUpdate( T[] entities, Expression<Func<T, object>> identifier/*, int EditorId*/);
 
         /// <summary>
         /// Обновить сущность в контексте
         /// </summary>
         /// <param name="entity">Обновляемая сущность</param>
         /// <returns>Количество измененных/сохраненных объектов</returns>
-        int Update( T entity, int EditorId);
+        int Update( T entity/*, int EditorId*/);
 
         /// <summary>
         /// Удалить сущность в контексте

@@ -94,7 +94,9 @@ namespace ACS.BLL.Services
 
                 Chancy.FileRecordChancelleries.Add(file);
 
-                Database.Chancelleries.AddOrUpdate(Chancy, AuthorID);
+                InitSystemData<Chancellery>.Init(ref Chancy, AuthorID);
+
+                Database.Chancelleries.AddOrUpdate(Chancy);
 
             }
             else // файл есть
@@ -110,8 +112,8 @@ namespace ACS.BLL.Services
                         file.FileName += "_dtch";
                         file.s_InBasket = true;// открепить
                     }
-
-                    return Database.Files.AddOrUpdate(file, AuthorID);
+                    InitSystemData<Files>.Init(ref file, AuthorID);
+                    return Database.Files.AddOrUpdate(file);
 
                 }
                 catch (Exception e)
@@ -389,7 +391,10 @@ namespace ACS.BLL.Services
             {
                 var chancellery = Database.Chancelleries.Find(incomingCorrespondencyDto.Id);
                 chancellery = await MapChancellery.IncomingToChancelleryAsync(incomingCorrespondencyDto, fromExtlOrgChancellery, toEmplChancellery);
-                return await Database.Chancelleries.AddOrUpdateAsync(chancellery, AuthorID);
+
+                InitSystemData<Chancellery>.Init(ref chancellery, AuthorID);
+
+                return await Database.Chancelleries.AddOrUpdateAsync(chancellery);
 
             }
             catch (Exception e)
@@ -413,7 +418,10 @@ namespace ACS.BLL.Services
             {
                 var chancellery = Database.Chancelleries.Find(internalCorrespondencyDto.Id);
                 chancellery = await MapChancellery.InternalToChancelleryAsync(internalCorrespondencyDto, fromEmplChancellery, toEmplChancelleryList);
-                return await Database.Chancelleries.AddOrUpdateAsync(chancellery, AuthorID);
+
+                InitSystemData<Chancellery>.Init(ref chancellery, AuthorID);
+
+                return await Database.Chancelleries.AddOrUpdateAsync(chancellery);
 
             }
             catch (Exception e)
@@ -437,7 +445,10 @@ namespace ACS.BLL.Services
             {
                 var chancellery = Database.Chancelleries.Find(outgoingCorrespondencyDto.Id);
                 chancellery = await MapChancellery.OutgoingToChancelleryAsync(outgoingCorrespondencyDto, fromEmplChancellery, toExtlOrgChancelleryList);
-                return await Database.Chancelleries.AddOrUpdateAsync(chancellery, AuthorID);
+
+                InitSystemData<Chancellery>.Init(ref chancellery, AuthorID);
+
+                return await Database.Chancelleries.AddOrUpdateAsync(chancellery);
             }
             catch (Exception e)
             {

@@ -39,6 +39,7 @@ namespace ACS.WEB.Controllers
             var chancelleriesVMs = MapChancelleryWEB.ListChancelleryDTOToListChancelleryVM(chancellerisDto.ToList()); /*(chancelleryDTOs.ToList());*/
             return View(chancelleriesVMs);
         }
+
         #region infinite scrolling 
         //public ActionResult Index(int? id)
         //{
@@ -141,6 +142,7 @@ namespace ACS.WEB.Controllers
             Collections.Empls = await GetEmplCollectionAsync();
             Collections.Journals = await GetJournalsCollectionAsync();
             Collections.ExtlOrgs = await GetExtOrgsCollectionAsync();
+       
         }
 
         #region Входящая канцелярия
@@ -184,9 +186,12 @@ namespace ACS.WEB.Controllers
 
             //ChancellerySearchModel searchModel = new ChancellerySearchModel { Id = id };
 
-            IncomingCorrespondencyDTO chancelleriesIncoming = await ChancelleryService.FindIncomingAsync(id);
+            IncomingCorrespondencyDTO chancelleriesIncomingDto = await ChancelleryService.FindIncomingAsync(id);
 
-            var IncomingCorrespondencyInput = await MapChancelleryWEB.IncomingDTOToIncomingInput(chancelleriesIncoming);
+            var IncomingCorrespondencyInput = await MapChancelleryWEB.IncomingDTOToIncomingInput(chancelleriesIncomingDto);
+            var files = await ChancelleryService.GetAllFilesChancelleryAsync(chancelleriesIncomingDto);
+            IncomingCorrespondencyInput.FileRecordChancelleries = files.Select(f => f.Id);
+            IncomingCorrespondencyInput.TypeRecordChancelleryId = (byte)Constants.CorrespondencyType.Internal;
 
             ViewBag.ActionName = "Редактирование";
             ViewBag.TypeName = "Входящая корреспонденция";
@@ -194,7 +199,7 @@ namespace ACS.WEB.Controllers
             ViewBag.Title = "Редактирование " + ViewBag.TypeName;
             ViewBag.NameBtn = "Сохранить";
 
-            return View(chancelleriesIncoming);
+            return View(IncomingCorrespondencyInput);
         }
 
         ActionResult IncomingCreateOrUpdate(IncomingCorrespondencyInput IncomingInput, IEnumerable<HttpPostedFileBase> Files)
@@ -246,6 +251,7 @@ namespace ACS.WEB.Controllers
         //[Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] 
         public ActionResult CreateIncoming(IncomingCorrespondencyInput IncomingInput, IEnumerable<HttpPostedFileBase> Files)
         {
+            IncomingInput.TypeRecordChancelleryId = (byte)Constants.CorrespondencyType.Incoming;
             return IncomingCreateOrUpdate(IncomingInput, Files);
         }
         #endregion
@@ -318,7 +324,7 @@ namespace ACS.WEB.Controllers
             OutgoingCorrespondencyDTO OutgoingDTO = await ChancelleryService.FindOutgoingAsync(id);
 
             var OutgoingInput = await MapChancelleryWEB.OutgoingDTOToOutgoingInput(OutgoingDTO);
-
+            OutgoingInput.TypeRecordChancelleryId = (byte)Constants.CorrespondencyType.Outgoing;
             ViewBag.ActionName = "Редактирование";
             ViewBag.TypeName = "Входящая корреспонденция";
 
@@ -333,6 +339,7 @@ namespace ACS.WEB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditOutgoing(OutgoingCorrespondencyInput OutgoingInput, IEnumerable<HttpPostedFileBase> Files)
         {
+            OutgoingInput.TypeRecordChancelleryId = (byte)Constants.CorrespondencyType.Outgoing;
             return OutgoingCreateOrUpdate(OutgoingInput, Files);
         }
         public async Task<ActionResult> CreateOutgoing()
@@ -351,6 +358,7 @@ namespace ACS.WEB.Controllers
         //[Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] 
         public ActionResult CreateOutgoing(OutgoingCorrespondencyInput OutgoingInput, IEnumerable<HttpPostedFileBase> Files)
         {
+            OutgoingInput.TypeRecordChancelleryId = (byte)Constants.CorrespondencyType.Outgoing;
             return OutgoingCreateOrUpdate(OutgoingInput, Files);
         }
         #endregion
@@ -420,6 +428,11 @@ namespace ACS.WEB.Controllers
             InternalCorrespondencyDTO InternalDTO = await ChancelleryService.FindInternalAsync(id);
 
             var InternalInput = await MapChancelleryWEB.InternalDTOToInternalInput(InternalDTO);
+            InternalInput.TypeRecordChancelleryId = (byte)Constants.CorrespondencyType.Internal;
+
+            var files = await ChancelleryService.GetAllFilesChancelleryAsync(InternalDTO);
+
+            InternalInput.FileRecordChancelleries = files.Select(f=>f.Id);
 
             ViewBag.ActionName = "Редактирование";
             ViewBag.TypeName = "Входящая корреспонденция";
@@ -435,6 +448,7 @@ namespace ACS.WEB.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EditInternal(InternalCorrespondencyInput InternalInput, IEnumerable<HttpPostedFileBase> Files)
         {
+            InternalInput.TypeRecordChancelleryId = (byte)Constants.CorrespondencyType.Internal;
             return InternalCreateOrUpdate(InternalInput, Files);
         }
         public async Task<ActionResult> CreateInternal()
@@ -453,6 +467,7 @@ namespace ACS.WEB.Controllers
         //[Bind(Include = "id,DateRegistration,RegistrationNumber,Summary,TypeRecordId,ResponsibleEmployee_Id,FolderChancellery,JournalRegistrationsChancellery,FileRecordChancelleries, FromChancelleries,ToChancelleries")] 
         public ActionResult CreateInternal(InternalCorrespondencyInput InternalInput, IEnumerable<HttpPostedFileBase> Files)
         {
+            InternalInput.TypeRecordChancelleryId = (byte)Constants.CorrespondencyType.Internal;
             return InternalCreateOrUpdate(InternalInput, Files);
         }
         #endregion

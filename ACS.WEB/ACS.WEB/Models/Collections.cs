@@ -12,5 +12,6 @@ namespace ACS.WEB.Models
         public static IEnumerable<EmployeeViewModel> Empls { get; set; }
         public static IEnumerable<ExternalOrganizationViewModel> ExtlOrgs { get; set; }
         public static IEnumerable<JournalRegistrationsViewModel> Journals { get; set; }
+        public static IEnumerable<FilesViewModel> Files { get; set; }
     }
 }

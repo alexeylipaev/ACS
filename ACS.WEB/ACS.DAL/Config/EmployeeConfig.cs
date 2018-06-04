@@ -12,8 +12,6 @@ namespace ACS.DAL.Config
     {
         public EmployeeConfig()
         {
-           
-
             Property(e => e.FName)
             .IsUnicode(true)/*.IsRequired()*/;
 
@@ -22,7 +20,10 @@ namespace ACS.DAL.Config
 
             Property(e => e.MName)
             .IsUnicode(true);
-           
+
+            HasOptional(o => o.ApplicationUser)
+.WithOptionalPrincipal(o => o.Employee);
+
             HasMany(e => e.Chancelleries)
             .WithMany(e => e.ResponsibleEmployees);
 

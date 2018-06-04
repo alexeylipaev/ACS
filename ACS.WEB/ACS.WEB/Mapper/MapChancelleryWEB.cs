@@ -258,6 +258,9 @@ namespace ACS.WEB
         public static IncomingCorrespondencyDTO IncomingInputToIncomingDTO(IncomingCorrespondencyInput IncomingInput)         {
             IncomingCorrespondencyDTO incomingDTO = new IncomingCorrespondencyDTO();
             incomingDTO = CorrespondencesInputToCorrespondencesBaseDTO(incomingDTO, IncomingInput);
+
+            incomingDTO.From_ExternalOrganizationChancelleryId = IncomingInput.From_ExternalOrganizationChancelleryId;
+            incomingDTO.To_EmployeeId = IncomingInput.To_EmployeeId;
             //MapSystemParam<IncomingCorrespondencyInput, IncomingCorrespondencyDTO>.FillParamDTO(IncomingInput, ref incomingDTO);
             return incomingDTO;
 

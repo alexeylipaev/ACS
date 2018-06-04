@@ -18,7 +18,7 @@ namespace ACS.WEB.ViewModels
         public DateTime s_EditDate { get; set; }
 
         [Display(Name = "Заблокирован")]
-        public bool? s_IsLocked { get; set; } 
+        public bool s_IsLocked { get; set; } 
         [Display(Name = "ID кем заблокирован")]
         public int? s_LockedBy_Id { get; set; }
 

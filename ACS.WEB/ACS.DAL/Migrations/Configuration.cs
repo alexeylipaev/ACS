@@ -16,10 +16,16 @@ namespace ACS.DAL.Migrations
 
             AutomaticMigrationsEnabled = true;//автоматическое обновление бд
             AutomaticMigrationDataLossAllowed = true;//обновлять бд даже если при этом будут утеряны данные
-            // DefaultValue Sql Generator
+            //DefaultValue Sql Generator
             SetSqlGenerator("System.Data.SqlClient", new DefaultValueSqlServerMigrationSqlGenerator());
         }
+        protected override void Seed(ACSContext db)
+        {
+            base.Seed(db);
+#warning раскомментить для разового заполнения БД
+           // PublicSeed(db);
 
+        }
         public void PublicSeed(ACSContext db)
         {
             Debug.WriteLine("GenerateAppRolesRepository");
@@ -41,15 +47,6 @@ namespace ACS.DAL.Migrations
             Debug.WriteLine("GenerateTypeRecordChancelleryRepository");
             DataLoader1C.GenerateTypeRecordChancelleryRepository(db);
         }
-
-        protected override void Seed(ACSContext db)
-        {
-            base.Seed(db);
-#warning раскомментить для разового заполнения БД
-           // PublicSeed(db);
-
-        }
-
     }
 
 }

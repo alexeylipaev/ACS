@@ -21,7 +21,8 @@ namespace ACS.BLL
             Empl.FName = emplDto.FName;
             Empl.Email = emplDto.Email;
 
-            Empl.ApplicationUserId = emplDto.ApplicationUserId;
+            if (emplDto.ApplicationUserId.HasValue)
+                Empl.ApplicationUser = MapDB.Db.UserManager.FindById(emplDto.ApplicationUserId.Value);
 
             return Empl;
         }
@@ -36,7 +37,8 @@ namespace ACS.BLL
             emplDto.FName = Empl.FName;
             emplDto.Email = Empl.Email;
 
-            emplDto.ApplicationUserId = Empl.ApplicationUserId;
+            if (Empl.ApplicationUser != null)
+                emplDto.ApplicationUserId = Empl.ApplicationUser.Id;
             BLL.MapSystemParamBLL<DAL.Entities.Employee, DTO.EmployeeDTO>.FillParamDTO(Empl, ref emplDto);
             return emplDto;
         }

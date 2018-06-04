@@ -36,16 +36,16 @@ namespace ACS.DAL.Interfaces
         Task<T> FindAsync(params object[] id);
 
    
-        Task<int> AddAsync(T entity, int EditorId);
+        Task<int> AddAsync(T entity/*, int EditorId*/);
 
         /// <summary>
         /// Асинхронно добавить заданную коллекцию сущностей к контексту
         /// </summary>
         /// <param name="entities">Коллекция сущностей для добавления</param>
         /// <returns>Задача, возвращающая количество измененных/сохраненных объектов</returns>
-        Task<int> AddRangeAsync( IEnumerable<T> entities, int EditorId);
+        Task<int> AddRangeAsync( IEnumerable<T> entities/*, int EditorId*/);
 
-        Task<int> AddOrUpdateAsync(T entity, int EditorId);
+        Task<int> AddOrUpdateAsync(T entity/*, int EditorId*/);
 
         /// <summary>
         /// Асинхронно добавить заданную коллекцию сущностей к контексту. 
@@ -54,7 +54,7 @@ namespace ACS.DAL.Interfaces
         /// <param name="entities">Коллекция сущностей для добавления/обновления</param>
         /// <returns>Задача, возвращающая количество добавленных/измененных объектов</returns>
 
-        Task<int> AddOrUpdateAsync( T[] entities, int EditorId);
+        Task<int> AddOrUpdateAsync( T[] entities/*, int EditorId*/);
 
         /// <summary>
         /// Добавить заданную коллекцию сущностей к контексту. 
@@ -65,9 +65,9 @@ namespace ACS.DAL.Interfaces
         /// надо ли провести операцию добавления или обновления.</param>
         /// <returns>Задача, возвращающая количество добавленных/измененных объектов</returns>
 
-        Task<int> AddOrUpdateAsync( T[] entities, Expression<Func<T, object>> identifier, int EditorId);
+        Task<int> AddOrUpdateAsync( T[] entities, Expression<Func<T, object>> identifier/*, int EditorId*/);
 
-        Task<int> UpdateAsync(T entity, int EditorId);
+        Task<int> UpdateAsync(T entity/*, int EditorId*/);
 
         Task<int> DeleteAsync(T entity);
         Task<int> DeleteAsync(int id);

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ACS.BLL.DTO;
+using ACS.DAL.Entities;
 
 namespace ACS.BLL.Services
 {
@@ -23,9 +24,8 @@ namespace ACS.BLL.Services
             {
                 var extlOrg = Database.ExternalOrganization.Find(externalOrganizationDTO.Id);
                 extlOrg =  MapExtlOrg.ExtlOrgDTOToExtlOrg(externalOrganizationDTO);
-                extlOrg.s_EditorId = AuthorID;
-                extlOrg.s_EditDate = DateTime.Now;
-                return await Database.ExternalOrganization.AddOrUpdateAsync(extlOrg, AuthorID);
+                InitSystemData<ExternalOrganization>.Init(ref extlOrg, AuthorID);
+                return await Database.ExternalOrganization.AddOrUpdateAsync(extlOrg);
             }
             catch (Exception e)
             {

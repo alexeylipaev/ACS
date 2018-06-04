@@ -9,6 +9,7 @@ using ACS.BLL.DTO;
 using System.Web;
 using System.IO;
 using ACS.BLL.Infrastructure;
+using ACS.DAL.Entities;
 
 namespace ACS.BLL.Services
 {
@@ -55,7 +56,8 @@ namespace ACS.BLL.Services
             {
                 var file = Database.Files.Find(FilesDTO.Id);
                 file = MapFile.FileDTOToFile(FilesDTO);
-                return await Database.Files.AddOrUpdateAsync(file, AuthorID);
+                InitSystemData<Files>.Init(ref file, AuthorID);
+                return await Database.Files.AddOrUpdateAsync(file);
             }
             catch (Exception e)
             {

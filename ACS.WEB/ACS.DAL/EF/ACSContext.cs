@@ -20,7 +20,6 @@ namespace ACS.DAL.EF
         public ACSContext(string connectionString)
             : base(connectionString) {
             //AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
-         
         }
 
         public virtual DbSet<Employee> Employees { get; set; }
@@ -51,12 +50,9 @@ namespace ACS.DAL.EF
         }
 
 
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
-
-            //modelBuilder.Configurations.Add(new EntityConfig());
 
             modelBuilder.Configurations.Add(new AppUserRoleConfig());
             modelBuilder.Configurations.Add(new ApplicationUserConfig());
@@ -70,10 +66,14 @@ namespace ACS.DAL.EF
             modelBuilder.Configurations.Add(new FolderChancelleryConfig());
             modelBuilder.Configurations.Add(new TypeRecordChancelleryConfig());
             modelBuilder.Configurations.Add(new ExternalOrganizationConfig());
-            //modelBuilder.Configurations.Add(new TypeAccessConfig());
+            modelBuilder.Configurations.Add(new EmployeeConfig());
 
             var convention = new AttributeToColumnAnnotationConvention<DefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.SingleOrDefault().Value.ToString());
             modelBuilder.Conventions.Add(convention);
+
+            //modelBuilder.Configurations.Add(new TypeAccessConfig());
+
+
 
             //modelBuilder.Configurations.Add(new TypeRecordChancelleryConfig());
 
@@ -92,8 +92,6 @@ namespace ACS.DAL.EF
 
             //modelBuilder.Configurations.Add(new DataEntityConfig());
             //modelBuilder.Configurations.Add(new ProjectRegistryConfig());
-
-
         }
         Configuration Config = null;
         public void RunSeed()

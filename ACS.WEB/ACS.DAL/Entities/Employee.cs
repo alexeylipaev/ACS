@@ -15,19 +15,19 @@ namespace ACS.DAL.Entities
 
         public string MName { get; set; }
         public string Email { get; set; }
+
         [NotMapped]
         public string FullName
         {
             get
             {
                 string fullName = LName != null ? LName : string.Empty;
-                fullName = FName != null ? string.IsNullOrWhiteSpace(fullName) ? FName : " " + FName : string.Empty;
-                fullName = MName != null ? string.IsNullOrWhiteSpace(fullName) ? MName : " " + MName : string.Empty;
+                fullName = string.IsNullOrEmpty(FName) ? string.Empty : fullName + " " + FName;
+                fullName = string.IsNullOrEmpty(FName) ? string.Empty : fullName + " " + MName;
                 return fullName;
             }
         }
         public Guid? Guid1C { get; set; }
-        public int? ApplicationUserId { get; set; }
         public virtual ApplicationUser ApplicationUser { get; set; }
 
         /// <summary>
