@@ -27,77 +27,16 @@ namespace ACS.WEB.Controllers
             MapChancelleryWEB.InitService(ChancelleryService);
         }
 
-        const int pageSize = 12;
         // GET: Chancellery
         public async Task<ActionResult> Index()
         {
             var chancellerisDto = await ChancelleryService.GetAllAsync();
-            chancellerisDto = chancellerisDto.Where(ch => ch.s_InBasket == false);
 
             ViewBag.Types = await GetAllTypesAsync();
 
-            var chancelleriesVMs = MapChancelleryWEB.ListChancelleryDTOToListChancelleryVM(chancellerisDto.ToList()); /*(chancelleryDTOs.ToList());*/
+            var chancelleriesVMs = MapChancelleryWEB.ListChancelleryDTOToListChancelleryVM(chancellerisDto.ToList());
             return View(chancelleriesVMs);
         }
-
-        #region infinite scrolling 
-        //public ActionResult Index(int? id)
-        //{
-        //    ViewBag.Types = GetAllTypes();
-        //    int page = id ?? 0;
-        //    if (Request.IsAjaxRequest())
-        //    {
-
-        //        return PartialView("_Items", GetItemsPage(page));
-        //    }
-        //    return View("IndexData", GetItemsPage(page));
-
-        //}
-        private async Task<List<ChancelleryViewModel>> GetItemsPage(int page = 1)
-        {
-            var chancellerisDto = await ChancelleryService.GetAllAsync();
-            chancellerisDto = chancellerisDto.Where(ch => ch.s_InBasket == false);
-
-            var itemsToSkip = page * pageSize;
-
-            return MapChancelleryWEB.ListChancelleryDTOToListChancelleryVM(chancellerisDto)
-                .OrderBy(ch => ch.Id)
-                .Skip(itemsToSkip)
-                .Take(pageSize).ToList();
-        }
-
-        [ChildActionOnly]
-
-        public ActionResult table_row(List<ChancelleryViewModel> Model)
-        {
-            return PartialView("_Items", Model);
-
-        }
-        #endregion
-
-        #region  для пагинации
-        public async Task<ActionResult> IndexPage(int page = 1)
-        {
-            var chancellerisDto = await ChancelleryService.GetAllAsync();
-            chancellerisDto = chancellerisDto.Where(ch => ch.s_InBasket == false);
-
-            ViewBag.Types = await GetAllTypesAsync();
-
-            var allVM = MapChancelleryWEB.ListChancelleryDTOToListChancelleryVM(chancellerisDto);
-
-            IEnumerable<ChancelleryViewModel> chancelleriesVMs = allVM
-                .Where(ch => ch.s_InBasket == false)
-                .OrderBy(ch => ch.Id)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize).ToList();
-
-            PageInfo pageInfo = new PageInfo { PageNumber = page, PageSize = pageSize, TotalItems = allVM.ToList().Count };
-            IndexChancelleryViewModel ivm = new IndexChancelleryViewModel { PageInfo = pageInfo, Chancelleries = chancelleriesVMs };
-            return View(ivm);
-
-        }
-
-        #endregion
 
         // GET: Chancellery/Details/5
         public async Task<ActionResult> Details(int id)
@@ -111,28 +50,28 @@ namespace ACS.WEB.Controllers
         {
             var empls = await ChancelleryService.GetAllEmployeesAsync();
             List<EmployeeViewModel> collection = new List<EmployeeViewModel>() { null };
-            collection.AddRange(MapEmplWEB.ListEmplToListemplVM(empls).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.LName));
+            collection.AddRange(MapEmplWEB.ListEmplToListemplVM(empls).OrderBy(emp => emp.LName));
             return collection;
         }
         async Task<IEnumerable<FolderChancelleryViewModel>> GetFoldersCollectionAsync()
         {
             var folders = await ChancelleryService.GetAllFolders();
             List<FolderChancelleryViewModel> collection = new List<FolderChancelleryViewModel>() { null };
-            collection.AddRange(MapChancelleryWEB.ListFolderDTOToListFolderVM(folders).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.Name));
+            collection.AddRange(MapChancelleryWEB.ListFolderDTOToListFolderVM(folders).OrderBy(emp => emp.Name));
             return collection;
         }
         async Task<IEnumerable<JournalRegistrationsViewModel>> GetJournalsCollectionAsync()
         {
             var journals = await ChancelleryService.GetAllJournalesRegistrationsAsync();
             List<JournalRegistrationsViewModel> collection = new List<JournalRegistrationsViewModel>() { null };
-            collection.AddRange(MapChancelleryWEB.ListJournalDTOToListJournalVM(journals).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.Name));
+            collection.AddRange(MapChancelleryWEB.ListJournalDTOToListJournalVM(journals).OrderBy(emp => emp.Name));
             return collection;
         }
         async Task<IEnumerable<ExternalOrganizationViewModel>> GetExtOrgsCollectionAsync()
         {
             var extOrgs = await ChancelleryService.GetAllExternalOrganizationsAsync();
             List<ExternalOrganizationViewModel> collection = new List<ExternalOrganizationViewModel>() { null };
-            collection.AddRange(MapExtrlOrgWEB.ListExtlOrgDTOToListextlOrgVM(extOrgs).Where(ch => ch.s_InBasket == false).OrderBy(emp => emp.Name));
+            collection.AddRange(MapExtrlOrgWEB.ListExtlOrgDTOToListextlOrgVM(extOrgs).OrderBy(emp => emp.Name));
             return collection;
         }
 
@@ -188,10 +127,11 @@ namespace ACS.WEB.Controllers
 
             IncomingCorrespondencyDTO chancelleriesIncomingDto = await ChancelleryService.FindIncomingAsync(id);
 
-            var IncomingCorrespondencyInput = await MapChancelleryWEB.IncomingDTOToIncomingInput(chancelleriesIncomingDto);
+            var incomingCorrespondencyInput = await MapChancelleryWEB.IncomingDTOToIncomingInput(chancelleriesIncomingDto);
             var files = await ChancelleryService.GetAllFilesChancelleryAsync(chancelleriesIncomingDto);
-            IncomingCorrespondencyInput.FileRecordChancelleries = files.Select(f => f.Id);
-            IncomingCorrespondencyInput.TypeRecordChancelleryId = (byte)Constants.CorrespondencyType.Internal;
+            ViewBag.Files = files.Select(f=>new {Id = f.Id, FileName = f.FileName});
+            incomingCorrespondencyInput.FileRecordChancelleries = files.Select(f => f.Id);
+            incomingCorrespondencyInput.TypeRecordChancelleryId = (byte)Constants.CorrespondencyType.Internal;
 
             ViewBag.ActionName = "Редактирование";
             ViewBag.TypeName = "Входящая корреспонденция";
@@ -199,7 +139,25 @@ namespace ACS.WEB.Controllers
             ViewBag.Title = "Редактирование " + ViewBag.TypeName;
             ViewBag.NameBtn = "Сохранить";
 
-            return View(IncomingCorrespondencyInput);
+            return View(incomingCorrespondencyInput);
+        }
+
+        // POST: Chancellery/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditIncoming(IncomingCorrespondencyInput IncomingInput, IEnumerable<HttpPostedFileBase> Files)
+        {
+            return await IncomingCreateOrUpdate(IncomingInput, Files);
+        }
+        public async Task<ActionResult> CreateIncoming()
+        {
+            await FillViewBagCollectionAsync();
+
+            //ViewBag.NameBtn = "Создать";
+            var IncomingInput = new IncomingCorrespondencyInput();
+            IncomingInput.DateRegistration = DateTime.Today;
+
+            return View(IncomingInput);
         }
 
         async Task<ActionResult> IncomingCreateOrUpdate(IncomingCorrespondencyInput IncomingInput, IEnumerable<HttpPostedFileBase> Files)
@@ -225,24 +183,6 @@ namespace ACS.WEB.Controllers
             {
                 ModelState.AddModelError(ex.Property, ex.Message);
             }
-            return View(IncomingInput);
-        }
-
-        // POST: Chancellery/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditIncoming(IncomingCorrespondencyInput IncomingInput, IEnumerable<HttpPostedFileBase> Files)
-        {
-            return await IncomingCreateOrUpdate(IncomingInput, Files);
-        }
-        public async Task<ActionResult> CreateIncoming()
-        {
-            await FillViewBagCollectionAsync();
-
-            ViewBag.NameBtn = "Создать";
-            var IncomingInput = new IncomingCorrespondencyInput();
-            IncomingInput.DateRegistration = DateTime.Today;
-
             return View(IncomingInput);
         }
 
@@ -664,65 +604,6 @@ namespace ACS.WEB.Controllers
             return RedirectToAction("Index");
 
         }
-
-
-
         #endregion
-
-        [HttpGet]
-        public ViewResult Search1(ChancellerySearchModel searchModel)
-        {
-            ChancellerySearchModel csm = new ChancellerySearchModel();
-            //if(searchModel == null) searchModel
-            ViewBag.ListChanc = new List<ChancelleryViewModel>();
-            return View(csm);
-
-            //ViewBag.CurrentSort = sortOrder;
-            //ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name desc" : "";
-            //ViewBag.DateSortParm = sortOrder == "Date" ? "Date desc" : "Date";
-
-            //if (Request.HttpMethod == "GET")
-            //{
-            //    searchString = currentFilter;
-            //}
-            //else
-            //{
-            //    page = 1;
-            //}
-            //ViewBag.CurrentFilter = searchString;
-
-            //IEnumerable< ChancelleryDTO > students = ChancelleryService.ChancelleryGet(chancSM);// = from s in db.Students
-            //             //select s;
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    students = ChancelleryService.ChancellerieGetAll().Where(s => s.RegistrationNumber.ToUpper().Contains(searchString.ToUpper())
-            //                           || s.Employee.LName.ToUpper().Contains(searchString.ToUpper()));
-            //}
-            //else students = ChancelleryService.ChancellerieGetAll();
-            //switch (sortOrder)
-            //{
-            //    case "Name desc":
-            //        students = students.OrderByDescending(s => s.RegistrationNumber);
-            //        break;
-            //    case "Date":
-            //        students = students.OrderBy(s => s.DateRegistration);
-            //        break;
-            //    case "Date desc":
-            //        students = students.OrderByDescending(s => s.DateRegistration);
-            //        break;
-            //    default:
-            //        students = students.OrderBy(s => s.RegistrationNumber);
-            //        break;
-            //}
-
-            //int pageSize = 3;
-            //int pageIndex = (page ?? 1);
-            //var listChancVM = MapBLLRrsr.GetMap().Map<IEnumerable<ChancelleryDTO>, IEnumerable<ChancelleryViewModel>>(students);
-            //return View(listChancVM);
-            //return View(listChancVM.ToPagedList(pageIndex, pageSize));
-        }
-
-        //[HttpPost]
-
     }
 }
